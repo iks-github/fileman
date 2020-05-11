@@ -1,0 +1,69 @@
+MOGLi Code Creator 1.6.2
+----------------------------
+Encoding: UTF-8
+File 'application.properties' found.
+Workspace defined in application properties as <workspaces/fileman>
+File 'workspace.properties' found.
+Searching for plugins...
+Number of jar files in C:\dev\eclipse\workspaces\Fileman\MOGLiCC\lib\plugins found: 6
+-----
+Unpacking Plugin Data...
+1. Checking for unpacking plugin data from plugin 'ExcelStandardModelProvider'...
+For ExcelStandardModelProvider the pluginInputDir exists.
+For ExcelStandardModelProvider the pluginHelpDir exists.
+2. Checking for unpacking plugin data from plugin 'StandardModelProvider'...
+For StandardModelProvider the pluginInputDir exists.
+For StandardModelProvider the pluginHelpDir exists.
+3. Checking for unpacking plugin data from plugin 'VelocityEngineProvider'...
+For VelocityEngineProvider no default input data to unpack.
+For VelocityEngineProvider the pluginHelpDir exists.
+4. Checking for unpacking plugin data from plugin 'VelocityModelBasedTreeBuilder'...
+For VelocityModelBasedTreeBuilder the pluginInputDir exists.
+For VelocityModelBasedTreeBuilder the pluginHelpDir exists.
+5. Checking for unpacking plugin data from plugin 'VelocityClassBasedFileMaker'...
+For VelocityClassBasedFileMaker the pluginInputDir exists.
+For VelocityClassBasedFileMaker the pluginHelpDir exists.
+6. Checking for unpacking plugin data from plugin 'VelocityModelBasedLineInserter'...
+For VelocityModelBasedLineInserter the pluginInputDir exists.
+For VelocityModelBasedLineInserter the pluginHelpDir exists.
+-----
+Executing Plugins...
+1. Executing ExcelStandardModelProvider...
+ExcelStandardModelProvider Done!
+2. Executing StandardModelProvider...
+StandardModelProvider Done!
+3. Executing VelocityEngineProvider...
+VelocityEngineProvider Done!
+4. Executing VelocityModelBasedTreeBuilder...
+VelocityModelBasedTreeBuilder Done!
+5. Executing VelocityClassBasedFileMaker...
+VelocityClassBasedFileMaker Done!
+6. Executing VelocityModelBasedLineInserter...
+VelocityModelBasedLineInserter Done!
+-----
+Report file created: C:\dev\eclipse\workspaces\Fileman\MOGLiCC\workspaces\fileman\reports\generation.report
+Report file created: C:\dev\eclipse\workspaces\Fileman\MOGLiCC\workspaces\fileman\reports\provider.report
+Report file created: C:\dev\eclipse\workspaces\Fileman\MOGLiCC\workspaces\fileman\reports\short.report
+-----
+.
+Plugins found:
+.
+PluginMetaData [jarName=com.iksgmbh.moglicc.provider.model.standard.excel-1.6.2.jar, id=ExcelStandardModelProvider, pluginType=PROVIDER, status=EXECUTED, infoMessage=OK, suggestedExecutionOrder=50]
+.
+PluginMetaData [jarName=com.iksgmbh.moglicc.provider.model.standard-1.6.2.jar, id=StandardModelProvider, pluginType=PROVIDER, status=EXECUTED, infoMessage=OK, suggestedExecutionOrder=100]
+.
+PluginMetaData [jarName=com.iksgmbh.moglicc.provider.engine.velocity-1.6.2.jar, id=VelocityEngineProvider, pluginType=PROVIDER, status=EXECUTED, infoMessage=OK, suggestedExecutionOrder=200]
+.
+PluginMetaData [jarName=com.iksgmbh.moglicc.treebuilder.modelbased.velocity-1.6.2.jar, id=VelocityModelBasedTreeBuilder, pluginType=GENERATOR, status=EXECUTED, infoMessage=OK, suggestedExecutionOrder=300]
+.
+PluginMetaData [jarName=com.iksgmbh.moglicc.filemaker.classbased.velocity-1.6.2.jar, id=VelocityClassBasedFileMaker, pluginType=GENERATOR, status=EXECUTED, infoMessage=OK, suggestedExecutionOrder=400]
+.
+PluginMetaData [jarName=com.iksgmbh.moglicc.lineinserter.modelbased.velocity-1.6.2.jar, id=VelocityModelBasedLineInserter, pluginType=GENERATOR, status=EXECUTED, infoMessage=OK, suggestedExecutionOrder=500]
+.
+-----
+Workspace: workspaces/fileman
+Model file: FilemanDomainModel.txt
+
+Execution of all 6 plugins successful.
+A total of 24 generation events for 24 output artefact(s) have been performed.
+Done!

@@ -1,0 +1,82 @@
+**************************   G E N E R A T O R   R E P O R T   *******************************
+
+All 3 generator plugins executed successfully.
+Model used is 'FilemanDataModel'.
+A total of 24 generation events for 24 output artefact(s) have been performed.
+
+----------------------------------------------------------------------------------------------
+
+VelocityClassBasedFileMaker: 
+
+Following 19 artefact(s) are configured to skip generation:
+FileDataRestController.java
+FileContentDataRestController.java
+FileMetaDataRestController.java
+ExceptionMetaDataRestController.java
+UserCredentialsRestController.java
+UserAuthDataRestController.java
+FavouriteSettingRestController.java
+FileDataDao.java
+ExceptionMetaDataDao.java
+UserCredentialsDao.java
+UserAuthDataDao.java
+FileDataDaoImpl.java
+ExceptionMetaDataDaoImpl.java
+UserCredentialsDaoImpl.java
+UserAuthDataDaoImpl.java
+User.ts
+ExceptionMetaData.ts
+UserCredentials.ts
+UserAuthData.ts
+
+   Report for input artefact 'Controller':
+      UserRestController.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend/rest
+
+   Report for input artefact 'Dao':
+      FileContentDataDao.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend/dao
+      FileMetaDataDao.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend/dao
+      UserDao.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend/dao
+      FavouriteSettingDao.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend/dao
+
+   Report for input artefact 'DaoImplDraft':
+      FileContentDataDaoImpl.java did already exist and was NOT overwritten in <applicationRootDir>/../backend/src/main/java/com/iksgmbh/fileman/backend/dao
+      FileMetaDataDaoImpl.java did already exist and was NOT overwritten in <applicationRootDir>/../backend/src/main/java/com/iksgmbh/fileman/backend/dao
+      UserDaoImpl.java did already exist and was NOT overwritten in <applicationRootDir>/../backend/src/main/java/com/iksgmbh/fileman/backend/dao
+      FavouriteSettingDaoImpl.java did already exist and was NOT overwritten in <applicationRootDir>/../backend/src/main/java/com/iksgmbh/fileman/backend/dao
+
+   Report for input artefact 'FrontendClass':
+      FileData.ts was created in <applicationRootDir>/../../Angular/FileServer/src/app/common/domainobjects/gen
+      FileContentData.ts was created in <applicationRootDir>/../../Angular/FileServer/src/app/common/domainobjects/gen
+      FileMetaData.ts was created in <applicationRootDir>/../../Angular/FileServer/src/app/common/domainobjects/gen
+      FavouriteSetting.ts was created in <applicationRootDir>/../../Angular/FileServer/src/app/common/domainobjects/gen
+
+   Report for input artefact 'MOGLiJavaBean':
+      FileData.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend
+      FileContentData.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend
+      FileMetaData.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend
+      User.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend
+      ExceptionMetaData.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend
+      UserCredentials.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend
+      UserAuthData.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend
+      FavouriteSetting.java was created in <applicationRootDir>/../backend/src/gen/java/com/iksgmbh/fileman/backend
+
+----------------------------------------------------------------------------------------------
+
+VelocityModelBasedLineInserter: 
+
+Report for input artefact 'FronendHtmlTable':
+      33 line(s) inserted by a replace-instruction into fileman-details.component.html in directory C:\dev\eclipse\workspaces\Angular\FileServer\src\app\components\fileman-details
+
+   Report for input artefact 'FrontendValidationErrors':
+      12 line(s) inserted by a replace-instruction into fileman-details.component.html in directory <applicationRootDir>/../../Angular/FileServer/src/app/components/fileman-details
+
+   Report for input artefact 'Template_FrontendFormControl':
+      43 line(s) inserted by a replace-instruction into fileman-details.component.ts in directory C:\dev\eclipse\workspaces\Angular\FileServer\src\app\components\fileman-details
+
+----------------------------------------------------------------------------------------------
+
+VelocityModelBasedTreeBuilder: 
+
+No input artefact found. Nothing to do.
+
+**************************************  E N D  ***********************************************

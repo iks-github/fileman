@@ -1,0 +1,273 @@
+﻿#########################################################################################################
+# This model file illustrates the usage of the model definition DSL of the StandardModelProvider plugin.
+#
+# A model for the StandardModelProvider is constructed out of classes, attributes and metainfos. 
+# The MOGLiCC meta model consists of the three hierarchy levels model, class and attribute. 
+# A model file must contain exactly one model. The name of a class (for a java class it should also contain 
+# the qualified path) must be unique within the model. The name of an attribute must be unique for its class.
+#
+# Each element (model, class or attribute) is defined by its name - the only concretely predefined data value. 
+# The data of each element in each hierarchy level can be enriched by MetaInfo elements in any number. 
+# A MetaInfo element consists of a non-unique name and a value.
+#
+# For repreatedly used values (such as paths to domain objects) variables can be defined. A variable consists 
+# of a key-value-pair. The key can be used as placeholder: <<variableKey>>. When the model file is parsed all 
+# placeholders are replaced by its variable value. Variables can be defined anywhere in the model file, e.g. 
+# at the end of the model file. Variables values may contain placeholders of other variables, that are 
+# mentioned above in the model file. If needed upper and lower case conversion is possible:
+#
+# variable v1 "One Two Three"
+# variable v2 toUPPERCase: <<v1>>  # this results in "ONE TWO THREE"
+# variable v3 toLowerCase: <<v1>>  # this results in "one two three"
+#
+# Information which plugin uses which MetaInfo is presented in a statistics file
+# that is written into the plugin output directory of the StandardModelProvider plugin.
+#
+# The FilemanDataModel provides data for the MOGLiCC JavaBean templates. Model data and templates are
+# used to create the MOGLiCC JavaBean artefacts. These are NOT designed for manual modification.
+# In case you want to have same modified, change the templates, the model data or both, and
+# recreate them by autogeneration.
+#
+#########################################################################################################
+
+
+variable DomainPath com.iksgmbh.fileman.backend
+variable alphanumericCharset "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZA 01234567890 <>&-.,;!?=()/üöäÜÖÄß"
+
+
+model FilemanDataModel
+  metainfo backendGenDir <applicationRootDir>/../backend/src/gen/java
+  metainfo backendSrcDir <applicationRootDir>/../backend/src/main/java
+  metainfo frontendSrcDir <applicationRootDir>/../../Angular/FileServer/src/app
+  metainfo projectName Fileman
+  metainfo dateTimeFormat "dd.MM.yyyy HH:mm:ss:SSS"
+  metainfo namespace <<DomainPath>>
+
+
+class <<DomainPath>>.FileData
+  metainfo implements java.io.Serializable
+  metainfo implements Cloneable
+  metainfo withDaoAndSql false
+  metainfo withController false
+  metainfo swaggerDoc "Complete data on a hosted file"
+  metainfo JavaDocLine "Complete data on a hosted file"
+  metainfo frontendInterface true
+
+  attribute metaData
+    metainfo JavaType FileMetaData
+    metainfo Mandatory true
+
+  attribute contentData
+    metainfo JavaType FileContentData
+    metainfo Mandatory true
+
+class <<DomainPath>>.FileContentData
+  metainfo implements java.io.Serializable
+  metainfo implements Cloneable
+  metainfo withDaoAndSql true   
+  metainfo withController false
+  metainfo swaggerDoc "Content of hosted file"
+  metainfo JavaDocLine "Content of hosted file"
+  metainfo frontendInterface true
+
+  attribute uuid
+    metainfo JavaType Long
+    metainfo Mandatory true
+    metainfo ExampleData 0
+    metainfo unique true
+    metainfo id true
+  
+  attribute name
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData logo.png
+    metainfo MinLength 3
+    metainfo MaxLength 128
+    metainfo withFindAllMethod true
+
+  attribute content
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData 10101
+
+  attribute creator
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData Hans Mustermann
+
+  attribute creationDate
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "10.10.2020 13:55:59"
+    
+
+class <<DomainPath>>.FileMetaData  
+  metainfo implements java.io.Serializable
+  metainfo implements Cloneable
+  metainfo generateStandardJavaDoc true
+  metainfo swaggerDoc "Meta Data of a hosted file"
+  metainfo JavaDocLine "Meta Data of a hosted file"
+  metainfo withDaoAndSql true   
+  metainfo withController false
+  metainfo frontendInterface true
+  
+  attribute name
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData logo.png
+    metainfo MinLength 3
+    metainfo MaxLength 128
+    metainfo unique true
+    metainfo id true
+    metainfo guiType TextField
+    metainfo allowSpace false
+
+  attribute description
+    metainfo JavaType String
+    metainfo ExampleData "A logo image"
+    metainfo MaxLength 1024
+    metainfo guiType TextArea
+
+  attribute activeUUID
+    metainfo JavaType Long
+    metainfo ExampleData 123456
+
+  attribute "immediately Active"
+    metainfo JavaType Boolean
+    metainfo guiType Checkbox
+    metainfo initialGuiValue true
+    metainfo ExampleData true
+    
+  attribute type
+    metainfo JavaType String
+    metainfo guiType Selectbox:Binary,Text
+    metainfo initialGuiValue Text
+    metainfo ExampleData Text
+
+  attribute creator
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData Hans Mustermann
+
+  attribute creationDate
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "10.10.2020 13:55:59"
+
+  attribute size
+    metainfo JavaType Integer
+    metainfo ExampleData 1234
+
+class <<DomainPath>>.User
+  metainfo implements java.io.Serializable
+  metainfo generateStandardJavaDoc true
+  metainfo swaggerDoc "Data of a Fileman user"
+  metainfo JavaDocLine "Data of a Fileman user"
+  metainfo withDaoAndSql true   
+  metainfo withController true
+
+  attribute id
+    metainfo JavaType Integer
+    metainfo Mandatory true
+    metainfo ExampleData 1
+    metainfo unique true
+    metainfo id true
+    
+  attribute name
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "ich"
+    metainfo MinLength 2
+    metainfo MaxLength 64
+    metainfo unique true
+
+  attribute password
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "ich"
+    metainfo MinLength 1
+    metainfo MaxLength 32
+    metainfo hideFromClient true
+
+  attribute role
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData Admin
+ 
+ class <<DomainPath>>.ExceptionMetaData
+  metainfo implements java.io.Serializable
+  metainfo withDaoAndSql false
+  metainfo withController false
+
+  attribute timestamp
+    metainfo JavaType Long
+    metainfo Mandatory true
+    metainfo ExampleData 11234823442
+
+  attribute message
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "Resource not found"
+
+  attribute details
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "User 1 not found"
+    
+class <<DomainPath>>.UserCredentials
+  metainfo withDaoAndSql false
+  metainfo withController false
+
+  attribute userId
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "Pete"
+    metainfo MinLength 2
+    metainfo MaxLength 64
+
+  attribute userPw
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "pw"
+    metainfo MinLength 1
+    metainfo MaxLength 32
+    
+class <<DomainPath>>.UserAuthData
+  metainfo withDaoAndSql false
+  metainfo withController false
+
+  attribute ok
+    metainfo JavaType Boolean
+
+  attribute authToken
+    metainfo JavaType String
+        
+    
+class <<DomainPath>>.FavouriteSetting
+  metainfo implements java.io.Serializable
+  metainfo generateStandardJavaDoc true
+  metainfo swaggerDoc "Data for favourite filter"
+  metainfo JavaDocLine "Data for favourite filter"
+  metainfo withDaoAndSql true
+  metainfo withController false
+  metainfo extraFindEndpoint User 
+  metainfo frontendInterface true
+
+  attribute id
+    metainfo JavaType Integer
+    metainfo Mandatory true
+    metainfo ExampleData 1
+    metainfo unique true
+    metainfo id true
+    
+  attribute username
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo withFindAllMethod true
+
+  attribute filename
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo withFindAllMethod true
+    
+    

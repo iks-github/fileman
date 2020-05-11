@@ -1,0 +1,16 @@
+ <div layout="column" flex="50" flex-sm="100" flex-xs="100" layout-align="center center">
+        <p>Normal density menu</p>
+        <mat-menu>
+          <mat-button aria-label="Open demo menu" class="mat-icon-button"
+                     ng-click="$mdMenu.open($event)">
+            <mat-icon mat-menu-origin mat-svg-icon="call:phone"></mat-icon>
+          </mat-button>
+          <mat-menu-content>
+            <mat-menu-item ng-repeat="item in [1, 2, 3]">
+              <mat-button ng-click="ctrl.announceClick($index)"><span
+                  mat-menu-align-target>Option</span> {{item}}
+              </mat-button>
+            </mat-menu-item>
+          </mat-menu-content>
+        </mat-menu>
+</div>

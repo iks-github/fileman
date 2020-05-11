@@ -1,2 +1,2 @@
 # fileman
-Fileman is a file management system that allows maschine-to-maschine-access to hosted files and a convenient management UI.
+In many software systems they need exists to access files that are of general importance such as property files needed by different sub systems (technical requirements) or such as template files for custom output (business requirements). Storing these files in a database is in many cases not the best solution. An Application that makes hosted files accessible for machine-to-machine communication via a simple REST-interface is frequently to be preferred. *Fileman* represents a solution exactly for the requirements described above.

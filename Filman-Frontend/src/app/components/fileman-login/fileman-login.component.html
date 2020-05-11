@@ -1,0 +1,55 @@
+<form #formControl="ngForm" (ngSubmit)="onLogin(formControl)" 
+      style="text-align: left">
+
+    <table>
+        <td><img width="250" src="assets/images/Files.jpg" style></td>
+
+        <td style="vertical-align: top; padding-right: 50px; ; padding-left: 50px">
+            <h2>
+                <fileman-logo></fileman-logo>
+                Login
+            </h2>
+            <div class="alert alert-danger" *ngIf="formControl.errors">
+                Unknown user or invalid password!
+            </div>
+            
+            <br>
+
+            <div class="form-group">
+                <label for="userId">User ID</label>
+                &nbsp;
+                <input required minlength="3" maxlength="32" 
+                    ngModel name="userId" #userIdControl="ngModel" 
+                    id="userId" type="text" class="form-Control"/>
+                <div class="alert alert-danger" 
+                    *ngIf="userIdControl.touched && !userIdControl.valid">
+                    <div *ngIf="userIdControl.errors.minlength"> 
+                        The {{userIdControl.name}} must exceed {{ userIdControl.errors.minlength.requiredLength}} characters.
+                    </div>
+                    <div *ngIf="userIdControl.errors.required">
+                        This field is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="userPw">Password</label>
+                &nbsp;
+                <input ngModel name="userPw" id="userPw" type="text" class="form-Control"/>
+            </div>
+            
+            <button class="btn btn-primary" 
+                    [disabled]="!formControl.valid"
+                    [ngStyle]="{
+                                'color': formControl.valid ? 'white' : 'black',
+                                'backgroundColor': formControl.valid ? 'blue' : 'gray'
+                            }"
+                    >Login</button>
+        
+        </td>
+
+        <td><img width="250" src="assets/images/Files.jpg"></td>
+
+    </table>
+
+</form>

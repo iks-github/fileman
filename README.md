@@ -21,13 +21,13 @@ Licenced under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.h
 * * *
 
 
-Versioning convention: major.minor.revision
+**Versioning convention**: major.minor.revision
 
-major:    will change for basic framework modification
+*major*:    will change for basic framework modification
 
-minor:    will change for new features and larger improvements
+*minor*:    will change for new features and larger improvements
 
-revision: will change for bug fixes and smaller improvements
+*revision*: will change for bug fixes and smaller improvements
 
 
 * * *

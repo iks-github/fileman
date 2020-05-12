@@ -1,12 +1,12 @@
 /*
  * Copyright 2020 IKS Gesellschaft fuer Informations- und Kommunikationssysteme mbH
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -100,7 +100,7 @@ export class FilemanDetailsComponent implements OnInit {
     const fileData = this.getFileDataToSave();
     console.log(fileData);
     this.overview.addFile(fileData.getMetaData()); // optimistic update
-    
+
     if (this.newFileMode)
     {
       this.fileService.create(fileData)
@@ -118,7 +118,7 @@ export class FilemanDetailsComponent implements OnInit {
           });
 
     }
-    
+
     this.backToOverview();
   }
 
@@ -126,7 +126,7 @@ export class FilemanDetailsComponent implements OnInit {
     let fileContentData = null;
     const fileMetaData = this.getFileMetaData();
     if (this.newFileMode) { fileMetaData.setCreator(this.currentUser); }
-    
+
     if (this.selectedFileContentSource != null) {
       fileMetaData.setSize(this.selectedFileContentSource.size);
 
@@ -155,6 +155,7 @@ export class FilemanDetailsComponent implements OnInit {
 
     if (this.nameC.value == null || this.nameC.value === '') {
       this.nameC.setValue(this.selectedFileContentSource.name);
+      this.nameC.markAsTouched();
     }
   }
 
@@ -186,8 +187,8 @@ export class FilemanDetailsComponent implements OnInit {
             //if (this.overview.isFilenameUnique(control.value))   // TODO why is this and overview undefined here at runtime ??
             {
                 //resolve(null);
-            } 
-            //else 
+            }
+            //else
             {
                 resolve({isNotUnique : true });  // TODO does not cause the defined error message to show up, why?
             }

@@ -25,7 +25,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "../FileServer/node_modules/material-design-icons/iconfont/material-icons.css"
+              "../Fileman-Frontend/node_modules/material-design-icons/iconfont/material-icons.css"
             ],
             "scripts": []
           },

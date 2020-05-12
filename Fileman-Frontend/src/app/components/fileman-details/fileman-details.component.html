@@ -11,16 +11,16 @@
         <div class="details">
             <label for="fileContentSource">File Content Source</label>
             <br>
-            <input id="fileContentSource" class="form-Control" type="file" 
-                   formControlName="fileContentControl" 
+            <input id="fileContentSource" class="form-Control" type="file"
+                   formControlName="fileContentControl"
                    (change)="onFileContentSourceChange($event)"
                    [style.border]="getBorder()"
                    (focus)="setFocusOnFileSelector(true)" (blur)="setFocusOnFileSelector(false)"/>
             <br>
         </div>
-        
+
         <br>
-        
+
          <!-- The table section below is generated: Do not modify manually! -->
         <table class="form-group" formGroupName="metaDataForm">
             <tr>
@@ -75,7 +75,7 @@
                No spaces are allowed in field <i>Name</i>!
             </div>
             <div *ngIf="nameC.errors?.isNotUnique">
-               A file with name <i>Name</i> is already hosted! Use a unique filename.
+               A file with name <i>{{nameC.value}}</i> is already hosted! Use a unique filename.
             </div>
             <!-- The error sections above are generated: Do not modify manually! -->
 
@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        <button [hidden]="readOnly" 
+        <button [hidden]="readOnly"
                 class="button btn btn-primary"
                 type="submit"
                 data-toggle="tooltip" title="{{getToolTip()}}"

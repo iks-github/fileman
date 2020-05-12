@@ -1,21 +1,20 @@
 /*
  * Copyright 2020 IKS Gesellschaft fuer Informations- und Kommunikationssysteme mbH
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component, OnInit, Input, Output, } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, ValidationErrors} from '@angular/forms';
-import { FilemanValidators } from 'src/app/common/fileman-validators';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
 import { Router } from '@angular/router';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { FileData } from 'src/app/common/domainobjects/gen/FileData';
@@ -23,6 +22,9 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { FileContentData } from 'src/app/common/domainobjects/gen/FileContentData';
 import { FilemanOverviewComponent } from '../fileman-overview/fileman-overview.component';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
+import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'fileman-details',
@@ -45,7 +47,8 @@ export class FilemanDetailsComponent implements OnInit {
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
               private fileService: FilemanFileService,
-              private overview: FilemanOverviewComponent) {
+              private overview: FilemanOverviewComponent,
+              private metadataService: FilemanMetadataService) {
       this.form = this.createFormGroup();
       this.reader = new FileReader();
       this.currentUser = authService.getCurrentUserName();
@@ -100,7 +103,7 @@ export class FilemanDetailsComponent implements OnInit {
     const fileData = this.getFileDataToSave();
     console.log(fileData);
     this.overview.addFile(fileData.getMetaData()); // optimistic update
-    
+
     if (this.newFileMode)
     {
       this.fileService.create(fileData)
@@ -118,7 +121,7 @@ export class FilemanDetailsComponent implements OnInit {
           });
 
     }
-    
+
     this.backToOverview();
   }
 
@@ -126,7 +129,7 @@ export class FilemanDetailsComponent implements OnInit {
     let fileContentData = null;
     const fileMetaData = this.getFileMetaData();
     if (this.newFileMode) { fileMetaData.setCreator(this.currentUser); }
-    
+
     if (this.selectedFileContentSource != null) {
       fileMetaData.setSize(this.selectedFileContentSource.size);
 
@@ -180,22 +183,22 @@ export class FilemanDetailsComponent implements OnInit {
            });
   }
 
-  isNotUnique(control: AbstractControl): Promise<ValidationErrors | null > {
-    const timeOutInMillis = 2000;
-    return new Promise((resolve, reject) => {
-        setTimeout( () => {
-            //if (this.overview.isFilenameUnique(control.value))   // TODO why is this and overview undefined here at runtime ??
-            {
-                //resolve(null);
-            } 
-            //else 
-            {
-                resolve({isNotUnique : true });  // TODO does not cause the defined error message to show up, why?
-            }
-        }, timeOutInMillis);
-    });
-    }
+  isNotUnique(control: AbstractControl): Observable<ValidationErrors | null> {
 
+    return this.metadataService.getOverviewData()
+        .pipe(map((metaDataArray: FileMetaData[]) => {
+
+      var foundItem = metaDataArray.find(
+        metaDataItem => metaDataItem.name === control.value
+      );
+
+      if (foundItem) {
+        return {isNotUnique: true};
+      }
+
+      return null;
+    }));
+  }
 
   // The form control block below is generated - do not modify manually!
   createMetaDataFormControl() {
@@ -205,7 +208,7 @@ export class FilemanDetailsComponent implements OnInit {
                 Validators.minLength(3),
                 Validators.maxLength(128),
               ],
-              this.isNotUnique),
+              this.isNotUnique.bind(this)),
         descriptionControl: new FormControl('', [
                 Validators.maxLength(1024),
               ]),

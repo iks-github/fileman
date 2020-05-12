@@ -41,19 +41,47 @@
     </div>
     
     <div *ngSwitchCase="'table'">
+        <!-- The table section below is generated: Do not modify manually! -->
         <table>
             <tr style="font-weight:bold; background-color:darkgray;">
                 <td></td>
                 <td></td>
-                <td *ngFor="let attribute of fileMetaAttributeNames; let i = index">
-                    {{attribute}}
+                <td>
+                    Name
                     <fileman-sorticon [sortField]="'name'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+                </td>
+                <td>
+                    Description
+                    <fileman-sorticon [sortField]="'description'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+                </td>
+                <td>
+                    ActiveUUID
+                    <fileman-sorticon [sortField]="'activeUUID'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+                </td>
+                <td>
+                    ImmediatelyActive
+                    <fileman-sorticon [sortField]="'immediatelyActive'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+                </td>
+                <td>
+                    Type
+                    <fileman-sorticon [sortField]="'type'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+                </td>
+                <td>
+                    Creator
+                    <fileman-sorticon [sortField]="'creator'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+                </td>
+                <td>
+                    CreationDate
+                    <fileman-sorticon [sortField]="'creationDate'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+                </td>
+                <td>
+                    Size
+                    <fileman-sorticon [sortField]="'size'" (sortEventHandler)="sort($event)"></fileman-sorticon>
                 </td>
             </tr>
             <tr *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index">
                 <td>{{i+1}}.</td>
                 <td><mat-icon data-toggle="tooltip" title="ToDo: Open Action Menu" (click)="openPullDown(file)">more_vert</mat-icon></td>
-                <!-- The td sections below is generated: Do not modify manually! -->
                   <td>{{file.name}}</td>
                   <td>{{file.description}}</td>
                   <td>{{file.activeUUID}}</td>
@@ -62,9 +90,9 @@
                   <td>{{file.creator}}</td>
                   <td>{{file.creationDate}}</td>
                   <td>{{file.size}}</td>
-                <!-- The td sections above is generated: Do not modify manually! -->
-            </tr>
-        </table>
+                </tr>
+            </table>
+            <!-- The table section above is generated: Do not modify manually! -->
     </div>
    
     <div *ngSwitchCase="'tiles'">

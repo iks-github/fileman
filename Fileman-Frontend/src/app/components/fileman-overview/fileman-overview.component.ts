@@ -1,23 +1,22 @@
 /*
  * Copyright 2020 IKS Gesellschaft fuer Informations- und Kommunikationssysteme mbH
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 import { FilemanError } from 'src/app/common/errors/fileman-error';
 import { FilemanNotfoundError } from 'src/app/common/errors/fileman-not-found-error';
-import { FilemanBadRequestError } from 'src/app/common/errors/fileman-bad-request-error';
 import { Router } from '@angular/router';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { FilemanConstants, SortType } from 'src/app/common/fileman-constants';
@@ -51,15 +50,16 @@ export class FilemanOverviewComponent implements OnInit {
               private filesMetaDataService: FilemanMetadataService,
               private favouriteSettingService: FilemanFavouriteSettingsService,
               private fileService: FilemanFileService) {}
-  
+
   ngOnInit(): void {
     this.currentUserName = this.authService.getCurrentUserName();
+    this.filesMetaDataService.fetchUpdatesFromCacheBuster();
     this.filesMetaDataService.getOverviewData()
                              .subscribe(responseData => {this.extractFiles(responseData)});
     this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
     this.favouriteSettingService.getAllFavouriteSettings(this.currentUserName)
-                                .subscribe(favouriteSettingsResponse => { 
-                                    this.favouriteSettingsResponse = favouriteSettingsResponse; 
+                                .subscribe(favouriteSettingsResponse => {
+                                    this.favouriteSettingsResponse = favouriteSettingsResponse;
                                     this.favouriteSettingsResponse.forEach(setting => {
                                       const favouriteSetting = new FavouriteSetting(setting);
                                       this.favouriteSettings.set(favouriteSetting.getFilename(), favouriteSetting);
@@ -80,13 +80,13 @@ export class FilemanOverviewComponent implements OnInit {
     const index = this.viewedFiles.indexOf(fileMetaData);
     this.viewedFiles.splice(index, 1)
   }
-  
+
   onLayoutClick(layoutType) {
     this.layoutType = layoutType;
   }
 
   isFilenameUnique(filename: string) {
-    return this.allFilesMap.has(filename); 
+    return this.allFilesMap.has(filename);
   }
 
   onReloadClick() {
@@ -226,7 +226,7 @@ export class FilemanOverviewComponent implements OnInit {
         .subscribe(
           deletedFile => {
               console.log('Successfully deleted file: ' + file.name);
-            }, 
+            },
           (error: FilemanError) => {
             this.viewedFiles.splice(index, 0, toDelete);  // roll back optimistic deletion
             this.allFilesMap.set(toDelete.getName(), toDelete);

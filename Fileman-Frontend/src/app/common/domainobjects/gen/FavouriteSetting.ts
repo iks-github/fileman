@@ -21,6 +21,7 @@ export class FavouriteSetting
            'filename',
         ];
     }
+
     getId() {
         return this.id;
     }
@@ -32,6 +33,7 @@ export class FavouriteSetting
     getFilename() {
         return this.filename;
     }
+
 
     setId(id: number) {
         this.id = id;
@@ -45,6 +47,7 @@ export class FavouriteSetting
         this.filename = filename;
     }
 
+
     public equals(obj: FavouriteSetting): boolean {
         if (this === obj) { return true; }
         if (obj == null) { return false; }
@@ -54,5 +57,13 @@ export class FavouriteSetting
         if (this.filename !== obj.filename) { return false; }
 
         return true;
+    }
+
+    getStringRepresentation(): string {
+        return 'DETAILS:\n' +
+               '------------------------------------------\n' +
+           'Id: ' + this.id + '\n' +
+           'Username: ' + this.username + '\n' +
+           'Filename: ' + this.filename + '\n';
     }
 }

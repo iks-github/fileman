@@ -1,4 +1,4 @@
-
+'
 #foreach($attributeDescriptor in $classDescriptor.attributeDescriptorList)
 
 	#parse("FrontendType.tpl")

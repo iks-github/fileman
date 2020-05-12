@@ -1,4 +1,4 @@
-
+'
 #foreach($attributeDescriptor in $classDescriptor.attributeDescriptorList)
 
 	#set( $attributeName = $TemplateStringUtility.firstToLowerCase($attributeDescriptor.name) )

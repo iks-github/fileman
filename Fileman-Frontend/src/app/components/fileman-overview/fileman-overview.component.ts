@@ -183,7 +183,7 @@ export class FilemanOverviewComponent implements OnInit {
 
   getDetailsTooltip(file: HTMLInputElement): string {
     const data = this.allFilesMap.get(file.name);
-    return data.getTooltipText();
+    return data.getStringRepresentation();
   }
 
   download(file: HTMLInputElement) {

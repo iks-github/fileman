@@ -20,6 +20,7 @@ export class FileData
            'contentData',
         ];
     }
+
     getMetaData() {
         return this.metaData;
     }
@@ -27,6 +28,7 @@ export class FileData
     getContentData() {
         return this.contentData;
     }
+
 
     setMetaData(metaData: FileMetaData) {
         this.metaData = metaData;
@@ -36,6 +38,7 @@ export class FileData
         this.contentData = contentData;
     }
 
+
     public equals(obj: FileData): boolean {
         if (this === obj) { return true; }
         if (obj == null) { return false; }
@@ -44,5 +47,12 @@ export class FileData
         if (this.contentData !== obj.contentData) { return false; }
 
         return true;
+    }
+
+    getStringRepresentation(): string {
+        return 'DETAILS:\n' +
+               '------------------------------------------\n' +
+           'MetaData: ' + this.metaData + '\n' +
+           'ContentData: ' + this.contentData + '\n';
     }
 }

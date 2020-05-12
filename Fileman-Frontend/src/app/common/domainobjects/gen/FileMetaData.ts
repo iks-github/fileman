@@ -115,4 +115,8 @@ export class FileMetaData
 
         return true;
     }
+
+    public getTooltipText() {
+        return '<html><b>name:</b> ' + this.name + '</html>';
+    }
 }

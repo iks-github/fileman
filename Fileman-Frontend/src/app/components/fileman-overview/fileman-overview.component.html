@@ -23,7 +23,7 @@
 <div [ngSwitch]="layoutType">
         <div *ngSwitchCase="'list'">
 
-        <li *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index" 
+        <li *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index " 
             class="list-group-item">
             <mat-icon data-toggle="tooltip" title="Download" (click)="download(file)">arrow_downwards</mat-icon>
             &nbsp;
@@ -34,7 +34,9 @@
             <mat-icon data-toggle="tooltip" title="{{getFavouriteTooltip(file)}}" (click)="markFavourite(file)"               
                       [ngStyle]="{'blue': 'yellow', 'backgroundColor': 'lavender'}">{{getFavouriteIcon(file)}}</mat-icon>
             &nbsp;
-            {{i+1}}. {{file.name}}
+            <span data-toggle="tooltip" title="{{getDetailsTooltip(file)}}" data-html="true">
+                {{i+1}}. {{file.name}}
+            </span>
         </li>
     </div>
     

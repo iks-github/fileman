@@ -26,6 +26,7 @@ import { FavouriteSetting } from 'src/app/common/domainobjects/gen/FavouriteSett
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { saveAs } from 'file-saver';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
+import { Utils } from 'src/app/common/Utils';
 
 @Component({
   selector: 'fileman-overview',
@@ -102,6 +103,7 @@ export class FilemanOverviewComponent implements OnInit {
       this.viewedFiles.push(dataset);
       this.allFilesMap.set(dataset.getName(), dataset)
     });
+    this.viewedFiles = Utils.sortList(this.viewedFiles);
   }
 
   onLogoutClick() {
@@ -177,6 +179,11 @@ export class FilemanOverviewComponent implements OnInit {
       return 'Click to deselect Favourite';
     }
     return 'Click to select as Favourite';
+  }
+
+  getDetailsTooltip(file: HTMLInputElement): string {
+    const data = this.allFilesMap.get(file.name);
+    return data.getTooltipText();
   }
 
   download(file: HTMLInputElement) {

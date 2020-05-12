@@ -37,7 +37,7 @@
 			
 		#if ( $attributeDescriptor.doesHaveMetaInfo( "unique", "true") )
 '            <div *ngIf="${attributeName}C.errors?.isNotUnique">
-'               The value of field <i>${AttributeName}</i> is not unique!
+'               A file with name <i>{{${attributeName}C.value}}</i> is already hosted! Use a unique filename.
 '            </div>
 		#end
 	

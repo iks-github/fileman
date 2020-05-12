@@ -17,6 +17,16 @@ export class FileContentData
         }
     }
 
+
+    static getAttributeNames(): string[] {
+        return [
+           'uuid',
+           'name',
+           'content',
+           'creator',
+           'creationDate',
+        ];
+    }
     getUuid() {
         return this.uuid;
     }

@@ -47,7 +47,7 @@
 
 		#if ( $attributeDescriptor.doesHaveMetaInfo("unique", "true"))
 '              ],		
-'              FilemanValidators.isNotUnique),
+'              this.isNotUnique),
 		#else
 '              ]),		
 		#end			

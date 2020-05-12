@@ -1,12 +1,15 @@
 package com.iksgmbh.fileman.backend;
 
 import java.io.Serializable;
+import java.lang.Boolean;
+import java.lang.Integer;
+import java.lang.Long;
+import java.lang.String;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.*;
+import javax.validation.constraints.*;
+import io.swagger.annotations.*;
+import com.fasterxml.jackson.annotation.*;
 
 /**
  * JavaBean class of the MOGLiCC JavaBean Group.
@@ -18,7 +21,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Meta Data of a hosted file")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1589280416581L;
+	private static final long serialVersionUID = 1589287768461L;
 
 	// ===============  instance fields  ===============
 

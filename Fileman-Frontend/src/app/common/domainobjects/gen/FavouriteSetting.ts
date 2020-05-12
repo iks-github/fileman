@@ -13,6 +13,14 @@ export class FavouriteSetting
         }
     }
 
+
+    static getAttributeNames(): string[] {
+        return [
+           'id',
+           'username',
+           'filename',
+        ];
+    }
     getId() {
         return this.id;
     }

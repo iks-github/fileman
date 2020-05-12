@@ -52,6 +52,8 @@ export class ${classDescriptor.simpleName}
 '    }
 '
 
+#parse("getAttributeNamesMethod.tpl")
+
 #parse("GetterMethods.tpl")
 
 #parse("SetterMethods.tpl")

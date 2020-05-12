@@ -23,6 +23,19 @@ export class FileMetaData
         }
     }
 
+
+    static getAttributeNames(): string[] {
+        return [
+           'name',
+           'description',
+           'activeUUID',
+           'immediatelyActive',
+           'type',
+           'creator',
+           'creationDate',
+           'size',
+        ];
+    }
     getName() {
         return this.name;
     }

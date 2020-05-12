@@ -43,6 +43,7 @@ export class FilemanOverviewComponent implements OnInit {
   currentUserName;
   isFavouriteFilerOn = false;
   currentSearchString = '';
+  fileMetaAttributeNames;
 
   constructor(private router: Router,
               public authService: FilemanAuthserviceService,
@@ -63,6 +64,7 @@ export class FilemanOverviewComponent implements OnInit {
                                       this.favouriteSettings.set(favouriteSetting.getFilename(), favouriteSetting);
                                     })
                                 });
+    this.fileMetaAttributeNames = FileMetaData.getAttributeNames();
   }
 
   addFile(fileMetaData: FileMetaData) {

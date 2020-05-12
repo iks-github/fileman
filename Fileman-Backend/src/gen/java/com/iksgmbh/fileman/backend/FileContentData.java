@@ -1,12 +1,13 @@
 package com.iksgmbh.fileman.backend;
 
 import java.io.Serializable;
+import java.lang.Long;
+import java.lang.String;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.*;
+import javax.validation.constraints.*;
+import io.swagger.annotations.*;
+import com.fasterxml.jackson.annotation.*;
 
 /**
  * Content of hosted file
@@ -16,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Content of hosted file")
 public class FileContentData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1589280416543L;
+	private static final long serialVersionUID = 1589287768425L;
 
 	// ===============  instance fields  ===============
 

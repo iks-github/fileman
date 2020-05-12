@@ -43,23 +43,26 @@
             <tr style="font-weight:bold; background-color:darkgray;">
                 <td></td>
                 <td></td>
-                <td>
-                    File Name
+                <td *ngFor="let attribute of fileMetaAttributeNames; let i = index">
+                    {{attribute}}
                     <fileman-sorticon [sortField]="'name'" (sortEventHandler)="sort($event)"></fileman-sorticon>
-                </td>
-                <td>
-                    Creator
-                    <fileman-sorticon [sortField]="'creator'" (sortEventHandler)="sort($event)"></fileman-sorticon>
                 </td>
             </tr>
             <tr *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index">
                 <td>{{i+1}}.</td>
                 <td><mat-icon data-toggle="tooltip" title="ToDo: Open Action Menu" (click)="openPullDown(file)">more_vert</mat-icon></td>
-                <td>{{file.name}}</td>
-                <td>{{file.creator}}</td>
+                <!-- The td sections below is generated: Do not modify manually! -->
+                  <td>{{file.name}}</td>
+                  <td>{{file.description}}</td>
+                  <td>{{file.activeUUID}}</td>
+                  <td>{{file.immediatelyActive}}</td>
+                  <td>{{file.type}}</td>
+                  <td>{{file.creator}}</td>
+                  <td>{{file.creationDate}}</td>
+                  <td>{{file.size}}</td>
+                <!-- The td sections above is generated: Do not modify manually! -->
             </tr>
         </table>
-
     </div>
    
     <div *ngSwitchCase="'tiles'">

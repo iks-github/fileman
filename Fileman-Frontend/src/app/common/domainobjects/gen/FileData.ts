@@ -13,6 +13,13 @@ export class FileData
         }
     }
 
+
+    static getAttributeNames(): string[] {
+        return [
+           'metaData',
+           'contentData',
+        ];
+    }
     getMetaData() {
         return this.metaData;
     }

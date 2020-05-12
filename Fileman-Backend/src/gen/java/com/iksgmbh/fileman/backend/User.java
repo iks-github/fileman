@@ -1,14 +1,13 @@
 package com.iksgmbh.fileman.backend;
 
 import java.io.Serializable;
+import java.lang.Integer;
+import java.lang.String;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.*;
+import javax.validation.constraints.*;
+import io.swagger.annotations.*;
+import com.fasterxml.jackson.annotation.*;
 
 /**
  * JavaBean class of the MOGLiCC JavaBean Group.
@@ -20,7 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Data of a Fileman user")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1589280416622L;
+	private static final long serialVersionUID = 1589287768513L;
 
 	// ===============  instance fields  ===============
 

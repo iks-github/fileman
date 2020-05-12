@@ -1,11 +1,14 @@
 package com.iksgmbh.fileman.backend;
 
+import com.iksgmbh.fileman.backend.User;
 import java.io.Serializable;
+import java.lang.Integer;
+import java.lang.String;
 
-import javax.validation.constraints.NotNull;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import java.util.*;
+import javax.validation.constraints.*;
+import io.swagger.annotations.*;
+import com.fasterxml.jackson.annotation.*;
 
 /**
  * JavaBean class of the MOGLiCC JavaBean Group.
@@ -17,7 +20,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Data for favourite filter")
 public class FavouriteSetting implements Serializable
 {
-	private static final long serialVersionUID = 1589280416699L;
+	private static final long serialVersionUID = 1589287768639L;
 
 	// ===============  instance fields  ===============
 

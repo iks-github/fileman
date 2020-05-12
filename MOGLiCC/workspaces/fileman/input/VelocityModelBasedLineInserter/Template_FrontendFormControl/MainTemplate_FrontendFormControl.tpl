@@ -1,5 +1,5 @@
 @TargetFileName fileman-details.component.ts
-@TargetDir C:\dev\eclipse\workspaces\Angular\FileServer\src\app\components\fileman-details
+@TargetDir ..\Fileman-Frontend\src\app\components\fileman-details
 @NameOfValidModel FilemanDataModel
 @ReplaceStart "// The form control block below is generated - do not modify manually!"
 @ReplaceEnd "// The form control block above is generated - do not modify manually!"

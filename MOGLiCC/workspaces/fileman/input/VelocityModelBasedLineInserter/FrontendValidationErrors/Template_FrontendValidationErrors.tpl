@@ -37,7 +37,7 @@
 			
 		#if ( $attributeDescriptor.doesHaveMetaInfo( "unique", "true") )
 '            <div *ngIf="${attributeName}C.errors?.isNotUnique">
-'               The value of field <i>${AttributeName}</i> is not unique!
+'               The value for field <i>${AttributeName}</i> must be unique! <i>{{${attributeName}C.value}}</i> is not unique.
 '            </div>
 		#end
 	

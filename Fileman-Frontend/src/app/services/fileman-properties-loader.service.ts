@@ -29,7 +29,7 @@ export class FilemanPropertiesLoaderService {
   constructor(private http: HttpClient) {
     this.properties = new Map();
     this.properties.set('serverurl', 'http://localhost:10002');
-      // this.http.get('file:///C:/dev/eclipse/workspaces/Angular/FileServer/src/properties.json')
+      // this.http.get('file:///C:/dev/eclipse/workspaces/Angular/Fileman-Frontend/src/properties.json')
       //   .subscribe((data: Item[]) => {
       //     this.items = data;
       //     this.items.forEach(item => {this.properties.set(item.id, item.name)});

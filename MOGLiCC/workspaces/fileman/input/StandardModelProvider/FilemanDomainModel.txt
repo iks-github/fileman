@@ -36,8 +36,8 @@ variable alphanumericCharset "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVW
 
 
 model FilemanDataModel
-  metainfo backendGenDir <applicationRootDir>/../backend/src/gen/java
-  metainfo backendSrcDir <applicationRootDir>/../backend/src/main/java
+  metainfo backendGenDir <applicationRootDir>/../Fileman-Backend/src/gen/java
+  metainfo backendSrcDir <applicationRootDir>/../Fileman-Backend/src/main/java
   metainfo frontendSrcDir <applicationRootDir>/../Fileman-Frontend/src/app
   metainfo projectName Fileman
   metainfo dateTimeFormat "dd.MM.yyyy HH:mm:ss:SSS"

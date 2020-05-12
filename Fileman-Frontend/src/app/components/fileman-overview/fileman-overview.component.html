@@ -2,6 +2,7 @@
                  [isFavouriteFilterActive]="false"
                  (output-alias)="onLayoutClick($event)" 
                  (logoutHandler)="onLogoutClick()"
+                 (refreshHandler)="onReloadClick()"
                  (favouriteFilterHandler)="onFavouriteFilterClick($event)"
                  (searchHandler)="searchFor($event)">
     <span class="username right">{{authService.getCurrentUserName()}} &nbsp;</span>

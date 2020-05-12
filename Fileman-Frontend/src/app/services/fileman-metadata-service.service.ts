@@ -17,6 +17,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
+import { Cacheable, CacheBuster } from 'ngx-cacheable';
+import { Subject } from 'rxjs/internal/Subject';
+
+const cacheBuster$ = new Subject<void>();
 
 @Injectable({
   providedIn: 'root'
@@ -29,18 +33,22 @@ export class FilemanMetadataService {
     this.url = propertiesService.getProperty('serverurl')  + '/fileMetaDatas';
   }
 
+  @Cacheable({
+    cacheBusterObserver: cacheBuster$
+  })
   getOverviewData() {
+    console.log('##################################   ################')
       return this.httpClient.get(this.url)
                             .pipe(catchError((error: HttpErrorResponse) => {
                               throw error; }
                             ));
   }
 
-   isFilenameUnique(filename: string) {
-      return this.httpClient.get(this.url + '/' + filename + '/exist')
-                            .pipe(catchError((error: HttpErrorResponse) => {
-                              throw error; }
-                            ));
+  @CacheBuster({
+    cacheBusterNotifier: cacheBuster$
+  })
+  reload() {
+    return this.getOverviewData();
   }
 
 }

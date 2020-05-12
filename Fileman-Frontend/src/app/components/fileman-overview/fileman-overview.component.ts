@@ -33,7 +33,6 @@ import { FilemanFileService } from 'src/app/services/fileman-file-service.servic
   styleUrls: ['./fileman-overview.component.css']
 })
 export class FilemanOverviewComponent implements OnInit {
-  static fileCache = new Map<string, FileMetaData>();
   layoutType = 'list';
   responseData;
   allFilesMap = new Map<string, FileMetaData>();
@@ -54,14 +53,7 @@ export class FilemanOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.currentUserName = this.authService.getCurrentUserName();
     this.filesMetaDataService.getOverviewData()
-                             .subscribe(responseData => { this.responseData = responseData;
-                                                          this.responseData.forEach(element => {
-                                                            const dataset = new FileMetaData(element);
-                                                            this.viewedFiles.push(dataset);
-                                                            this.allFilesMap.set(dataset.getName(), dataset)
-                                                          });
-                                                          FilemanOverviewComponent.fileCache = this.allFilesMap;
-                                                        });
+                             .subscribe(responseData => {this.extractFiles(responseData)});
     this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
     this.favouriteSettingService.getAllFavouriteSettings(this.currentUserName)
                                 .subscribe(favouriteSettingsResponse => { 
@@ -77,9 +69,6 @@ export class FilemanOverviewComponent implements OnInit {
     //console.log(this.viewedFiles)
     this.viewedFiles.push(fileMetaData)
     this.allFilesMap.set(fileMetaData.getName(), fileMetaData);
-    FilemanOverviewComponent.fileCache.delete(fileMetaData.getName());
-    FilemanOverviewComponent.fileCache.set(fileMetaData.getName(), fileMetaData);
-
     //console.log(this.viewedFiles)
   }
 
@@ -94,7 +83,23 @@ export class FilemanOverviewComponent implements OnInit {
   }
 
   isFilenameUnique(filename: string) {
-    return FilemanOverviewComponent.fileCache.has(filename); 
+    return this.allFilesMap.has(filename); 
+  }
+
+  onReloadClick() {
+    this.allFilesMap.clear();
+    this.viewedFiles = [] as FileMetaData[];
+    console.log('Cleared!');
+    this.filesMetaDataService.reload().subscribe(responseData => {this.extractFiles(responseData)});
+  }
+
+  extractFiles(responseData) {
+    this.responseData = responseData;
+    this.responseData.forEach(element => {
+      const dataset = new FileMetaData(element);
+      this.viewedFiles.push(dataset);
+      this.allFilesMap.set(dataset.getName(), dataset)
+    });
   }
 
   onLogoutClick() {
@@ -112,7 +117,7 @@ export class FilemanOverviewComponent implements OnInit {
   }
 
   getFile(filename: string): FileMetaData {
-    return FilemanOverviewComponent.fileCache.get(filename);
+    return this.allFilesMap.get(filename);
   }
 
   onFavouriteFilterClick(isFilterOn: boolean) {

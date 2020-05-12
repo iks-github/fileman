@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Meta Data of a hosted file")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1589297482337L;
+	private static final long serialVersionUID = 1589298902990L;
 
 	// ===============  instance fields  ===============
 

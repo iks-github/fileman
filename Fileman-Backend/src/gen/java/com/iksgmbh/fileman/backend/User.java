@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Data of a Fileman user")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1589297482390L;
+	private static final long serialVersionUID = 1589298903028L;
 
 	// ===============  instance fields  ===============
 

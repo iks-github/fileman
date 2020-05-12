@@ -208,7 +208,7 @@ export class FilemanDetailsComponent implements OnInit {
                 Validators.minLength(3),
                 Validators.maxLength(128),
               ],
-              this.isNotUnique.bind(this)),
+              this.isNotUnique),
         descriptionControl: new FormControl('', [
                 Validators.maxLength(1024),
               ]),

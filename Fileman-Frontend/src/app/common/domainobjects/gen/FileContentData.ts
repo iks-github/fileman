@@ -27,6 +27,7 @@ export class FileContentData
            'creationDate',
         ];
     }
+
     getUuid() {
         return this.uuid;
     }
@@ -46,6 +47,7 @@ export class FileContentData
     getCreationDate() {
         return this.creationDate;
     }
+
 
     setUuid(uuid: number) {
         this.uuid = uuid;
@@ -67,6 +69,7 @@ export class FileContentData
         this.creationDate = creationDate;
     }
 
+
     public equals(obj: FileContentData): boolean {
         if (this === obj) { return true; }
         if (obj == null) { return false; }
@@ -78,5 +81,15 @@ export class FileContentData
         if (this.creationDate !== obj.creationDate) { return false; }
 
         return true;
+    }
+
+    getStringRepresentation(): string {
+        return 'DETAILS:\n' +
+               '------------------------------------------\n' +
+           'Uuid: ' + this.uuid + '\n' +
+           'Name: ' + this.name + '\n' +
+           'Content: ' + this.content + '\n' +
+           'Creator: ' + this.creator + '\n' +
+           'CreationDate: ' + this.creationDate + '\n';
     }
 }

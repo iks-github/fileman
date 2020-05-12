@@ -1,3 +1,4 @@
+'
 '    public equals(obj: ${classDescriptor.simpleName}): boolean {
 '        if (this === obj) { return true; }
 '        if (obj == null) { return false; }

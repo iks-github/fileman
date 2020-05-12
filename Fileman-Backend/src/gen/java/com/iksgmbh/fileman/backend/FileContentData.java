@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Content of hosted file")
 public class FileContentData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1589287768425L;
+	private static final long serialVersionUID = 1589298902944L;
 
 	// ===============  instance fields  ===============
 

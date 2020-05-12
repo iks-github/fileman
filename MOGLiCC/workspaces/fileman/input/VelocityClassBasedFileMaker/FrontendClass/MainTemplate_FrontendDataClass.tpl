@@ -60,5 +60,6 @@ export class ${classDescriptor.simpleName}
 
 #parse("EqualsMethod.tpl")
 
+#parse("getStringRepresentation.tpl")
 }
 '

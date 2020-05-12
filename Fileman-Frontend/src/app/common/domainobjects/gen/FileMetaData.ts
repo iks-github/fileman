@@ -36,6 +36,7 @@ export class FileMetaData
            'size',
         ];
     }
+
     getName() {
         return this.name;
     }
@@ -67,6 +68,7 @@ export class FileMetaData
     getSize() {
         return this.size;
     }
+
 
     setName(name: string) {
         this.name = name;
@@ -100,6 +102,7 @@ export class FileMetaData
         this.size = size;
     }
 
+
     public equals(obj: FileMetaData): boolean {
         if (this === obj) { return true; }
         if (obj == null) { return false; }
@@ -116,7 +119,16 @@ export class FileMetaData
         return true;
     }
 
-    public getTooltipText() {
-        return '<html><b>name:</b> ' + this.name + '</html>';
+    getStringRepresentation(): string {
+        return 'DETAILS:\n' +
+               '------------------------------------------\n' +
+           'Name: ' + this.name + '\n' +
+           'Description: ' + this.description + '\n' +
+           'ActiveUUID: ' + this.activeUUID + '\n' +
+           'ImmediatelyActive: ' + this.immediatelyActive + '\n' +
+           'Type: ' + this.type + '\n' +
+           'Creator: ' + this.creator + '\n' +
+           'CreationDate: ' + this.creationDate + '\n' +
+           'Size: ' + this.size + '\n';
     }
 }

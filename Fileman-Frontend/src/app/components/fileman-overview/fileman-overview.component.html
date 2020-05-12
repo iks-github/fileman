@@ -32,7 +32,7 @@
             <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(file)">delete</mat-icon>
             &nbsp;
             <mat-icon data-toggle="tooltip" title="{{getFavouriteTooltip(file)}}" (click)="markFavourite(file)"               
-                      [ngStyle]="{'blue': 'yellow', 'backgroundColor': 'yellow'}">{{getFavouriteIcon(file)}}</mat-icon>
+                      [ngStyle]="{'blue': 'yellow', 'backgroundColor': 'lavender'}">{{getFavouriteIcon(file)}}</mat-icon>
             &nbsp;
             {{i+1}}. {{file.name}}
         </li>

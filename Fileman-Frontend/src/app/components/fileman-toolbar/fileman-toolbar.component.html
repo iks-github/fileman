@@ -7,7 +7,7 @@
     <mat-icon data-toggle="tooltip" title="Change to List Layout"
               (click)="onLayoutClick('list')"
               [ngStyle]="{
-              'color': layoutType === 'list' ? 'azure' : 'lightgoldenrodyellow',
+              'color': layoutType === 'list' ? '#777777' : 'lightgoldenrodyellow',
               'backgroundColor': layoutType === 'list' ? 'lightgray' : 'blue'}">
               list
     </mat-icon>
@@ -15,7 +15,7 @@
               (click)="onLayoutClick('table')"
               disabled="layoutType.equals('table')"
               [ngStyle]="{
-              'color': layoutType === 'table' ? 'azure' : 'lightgoldenrodyellow',
+              'color': layoutType === 'table' ? '#777777' : 'lightgoldenrodyellow',
               'backgroundColor': layoutType === 'table' ? 'lightgray' : 'blue'}">
               border_all
     </mat-icon>
@@ -23,7 +23,7 @@
               (click)="onLayoutClick('tiles')"
               disabled="layoutType.equals('tiles')"
               [ngStyle]="{
-              'color': layoutType === 'tiles' ? 'azure' : 'lightgoldenrodyellow',
+              'color': layoutType === 'tiles' ? '#777777' : 'lightgoldenrodyellow',
               'backgroundColor': layoutType === 'tiles' ? 'lightgray' : 'blue'}">
               view_module
     </mat-icon>
@@ -44,19 +44,19 @@
 
     &nbsp;|&nbsp;
 
-    <mat-icon data-toggle="tooltip" title="Type text to search for file(s)" style="color: gray; background: lightyellow;"
+    <mat-icon data-toggle="tooltip" title="Type text to search for file(s)" style="color: gray; background: lavender;"
     >find_in_page</mat-icon> 
 
     <input type="text" #searchString 
            (keyup)="startSearch(searchString.value)" 
            [ngStyle]="{'max-width.px': 200}"
-           style="background: lightyellow;">
+           style="background: lavender;">
 
     <mat-icon data-toggle="tooltip" title="Favourite Filter"
               (click)="onFavouriteFilterClick()"
               [ngStyle]="{
               'color': 'blue',
-              'backgroundColor': 'yellow'}"> 
+              'backgroundColor': 'lavender'}"> 
         {{favouriteFilterIcon}}
     </mat-icon>
 

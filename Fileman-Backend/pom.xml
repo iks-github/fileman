@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.iksgmbh.fileman</groupId>
-    <artifactId>backend</artifactId>
+    <artifactId>fileman-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Spring Boot Blank Project (from https://github.com/making/spring-boot-blank)</name>
+    <name>REST Backend of file managing system Fileman</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

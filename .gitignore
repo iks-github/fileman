@@ -1,5 +1,6 @@
 /.metadata/*
 /Fileman-Frontend/package-lock.json
+/MOGLiCC/.project
 /MOGLiCC/error.report
 /MOGLiCC/workspaces/fileman/logs/*
 /MOGLiCC/workspaces/fileman/output/*

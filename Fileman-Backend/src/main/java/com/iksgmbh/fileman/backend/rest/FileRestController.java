@@ -81,6 +81,14 @@ public class FileRestController
 		//String base64String = Base64.getEncoder().encodeToString("bytes".getBytes());
 	}
 	
+	@GetMapping("/files/{fileName}/history")
+	public List<FileContentData> getHistory(@PathVariable String fileName)
+	{
+		List<FileContentData> toReturn = contentDataDao.findAllForName(fileName);
+		toReturn.forEach(fileContentData -> fileContentData.setContent(null));
+		return toReturn;
+	}
+
 	
 	@DeleteMapping("/files/{fileName}")
 	public void deleteFileData(@PathVariable String fileName) 

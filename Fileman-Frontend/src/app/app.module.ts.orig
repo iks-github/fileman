@@ -59,7 +59,7 @@ import { FilemanTableLayout } from './components/layout/fileman-table-layout/fil
     FilemanProblemPageComponent,
     FilemanSortIconComponent,
     FilemanLogoComponent,
-    FilemanHistoryViewComponent,
+    FilemanHistoryViewComponent
     FilemanListLayout,
     FilemanTableLayout
   ],

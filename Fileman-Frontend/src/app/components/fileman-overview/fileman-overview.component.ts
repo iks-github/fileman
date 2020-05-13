@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2020 IKS Gesellschaft fuer Informations- und Kommunikationssysteme mbH
  *
@@ -43,6 +44,7 @@ export class FilemanOverviewComponent implements OnInit {
   isFavouriteFilerOn = false;
   currentSearchString = '';
   fileMetaAttributeNames;
+  selectedFile;
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
@@ -189,6 +191,10 @@ export class FilemanOverviewComponent implements OnInit {
     });
 
     this.viewedFiles = fileList;
+  }
+
+  showHistory(file: HTMLInputElement) {
+    this.router.navigate(['/history/' + file.name]);
   }
 
   delete(file: HTMLInputElement) {

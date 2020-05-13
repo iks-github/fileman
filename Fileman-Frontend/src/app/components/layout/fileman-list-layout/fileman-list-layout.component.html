@@ -6,6 +6,8 @@
     &nbsp;
     <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(file)">delete</mat-icon>
     &nbsp;
+    <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Show History" (click)="showHistory(file)">layers</mat-icon>
+    &nbsp;
     <mat-icon data-toggle="tooltip" title="{{getFavouriteTooltip(file)}}" (click)="markFavourite(file)"
         [ngStyle]="{'blue': 'yellow', 'backgroundColor': 'lavender'}">{{getFavouriteIcon(file)}}</mat-icon>
     &nbsp;

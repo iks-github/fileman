@@ -15,6 +15,7 @@ export class FilemanListLayout {
   @Output() fileDownloaded: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
   @Output() fileEdited: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
   @Output() fileDeleted: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
+  @Output() fileHistoryShown: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
   @Output() fileMarkedAsFavourite: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
 
   trackFiles(index, file) {
@@ -31,6 +32,10 @@ export class FilemanListLayout {
 
   delete(file: HTMLInputElement) {
     this.fileDeleted.emit(file);
+  }
+
+  showHistory(file: HTMLInputElement) {
+    this.fileHistoryShown.emit(file);
   }
 
   markFavourite(file: HTMLInputElement) {

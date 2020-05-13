@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2020 IKS Gesellschaft fuer Informations- und Kommunikationssysteme mbH
  *
@@ -17,40 +18,44 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
-import { Cacheable, CacheBuster } from 'ngx-cacheable';
-import { Subject } from 'rxjs/internal/Subject';
-
-const cacheBuster$ = new Subject<void>();
+import { FileMetaData } from '../common/domainobjects/gen/FileMetaData';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilemanMetadataService {
-  url;
+  private url: string;
+  private fileMetaDataCache: FileMetaData[] = [];
+  private dataOutdated: boolean = false;
 
   constructor(private httpClient: HttpClient,
               private propertiesService: FilemanPropertiesLoaderService) {
     this.url = propertiesService.getProperty('serverurl')  + '/fileMetaDatas';
   }
 
-  @Cacheable({
-    cacheBusterObserver: cacheBuster$
-  })
-  getOverviewData() {
-      return this.httpClient.get(this.url)
-                            .pipe(catchError((error: HttpErrorResponse) => {
-                              throw error; }
-                            ));
+  getOverviewData(forceReload: boolean): Observable<FileMetaData[]> {
+    if (this.fileMetaDataCache.length > 0 && !this.dataOutdated && !forceReload) {
+      return Observable.create(stream =>
+        {
+          stream.next(this.fileMetaDataCache);
+          stream.complete();
+        }
+      );
+    } else {
+      return this.getOverviewDataFromServer();
+    }
   }
 
-  @CacheBuster({
-    cacheBusterNotifier: cacheBuster$
-  })
-  reload() {
-    return this.getOverviewData();
+  private getOverviewDataFromServer(): Observable<FileMetaData[]> {
+    console.log('##################################   ################')
+    return this.httpClient.get<FileMetaData[]>(this.url)
+        .pipe(catchError((error: HttpErrorResponse) => {
+          throw error;
+        }));
   }
 
-  fetchUpdatesFromCacheBuster() {
-    cacheBuster$.next();
+  markDataAsOutdated() {
+    this.dataOutdated = true;
   }
 }

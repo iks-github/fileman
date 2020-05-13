@@ -1,13 +1,12 @@
 <fileman-toolbar [layoutMode]="'list'"
                  [isFavouriteFilterActive]="false"
-                 (output-alias)="onLayoutClick($event)" 
+                 (output-alias)="onLayoutClick($event)"
                  (logoutHandler)="onLogoutClick()"
                  (refreshHandler)="onReloadClick()"
                  (favouriteFilterHandler)="onFavouriteFilterClick($event)"
                  (searchHandler)="searchFor($event)">
-    <span class="username right">{{authService.getCurrentUserName()}} &nbsp;</span>
+    <span class="username right">{{currentUserName}} &nbsp;</span>
 </fileman-toolbar>
-
 
 <hr style="background: blue">
 
@@ -19,82 +18,22 @@
     <i>No file matches your filter.</i>
 </div>
 
-
 <div [ngSwitch]="layoutType">
-        <div *ngSwitchCase="'list'">
-
-        <li *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index " 
-            class="list-group-item">
-            <mat-icon data-toggle="tooltip" title="Download" (click)="download(file)">arrow_downwards</mat-icon>
-            &nbsp;
-            <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Edit" (click)="edit(file)">edit</mat-icon>
-            &nbsp;
-            <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(file)">delete</mat-icon>
-            &nbsp;
-            <mat-icon data-toggle="tooltip" title="{{getFavouriteTooltip(file)}}" (click)="markFavourite(file)"               
-                      [ngStyle]="{'blue': 'yellow', 'backgroundColor': 'lavender'}">{{getFavouriteIcon(file)}}</mat-icon>
-            &nbsp;
-            <span data-toggle="tooltip" title="{{getDetailsTooltip(file)}}" data-html="true">
-                {{i+1}}. {{file.name}}
-            </span>
-        </li>
+    <div *ngSwitchCase="'list'">
+        <fileman-list-layout
+          [viewedFiles]="viewedFiles"
+          [allFilesMap]="allFilesMap"
+          [favouriteSettings]="favouriteSettings"
+          [readOnly]="readOnly"
+          (fileDownloaded)="download($event)"
+          (fileEdited)="edit($event)"
+          (fileDeleted)="delete($event)"
+          (fileMarkedAsFavourite)="markFavourite($event)">
+        </fileman-list-layout>
     </div>
-    
     <div *ngSwitchCase="'table'">
-        <!-- The table section below is generated: Do not modify manually! -->
-        <table>
-            <tr style="font-weight:bold; background-color:darkgray;">
-                <td></td>
-                <td></td>
-                <td>
-                    Name
-                    <fileman-sorticon [sortField]="'name'" (sortEventHandler)="sort($event)"></fileman-sorticon>
-                </td>
-                <td>
-                    Description
-                    <fileman-sorticon [sortField]="'description'" (sortEventHandler)="sort($event)"></fileman-sorticon>
-                </td>
-                <td>
-                    ActiveUUID
-                    <fileman-sorticon [sortField]="'activeUUID'" (sortEventHandler)="sort($event)"></fileman-sorticon>
-                </td>
-                <td>
-                    ImmediatelyActive
-                    <fileman-sorticon [sortField]="'immediatelyActive'" (sortEventHandler)="sort($event)"></fileman-sorticon>
-                </td>
-                <td>
-                    Type
-                    <fileman-sorticon [sortField]="'type'" (sortEventHandler)="sort($event)"></fileman-sorticon>
-                </td>
-                <td>
-                    Creator
-                    <fileman-sorticon [sortField]="'creator'" (sortEventHandler)="sort($event)"></fileman-sorticon>
-                </td>
-                <td>
-                    CreationDate
-                    <fileman-sorticon [sortField]="'creationDate'" (sortEventHandler)="sort($event)"></fileman-sorticon>
-                </td>
-                <td>
-                    Size
-                    <fileman-sorticon [sortField]="'size'" (sortEventHandler)="sort($event)"></fileman-sorticon>
-                </td>
-            </tr>
-            <tr *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index">
-                <td>{{i+1}}.</td>
-                <td><mat-icon data-toggle="tooltip" title="ToDo: Open Action Menu" (click)="openPullDown(file)">more_vert</mat-icon></td>
-                  <td>{{file.name}}</td>
-                  <td>{{file.description}}</td>
-                  <td>{{file.activeUUID}}</td>
-                  <td>{{file.immediatelyActive}}</td>
-                  <td>{{file.type}}</td>
-                  <td>{{file.creator}}</td>
-                  <td>{{file.creationDate}}</td>
-                  <td>{{file.size}}</td>
-                </tr>
-            </table>
-            <!-- The table section above is generated: Do not modify manually! -->
+        <fileman-table-layout [viewedFiles]="viewedFiles"></fileman-table-layout>
     </div>
-   
     <div *ngSwitchCase="'tiles'">
         ToDo: implement tiles layout
    </div>

@@ -37,7 +37,7 @@ import { FilemanLoginComponent } from './components/fileman-login/fileman-login.
 import { FilemanOverviewComponent } from './components/fileman-overview/fileman-overview.component';
 import { FilemanToolbarComponent } from './components/fileman-toolbar/fileman-toolbar.component';
 import { FilemanSortIconComponent } from './components/fileman-sort-icon/fileman-sort-icon.component';
-import { FilemanDetailsComponent } from './components/fileman-details/fileman-details.component';
+import { FilemanDetailsComponent } from './components/details/fileman-file-details/fileman-file-details.component';
 import { FilemanFavouriteSettingsService } from './services/fileman-favourite-settings-service.service';
 import { FilemanMetadataService } from './services/fileman-metadata-service.service';
 import { FilemanFileService } from './services/fileman-file-service.service';

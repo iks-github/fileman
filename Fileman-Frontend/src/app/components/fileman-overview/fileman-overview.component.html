@@ -22,10 +22,6 @@
 
 <div [ngSwitch]="layoutType">
 
-    <div *ngSwitchCase="'history'">
-        <file-history [selectedFile]="selectedFile"></file-history>
-    </div>
-        
     <div *ngSwitchCase="'list'">
 
         <li *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index " 

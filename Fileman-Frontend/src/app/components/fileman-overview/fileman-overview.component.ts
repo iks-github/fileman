@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 import { FilemanError } from 'src/app/common/errors/fileman-error';
 import { FilemanNotfoundError } from 'src/app/common/errors/fileman-not-found-error';
@@ -53,9 +53,8 @@ export class FilemanOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserName = this.authService.getCurrentUserName();
-    this.filesMetaDataService.fetchUpdatesFromCacheBuster();
-    this.filesMetaDataService.getOverviewData()
-                             .subscribe(responseData => {this.extractFiles(responseData)});
+    this.filesMetaDataService.getOverviewData(false)
+        .subscribe(responseData => {this.extractFiles(responseData)});
     this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
     this.favouriteSettingService.getAllFavouriteSettings(this.currentUserName)
                                 .subscribe(favouriteSettingsResponse => {
@@ -93,7 +92,8 @@ export class FilemanOverviewComponent implements OnInit {
     this.allFilesMap.clear();
     this.viewedFiles = [] as FileMetaData[];
     console.log('Cleared!');
-    this.filesMetaDataService.reload().subscribe(responseData => {this.extractFiles(responseData)});
+    this.filesMetaDataService.getOverviewData(true)
+        .subscribe(responseData => {this.extractFiles(responseData)});
   }
 
   extractFiles(responseData) {

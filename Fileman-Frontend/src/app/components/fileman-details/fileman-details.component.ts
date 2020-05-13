@@ -122,6 +122,7 @@ export class FilemanDetailsComponent implements OnInit {
 
     }
 
+    this.metadataService.markDataAsOutdated();
     this.backToOverview();
   }
 
@@ -184,8 +185,7 @@ export class FilemanDetailsComponent implements OnInit {
   }
 
   isNotUnique(control: AbstractControl): Observable<ValidationErrors | null> {
-
-    return this.metadataService.getOverviewData()
+    return this.metadataService.getOverviewData(true)
         .pipe(map((metaDataArray: FileMetaData[]) => {
 
       var foundItem = metaDataArray.find(

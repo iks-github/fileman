@@ -44,6 +44,7 @@ export class FilemanOverviewComponent implements OnInit {
   isFavouriteFilerOn = false;
   currentSearchString = '';
   fileMetaAttributeNames;
+  selectedFile: string;
 
   constructor(private router: Router,
               public authService: FilemanAuthserviceService,
@@ -213,6 +214,13 @@ export class FilemanOverviewComponent implements OnInit {
     this.viewedFiles = fileList;
   }
 
+  showHistory(file: HTMLInputElement) {
+    
+    this.selectedFile = file.name;
+    console.log('history file: ' + this.selectedFile)
+    this.router.navigate(['/history/' + file.name]);
+  }
+  
   delete(file: HTMLInputElement) {
     const ok = confirm('Are you sure to delete "' + file.name + '"?');
     if (! ok) {return;}

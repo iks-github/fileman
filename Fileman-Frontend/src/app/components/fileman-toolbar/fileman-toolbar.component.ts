@@ -29,8 +29,8 @@ export class FilemanToolbarComponent implements OnInit {
   @Input() isFavouriteFilterActive = false;
 
   @Output('output-alias') layoutChangeHandler = new EventEmitter();
-  @Output('logoutHandler') logoutHandler = new EventEmitter();
-  @Output('searchHandler') searchHandler = new EventEmitter();
+  @Output() logoutHandler = new EventEmitter();
+  @Output() searchHandler = new EventEmitter();
   @Output() refreshHandler = new EventEmitter();
   @Output() favouriteFilterHandler = new EventEmitter();
 

@@ -32,7 +32,15 @@ export class FilemanFileService {
     this.url = propertiesService.getProperty('serverurl') + '/files';
   }
 
-    create(fileData: FileData) {
+  getHistory(filename: string) {
+        console.log('selectedFile in service: ' + filename);
+    return this.httpClient.get(this.url + '/' + filename + '/history', FilemanConstants.getRestCallHeaderOptions())
+                          .pipe(catchError((error: HttpErrorResponse) => {
+                            throw error; }
+                          ));
+  }
+
+  create(fileData: FileData) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/octet-stream',
     });

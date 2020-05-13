@@ -1,0 +1,17 @@
+
+<table>
+	<tr style="font-weight:bold; background-color:darkgray;">
+		<td></td>
+		<td></td>
+		<td>UUID</td>
+		<td>Creator</td>
+		<td>Creation Date</td>
+	</tr>
+	<tr *ngFor="let contentVersion of contentVersions; let i = index">
+		<td>{{i+1}}.</td>
+		<td></td>
+		<td>{{contentVersion.uuid}}</td>
+		<td>{{contentVersion.creator}}</td>
+		<td>{{contentVersion.creationDate}}</td>
+	</tr>
+</table>

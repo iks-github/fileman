@@ -37,7 +37,6 @@ export class FilemanMetadataService {
     cacheBusterObserver: cacheBuster$
   })
   getOverviewData() {
-    console.log('##################################   ################')
       return this.httpClient.get(this.url)
                             .pipe(catchError((error: HttpErrorResponse) => {
                               throw error; }

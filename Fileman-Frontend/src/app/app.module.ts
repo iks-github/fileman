@@ -43,6 +43,7 @@ import { FilemanMetadataService } from './services/fileman-metadata-service.serv
 import { FilemanFileService } from './services/fileman-file-service.service';
 import { FilemanErrorHandler } from './common/fileman-error-handler';
 import { FilemanProblemPageComponent } from './components/fileman-problem-page/fileman-page-not-found.component';
+import { FilemanHistoryViewComponent } from './components/fileman-history-view/fileman-history-view.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { FilemanProblemPageComponent } from './components/fileman-problem-page/f
     FilemanToolbarComponent,
     FilemanProblemPageComponent,
     FilemanSortIconComponent,
-    FilemanLogoComponent
+    FilemanLogoComponent,
+    FilemanHistoryViewComponent
   ],
   imports: [
     MatIconModule, MatTooltipModule, MatFormFieldModule, MatInputModule,
@@ -65,6 +67,7 @@ import { FilemanProblemPageComponent } from './components/fileman-problem-page/f
     RouterModule.forRoot([
       {path: "", component: FilemanLoginComponent},
       {path: "overview", component: FilemanOverviewComponent, canActivate: [AuthGuard]},
+      {path: "history/:filename", component: FilemanHistoryViewComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: "details/:filename", component: FilemanDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: "new", component: FilemanDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: "problem", component: FilemanProblemPageComponent},

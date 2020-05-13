@@ -1,5 +1,5 @@
-@TargetFileName fileman-details.component.html
-@TargetDir ..\Fileman-Frontend\src\app\components\fileman-details
+@TargetFileName fileman-file-details.component.html
+@TargetDir ..\Fileman-Frontend\src\app\components\details\fileman-file-details
 @NameOfValidModel FilemanDataModel
 @ReplaceStart "<!-- The table section below is generated: Do not modify manually! -->"
 @ReplaceEnd "<!-- The table section above is generated: Do not modify manually! -->"

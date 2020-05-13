@@ -1,5 +1,5 @@
-@TargetFileName fileman-details.component.ts
-@TargetDir ..\Fileman-Frontend\src\app\components\fileman-details
+@TargetFileName fileman-file-details.component.ts
+@TargetDir ..\Fileman-Frontend\src\app\components\details\fileman-file-details
 @NameOfValidModel FilemanDataModel
 @ReplaceStart "// The form control block below is generated - do not modify manually!"
 @ReplaceEnd "// The form control block above is generated - do not modify manually!"
@@ -47,7 +47,7 @@
 
 		#if ( $attributeDescriptor.doesHaveMetaInfo("unique", "true"))
 '              ],		
-'              this.isNotUnique),
+'              this.isNotUnique.bind(this)),
 		#else
 '              ]),		
 		#end			

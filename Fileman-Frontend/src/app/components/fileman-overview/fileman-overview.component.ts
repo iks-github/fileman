@@ -20,7 +20,6 @@ import { FilemanError } from 'src/app/common/errors/fileman-error';
 import { FilemanNotfoundError } from 'src/app/common/errors/fileman-not-found-error';
 import { Router } from '@angular/router';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
-import { FilemanConstants, SortType } from 'src/app/common/fileman-constants';
 import { FilemanFavouriteSettingsService } from 'src/app/services/fileman-favourite-settings-service.service';
 import { FavouriteSetting } from 'src/app/common/domainobjects/gen/FavouriteSetting';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
@@ -48,7 +47,7 @@ export class FilemanOverviewComponent implements OnInit {
   selectedFile;
 
   constructor(private router: Router,
-              public authService: FilemanAuthserviceService,
+              private authService: FilemanAuthserviceService,
               private filesMetaDataService: FilemanMetadataService,
               private favouriteSettingService: FilemanFavouriteSettingsService,
               private fileService: FilemanFileService) {}
@@ -69,6 +68,20 @@ export class FilemanOverviewComponent implements OnInit {
     this.fileMetaAttributeNames = FileMetaData.getAttributeNames();
   }
 
+<<<<<<< HEAD
+=======
+  addFile(fileMetaData: FileMetaData) {
+    this.viewedFiles.push(fileMetaData)
+    this.allFilesMap.set(fileMetaData.getName(), fileMetaData);
+  }
+
+  removeFile(fileMetaData: FileMetaData) {
+    this.allFilesMap.delete(fileMetaData.getName());
+    const index = this.viewedFiles.indexOf(fileMetaData);
+    this.viewedFiles.splice(index, 1)
+  }
+
+>>>>>>> f4c3667833ed2a2749ac28eb55309e6c2d01a46b
   onLayoutClick(layoutType) {
     this.layoutType = layoutType;
   }
@@ -152,25 +165,6 @@ export class FilemanOverviewComponent implements OnInit {
     return this.favouriteSettings.has(filename);
   }
 
-  getFavouriteIcon(file: HTMLInputElement) {
-    if (this.isFileFavourite(file.name)) {
-      return FilemanConstants.ICON_FAVOURITE_FILTER_ACTIVE;
-    }
-    return FilemanConstants.ICON_FAVOURITE_FILTER_INACTIVE;
-  }
-
-  getFavouriteTooltip(file: HTMLInputElement): string {
-    if (this.isFileFavourite(file.name)) {
-      return 'Click to deselect Favourite';
-    }
-    return 'Click to select as Favourite';
-  }
-
-  getDetailsTooltip(file: HTMLInputElement): string {
-    const data = this.allFilesMap.get(file.name);
-    return data.getStringRepresentation();
-  }
-
   download(file: HTMLInputElement) {
     this.fileService.download(file).subscribe(blobResponse => {
       const blob = new Blob([blobResponse], { type: 'text/json; charset=utf-8' });
@@ -229,48 +223,4 @@ export class FilemanOverviewComponent implements OnInit {
           }
         );
   }
-
-  openPullDown(file: HTMLInputElement) {
-    // TODO
-  }
-
-  sort(event) {
-    const sortList = this.viewedFiles;
-    if (event.sortType === SortType.ASC) {
-       this.viewedFiles = sortList.sort((dataObject1, dataObject2) => {
-         const value1 = this.getValue(dataObject1, event.sortField);
-         const value2 = this.getValue(dataObject2, event.sortField);
-         if (value1 < value2) return -1;
-        else if (value1 > value2) return 1;
-        else return 0;
-      });
-    } else {
-      this.viewedFiles = sortList.sort((dataObject1, dataObject2) => {
-         const value1 = this.getValue(dataObject1, event.sortField);
-         const value2 = this.getValue(dataObject2, event.sortField);
-         if (value1 > value2) {
-          return -1;
-        } else if (value1 < value2) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-    }
-  }
-
-  private getValue(dataObject: any, field: string) {
-    const fieldNames = Object.keys(dataObject);
-    const values = Object.values(dataObject);
-    let index = 0;
-
-    for (const fieldName of fieldNames) {
-      if (field === fieldName) {
-          return values[index];
-      }
-      index++;
-    }
-    return null;
-  }
-
 }

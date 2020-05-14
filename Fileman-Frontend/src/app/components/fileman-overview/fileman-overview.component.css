@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .mat-icon {
     color: blue;
     background: lightgoldenrodyellow;
@@ -18,3 +19,10 @@ table tr:nth-child(odd) {
 table tr:nth-child(even) {
   background-color: #ffffff;
 }
+=======
+.mat-icon {
+    color: blue;
+    background: lightgoldenrodyellow;
+    cursor: pointer;
+}
+>>>>>>> f4c3667833ed2a2749ac28eb55309e6c2d01a46b

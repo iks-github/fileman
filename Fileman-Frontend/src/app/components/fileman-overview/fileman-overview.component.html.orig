@@ -1,0 +1,41 @@
+<fileman-toolbar [layoutMode]="'list'"
+                 [isFavouriteFilterActive]="false"
+                 (output-alias)="onLayoutClick($event)"
+                 (logoutHandler)="onLogoutClick()"
+                 (refreshHandler)="onReloadClick()"
+                 (favouriteFilterHandler)="onFavouriteFilterClick($event)"
+                 (searchHandler)="searchFor($event)">
+    <span class="username right">{{currentUserName}} &nbsp;</span>
+</fileman-toolbar>
+
+<hr style="background: blue">
+
+<h5>Hosted Files:</h5>
+<div *ngIf="allFilesMap.size == 0">
+    <i>None.</i>
+</div>
+<div *ngIf="viewedFiles.length == 0 && allFilesMap.size > 0">
+    <i>No file matches your filter.</i>
+</div>
+
+<div [ngSwitch]="layoutType">
+    <div *ngSwitchCase="'list'">
+        <fileman-list-layout
+          [viewedFiles]="viewedFiles"
+          [allFilesMap]="allFilesMap"
+          [favouriteSettings]="favouriteSettings"
+          [readOnly]="readOnly"
+          (fileDownloaded)="download($event)"
+          (fileEdited)="edit($event)"
+          (fileDeleted)="delete($event)"
+          (fileHostoryShown)="showHistory($event)"
+          (fileMarkedAsFavourite)="markFavourite($event)">
+        </fileman-list-layout>
+    </div>
+    <div *ngSwitchCase="'table'">
+        <fileman-table-layout [viewedFiles]="viewedFiles"></fileman-table-layout>
+    </div>
+    <div *ngSwitchCase="'tiles'">
+        ToDo: implement tiles layout
+   </div>
+</div>

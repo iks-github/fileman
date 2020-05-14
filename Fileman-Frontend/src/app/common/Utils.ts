@@ -13,4 +13,10 @@ export class Utils
     return list;
   }
 
+  static getFileExtension(filename: string): string {
+    const pos = filename.lastIndexOf('.');
+    if (pos === -1) {return '';}
+    return filename.substring(pos + 1);
+  }
+
 }

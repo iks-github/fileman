@@ -5,7 +5,7 @@ export class FileMetaData
     description: string;
     activeUUID: number;
     immediatelyActive: boolean;
-    type: string;
+    techType: string;
     creator: string;
     creationDate: string;
     size: number;
@@ -16,7 +16,7 @@ export class FileMetaData
             this.description = untypedFileMetaData.description;
             this.activeUUID = untypedFileMetaData.activeUUID;
             this.immediatelyActive = untypedFileMetaData.immediatelyActive;
-            this.type = untypedFileMetaData.type;
+            this.techType = untypedFileMetaData.techType;
             this.creator = untypedFileMetaData.creator;
             this.creationDate = untypedFileMetaData.creationDate;
             this.size = untypedFileMetaData.size;
@@ -30,7 +30,7 @@ export class FileMetaData
            'description',
            'activeUUID',
            'immediatelyActive',
-           'type',
+           'techType',
            'creator',
            'creationDate',
            'size',
@@ -53,8 +53,8 @@ export class FileMetaData
         return this.immediatelyActive;
     }
 
-    getType() {
-        return this.type;
+    getTechType() {
+        return this.techType;
     }
 
     getCreator() {
@@ -86,8 +86,8 @@ export class FileMetaData
         this.immediatelyActive = immediatelyActive;
     }
 
-    setType(type: string) {
-        this.type = type;
+    setTechType(techType: string) {
+        this.techType = techType;
     }
 
     setCreator(creator: string) {
@@ -111,7 +111,7 @@ export class FileMetaData
         if (this.description !== obj.description) { return false; }
         if (this.activeUUID !== obj.activeUUID) { return false; }
         if (this.immediatelyActive !== obj.immediatelyActive) { return false; }
-        if (this.type !== obj.type) { return false; }
+        if (this.techType !== obj.techType) { return false; }
         if (this.creator !== obj.creator) { return false; }
         if (this.creationDate !== obj.creationDate) { return false; }
         if (this.size !== obj.size) { return false; }
@@ -126,7 +126,7 @@ export class FileMetaData
            'Description: ' + this.description + '\n' +
            'ActiveUUID: ' + this.activeUUID + '\n' +
            'ImmediatelyActive: ' + this.immediatelyActive + '\n' +
-           'Type: ' + this.type + '\n' +
+           'TechType: ' + this.techType + '\n' +
            'Creator: ' + this.creator + '\n' +
            'CreationDate: ' + this.creationDate + '\n' +
            'Size: ' + this.size + '\n';

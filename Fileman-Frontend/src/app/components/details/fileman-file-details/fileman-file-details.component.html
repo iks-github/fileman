@@ -42,26 +42,14 @@
             <tr>
                 <td>
                     <label for="immediately Active">Immediately Active</label>
-                    <br>
+					 <br>
                     <input id="immediatelyActive" type="checkbox" class="form-Control" formControlName="immediatelyActiveControl"/>
                 </td>
-				 <td class="space"></td>
-                <td>
-                    <label for="type">Type</label>
-                    <br>
-                    <select id="type" class="form-Control" formControlName="typeControl">
-                    	<option [value]="'Binary'">Binary</option>
-                    	<option [value]="'Text'">Text</option>
-					 </select>
-                </td>
             </tr>
-
-            <tr>&nbsp;</tr>
-
         </table>
         <!-- The table section above is generated: Do not modify manually! -->
 
-        <div class="form-group alert alert-danger" *ngIf="(metaDataForm.invalid && metaDataForm.touched) || showFileSelectorMandatoryMessage()">
+        <div class="form-group alert alert-danger" *ngIf="(metaDataForm.invalid && metaDataForm.touched) || showFileSelectorMandatoryMessage() || techTypeMismatch">
             Validation errors:
 
             <!-- The error sections below are generated: Do not modify manually! -->
@@ -78,6 +66,10 @@
                The value for field <i>Name</i> must be unique! <i>{{nameC.value}}</i> is not unique.
             </div>
             <!-- The error sections above are generated: Do not modify manually! -->
+
+            <div *ngIf="techTypeMismatch">
+                The selected file does not match the TechType (i.e. file extension) of the original file.
+            </div>
 
             <div *ngIf="showFileSelectorMandatoryMessage()">
                 File content is required.

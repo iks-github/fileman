@@ -64,7 +64,7 @@ export class FilemanHistoryViewComponent implements OnInit {
   }
 
   backToOverview() {
-    this.router.navigate(['/overview']);
+    this.router.navigate(['/fileman/overview']);
   }
 
   cancel() {

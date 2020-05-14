@@ -69,13 +69,14 @@ import { FilemanTableLayout } from './components/layout/fileman-table-layout/fil
     BrowserModule, BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: '', component: FilemanLoginComponent},
-      {path: 'overview', component: FilemanOverviewComponent, canActivate: [AuthGuard]},
-      {path: 'history/:filename', component: FilemanHistoryViewComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-      {path: 'details/:filename', component: FilemanDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-      {path: 'new', component: FilemanDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-      {path: 'problem', component: FilemanProblemPageComponent},
-      {path: '**', component: FilemanProblemPageComponent}
+      {path: 'fileman', component: FilemanLoginComponent},
+      {path: 'fileman/login', component: FilemanLoginComponent},
+      {path: 'fileman/overview', component: FilemanOverviewComponent, canActivate: [AuthGuard]},
+      {path: 'fileman/history/:filename', component: FilemanHistoryViewComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'fileman/details/:filename', component: FilemanDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'fileman/files/new', component: FilemanDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'fileman/problem', component: FilemanProblemPageComponent},
+      {path: 'fileman/**', component: FilemanProblemPageComponent}
     ])
   ],
   providers: [

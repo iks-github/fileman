@@ -95,7 +95,7 @@ export class FilemanOverviewComponent implements OnInit {
   }
 
   onLogoutClick() {
-    this.router.navigate(['']);
+    this.router.navigate(['/fileman']);
     this.authService.logout();
     console.log('Logged out!');
   }
@@ -105,7 +105,7 @@ export class FilemanOverviewComponent implements OnInit {
   }
 
   edit(file: HTMLInputElement) {
-    this.router.navigate(['/details/' + file.name]);
+    this.router.navigate(['/fileman/details/' + file.name]);
   }
 
   onFavouriteFilterClick(isFilterOn: boolean) {
@@ -179,7 +179,7 @@ export class FilemanOverviewComponent implements OnInit {
   }
 
   showHistory(file: HTMLInputElement) {
-    this.router.navigate(['/history/' + file.name]);
+    this.router.navigate(['/fileman/history/' + file.name]);
   }
 
   delete(file: HTMLInputElement) {

@@ -68,20 +68,6 @@ export class FilemanOverviewComponent implements OnInit {
     this.fileMetaAttributeNames = FileMetaData.getAttributeNames();
   }
 
-<<<<<<< HEAD
-=======
-  addFile(fileMetaData: FileMetaData) {
-    this.viewedFiles.push(fileMetaData)
-    this.allFilesMap.set(fileMetaData.getName(), fileMetaData);
-  }
-
-  removeFile(fileMetaData: FileMetaData) {
-    this.allFilesMap.delete(fileMetaData.getName());
-    const index = this.viewedFiles.indexOf(fileMetaData);
-    this.viewedFiles.splice(index, 1)
-  }
-
->>>>>>> f4c3667833ed2a2749ac28eb55309e6c2d01a46b
   onLayoutClick(layoutType) {
     this.layoutType = layoutType;
   }

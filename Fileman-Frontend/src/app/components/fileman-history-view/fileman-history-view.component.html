@@ -26,12 +26,12 @@
 
 <br>
 
-<button [hidden]="readOnly" 
+<button *ngIf="!readOnly"
+        [disabled]="!viewTouched" 
 		class="btn btn-primary"
 		(click)="save()"
 >Save</button>
 &nbsp;
-<button type="button" 
-		class="btn btn-primary" 
+<button class="btn btn-primary" 
 		(click)="cancel()"
 >Cancel</button>

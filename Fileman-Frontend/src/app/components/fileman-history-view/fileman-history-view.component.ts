@@ -3,6 +3,7 @@ import { FileContentData } from 'src/app/common/domainobjects/gen/FileContentDat
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
+import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 
 @Component({
   selector: 'file-history',
@@ -16,14 +17,16 @@ export class FilemanHistoryViewComponent implements OnInit {
   contentVersions: FileContentData[];
   response;
   readOnly = false;
-  touched = false;
+  viewTouched = false;
 
   constructor(private fileService: FilemanFileService,
               private filesMetaDataService: FilemanMetadataService,
+              private authService: FilemanAuthserviceService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
     this.contentVersions = [] as FileContentData[];
     this.route.params.subscribe((params) => {
       this.selectedFile = params.filename;
@@ -54,7 +57,8 @@ export class FilemanHistoryViewComponent implements OnInit {
 
   setSelected(uuid: number) {
     if (this.selectedUUID !== uuid) {
-      this.touched = true;
+      this.viewTouched = true;
+      console.log(this.viewTouched)
       this.selectedUUID = uuid;
     }
   }

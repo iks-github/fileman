@@ -3,7 +3,7 @@
 @TargetFileName ${classDescriptor.simpleName}DaoImpl.java # Name of output file with extension but without path
 @TargetDir $model.getMetaInfoValueFor("backendSrcDir")/$packagePath
 @CreateNew false # create only if not present
-@NameOfValidModel FilemanDataModel
+@NameOfValidModel SpringBootBackendAngularFrontModel
 @SkipGeneration $classDescriptor.doesHaveMetaInfo( "withDaoAndSql", "false") 
 
 package ${classDescriptor.package}.dao;

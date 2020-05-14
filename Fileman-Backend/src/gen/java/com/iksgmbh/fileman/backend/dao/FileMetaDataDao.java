@@ -38,12 +38,19 @@ public class FileMetaDataDao
 			return false;
 		}
 
+       // with a real db this will be refactored
+		fileMetaData.setImmediatelyActive(true);  // set default value for non-db field
+
 		fileMetaDatas.remove(match.get());
 		fileMetaDatas.add(fileMetaData);
 		return true;
 	}
 
 	public FileMetaData create(FileMetaData fileMetaData) {
+
+       // with a real db this will be refactored
+		fileMetaData.setImmediatelyActive(true);  // set default value for non-db field
+
 		fileMetaDatas.add(fileMetaData);
 		return fileMetaData;
 	}

@@ -23,7 +23,7 @@
 # Information which plugin uses which MetaInfo is presented in a statistics file
 # that is written into the plugin output directory of the StandardModelProvider plugin.
 #
-# The FilemanDataModel provides data for the MOGLiCC JavaBean templates. Model data and templates are
+# The SpringBootBackendAngularFrontModel provides data for the MOGLiCC JavaBean templates. Model data and templates are
 # used to create the MOGLiCC JavaBean artefacts. These are NOT designed for manual modification.
 # In case you want to have same modified, change the templates, the model data or both, and
 # recreate them by autogeneration.
@@ -35,7 +35,7 @@ variable DomainPath com.iksgmbh.fileman.backend
 variable alphanumericCharset "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZA 01234567890 <>&-.,;!?=()/üöäÜÖÄß"
 
 
-model FilemanDataModel
+model SpringBootBackendAngularFrontModel
   metainfo backendGenDir <applicationRootDir>/../Fileman-Backend/src/gen/java
   metainfo backendSrcDir <applicationRootDir>/../Fileman-Backend/src/main/java
   metainfo frontendSrcDir <applicationRootDir>/../Fileman-Frontend/src/app
@@ -71,6 +71,7 @@ class <<DomainPath>>.FileContentData
   metainfo frontendInterface true
 
   attribute uuid
+    metainfo SqlType bigint
     metainfo JavaType Long
     metainfo Mandatory true
     metainfo ExampleData 0
@@ -78,6 +79,7 @@ class <<DomainPath>>.FileContentData
     metainfo id true
   
   attribute name
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData logo.png
@@ -86,21 +88,25 @@ class <<DomainPath>>.FileContentData
     metainfo withFindAllMethod true
 
   attribute content
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData 10101
 
   attribute size
+    metainfo SqlType bigint
     metainfo JavaType Long
     metainfo Mandatory false
     metainfo ExampleData 30000
 
   attribute creator
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData Hans Mustermann
 
   attribute creationDate
+    metainfo SqlType datetime
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "10.10.2020 13:55:59"
@@ -117,6 +123,7 @@ class <<DomainPath>>.FileMetaData
   metainfo frontendInterface true
   
   attribute name
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData logo.png
@@ -128,38 +135,44 @@ class <<DomainPath>>.FileMetaData
     metainfo allowSpace false
 
   attribute description
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo ExampleData "A logo image"
     metainfo MaxLength 1024
     metainfo guiType TextArea
 
   attribute activeUUID
+    metainfo SqlType bigint
     metainfo JavaType Long
     metainfo ExampleData 123456
 
   attribute "immediately Active"
     metainfo JavaType Boolean
     metainfo guiType Checkbox
-    metainfo initialGuiValue true
+    metainfo defaultValue true
     metainfo ExampleData true
     
-  attribute type
+  attribute techType
+    metainfo SqlType varchar
     metainfo JavaType String
-    metainfo guiType Selectbox:Binary,Text
-    metainfo initialGuiValue Text
-    metainfo ExampleData Text
+    metainfo ExampleData pdf
+    metainfo MaxLength 16
+#    metainfo guiType Selectbox:Binary,Text
 
   attribute creator
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData Hans Mustermann
 
   attribute creationDate
+    metainfo SqlType datetime
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "10.10.2020 13:55:59"
 
   attribute size
+    metainfo SqlType bigint
     metainfo JavaType Integer
     metainfo ExampleData 1234
 
@@ -172,6 +185,7 @@ class <<DomainPath>>.User
   metainfo withController true
 
   attribute id
+    metainfo SqlType int
     metainfo JavaType Integer
     metainfo Mandatory true
     metainfo ExampleData 1
@@ -179,6 +193,7 @@ class <<DomainPath>>.User
     metainfo id true
     
   attribute name
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "ich"
@@ -187,6 +202,7 @@ class <<DomainPath>>.User
     metainfo unique true
 
   attribute password
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "ich"
@@ -195,6 +211,7 @@ class <<DomainPath>>.User
     metainfo hideFromClient true
 
   attribute role
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData Admin
@@ -205,16 +222,19 @@ class <<DomainPath>>.User
   metainfo withController false
 
   attribute timestamp
+    metainfo SqlType timestamp
     metainfo JavaType Long
     metainfo Mandatory true
     metainfo ExampleData 11234823442
 
   attribute message
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "Resource not found"
 
   attribute details
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "User 1 not found"
@@ -224,6 +244,7 @@ class <<DomainPath>>.UserCredentials
   metainfo withController false
 
   attribute userId
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "Pete"
@@ -231,6 +252,7 @@ class <<DomainPath>>.UserCredentials
     metainfo MaxLength 64
 
   attribute userPw
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "pw"
@@ -259,6 +281,7 @@ class <<DomainPath>>.FavouriteSetting
   metainfo frontendInterface true
 
   attribute id
+    metainfo SqlType int
     metainfo JavaType Integer
     metainfo Mandatory true
     metainfo ExampleData 1
@@ -266,11 +289,13 @@ class <<DomainPath>>.FavouriteSetting
     metainfo id true
     
   attribute username
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo withFindAllMethod true
 
   attribute filename
+    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo withFindAllMethod true

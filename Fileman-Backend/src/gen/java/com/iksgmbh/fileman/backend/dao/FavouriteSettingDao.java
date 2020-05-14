@@ -37,7 +37,6 @@ public class FavouriteSettingDao
 		if (! match.isPresent()) {
 			return false;
 		}
-
 		favouriteSettings.remove(match.get());
 		favouriteSettings.add(favouriteSetting);
 		return true;

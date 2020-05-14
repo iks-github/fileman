@@ -12,16 +12,15 @@ import com.iksgmbh.fileman.backend.FileMetaData;
 public class FileMetaDataDaoImpl extends FileMetaDataDao
 {
 	public FileMetaDataDaoImpl() {
-		fileMetaDatas.add(createDataset("readme.txt", "Bla", 1L, true, "Text", "Pete", "10.10.2000", 123));
-		fileMetaDatas.add(createDataset("logo.gif", "Logo", 2L, false, "Binary", "Pete", "10.10.2000", 9999));
-		fileMetaDatas.add(createDataset("script.groovy", "do something", 3L, true, "Text", "Pete", "10.10.2000", 4321));
+		fileMetaDatas.add(createDataset("readme.txt", "Bla", 1L, "txt", "Pete", "10.10.2000", 123));
+		fileMetaDatas.add(createDataset("logo.jpg", "Logo", 2L, "jpg", "Pete", "10.10.2000", 9999));
+		fileMetaDatas.add(createDataset("script.groovy", "do something", 3L, "groovy", "Pete", "10.10.2000", 4321));
 	}
 	
 	private FileMetaData createDataset(
   			String name,
   			String description,
   			Long activeUUID,
-  			Boolean immediatelyActive,
   			String type,
   			String creator,
   			String creationDate,
@@ -31,11 +30,30 @@ public class FileMetaDataDaoImpl extends FileMetaDataDao
 		toReturn.setName(name);
 		toReturn.setDescription(description);
 		toReturn.setActiveUUID(activeUUID);
-		toReturn.setImmediatelyActive(immediatelyActive);
-		toReturn.setType(type);
+		toReturn.setImmediatelyActive(true);
+		toReturn.setTechType(type);
 		toReturn.setCreator(creator);
 		toReturn.setCreationDate(creationDate);
 		toReturn.setSize(size);
 		return toReturn;
 	}
+
+	@Override
+	public FileMetaData create(FileMetaData fileMetaData) 
+	{
+		setTechType(fileMetaData);
+		return super.create(fileMetaData);
+	}
+
+	private void setTechType(FileMetaData fileMetaData) 
+	{
+		String name = fileMetaData.getName();
+		if (name.contains(".")) {
+			int pos = name.lastIndexOf(".") + 1;
+			String fileExtension = name.substring(pos);
+			fileMetaData.setTechType(fileExtension);
+		}
+		
+	}
+	
 }

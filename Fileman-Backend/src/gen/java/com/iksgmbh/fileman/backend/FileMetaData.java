@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Meta Data of a hosted file")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1589383153194L;
+	private static final long serialVersionUID = 1589472183844L;
 
 	// ===============  instance fields  ===============
 
@@ -38,7 +38,9 @@ public class FileMetaData implements Serializable, Cloneable
 
 	private Boolean immediatelyActive;
 
-	private String type;
+    @Size(max=16, message="Value of attribute 'techType' is larger than valid maximum (16).")
+    @ApiModelProperty(notes = "Valid maximum length is 16.")
+	private String techType;
 
     @NotNull(message="Value of mandatory attribute 'creator' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
@@ -73,9 +75,9 @@ public class FileMetaData implements Serializable, Cloneable
 		this.immediatelyActive = immediatelyActive;
 	}
 
-	public void setType(final String type)
+	public void setTechType(final String techType)
 	{
-		this.type = type;
+		this.techType = techType;
 	}
 
 	public void setCreator(final String creator)
@@ -115,9 +117,9 @@ public class FileMetaData implements Serializable, Cloneable
 		return immediatelyActive;
 	}
 
-	public String getType()
+	public String getTechType()
 	{
-		return type;
+		return techType;
 	}
 
 	public String getCreator()
@@ -145,7 +147,7 @@ public class FileMetaData implements Serializable, Cloneable
 				+ "description = " + description + ", "
 				+ "activeUUID = " + activeUUID + ", "
 				+ "immediatelyActive = " + immediatelyActive + ", "
-				+ "type = " + type + ", "
+				+ "techType = " + techType + ", "
 				+ "creator = " + creator + ", "
 				+ "creationDate = " + creationDate + ", "
 				+ "size = " + size + ""
@@ -199,13 +201,13 @@ public class FileMetaData implements Serializable, Cloneable
 			if (! immediatelyActive.equals(other.immediatelyActive))
 				   return false;
 		}
-		if (type == null)
+		if (techType == null)
 		{
-			if (other.type != null)
+			if (other.techType != null)
 				return false;
 		} else
 		{
-			if (! type.equals(other.type))
+			if (! techType.equals(other.techType))
 				   return false;
 		}
 		if (creator == null)
@@ -247,7 +249,7 @@ public class FileMetaData implements Serializable, Cloneable
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((activeUUID == null) ? 0 : activeUUID.hashCode());
 		result = prime * result + ((immediatelyActive == null) ? 0 : immediatelyActive.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((techType == null) ? 0 : techType.hashCode());
 		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((size == null) ? 0 : size.hashCode());
@@ -269,7 +271,7 @@ public class FileMetaData implements Serializable, Cloneable
 		if (this.description != null) clone.description = new String(description);
 		if (this.activeUUID != null) clone.activeUUID = new Long(this.activeUUID);
 		if (this.immediatelyActive != null) clone.immediatelyActive = new Boolean(this.immediatelyActive);
-		if (this.type != null) clone.type = new String(type);
+		if (this.techType != null) clone.techType = new String(techType);
 		if (this.creator != null) clone.creator = new String(creator);
 		if (this.creationDate != null) clone.creationDate = new String(creationDate);
 		if (this.size != null) clone.size = new Integer(this.size);
@@ -295,9 +297,9 @@ public class FileMetaData implements Serializable, Cloneable
         if (otherFileMetaData.getImmediatelyActive() != null) {
             this.setImmediatelyActive(otherFileMetaData.getImmediatelyActive());
        }
-        if (otherFileMetaData.getType() != null) {
-            if(! otherFileMetaData.getType().isEmpty()) {
-           	 this.setType(otherFileMetaData.getType());
+        if (otherFileMetaData.getTechType() != null) {
+            if(! otherFileMetaData.getTechType().isEmpty()) {
+           	 this.setTechType(otherFileMetaData.getTechType());
             }
        }
         if (otherFileMetaData.getCreator() != null) {

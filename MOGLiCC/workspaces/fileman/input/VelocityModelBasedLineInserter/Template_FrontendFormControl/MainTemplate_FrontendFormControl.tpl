@@ -1,6 +1,6 @@
 @TargetFileName fileman-file-details.component.ts
 @TargetDir ..\Fileman-Frontend\src\app\components\details\fileman-file-details
-@NameOfValidModel FilemanDataModel
+@NameOfValidModel SpringBootBackendAngularFrontModel
 @ReplaceStart "// The form control block below is generated - do not modify manually!"
 @ReplaceEnd "// The form control block above is generated - do not modify manually!"
 
@@ -19,13 +19,13 @@
 		#set( $attributeName = $TemplateStringUtility.firstToLowerCase($attributeDescriptor.name) ) 
 		#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeName, " ", "") ) 
 		#set( $AttributeName = $TemplateStringUtility.firstToUpperCase($attributeName) ) 
-		#set( $initialGuiValue = $attributeDescriptor.getMetaInfoValueFor("initialGuiValue") )
+		#set( $defaultValue = $attributeDescriptor.getMetaInfoValueFor("defaultValue") )
 
-		#if ($initialGuiValue.contains("NOT FOUND")) 
-			#set( $initialGuiValue = "" )
+		#if ($defaultValue.contains("NOT FOUND")) 
+			#set( $defaultValue = "" )
 		#end	
 
-'        ${attributeName}Control: new FormControl('$initialGuiValue', [
+'        ${attributeName}Control: new FormControl('$defaultValue', [
 
 		#if ( $attributeDescriptor.doesHaveMetaInfo("Mandatory", "true"))
 '                Validators.required, 

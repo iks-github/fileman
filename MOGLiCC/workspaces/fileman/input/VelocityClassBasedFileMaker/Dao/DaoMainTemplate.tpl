@@ -3,7 +3,7 @@
 @TargetFileName ${classDescriptor.simpleName}Dao.java # Name of output file with extension but without path
 @TargetDir $model.getMetaInfoValueFor("backendGenDir")/$packagePath
 @CreateNew true # creates target dir if not existing and overwrites target file if existing
-@NameOfValidModel FilemanDataModel
+@NameOfValidModel SpringBootBackendAngularFrontModel
 @SkipGeneration $classDescriptor.doesHaveMetaInfo( "withDaoAndSql", "false") 
 
 package ${classDescriptor.package}.dao;
@@ -83,7 +83,9 @@ public class ${ClassName}Dao
 		'		if (! match.isPresent()) {
 		'			return false;
 		'		}
-		'		
+		
+		#parse("set-non-sql-field-to-null.tpl")
+		
 		'		${className}s.remove(match.get());
 		'		${className}s.add(${className});
 		'		return true;
@@ -96,9 +98,13 @@ public class ${ClassName}Dao
 	
 	
 '	public ${ClassName} create(${ClassName} ${className}) {
-#if ( $isIdAttributeTypeNumber )
-'		${className}.set${IdAttributeName}(${className}s.size()+1);
-#end
+
+	#if ( $isIdAttributeTypeNumber )
+	'		${className}.set${IdAttributeName}(${className}s.size()+1);
+	#end
+
+	#parse("set-non-sql-field-to-null.tpl")
+
 '		${className}s.add(${className});
 '		return ${className};
 '	}

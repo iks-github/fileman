@@ -1,6 +1,6 @@
 @TargetFileName fileman-table-layout.component.html
 @TargetDir ..\Fileman-Frontend\src\app\components\layout\fileman-table-layout
-@NameOfValidModel FilemanDataModel
+@NameOfValidModel SpringBootBackendAngularFrontModel
 @ReplaceStart "<!-- The table section below is generated: Do not modify manually! -->"
 @ReplaceEnd "<!-- The table section above is generated: Do not modify manually! -->"
 

@@ -10,7 +10,6 @@
 	#set( $guiType = "Selectbox" )
 #end
 
-
 #if ( $guiType.equals("TextField"))
 
 '                    <input id="$attributeName" type="text" class="form-Control" formControlName="${attributeName}Control"/>

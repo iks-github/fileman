@@ -3,7 +3,7 @@
 @TargetFileName ${classDescriptor.simpleName}RestController.java # Name of output file with extension but without path
 @TargetDir $model.getMetaInfoValueFor("backendGenDir")/$packagePath
 @CreateNew true # creates target dir if not existing and overwrites target file if existing
-@NameOfValidModel FilemanDataModel
+@NameOfValidModel SpringBootBackendAngularFrontModel
 @SkipGeneration $classDescriptor.doesHaveMetaInfo( "withController", "false") 
 
 package ${classDescriptor.package}.rest;

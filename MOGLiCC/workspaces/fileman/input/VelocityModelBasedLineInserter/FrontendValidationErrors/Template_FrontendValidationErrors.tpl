@@ -1,6 +1,6 @@
 @TargetFileName fileman-file-details.component.html
 @TargetDir $model.getMetaInfoValueFor("frontendSrcDir")/components/details/fileman-file-details
-@NameOfValidModel FilemanDataModel
+@NameOfValidModel SpringBootBackendAngularFrontModel
 @ReplaceStart "<!-- The error sections below are generated: Do not modify manually! -->"
 @ReplaceEnd "<!-- The error sections above are generated: Do not modify manually! -->"
 

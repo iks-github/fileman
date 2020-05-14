@@ -37,7 +37,6 @@ public class UserDao
 		if (! match.isPresent()) {
 			return false;
 		}
-
 		users.remove(match.get());
 		users.add(user);
 		return true;

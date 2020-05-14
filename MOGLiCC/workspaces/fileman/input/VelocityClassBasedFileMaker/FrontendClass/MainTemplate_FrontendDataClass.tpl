@@ -3,7 +3,7 @@
 @TargetFileName ${classDescriptor.simpleName}.ts # Name of output file with extension but without path
 @TargetDir $model.getMetaInfoValueFor("frontendSrcDir")/common/domainobjects/gen
 @CreateNew true # creates target dir if not existing and overwrites target file if existing
-@NameOfValidModel FilemanDataModel
+@NameOfValidModel SpringBootBackendAngularFrontModel
 @SkipGeneration $notNeeded 
 
 #set( $attributeDescriptorList = $classDescriptor.getAttributeDescriptorList() )

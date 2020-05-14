@@ -1,6 +1,6 @@
 @TargetFileName fileman-file-details.component.html
 @TargetDir ..\Fileman-Frontend\src\app\components\details\fileman-file-details
-@NameOfValidModel FilemanDataModel
+@NameOfValidModel SpringBootBackendAngularFrontModel
 @ReplaceStart "<!-- The table section below is generated: Do not modify manually! -->"
 @ReplaceEnd "<!-- The table section above is generated: Do not modify manually! -->"
 
@@ -56,7 +56,8 @@
 					 #set( $AttributeName = $TemplateStringUtility.firstToUpperCase($row1Attribute.name) ) 
 '                    <label for="$row1Attribute.name">$AttributeName</label>
 '					 <br>
-'                    <input id="$row1Attribute.name" type="text" class="form-Control" formControlName="${row1Attribute.name}Control"/>
+	         		 #set( $attribute = $row1Attribute )
+					 #parse("SubTemplate_GuiElements.tpl")
 '                </td>
 '            </tr>
 #end	

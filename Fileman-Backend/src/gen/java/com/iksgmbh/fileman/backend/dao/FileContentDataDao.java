@@ -37,7 +37,6 @@ public class FileContentDataDao
 		if (! match.isPresent()) {
 			return false;
 		}
-
 		fileContentDatas.remove(match.get());
 		fileContentDatas.add(fileContentData);
 		return true;

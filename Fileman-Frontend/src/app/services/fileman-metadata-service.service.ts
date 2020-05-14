@@ -16,7 +16,7 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
 import { FileMetaData } from '../common/domainobjects/gen/FileMetaData';
 import { Observable } from 'rxjs';
@@ -46,7 +46,6 @@ export class FilemanMetadataService {
       return this.getOverviewDataFromServer();
     } else {
       console.log('cache used');
-      this.forceReloadFromServer = false;
       return new Observable(stream =>
         {
           const array: FileMetaData[] = [];
@@ -64,11 +63,15 @@ export class FilemanMetadataService {
     return this.httpClient.get<FileMetaData[]>(this.url)
         .pipe(catchError((error: HttpErrorResponse) => {
           throw error;
+        }), tap(() => {
+          this.forceReloadFromServer = false;
+          console.log("data fetched from server - forceReloadFromServer set to false");
         }));
   }
 
   markDataAsOutdated() {
     this.forceReloadFromServer = true;
+    console.log("data marked as outdated - forceReloadFromServer set to true");
   }
 
   setFileMetaDataCache(cache: any) {

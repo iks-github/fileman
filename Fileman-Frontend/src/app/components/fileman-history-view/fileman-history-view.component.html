@@ -1,17 +1,37 @@
-
+<h3>Content History of file <b><i>{{selectedFile}}</i></b></h3>
+<br>
 <table>
 	<tr style="font-weight:bold; background-color:darkgray;">
-		<td></td>
-		<td></td>
+		<td>Active</td>
+		<td>Order</td>
 		<td>UUID</td>
+		<td>Size</td>
 		<td>Creator</td>
 		<td>Creation Date</td>
 	</tr>
 	<tr *ngFor="let contentVersion of contentVersions; let i = index">
-		<td>{{i+1}}.</td>
-		<td></td>
+		<td align="center">
+		<input type="radio" name="avtive" 
+			   checked="{{isActive(contentVersion.name, contentVersion.uuid)}}"
+			   (click)="setSelected(contentVersion.uuid)"
+		/>
+		</td>
+		<td align="center">{{contentVersions.length - i}}.</td>
 		<td>{{contentVersion.uuid}}</td>
+		<td align="right">{{contentVersion.size}}</td>
 		<td>{{contentVersion.creator}}</td>
 		<td>{{contentVersion.creationDate}}</td>
 	</tr>
 </table>
+
+<br>
+
+<button [hidden]="readOnly" 
+		class="btn btn-primary"
+		(click)="save()"
+>Save</button>
+&nbsp;
+<button type="button" 
+		class="btn btn-primary" 
+		(click)="cancel()"
+>Cancel</button>

@@ -90,6 +90,11 @@ class <<DomainPath>>.FileContentData
     metainfo Mandatory true
     metainfo ExampleData 10101
 
+  attribute size
+    metainfo JavaType Long
+    metainfo Mandatory false
+    metainfo ExampleData 30000
+
   attribute creator
     metainfo JavaType String
     metainfo Mandatory true

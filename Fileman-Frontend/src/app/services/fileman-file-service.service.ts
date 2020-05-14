@@ -33,7 +33,6 @@ export class FilemanFileService {
   }
 
   getHistory(filename: string) {
-        console.log('selectedFile in service: ' + filename);
     return this.httpClient.get(this.url + '/' + filename + '/history', FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }

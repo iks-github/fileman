@@ -47,7 +47,7 @@
 
 		#if ( $attributeDescriptor.doesHaveMetaInfo("unique", "true"))
 '              ],		
-'              this.isNotUnique),
+'              this.isNotUnique.bind(this)),
 		#else
 '              ]),		
 		#end			

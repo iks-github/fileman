@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FileContentData } from 'src/app/common/domainobjects/gen/FileContentData';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 
 @Component({
   selector: 'file-history',
@@ -10,16 +11,20 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FilemanHistoryViewComponent implements OnInit {
 
-  @Input() selectedFile: string;
-  contentVersions : FileContentData[];
+  selectedFile: string;
+  selectedUUID: number;
+  contentVersions: FileContentData[];
   response;
+  readOnly = false;
+  touched = false;
 
   constructor(private fileService: FilemanFileService,
+              private filesMetaDataService: FilemanMetadataService,
+              private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.contentVersions = [] as FileContentData[];
-    console.log('selectedFile from overview: ' + this.selectedFile)
     this.route.params.subscribe((params) => {
       this.selectedFile = params.filename;
     });
@@ -33,4 +38,32 @@ export class FilemanHistoryViewComponent implements OnInit {
 
   }
 
+  isActive(filename: string, uuid: number) {
+    const metadata = this.filesMetaDataService.getFileFromCache(filename);
+    if (metadata != null  && metadata.activeUUID === uuid) {
+      if (this.selectedUUID == null) {this.selectedUUID = uuid};
+      return 'checked';
+    }
+    return '';
+  }
+
+  save() {
+    this.filesMetaDataService.setActive(this.selectedFile, this.selectedUUID);
+    this.backToOverview();
+  }
+
+  setSelected(uuid: number) {
+    if (this.selectedUUID !== uuid) {
+      this.touched = true;
+      this.selectedUUID = uuid;
+    }
+  }
+
+  backToOverview() {
+    this.router.navigate(['/overview']);
+  }
+
+  cancel() {
+    this.backToOverview();
+  }
 }

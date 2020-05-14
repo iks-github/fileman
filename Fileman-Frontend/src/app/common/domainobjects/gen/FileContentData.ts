@@ -4,6 +4,7 @@ export class FileContentData
     uuid: number;
     name: string;
     content: string;
+    size: number;
     creator: string;
     creationDate: string;
 
@@ -12,6 +13,7 @@ export class FileContentData
             this.uuid = untypedFileContentData.uuid;
             this.name = untypedFileContentData.name;
             this.content = untypedFileContentData.content;
+            this.size = untypedFileContentData.size;
             this.creator = untypedFileContentData.creator;
             this.creationDate = untypedFileContentData.creationDate;
         }
@@ -23,6 +25,7 @@ export class FileContentData
            'uuid',
            'name',
            'content',
+           'size',
            'creator',
            'creationDate',
         ];
@@ -38,6 +41,10 @@ export class FileContentData
 
     getContent() {
         return this.content;
+    }
+
+    getSize() {
+        return this.size;
     }
 
     getCreator() {
@@ -61,6 +68,10 @@ export class FileContentData
         this.content = content;
     }
 
+    setSize(size: number) {
+        this.size = size;
+    }
+
     setCreator(creator: string) {
         this.creator = creator;
     }
@@ -77,6 +88,7 @@ export class FileContentData
         if (this.uuid !== obj.uuid) { return false; }
         if (this.name !== obj.name) { return false; }
         if (this.content !== obj.content) { return false; }
+        if (this.size !== obj.size) { return false; }
         if (this.creator !== obj.creator) { return false; }
         if (this.creationDate !== obj.creationDate) { return false; }
 
@@ -89,6 +101,7 @@ export class FileContentData
            'Uuid: ' + this.uuid + '\n' +
            'Name: ' + this.name + '\n' +
            'Content: ' + this.content + '\n' +
+           'Size: ' + this.size + '\n' +
            'Creator: ' + this.creator + '\n' +
            'CreationDate: ' + this.creationDate + '\n';
     }

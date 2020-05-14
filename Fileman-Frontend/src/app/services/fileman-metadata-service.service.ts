@@ -20,35 +20,47 @@ import { catchError } from 'rxjs/operators';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
 import { FileMetaData } from '../common/domainobjects/gen/FileMetaData';
 import { Observable } from 'rxjs';
+import { FilemanConstants } from '../common/fileman-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilemanMetadataService {
   private url: string;
-  private fileMetaDataCache: FileMetaData[] = [];
-  private dataOutdated: boolean = false;
+  private fileMetaDataCache = new Map<string, FileMetaData>();
+  private forceReloadFromServer = false;
 
   constructor(private httpClient: HttpClient,
               private propertiesService: FilemanPropertiesLoaderService) {
     this.url = propertiesService.getProperty('serverurl')  + '/fileMetaDatas';
   }
 
-  getOverviewData(forceReload: boolean): Observable<FileMetaData[]> {
-    if (this.fileMetaDataCache.length > 0 && !this.dataOutdated && !forceReload) {
-      return Observable.create(stream =>
+  reloadOverviewData(): Observable<FileMetaData[]> {
+    this.forceReloadFromServer = true;
+    return this.getOverviewData();
+  }
+
+  getOverviewData(): Observable<FileMetaData[]> {
+    if (this.fileMetaDataCache.size === 0 || this.forceReloadFromServer) {
+      console.log('File data loaded from server.');
+      return this.getOverviewDataFromServer();
+    } else {
+      console.log('cache used');
+      this.forceReloadFromServer = false;
+      return new Observable(stream =>
         {
-          stream.next(this.fileMetaDataCache);
+          const array: FileMetaData[] = [];
+          this.fileMetaDataCache.forEach((dataset) => {
+            array.push(dataset);
+          });
+          stream.next(array);
           stream.complete();
         }
       );
-    } else {
-      return this.getOverviewDataFromServer();
     }
   }
 
   private getOverviewDataFromServer(): Observable<FileMetaData[]> {
-    console.log('##################################   ################')
     return this.httpClient.get<FileMetaData[]>(this.url)
         .pipe(catchError((error: HttpErrorResponse) => {
           throw error;
@@ -56,6 +68,36 @@ export class FilemanMetadataService {
   }
 
   markDataAsOutdated() {
-    this.dataOutdated = true;
+    this.forceReloadFromServer = true;
+  }
+
+  setFileMetaDataCache(cache: any) {
+    this.fileMetaDataCache = cache;
+  }
+
+  isNotUnique(filename: string) {
+    return this.fileMetaDataCache.has(filename);
+  }
+
+  addFileToCache(metadata: FileMetaData) {
+    this.forceReloadFromServer = true;
+    return this.fileMetaDataCache.set(metadata.getName(), metadata);
+  }
+
+  getFileFromCache(filename: string) {
+    return this.fileMetaDataCache.get(filename);
+  }
+
+  removeFileFromCache(metadata: FileMetaData) {
+    this.fileMetaDataCache.delete(metadata.getName());
+  }
+
+  setActive(filename: string, uuid: number) {
+    const uri = this.url + '/' + filename + '/uuid/' + uuid;
+    console.log('setActive-URL: ' + uri);
+    return this.httpClient.put(uri, null, FilemanConstants.getRestCallHeaderOptions())
+        .pipe(catchError((error: HttpErrorResponse) => {
+          throw error;
+        })).subscribe(() => {});
   }
 }

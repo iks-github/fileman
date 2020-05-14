@@ -15,6 +15,7 @@
  */
 package com.iksgmbh.fileman.backend.rest;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -54,8 +55,11 @@ public class FileRestController
 	@PostMapping("/files")
 	public void createFileData(@Valid @RequestBody FileData fileData)
 	{
+		FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
+		if (fileData.getMetaData().getImmediatelyActive() == true) {				
+			fileData.getMetaData().setActiveUUID(newContentVersion.getUuid());
+		}
 		metaDataDao.create(fileData.getMetaData());
-		contentDataDao.create(fileData.getContentData());
 	}
 
 	@PutMapping("/files/{fileName}")
@@ -66,7 +70,10 @@ public class FileRestController
 			throw new ResourceNotFoundException("File '" + fileName +"' + not found.");
 		}
 		if (fileData.getContentData() != null) {
-			contentDataDao.create(fileData.getContentData());
+			FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
+			if (fileData.getMetaData().getImmediatelyActive() == true) {				
+				fileData.getMetaData().setActiveUUID(newContentVersion.getUuid());
+			}
 		}
 		toUpdate.merge(fileData.getMetaData());
 		metaDataDao.update(toUpdate);
@@ -84,7 +91,9 @@ public class FileRestController
 	@GetMapping("/files/{fileName}/history")
 	public List<FileContentData> getHistory(@PathVariable String fileName)
 	{
-		List<FileContentData> toReturn = contentDataDao.findAllForName(fileName);
+		List<FileContentData> matches = contentDataDao.findAllForName(fileName);
+		List<FileContentData> toReturn = new ArrayList<>();
+		matches.forEach(fileContentData -> toReturn.add(0, (FileContentData) fileContentData.clone()));
 		toReturn.forEach(fileContentData -> fileContentData.setContent(null));
 		return toReturn;
 	}

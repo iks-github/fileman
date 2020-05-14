@@ -47,7 +47,6 @@ export class FilemanDetailsComponent implements OnInit {
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
               private fileService: FilemanFileService,
-              private overview: FilemanOverviewComponent,
               private metadataService: FilemanMetadataService) {
       this.form = this.createFormGroup();
       this.reader = new FileReader();
@@ -60,8 +59,9 @@ export class FilemanDetailsComponent implements OnInit {
     if ( ! this.newFileMode ) {
       const index = this.router.url.lastIndexOf('/') + 1;
       const filename = this.router.url.substring(index);
-      const toEdit = this.overview.getFile(filename);
+      const toEdit = this.metadataService.getFileFromCache(filename);
       if (toEdit == null) {
+        alert('No data available for file "' + filename + '"!');
         this.backToOverview();  // no data to edit avaible - happends for page reload - reason unclear
       } else {
         this.setDataToControls(toEdit);
@@ -102,13 +102,13 @@ export class FilemanDetailsComponent implements OnInit {
   save() {
     const fileData = this.getFileDataToSave();
     console.log(fileData);
-    this.overview.addFile(fileData.getMetaData()); // optimistic update
+    this.metadataService.addFileToCache(fileData.getMetaData()); // optimistic update
 
     if (this.newFileMode)
     {
       this.fileService.create(fileData)
           .subscribe(() => {}, error => {
-            this.overview.removeFile(fileData.getMetaData()); // rollback optimistic update
+            this.metadataService.removeFileFromCache(fileData.getMetaData()); // rollback optimistic update
             alert('Error saving new file "' + fileData.getMetaData().getName() + '"!');
           });
     }
@@ -116,7 +116,7 @@ export class FilemanDetailsComponent implements OnInit {
     {
       this.fileService.update(fileData)
           .subscribe(() => {}, error => {
-            this.overview.removeFile(fileData.getMetaData()); // rollback optimistic update
+            this.metadataService.removeFileFromCache(fileData.getMetaData()); // rollback optimistic update
             alert('Error saving new file "' + fileData.getMetaData().getName() + '"!');
           });
 
@@ -138,6 +138,7 @@ export class FilemanDetailsComponent implements OnInit {
       fileContentData.setContent(this.fileContent);
       fileContentData.setName(this.nameC.value);
       fileContentData.setCreator(this.currentUser);
+      fileContentData.setSize(this.selectedFileContentSource.size);
     }
 
 
@@ -185,10 +186,10 @@ export class FilemanDetailsComponent implements OnInit {
   }
 
   isNotUnique(control: AbstractControl): Observable<ValidationErrors | null> {
-    return this.metadataService.getOverviewData(true)
+    return this.metadataService.getOverviewData()
         .pipe(map((metaDataArray: FileMetaData[]) => {
 
-      var foundItem = metaDataArray.find(
+      const foundItem = metaDataArray.find(
         metaDataItem => metaDataItem.name === control.value
       );
 

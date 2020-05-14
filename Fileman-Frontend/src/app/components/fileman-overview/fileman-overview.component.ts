@@ -55,7 +55,7 @@ export class FilemanOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserName = this.authService.getCurrentUserName();
-    this.filesMetaDataService.getOverviewData(false)
+    this.filesMetaDataService.getOverviewData()
         .subscribe(responseData => {this.extractFiles(responseData)});
     this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
     this.favouriteSettingService.getAllFavouriteSettings(this.currentUserName)
@@ -69,19 +69,6 @@ export class FilemanOverviewComponent implements OnInit {
     this.fileMetaAttributeNames = FileMetaData.getAttributeNames();
   }
 
-  addFile(fileMetaData: FileMetaData) {
-    //console.log(this.viewedFiles)
-    this.viewedFiles.push(fileMetaData)
-    this.allFilesMap.set(fileMetaData.getName(), fileMetaData);
-    //console.log(this.viewedFiles)
-  }
-
-  removeFile(fileMetaData: FileMetaData) {
-    this.allFilesMap.delete(fileMetaData.getName());
-    const index = this.viewedFiles.indexOf(fileMetaData);
-    this.viewedFiles.splice(index, 1)
-  }
-
   onLayoutClick(layoutType) {
     this.layoutType = layoutType;
   }
@@ -93,8 +80,7 @@ export class FilemanOverviewComponent implements OnInit {
   onReloadClick() {
     this.allFilesMap.clear();
     this.viewedFiles = [] as FileMetaData[];
-    console.log('Cleared!');
-    this.filesMetaDataService.getOverviewData(true)
+    this.filesMetaDataService.reloadOverviewData()
         .subscribe(responseData => {this.extractFiles(responseData)});
   }
 
@@ -106,6 +92,7 @@ export class FilemanOverviewComponent implements OnInit {
       this.allFilesMap.set(dataset.getName(), dataset)
     });
     this.viewedFiles = Utils.sortList(this.viewedFiles);
+    this.filesMetaDataService.setFileMetaDataCache(this.allFilesMap); 
   }
 
   onLogoutClick() {
@@ -120,10 +107,6 @@ export class FilemanOverviewComponent implements OnInit {
 
   edit(file: HTMLInputElement) {
     this.router.navigate(['/details/' + file.name]);
-  }
-
-  getFile(filename: string): FileMetaData {
-    return this.allFilesMap.get(filename);
   }
 
   onFavouriteFilterClick(isFilterOn: boolean) {

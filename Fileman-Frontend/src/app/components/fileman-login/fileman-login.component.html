@@ -15,27 +15,41 @@
             
             <br>
 
-            <div class="form-group">
-                <label for="userId">User ID</label>
-                &nbsp;
-                <input required minlength="3" maxlength="32" 
-                    ngModel name="userId" #userIdControl="ngModel" 
-                    id="userId" type="text" class="form-Control"/>
-                <div class="alert alert-danger" 
-                    *ngIf="userIdControl.touched && !userIdControl.valid">
-                    <div *ngIf="userIdControl.errors.minlength"> 
-                        The {{userIdControl.name}} must exceed {{ userIdControl.errors.minlength.requiredLength}} characters.
-                    </div>
-                    <div *ngIf="userIdControl.errors.required">
-                        This field is required.
-                    </div>
-                </div>
-            </div>
+            <table>
+                <tr class="form-group">
+                    <td>
+                        <label for="userId">User ID</label>
+                    </td>
+                    <td>
+                        <input required minlength="3" maxlength="32" 
+                            ngModel name="userId" #userIdControl="ngModel" 
+                            id="userId" type="text" class="form-Control"/>
+                    </td>
+                </tr>
 
-            <div class="form-group">
-                <label for="userPw">Password</label>
-                &nbsp;
-                <input ngModel name="userPw" id="userPw" type="text" class="form-Control"/>
+                <tr>&nbsp;</tr>
+
+                <tr class="form-group">
+                    <td>
+                        <label for="userPw">Password&nbsp;&nbsp;</label>
+                    </td>
+                    <td>
+                        <input ngModel name="userPw" id="userPw" type="text" class="form-Control"/>
+                    </td>
+                </tr>
+
+                <tr>&nbsp;</tr>
+
+            </table>
+
+            <div class="alert alert-danger" 
+                *ngIf="userIdControl.touched && !userIdControl.valid">
+                <div *ngIf="userIdControl.errors.minlength"> 
+                    The {{userIdControl.name}} must exceed {{ userIdControl.errors.minlength.requiredLength}} characters.
+                </div>
+                <div *ngIf="userIdControl.errors.required">
+                    This field is required.
+                </div>
             </div>
             
             <button class="btn btn-primary" 

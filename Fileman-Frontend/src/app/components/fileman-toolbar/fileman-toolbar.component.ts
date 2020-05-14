@@ -54,7 +54,7 @@ export class FilemanToolbarComponent implements OnInit {
 
   onNewClick() {
     if (! this.readOnly) {
-      this.router.navigate(['/new']);
+      this.router.navigate(['/fileman/files/new']);
     }
   }
 

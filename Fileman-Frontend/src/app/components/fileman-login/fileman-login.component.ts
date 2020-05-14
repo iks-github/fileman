@@ -42,7 +42,7 @@ export class FilemanLoginComponent implements OnInit {
                         localStorage.setItem('token', authData.authToken);
                         console.log('Logged in!');
                         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-                        this.router.navigate([returnUrl || '/overview']);
+                        this.router.navigate([returnUrl || '/fileman/overview']);
                       } else {
                         formControl.form.setErrors({invalidLogin: true});  // wirft runtime fehler, warum ??
                       }

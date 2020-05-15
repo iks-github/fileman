@@ -76,7 +76,8 @@
             </div>
         </div>
 
-        <button [hidden]="readOnly"
+        <button *ngIf="!readOnly"
+                [disabled]="(!fileContentC.touched && !metaDataForm.touched) || metaDataForm.invalid || fileContentC.invalid || fileContentC.value.length == 0" 
                 class="button btn btn-primary"
                 type="submit"
                 data-toggle="tooltip" title="{{getToolTip()}}"

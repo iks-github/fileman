@@ -21,6 +21,7 @@ export class FilemanHistoryViewComponent implements OnInit {
 
   constructor(private fileService: FilemanFileService,
               private filesMetaDataService: FilemanMetadataService,
+              private metadataService: FilemanMetadataService,
               private authService: FilemanAuthserviceService,
               private router: Router,
               private route: ActivatedRoute) { }
@@ -52,6 +53,7 @@ export class FilemanHistoryViewComponent implements OnInit {
 
   save() {
     this.filesMetaDataService.setActive(this.selectedFile, this.selectedUUID);
+    this.metadataService.markDataAsOutdated();
     this.backToOverview();
   }
 

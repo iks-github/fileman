@@ -50,9 +50,13 @@ export class FilemanOverviewComponent implements OnInit {
               private authService: FilemanAuthserviceService,
               private filesMetaDataService: FilemanMetadataService,
               private favouriteSettingService: FilemanFavouriteSettingsService,
-              private fileService: FilemanFileService) {}
+              private fileService: FilemanFileService) {
+                    console.log('########### overview constr')
+
+              }
 
   ngOnInit(): void {
+    console.log('### overview init')
     this.currentUserName = this.authService.getCurrentUserName();
     this.filesMetaDataService.getOverviewData()
         .subscribe(responseData => {this.extractFiles(responseData)});

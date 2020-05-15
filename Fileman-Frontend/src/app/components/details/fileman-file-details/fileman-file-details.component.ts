@@ -173,7 +173,9 @@ export class FilemanDetailsComponent implements OnInit {
     if (this.selectedFileContentSource != null && this.metaDataToEdit != null) {
       const techType = Utils.getFileExtension(this.selectedFileContentSource.name);
       this.techTypeMismatch = techType !== this.metaDataToEdit.getTechType();
-      if (this.techTypeMismatch) { this.fileContentC.setErrors({invalid: true}); }
+      if (this.techTypeMismatch) {
+        this.fileContentC.setErrors({invalid: true});
+      }
     }
   }
 

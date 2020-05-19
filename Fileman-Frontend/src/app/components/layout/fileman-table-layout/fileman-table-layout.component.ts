@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { SortType } from 'src/app/common/fileman-constants';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'fileman-table-layout',
@@ -8,13 +9,17 @@ import { SortType } from 'src/app/common/fileman-constants';
 })
 export class FilemanTableLayout {
   @Input() viewedFiles;
+  @Output() fileDownloaded: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
+  @Output() fileEdited: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
+  @Output() fileDeleted: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
+  @Output() fileHistoryShown: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
+  @Output() fileMarkedAsFavourite: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
+  openPullDowns: Array<MatSelect> = new Array<MatSelect>();
+
+  constructor(private elementRef: ElementRef) {}
 
   trackFiles(index, file) {
     return file ? file.uuid : undefined;
-  }
-
-  openPullDown(file: HTMLInputElement) {
-    // TODO
   }
 
   sort(event) {
@@ -54,5 +59,38 @@ export class FilemanTableLayout {
       index++;
     }
     return null;
+  }
+
+  onPullDownOpened(pullDown: MatSelect) {
+    if (pullDown.panel != null) {
+      this.openPullDowns.push(pullDown);
+    }
+  }
+
+  closeOpenPullDowns() {
+    for (let pullDown of this.openPullDowns) {
+      pullDown.close();
+    }
+    this.openPullDowns.splice(0, this.openPullDowns.length)
+  }
+
+  download(file: HTMLInputElement) {
+    this.fileDownloaded.emit(file);
+  }
+
+  edit(file: HTMLInputElement) {
+    this.fileEdited.emit(file);
+  }
+
+  delete(file: HTMLInputElement) {
+    this.fileDeleted.emit(file);
+  }
+
+  showHistory(file: HTMLInputElement) {
+    this.fileHistoryShown.emit(file);
+  }
+
+  markFavourite(file: HTMLInputElement) {
+    this.fileMarkedAsFavourite.emit(file);
   }
 }

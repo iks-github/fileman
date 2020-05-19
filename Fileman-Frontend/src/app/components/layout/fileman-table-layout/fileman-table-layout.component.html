@@ -38,7 +38,22 @@
     </tr>
     <tr *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index">
         <td>{{i+1}}.</td>
-        <td><mat-icon data-toggle="tooltip" title="ToDo: Open Action Menu" (click)="openPullDown(file)">more_vert</mat-icon></td>
+        <td>
+          <mat-icon data-toggle="tooltip" title="Open Action Menu" (click)="pullDown.open()">more_vert</mat-icon>
+          <mat-form-field class="hidden-form-field">
+            <mat-select
+              #pullDown
+              (opened)="onPullDownOpened(pullDown)"
+              filemanOutsideClickListener
+              (clickedOutside)="closeOpenPullDowns()">
+              <mat-option (click)="download(file)">Download</mat-option>
+              <mat-option (click)="edit(file)">Edit</mat-option>
+              <mat-option (click)="delete(file)">Delete</mat-option>
+              <mat-option (click)="showHistory(file)">Show History</mat-option>
+              <mat-option (click)="markFavourite(file)">Mark As Favourite</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
           <td>{{file.name}}</td>
           <td>{{file.description}}</td>
           <td>{{file.activeUUID}}</td>

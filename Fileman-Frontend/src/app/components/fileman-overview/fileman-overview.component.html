@@ -33,7 +33,14 @@
         </fileman-list-layout>
     </div>
     <div *ngSwitchCase="'table'">
-        <fileman-table-layout [viewedFiles]="viewedFiles"></fileman-table-layout>
+        <fileman-table-layout
+          [viewedFiles]="viewedFiles"
+          (fileDownloaded)="download($event)"
+          (fileEdited)="edit($event)"
+          (fileDeleted)="delete($event)"
+          (fileHistoryShown)="showHistory($event)"
+          (fileMarkedAsFavourite)="markFavourite($event)">
+        </fileman-table-layout>
     </div>
     <div *ngSwitchCase="'tiles'">
         ToDo: implement tiles layout

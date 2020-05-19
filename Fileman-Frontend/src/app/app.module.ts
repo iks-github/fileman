@@ -20,6 +20,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing/';
 import { FormatDateDirective } from './directives/format-date.directive';
+import { OutsideClickListenerDirective } from './directives/outside-click-listener.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MydatePipe } from './directives/mydate.pipe';
@@ -28,6 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AuthGuard } from './services/guard/auth-guard.service';
 import { AdminAuthGuard } from './services/guard/admin-auth-guard.service';
@@ -52,6 +54,7 @@ import { FilemanTableLayout } from './components/layout/fileman-table-layout/fil
     AppComponent,
     MydatePipe,
     FormatDateDirective,
+    OutsideClickListenerDirective,
     FilemanLoginComponent,
     FilemanDetailsComponent,
     FilemanOverviewComponent,
@@ -64,7 +67,7 @@ import { FilemanTableLayout } from './components/layout/fileman-table-layout/fil
     FilemanTableLayout
   ],
   imports: [
-    MatIconModule, MatTooltipModule, MatFormFieldModule, MatInputModule,
+    MatIconModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule,
     FormsModule, ReactiveFormsModule,
     BrowserModule, BrowserAnimationsModule,
     HttpClientModule,

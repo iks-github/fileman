@@ -47,8 +47,8 @@
               filemanOutsideClickListener
               (clickedOutside)="closeOpenPullDowns()">
               <mat-option (click)="download(file)">Download</mat-option>
-              <mat-option (click)="edit(file)">Edit</mat-option>
-              <mat-option (click)="delete(file)">Delete</mat-option>
+              <mat-option *ngIf="!readOnly" (click)="edit(file)">Edit</mat-option>
+              <mat-option *ngIf="!readOnly" (click)="delete(file)">Delete</mat-option>
               <mat-option (click)="showHistory(file)">Show History</mat-option>
               <mat-option (click)="markFavourite(file)">Mark As Favourite</mat-option>
             </mat-select>

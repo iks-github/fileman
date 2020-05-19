@@ -35,6 +35,7 @@
     <div *ngSwitchCase="'table'">
         <fileman-table-layout
           [viewedFiles]="viewedFiles"
+          [readOnly]="readOnly"
           (fileDownloaded)="download($event)"
           (fileEdited)="edit($event)"
           (fileDeleted)="delete($event)"

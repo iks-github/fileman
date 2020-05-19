@@ -9,6 +9,7 @@ import { MatSelect } from '@angular/material/select';
 })
 export class FilemanTableLayout {
   @Input() viewedFiles;
+  @Input() readOnly;
   @Output() fileDownloaded: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
   @Output() fileEdited: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
   @Output() fileDeleted: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();

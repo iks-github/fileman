@@ -110,8 +110,8 @@ export class FilemanTableLayout {
 
   getFavouriteButtonText(filename: string) {
     if (this.isFileFavourite(filename)) {
-      return 'Remove Favourite Setting';
+      return 'Deselect as Favourite';
     }
-    return 'Mark as Favourite';
+    return 'Select as Favourite';
   }
 }

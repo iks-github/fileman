@@ -9,6 +9,7 @@ import { MatSelect } from '@angular/material/select';
 })
 export class FilemanTableLayout {
   @Input() viewedFiles;
+  @Input() favouriteSettings;
   @Input() readOnly;
   @Output() fileDownloaded: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
   @Output() fileEdited: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
@@ -62,6 +63,18 @@ export class FilemanTableLayout {
     return null;
   }
 
+  favouriteAsterix(file: HTMLInputElement) {
+    console.log(file.name)
+    if (this.isFileFavourite(file.name)) {
+      return '*';
+    }
+    return '';
+  }
+
+  private isFileFavourite(filename) {
+    return this.favouriteSettings.has(filename);
+  }
+
   onPullDownOpened(pullDown: MatSelect) {
     if (pullDown.panel != null) {
       this.openPullDowns.push(pullDown);
@@ -91,7 +104,14 @@ export class FilemanTableLayout {
     this.fileHistoryShown.emit(file);
   }
 
-  markFavourite(file: HTMLInputElement) {
+  changeFavouriteSetting(file: HTMLInputElement) {
     this.fileMarkedAsFavourite.emit(file);
+  }
+
+  getFavouriteButtonText(filename: string) {
+    if (this.isFileFavourite(filename)) {
+      return 'Remove Favourite Setting';
+    }
+    return 'Mark as Favourite';
   }
 }

@@ -50,11 +50,11 @@
               <mat-option *ngIf="!readOnly" (click)="edit(file)">Edit</mat-option>
               <mat-option *ngIf="!readOnly" (click)="delete(file)">Delete</mat-option>
               <mat-option (click)="showHistory(file)">Show History</mat-option>
-              <mat-option (click)="markFavourite(file)">Mark As Favourite</mat-option>
+          <mat-option (click)="changeFavouriteSetting(file)">{{getFavouriteButtonText(file.name)}}</mat-option>
             </mat-select>
           </mat-form-field>
         </td>
-          <td>{{file.name}}</td>
+          <td [ngStyle]="{'font-weight': isFileFavourite(file.name) ? 'bold' : ''}">{{file.name}} {{favouriteAsterix(file)}}</td>
           <td>{{file.description}}</td>
           <td>{{file.activeUUID}}</td>
           <td>{{file.immediatelyActive}}</td>
@@ -64,4 +64,5 @@
           <td>{{file.size}}</td>
     </tr>
 </table>
+<b>* Favourite Files</b>
   <!-- The table section above is generated: Do not modify manually! -->

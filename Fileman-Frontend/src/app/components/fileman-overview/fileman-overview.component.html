@@ -29,7 +29,7 @@
           (fileEdited)="edit($event)"
           (fileDeleted)="delete($event)"
           (fileHistoryShown)="showHistory($event)"
-          (fileMarkedAsFavourite)="markFavourite($event)">
+          (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-list-layout>
     </div>
     <div *ngSwitchCase="'table'">
@@ -41,7 +41,7 @@
           (fileEdited)="edit($event)"
           (fileDeleted)="delete($event)"
           (fileHistoryShown)="showHistory($event)"
-          (fileMarkedAsFavourite)="markFavourite($event)">
+          (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-table-layout>
     </div>
     <div *ngSwitchCase="'tiles'">

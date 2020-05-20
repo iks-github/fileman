@@ -16,7 +16,7 @@
     <mat-icon data-toggle="tooltip" title="Show History" (click)="showHistory(file)">layers</mat-icon>
     &nbsp;
 
-    <mat-icon data-toggle="tooltip" title="{{getFavouriteTooltip(file)}}" (click)="markFavourite(file)"
+    <mat-icon data-toggle="tooltip" title="{{getFavouriteTooltip(file)}}" (click)="changeFavouriteSetting(file)"
         [ngStyle]="{'blue': 'yellow', 'backgroundColor': 'lavender'}">{{getFavouriteIcon(file)}}</mat-icon>
     &nbsp;
     <span data-toggle="tooltip" title="{{getDetailsTooltip(file)}}" data-html="true">

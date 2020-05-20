@@ -1,28 +1,16 @@
-import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
-import { SortType } from 'src/app/common/fileman-constants';
+import { Component } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
+
+import { SortType } from 'src/app/common/fileman-constants';
+import { LayoutCommons } from '../layout-commons';
 
 @Component({
   selector: 'fileman-table-layout',
   templateUrl: './fileman-table-layout.component.html',
   styleUrls: ['./fileman-table-layout.component.css']
 })
-export class FilemanTableLayout {
-  @Input() viewedFiles;
-  @Input() favouriteSettings;
-  @Input() readOnly;
-  @Output() fileDownloaded: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-  @Output() fileEdited: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-  @Output() fileDeleted: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-  @Output() fileHistoryShown: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-  @Output() fileMarkedAsFavourite: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
+export class FilemanTableLayout extends LayoutCommons {
   openPullDowns: Array<MatSelect> = new Array<MatSelect>();
-
-  constructor(private elementRef: ElementRef) {}
-
-  trackFiles(index, file) {
-    return file ? file.uuid : undefined;
-  }
 
   sort(event) {
     const sortList = this.viewedFiles;
@@ -71,10 +59,6 @@ export class FilemanTableLayout {
     return '';
   }
 
-  private isFileFavourite(filename) {
-    return this.favouriteSettings.has(filename);
-  }
-
   onPullDownOpened(pullDown: MatSelect) {
     if (pullDown.panel != null) {
       this.openPullDowns.push(pullDown);
@@ -86,26 +70,6 @@ export class FilemanTableLayout {
       pullDown.close();
     }
     this.openPullDowns.splice(0, this.openPullDowns.length)
-  }
-
-  download(file: HTMLInputElement) {
-    this.fileDownloaded.emit(file);
-  }
-
-  edit(file: HTMLInputElement) {
-    this.fileEdited.emit(file);
-  }
-
-  delete(file: HTMLInputElement) {
-    this.fileDeleted.emit(file);
-  }
-
-  showHistory(file: HTMLInputElement) {
-    this.fileHistoryShown.emit(file);
-  }
-
-  changeFavouriteSetting(file: HTMLInputElement) {
-    this.fileMarkedAsFavourite.emit(file);
   }
 
   getFavouriteButtonText(filename: string) {

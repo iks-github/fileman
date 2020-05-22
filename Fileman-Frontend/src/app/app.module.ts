@@ -74,6 +74,7 @@ import { FilemanTableLayout } from './components/layout/fileman-table-layout/fil
     BrowserModule, BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot([
+      {path: '', redirectTo: '/fileman', pathMatch: 'full'},
       {path: 'fileman', component: FilemanLoginComponent},
       {path: 'fileman/login', component: FilemanLoginComponent},
       {path: 'fileman/overview', component: FilemanOverviewComponent, canActivate: [AuthGuard]},

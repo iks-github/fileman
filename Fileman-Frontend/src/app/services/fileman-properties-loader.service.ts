@@ -1,12 +1,12 @@
 /*
  * Copyright 2020 IKS Gesellschaft fuer Informations- und Kommunikationssysteme mbH
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,6 +15,8 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
+import { environment } from '../../environments/environment';
 
 type Item = { id: string, name: string };
 
@@ -28,23 +30,14 @@ export class FilemanPropertiesLoaderService {
 
   constructor(private http: HttpClient) {
     this.properties = new Map();
-    this.properties.set('serverurl', 'http://localhost:10002/fileman');
-      // this.http.get('file:///C:/dev/eclipse/workspaces/Angular/Fileman-Frontend/src/properties.json')
-      //   .subscribe((data: Item[]) => {
-      //     this.items = data;
-      //     this.items.forEach(item => {this.properties.set(item.id, item.name)});
-      //     console.log(data);
-      //     console.log(this.properties);
-      //   });
+    this.properties.set('serverurl', environment.serverUrl);
   }
 
-  getProperties(): Map<string, string> 
-  {
+  getProperties(): Map<string, string> {
     return this.properties;
   }
 
   public getProperty(key) {
     return this.getProperties().get(key);
   }
-
 }

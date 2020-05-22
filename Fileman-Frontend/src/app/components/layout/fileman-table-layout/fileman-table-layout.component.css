@@ -1,9 +1,3 @@
-.mat-icon {
-  color: blue;
-  background: lightgoldenrodyellow;
-  cursor: pointer;
-}
-
 table, th, td {
   border: 1px solid grey;
   border-collapse: collapse;
@@ -18,10 +12,21 @@ table tr:nth-child(even) {
   background-color: #ffffff;
 }
 
+.mat-icon {
+  color: blue;
+  background: lightgoldenrodyellow;
+  cursor: pointer;
+}
+
 .hidden-form-field {
   visibility: hidden;
   height: 0px;
   width: 0px;
+}
+
+fileman-sorticon {
+  vertical-align: middle;
+  display: inline-block;
 }
 
 ::ng-deep div.mat-select-arrow-wrapper {

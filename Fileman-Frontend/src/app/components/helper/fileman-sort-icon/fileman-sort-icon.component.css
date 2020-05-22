@@ -3,4 +3,8 @@
     background: lightgoldenrodyellow;
     cursor: pointer;
     font-size: 95%;
+    height: 12px;
+    text-align: center;
+    display: block;
+    margin: 2px;
 }

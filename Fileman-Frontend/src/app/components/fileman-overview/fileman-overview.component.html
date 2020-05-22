@@ -1,6 +1,4 @@
-<fileman-toolbar [layoutMode]="'list'"
-                 [isFavouriteFilterActive]="false"
-                 (output-alias)="onLayoutClick($event)"
+<fileman-toolbar [isFavouriteFilterActive]="false"
                  (logoutHandler)="onLogoutClick()"
                  (refreshHandler)="onReloadClick()"
                  (favouriteFilterHandler)="onFavouriteFilterClick($event)"
@@ -19,7 +17,7 @@
 </div>
 
 <div [ngSwitch]="layoutType">
-    <div *ngSwitchCase="'list'">
+    <div *ngSwitchCase="layoutTypeList">
         <fileman-list-layout
           [viewedFiles]="viewedFiles"
           [allFilesMap]="allFilesMap"
@@ -32,7 +30,7 @@
           (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-list-layout>
     </div>
-    <div *ngSwitchCase="'table'">
+    <div *ngSwitchCase="layoutTypeTable">
         <fileman-table-layout
           [viewedFiles]="viewedFiles"
           [favouriteSettings]="favouriteSettings"
@@ -44,7 +42,7 @@
           (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-table-layout>
     </div>
-    <div *ngSwitchCase="'tiles'">
+    <div *ngSwitchCase="layoutTypeTiles">
         ToDo: implement tiles layout
    </div>
 </div>

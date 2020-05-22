@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 import { FilemanError } from 'src/app/common/errors/fileman-error';
 import { FilemanNotfoundError } from 'src/app/common/errors/fileman-not-found-error';
@@ -26,14 +26,22 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { saveAs } from 'file-saver';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { Utils } from 'src/app/common/Utils';
+import { FilemanConstants } from 'src/app/common/fileman-constants';
+import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'fileman-overview',
   templateUrl: './fileman-overview.component.html',
   styleUrls: ['./fileman-overview.component.css']
 })
-export class FilemanOverviewComponent implements OnInit {
-  layoutType = 'list';
+export class FilemanOverviewComponent implements OnInit, OnDestroy {
+  readonly layoutTypeList: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_LIST;
+  readonly layoutTypeTable: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_TABLE;
+  readonly layoutTypeTiles: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_TILES;
+
+  layoutType: string;
+  layoutTypeSubscription: Subscription;
   responseData;
   allFilesMap = new Map<string, FileMetaData>();
   viewedFiles = [] as FileMetaData[];
@@ -50,7 +58,8 @@ export class FilemanOverviewComponent implements OnInit {
               private authService: FilemanAuthserviceService,
               private filesMetaDataService: FilemanMetadataService,
               private favouriteSettingService: FilemanFavouriteSettingsService,
-              private fileService: FilemanFileService) {
+              private fileService: FilemanFileService,
+              private componentStateService: FilemanComponentStateService) {
                     console.log('########### overview constr')
 
               }
@@ -70,6 +79,13 @@ export class FilemanOverviewComponent implements OnInit {
                                     })
                                 });
     this.fileMetaAttributeNames = FileMetaData.getAttributeNames();
+    this.layoutType = this.componentStateService.getOverviewLayoutType();
+    this.layoutTypeSubscription =
+      this.componentStateService.getOverviewLayoutTypeChangeNotifier().subscribe(
+        (overviewLayout: string) => {
+          this.layoutType = overviewLayout;
+        }
+      )
   }
 
   onLayoutClick(layoutType) {
@@ -95,7 +111,7 @@ export class FilemanOverviewComponent implements OnInit {
       this.allFilesMap.set(dataset.getName(), dataset)
     });
     this.viewedFiles = Utils.sortList(this.viewedFiles);
-    this.filesMetaDataService.setFileMetaDataCache(this.allFilesMap); 
+    this.filesMetaDataService.setFileMetaDataCache(this.allFilesMap);
   }
 
   onLogoutClick() {
@@ -212,5 +228,9 @@ export class FilemanOverviewComponent implements OnInit {
             }
           }
         );
+  }
+
+  ngOnDestroy() {
+    this.layoutTypeSubscription.unsubscribe();
   }
 }

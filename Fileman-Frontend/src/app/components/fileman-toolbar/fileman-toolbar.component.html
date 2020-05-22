@@ -5,31 +5,31 @@
     &nbsp;|&nbsp;
 
     <mat-icon data-toggle="tooltip" title="Change to List Layout"
-              (click)="onLayoutClick('list')"
+              (click)="onLayoutClick(layoutTypeList)"
               [ngStyle]="{
-              'color': layoutType === 'list' ? '#777777' : 'lightgoldenrodyellow',
-              'backgroundColor': layoutType === 'list' ? 'lightgray' : 'blue'}">
+              'color': layoutType === layoutTypeList ? '#777777' : 'lightgoldenrodyellow',
+              'backgroundColor': layoutType === layoutTypeList ? 'lightgray' : 'blue'}">
               list
     </mat-icon>
     <mat-icon data-toggle="tooltip" title="Change to Table Layout"
-              (click)="onLayoutClick('table')"
-              disabled="layoutType.equals('table')"
+              (click)="onLayoutClick(layoutTypeTable)"
+              disabled="layoutType.equals(layoutTypeTable)"
               [ngStyle]="{
-              'color': layoutType === 'table' ? '#777777' : 'lightgoldenrodyellow',
-              'backgroundColor': layoutType === 'table' ? 'lightgray' : 'blue'}">
+              'color': layoutType === layoutTypeTable ? '#777777' : 'lightgoldenrodyellow',
+              'backgroundColor': layoutType === layoutTypeTable ? 'lightgray' : 'blue'}">
               border_all
     </mat-icon>
     <mat-icon data-toggle="tooltip" title="Change to Tiles Layout"
-              (click)="onLayoutClick('tiles')"
-              disabled="layoutType.equals('tiles')"
+              (click)="onLayoutClick(layoutTypeTiles)"
+              disabled="layoutType.equals(layoutTypeTiles)"
               [ngStyle]="{
-              'color': layoutType === 'tiles' ? '#777777' : 'lightgoldenrodyellow',
-              'backgroundColor': layoutType === 'tiles' ? 'lightgray' : 'blue'}">
+              'color': layoutType === layoutTypeTiles ? '#777777' : 'lightgoldenrodyellow',
+              'backgroundColor': layoutType === layoutTypeTiles ? 'lightgray' : 'blue'}">
               view_module
     </mat-icon>
 
     &nbsp;|&nbsp;
-    
+
     <mat-icon data-toggle="tooltip" title="{{getAddNewToolTip()}}"
               (click)="onNewClick()"
               [ngStyle]="{
@@ -45,10 +45,10 @@
     &nbsp;|&nbsp;
 
     <mat-icon data-toggle="tooltip" title="Type text to search for file(s)" style="color: gray; background: lavender;"
-    >find_in_page</mat-icon> 
+    >find_in_page</mat-icon>
 
-    <input type="text" #searchString 
-           (keyup)="startSearch(searchString.value)" 
+    <input type="text" #searchString
+           (keyup)="startSearch(searchString.value)"
            [ngStyle]="{'max-width.px': 200}"
            style="background: lavender;">
 
@@ -56,14 +56,14 @@
               (click)="onFavouriteFilterClick()"
               [ngStyle]="{
               'color': 'blue',
-              'backgroundColor': 'lavender'}"> 
+              'backgroundColor': 'lavender'}">
         {{favouriteFilterIcon}}
     </mat-icon>
 
     <span *ngIf="isAdmin">
         &nbsp;|&nbsp;
         <mat-icon data-toggle="tooltip" title="Select content of overview" style="color: gray; background: lightyellow;"
-        >settings_application</mat-icon> 
+        >settings_application</mat-icon>
         <select id="contentType" style="background: lightyellow;">
             <option [value]="'Files'">Files</option>
             <option [value]="'Users'">Users</option>

@@ -1,12 +1,12 @@
 /*
  * Copyright 2020 IKS Gesellschaft fuer Informations- und Kommunikationssysteme mbH
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,6 +17,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { Router } from '@angular/router';
 import { FilemanConstants } from 'src/app/common/fileman-constants';
+import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
 
 @Component({
   selector: 'fileman-toolbar',
@@ -24,11 +25,11 @@ import { FilemanConstants } from 'src/app/common/fileman-constants';
   styleUrls: ['./fileman-toolbar.component.css']
 })
 export class FilemanToolbarComponent implements OnInit {
+  readonly layoutTypeList: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_LIST;
+  readonly layoutTypeTable: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_TABLE;
+  readonly layoutTypeTiles: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_TILES;
 
-  @Input() layoutMode = 'list';
   @Input() isFavouriteFilterActive = false;
-
-  @Output('output-alias') layoutChangeHandler = new EventEmitter();
   @Output() logoutHandler = new EventEmitter();
   @Output() searchHandler = new EventEmitter();
   @Output() refreshHandler = new EventEmitter();
@@ -36,20 +37,22 @@ export class FilemanToolbarComponent implements OnInit {
 
   readOnly: boolean;
   isAdmin: boolean;
+  layoutType: string;
   favouriteFilterIcon = FilemanConstants.ICON_FAVOURITE_FILTER_INACTIVE;
-  layoutType = 'list';
 
   constructor(private authService: FilemanAuthserviceService,
-              private router: Router) { }
+              private router: Router,
+              private componentStateService: FilemanComponentStateService) { }
 
   ngOnInit(): void {
     this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
     this.isAdmin = this.authService.getCurrentUserRole() === 'Admin';
+    this.layoutType = this.componentStateService.getOverviewLayoutType();
   }
 
   onLayoutClick(layoutType: string) {
     this.layoutType = layoutType;
-    this.layoutChangeHandler.emit(layoutType);
+    this.componentStateService.setOverviewLayoutType(layoutType);
   }
 
   onNewClick() {
@@ -84,5 +87,4 @@ export class FilemanToolbarComponent implements OnInit {
     if (this.readOnly) return "You have no permission to add new files.";
     return "Add new file";
   }
-
 }

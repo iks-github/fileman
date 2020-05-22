@@ -1,5 +1,21 @@
+mat-toolbar {
+  height: 50px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .mat-icon {
-    color: lightgoldenrodyellow;
-    background: blue;
-    cursor: pointer;
+  color: lightgoldenrodyellow;
+  background: blue;
+  cursor: pointer;
+}
+
+.separator {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }

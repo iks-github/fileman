@@ -30,6 +30,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AuthGuard } from './services/guard/auth-guard.service';
 import { AdminAuthGuard } from './services/guard/admin-auth-guard.service';
@@ -67,7 +68,8 @@ import { FilemanTableLayout } from './components/layout/fileman-table-layout/fil
     FilemanTableLayout
   ],
   imports: [
-    MatIconModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule,
+    MatIconModule, MatTooltipModule, MatFormFieldModule,
+    MatInputModule, MatSelectModule, MatToolbarModule,
     FormsModule, ReactiveFormsModule,
     BrowserModule, BrowserAnimationsModule,
     HttpClientModule,

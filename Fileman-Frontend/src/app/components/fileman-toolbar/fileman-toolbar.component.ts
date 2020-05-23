@@ -16,7 +16,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { Router } from '@angular/router';
-import { FilemanConstants } from 'src/app/common/fileman-constants';
+import { FilemanConstants, Layout } from 'src/app/common/fileman-constants';
 import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
 
 @Component({
@@ -25,9 +25,9 @@ import { FilemanComponentStateService } from 'src/app/services/fileman-component
   styleUrls: ['./fileman-toolbar.component.css']
 })
 export class FilemanToolbarComponent implements OnInit {
-  readonly layoutTypeList: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_LIST;
-  readonly layoutTypeTable: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_TABLE;
-  readonly layoutTypeTiles: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_TILES;
+  readonly layoutTypeList: string = Layout.List;
+  readonly layoutTypeTable: string = Layout.Table;
+  readonly layoutTypeTiles: string = Layout.Tiles;
 
   @Input() isFavouriteFilterActive = false;
   @Output() logoutHandler = new EventEmitter();

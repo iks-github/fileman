@@ -18,15 +18,14 @@ import { HttpHeaders } from '@angular/common/http';
 // import * as data from './properties.json';
 
 export enum SortType {ASC = 'asc', DESC = 'desc'}
+export enum Layout {List = 'overview_layout_type_list', 
+                    Table = 'overview_layout_type_table',
+                    Tiles = 'overview_layout_type_tiles'}
 
 export class FilemanConstants
 {
   static ICON_FAVOURITE_FILTER_ACTIVE: string = 'star';
   static ICON_FAVOURITE_FILTER_INACTIVE: string = 'star_border';
-
-  static OVERVIEW_LAYOUT_TYPE_LIST: string = 'overview_layout_type_list';
-  static OVERVIEW_LAYOUT_TYPE_TABLE: string = 'overview_layout_type_table';
-  static OVERVIEW_LAYOUT_TYPE_TILES: string = 'overview_layout_type_tiles';
 
   public static getRestCallHeaderOptions() {
     const headers = new HttpHeaders({

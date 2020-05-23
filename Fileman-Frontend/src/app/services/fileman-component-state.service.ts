@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { FilemanConstants } from '../common/fileman-constants';
+import { FilemanConstants, Layout } from '../common/fileman-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilemanComponentStateService {
 
-  private overviewLayoutType: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_LIST;
+  private overviewLayoutType: string = Layout.List;
   private overviewLayoutTypeChangeNotifier: Subject<string> = new Subject<string>();
 
   public getOverviewLayoutType(): string {

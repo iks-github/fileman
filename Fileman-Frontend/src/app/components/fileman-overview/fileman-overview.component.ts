@@ -26,7 +26,7 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { saveAs } from 'file-saver';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { Utils } from 'src/app/common/Utils';
-import { FilemanConstants } from 'src/app/common/fileman-constants';
+import { FilemanConstants, Layout } from 'src/app/common/fileman-constants';
 import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
 import { Subscription } from 'rxjs';
 
@@ -36,9 +36,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./fileman-overview.component.css']
 })
 export class FilemanOverviewComponent implements OnInit, OnDestroy {
-  readonly layoutTypeList: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_LIST;
-  readonly layoutTypeTable: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_TABLE;
-  readonly layoutTypeTiles: string = FilemanConstants.OVERVIEW_LAYOUT_TYPE_TILES;
+  readonly layoutTypeList: string = Layout.List;
+  readonly layoutTypeTable: string = Layout.Table;
+  readonly layoutTypeTiles: string = Layout.Tiles;
 
   layoutType: string;
   layoutTypeSubscription: Subscription;

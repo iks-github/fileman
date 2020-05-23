@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.*;
  */
 public class ExceptionMetaData implements Serializable
 {
-	private static final long serialVersionUID = 1589472183913L;
+	private static final long serialVersionUID = 1590239575695L;
 
 	// ===============  instance fields  ===============
 

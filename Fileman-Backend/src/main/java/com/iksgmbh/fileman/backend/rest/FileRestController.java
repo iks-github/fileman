@@ -69,14 +69,17 @@ public class FileRestController
 		if (toUpdate == null) {
 			throw new ResourceNotFoundException("File '" + fileName +"' + not found.");
 		}
-		if (fileData.getContentData() != null) {
+
+		boolean withContentChange = fileData.getContentData() != null;
+		if (withContentChange) 
+		{
 			FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
 			if (fileData.getMetaData().getImmediatelyActive() == true) {				
 				fileData.getMetaData().setActiveUUID(newContentVersion.getUuid());
 			}
 		}
 		toUpdate.merge(fileData.getMetaData());
-		metaDataDao.update(toUpdate);
+		metaDataDao.update(toUpdate, withContentChange);
 	}
 
 	@GetMapping("/files/{fileName}")

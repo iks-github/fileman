@@ -159,6 +159,11 @@ class <<DomainPath>>.FileMetaData
     metainfo MaxLength 16
 #    metainfo guiType Selectbox:Binary,Text
 
+  attribute techVersion
+    metainfo SqlType number
+    metainfo JavaType Integer
+    metainfo ExampleData 1
+
   attribute creator
     metainfo SqlType varchar
     metainfo JavaType String

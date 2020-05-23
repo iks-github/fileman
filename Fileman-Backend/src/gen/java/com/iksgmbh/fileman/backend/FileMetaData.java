@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Meta Data of a hosted file")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1589472183844L;
+	private static final long serialVersionUID = 1590239575159L;
 
 	// ===============  instance fields  ===============
 
@@ -41,6 +41,8 @@ public class FileMetaData implements Serializable, Cloneable
     @Size(max=16, message="Value of attribute 'techType' is larger than valid maximum (16).")
     @ApiModelProperty(notes = "Valid maximum length is 16.")
 	private String techType;
+
+	private Integer techVersion;
 
     @NotNull(message="Value of mandatory attribute 'creator' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
@@ -78,6 +80,11 @@ public class FileMetaData implements Serializable, Cloneable
 	public void setTechType(final String techType)
 	{
 		this.techType = techType;
+	}
+
+	public void setTechVersion(final Integer techVersion)
+	{
+		this.techVersion = techVersion;
 	}
 
 	public void setCreator(final String creator)
@@ -122,6 +129,11 @@ public class FileMetaData implements Serializable, Cloneable
 		return techType;
 	}
 
+	public Integer getTechVersion()
+	{
+		return techVersion;
+	}
+
 	public String getCreator()
 	{
 		return creator;
@@ -148,6 +160,7 @@ public class FileMetaData implements Serializable, Cloneable
 				+ "activeUUID = " + activeUUID + ", "
 				+ "immediatelyActive = " + immediatelyActive + ", "
 				+ "techType = " + techType + ", "
+				+ "techVersion = " + techVersion + ", "
 				+ "creator = " + creator + ", "
 				+ "creationDate = " + creationDate + ", "
 				+ "size = " + size + ""
@@ -210,6 +223,15 @@ public class FileMetaData implements Serializable, Cloneable
 			if (! techType.equals(other.techType))
 				   return false;
 		}
+		if (techVersion == null)
+		{
+			if (other.techVersion != null)
+				return false;
+		} else
+		{
+			if (! techVersion.equals(other.techVersion))
+				   return false;
+		}
 		if (creator == null)
 		{
 			if (other.creator != null)
@@ -250,6 +272,7 @@ public class FileMetaData implements Serializable, Cloneable
 		result = prime * result + ((activeUUID == null) ? 0 : activeUUID.hashCode());
 		result = prime * result + ((immediatelyActive == null) ? 0 : immediatelyActive.hashCode());
 		result = prime * result + ((techType == null) ? 0 : techType.hashCode());
+		result = prime * result + ((techVersion == null) ? 0 : techVersion.hashCode());
 		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((size == null) ? 0 : size.hashCode());
@@ -272,6 +295,7 @@ public class FileMetaData implements Serializable, Cloneable
 		if (this.activeUUID != null) clone.activeUUID = new Long(this.activeUUID);
 		if (this.immediatelyActive != null) clone.immediatelyActive = new Boolean(this.immediatelyActive);
 		if (this.techType != null) clone.techType = new String(techType);
+		if (this.techVersion != null) clone.techVersion = new Integer(this.techVersion);
 		if (this.creator != null) clone.creator = new String(creator);
 		if (this.creationDate != null) clone.creationDate = new String(creationDate);
 		if (this.size != null) clone.size = new Integer(this.size);
@@ -301,6 +325,9 @@ public class FileMetaData implements Serializable, Cloneable
             if(! otherFileMetaData.getTechType().isEmpty()) {
            	 this.setTechType(otherFileMetaData.getTechType());
             }
+       }
+        if (otherFileMetaData.getTechVersion() != null) {
+            this.setTechVersion(otherFileMetaData.getTechVersion());
        }
         if (otherFileMetaData.getCreator() != null) {
             if(! otherFileMetaData.getCreator().isEmpty()) {

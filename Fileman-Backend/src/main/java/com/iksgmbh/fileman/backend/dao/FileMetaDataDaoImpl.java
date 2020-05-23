@@ -12,9 +12,9 @@ import com.iksgmbh.fileman.backend.FileMetaData;
 public class FileMetaDataDaoImpl extends FileMetaDataDao
 {
 	public FileMetaDataDaoImpl() {
-		fileMetaDatas.add(createDataset("readme.txt", "Bla", 1L, "txt", "Pete", "10.10.2000", 123));
-		fileMetaDatas.add(createDataset("logo.jpg", "Logo", 2L, "jpg", "Pete", "10.10.2000", 9999));
-		fileMetaDatas.add(createDataset("script.groovy", "do something", 3L, "groovy", "Pete", "10.10.2000", 4321));
+		fileMetaDatas.add(createDataset("readme.txt", "Bla", 1L, "txt", 1, "Pete", "10.10.2000", 123));
+		fileMetaDatas.add(createDataset("logo.jpg", "Logo", 2L, "jpg", 1, "Pete", "10.10.2000", 9999));
+		fileMetaDatas.add(createDataset("script.groovy", "do something", 3L, "groovy", 1, "Pete", "10.10.2000", 4321));
 	}
 	
 	private FileMetaData createDataset(
@@ -22,6 +22,7 @@ public class FileMetaDataDaoImpl extends FileMetaDataDao
   			String description,
   			Long activeUUID,
   			String type,
+  			Integer version,
   			String creator,
   			String creationDate,
   			Integer size)
@@ -32,6 +33,7 @@ public class FileMetaDataDaoImpl extends FileMetaDataDao
 		toReturn.setActiveUUID(activeUUID);
 		toReturn.setImmediatelyActive(true);
 		toReturn.setTechType(type);
+		toReturn.setTechVersion(version);
 		toReturn.setCreator(creator);
 		toReturn.setCreationDate(creationDate);
 		toReturn.setSize(size);
@@ -42,7 +44,16 @@ public class FileMetaDataDaoImpl extends FileMetaDataDao
 	public FileMetaData create(FileMetaData fileMetaData) 
 	{
 		setTechType(fileMetaData);
+		fileMetaData.setTechVersion(1);
 		return super.create(fileMetaData);
+	}
+
+	public boolean update(FileMetaData fileMetaData, boolean withContentChange) 
+	{
+		if (withContentChange) {			
+			fileMetaData.setTechVersion(fileMetaData.getTechVersion()+1);
+		}
+		return super.update(fileMetaData);
 	}
 
 	private void setTechType(FileMetaData fileMetaData) 

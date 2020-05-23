@@ -6,6 +6,7 @@ export class FileMetaData
     activeUUID: number;
     immediatelyActive: boolean;
     techType: string;
+    techVersion: number;
     creator: string;
     creationDate: string;
     size: number;
@@ -17,6 +18,7 @@ export class FileMetaData
             this.activeUUID = untypedFileMetaData.activeUUID;
             this.immediatelyActive = untypedFileMetaData.immediatelyActive;
             this.techType = untypedFileMetaData.techType;
+            this.techVersion = untypedFileMetaData.techVersion;
             this.creator = untypedFileMetaData.creator;
             this.creationDate = untypedFileMetaData.creationDate;
             this.size = untypedFileMetaData.size;
@@ -31,6 +33,7 @@ export class FileMetaData
            'activeUUID',
            'immediatelyActive',
            'techType',
+           'techVersion',
            'creator',
            'creationDate',
            'size',
@@ -55,6 +58,10 @@ export class FileMetaData
 
     getTechType() {
         return this.techType;
+    }
+
+    getTechVersion() {
+        return this.techVersion;
     }
 
     getCreator() {
@@ -90,6 +97,10 @@ export class FileMetaData
         this.techType = techType;
     }
 
+    setTechVersion(techVersion: number) {
+        this.techVersion = techVersion;
+    }
+
     setCreator(creator: string) {
         this.creator = creator;
     }
@@ -112,6 +123,7 @@ export class FileMetaData
         if (this.activeUUID !== obj.activeUUID) { return false; }
         if (this.immediatelyActive !== obj.immediatelyActive) { return false; }
         if (this.techType !== obj.techType) { return false; }
+        if (this.techVersion !== obj.techVersion) { return false; }
         if (this.creator !== obj.creator) { return false; }
         if (this.creationDate !== obj.creationDate) { return false; }
         if (this.size !== obj.size) { return false; }
@@ -127,6 +139,7 @@ export class FileMetaData
            'ActiveUUID: ' + this.activeUUID + '\n' +
            'ImmediatelyActive: ' + this.immediatelyActive + '\n' +
            'TechType: ' + this.techType + '\n' +
+           'TechVersion: ' + this.techVersion + '\n' +
            'Creator: ' + this.creator + '\n' +
            'CreationDate: ' + this.creationDate + '\n' +
            'Size: ' + this.size + '\n';

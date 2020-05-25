@@ -4,6 +4,10 @@ mat-toolbar {
   padding-right: 0;
 }
 
+fileman-logo {
+  margin-bottom: 5px;
+}
+
 .mat-icon {
   color: lightgoldenrodyellow;
   background: blue;

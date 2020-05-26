@@ -15,9 +15,10 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
-import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserAuthData } from 'src/app/common/domainobjects/fileman-user-authdata';
+import { FilemanConstants } from 'src/app/common/fileman-constants';
+import { LoginResponse } from 'src/app/common/domainobjects/gen/LoginResponse';
+import { LoginRequest } from 'src/app/common/domainobjects/gen/LoginRequest';
 
 @Component({
   selector: 'fileman-login',
@@ -25,6 +26,8 @@ import { UserAuthData } from 'src/app/common/domainobjects/fileman-user-authdata
   styleUrls: ['./fileman-login.component.css']
 })
 export class FilemanLoginComponent implements OnInit {
+
+  errorMessage: string;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -34,12 +37,16 @@ export class FilemanLoginComponent implements OnInit {
   }
 
   onLogin(formControl) {
-    const loginOk = this.authService.login(formControl.value).subscribe(result => {
-                      const authData = result as UserAuthData;
-                      console.log('Received login response with Authdata:');
-                      console.log(authData);
-                      if (authData && authData.ok && authData.authToken) {
-                        localStorage.setItem('token', authData.authToken);
+    const requestData = new LoginRequest(formControl.value);
+    requestData.setFilemanVersion(FilemanConstants.VERSION);
+    console.log(requestData);
+    const loginOk = this.authService.login(requestData).subscribe(result => {
+                      const loginResponse = result as LoginResponse;
+                      console.log('Received LoginResponse:');
+                      console.log(loginResponse);
+                      this.errorMessage = loginResponse.errorMessage;
+                      if (loginResponse && loginResponse.ok && loginResponse.authToken) {
+                        localStorage.setItem('token', loginResponse.authToken);
                         console.log('Logged in!');
                         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
                         this.router.navigate([returnUrl || '/fileman/overview']);

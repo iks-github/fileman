@@ -17,11 +17,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { UserCredentials } from '../common/domainobjects/fileman-user-credentials';
-import { UserAuthData } from '../common/domainobjects/fileman-user-authdata';
 import { FilemanConstants } from '../common/fileman-constants';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
 import { Observable } from 'rxjs';
+import { LoginRequest } from '../common/domainobjects/gen/LoginRequest';
+import { LoginResponse } from '../common/domainobjects/gen/LoginResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -31,13 +31,13 @@ export class FilemanAuthserviceService {
   constructor(private httpClient: HttpClient,
               private propertiesService: FilemanPropertiesLoaderService) { }
 
-  login(credentials: UserCredentials): Observable<UserAuthData> {
+  login(loginData: LoginRequest): Observable<LoginResponse> {
     const serverurl = this.propertiesService.getProperty('serverurl');
     return this.httpClient.post(serverurl + '/authenticate',
-                                JSON.stringify(credentials),
+                                JSON.stringify(loginData),
                                 FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
-                                           throw error; } )) as Observable<UserAuthData>;
+                                           throw error; } )) as Observable<LoginResponse>;
   }
 
   logout() {

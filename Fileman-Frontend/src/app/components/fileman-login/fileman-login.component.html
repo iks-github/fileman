@@ -10,7 +10,7 @@
                 Login
             </h2>
             <div class="alert alert-danger" *ngIf="formControl.errors">
-                Unknown user or invalid password!
+                {{errorMessage}}
             </div>
             
             <br>

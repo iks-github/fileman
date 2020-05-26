@@ -28,8 +28,9 @@ export enum PreviewType {Text = 'preview_type_text',
 
 export class FilemanConstants
 {
-  static ICON_FAVOURITE_FILTER_ACTIVE: string = 'star';
-  static ICON_FAVOURITE_FILTER_INACTIVE: string = 'star_border';
+  static VERSION = '1.0.0';
+  static ICON_FAVOURITE_FILTER_ACTIVE = 'star';
+  static ICON_FAVOURITE_FILTER_INACTIVE = 'star_border';
 
   public static getRestCallHeaderOptions() {
     const headers = new HttpHeaders({

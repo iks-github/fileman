@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { FilemanDetailsComponent } from './fileman-file-details.component';
 
@@ -23,7 +25,8 @@ describe('FilemanDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FilemanDetailsComponent ]
+      declarations: [ FilemanDetailsComponent ],
+      imports: [ RouterTestingModule, HttpClientModule ]
     })
     .compileComponents();
   }));

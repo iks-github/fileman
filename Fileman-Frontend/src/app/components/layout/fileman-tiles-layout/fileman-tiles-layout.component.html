@@ -22,11 +22,6 @@
           <div>
             <img class="image-preview" *ngIf="hasImagePreview(file.name)" [src]="getImagePreview(file.name)">
             <span class="text-preview" *ngIf="hasTextPreview(file.name)">{{ getTextPreview(file.name) }}</span>
-            <!--<div
-              class="docx-preview"
-              *ngIf="hasDocxHtmlPreview(file.name)"
-              [innerHtml]="getDocxHtmlPreview(file.name)">
-            </div>-->
             <ngx-doc-viewer
               class="docx-preview"
               *ngIf="hasDocxPreview(file.name)"

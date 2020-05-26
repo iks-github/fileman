@@ -17,7 +17,6 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-//import * as mammoth from 'mammoth/mammoth.browser.js';
 
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
 import { PreviewType } from '../common/fileman-constants';
@@ -51,7 +50,6 @@ export class FilemanPreviewService {
         this.createBinaryFilePreview(fileName, file, PreviewType.Image);
       } else if (fileName.endsWith('docx')) {
         const file = new Blob([blobResponse], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-        //this.createDocxHtmlPreview(fileName, file);
         this.createBinaryFilePreview(fileName, file, PreviewType.DOCX);
       } else if (fileName.endsWith('pdf')) {
         const file = new Blob([blobResponse], { type: 'application/pdf' });
@@ -82,22 +80,6 @@ export class FilemanPreviewService {
       this.previews.set(this.getPreviewsKey(PreviewType.Text, fileName), textContent);
     });
   }
-
-  /*
-  createDocxHtmlPreview(fileName: string, file: Blob) {
-    const reader = new FileReader();
-    reader.addEventListener("load", () => {
-
-      var arrayBuffer = reader.result;
-
-      mammoth.convertToHtml({arrayBuffer: arrayBuffer}).then(function (resultObject) {
-        console.log(resultObject);
-        this.documentPreviews.set(fileName, resultObject.value);
-      }.bind(this));
-    });
-
-    reader.readAsArrayBuffer(file);
-  }*/
 
   fetchFileFromServer(fileName: string): Observable<Blob> {
     const uri = this.url + '/' + fileName;

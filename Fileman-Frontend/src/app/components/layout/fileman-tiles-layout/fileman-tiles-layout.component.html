@@ -28,12 +28,6 @@
               [url]="getDocxPreview(file.name)"
               viewer="mammoth">
             </ngx-doc-viewer>
-            <!--<ngx-doc-viewer
-              *ngIf="hasPdfPreview(file.name)"
-              [url]="getPdfPreview(file.name)"
-              viewer="pdf"
-              style="width:100%;height:93vh;">
-            </ngx-doc-viewer>-->
             <pdf-viewer class="pdf-preview" *ngIf="hasPdfPreview(file.name)"
               [src]="getPdfPreview(file.name)"
               [render-text]="true"

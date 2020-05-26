@@ -5,8 +5,8 @@
 }
 
 .image-preview {
-  max-height: 300px;
   max-width: 300px;
+  max-height: 300px;
 }
 
 .text-preview {
@@ -19,7 +19,14 @@
 }
 
 .docx-preview {
-  height: 208vh;
+  overflow: hidden;
+  width: 300px;
+  height: 980px;
+}
+
+::ng-deep img {
+  max-width: 300px;
+  max-height: 300px;
 }
 
 .pdf-preview {

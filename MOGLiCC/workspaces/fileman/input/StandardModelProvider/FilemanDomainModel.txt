@@ -244,12 +244,12 @@ class <<DomainPath>>.User
     metainfo Mandatory true
     metainfo ExampleData "User 1 not found"
     
-class <<DomainPath>>.UserCredentials
+class <<DomainPath>>.LoginRequest
   metainfo withDaoAndSql false
   metainfo withController false
+  metainfo frontendInterface true
 
   attribute userId
-    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "Pete"
@@ -257,23 +257,31 @@ class <<DomainPath>>.UserCredentials
     metainfo MaxLength 64
 
   attribute userPw
-    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "pw"
-    metainfo MinLength 1
+    # metainfo MinLength 3
     metainfo MaxLength 32
+            
+  attribute filemanVersion
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData 1.1
     
-class <<DomainPath>>.UserAuthData
+    
+class <<DomainPath>>.LoginResponse
   metainfo withDaoAndSql false
   metainfo withController false
+  metainfo frontendInterface true
 
-  attribute ok
-    metainfo JavaType Boolean
+  attribute errorMessage
+    metainfo JavaType String
 
   attribute authToken
     metainfo JavaType String
         
+  attribute ok
+    metainfo JavaType Boolean
     
 class <<DomainPath>>.FavouriteSetting
   metainfo implements java.io.Serializable

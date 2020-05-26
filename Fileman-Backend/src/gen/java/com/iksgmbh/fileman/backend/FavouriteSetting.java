@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Data for favourite filter")
 public class FavouriteSetting implements Serializable
 {
-	private static final long serialVersionUID = 1590239576112L;
+	private static final long serialVersionUID = 1590505862139L;
 
 	// ===============  instance fields  ===============
 

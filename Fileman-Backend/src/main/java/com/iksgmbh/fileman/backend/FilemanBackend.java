@@ -26,6 +26,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class FilemanBackend 
 {
+	public static final String VERSION = "1.0.0";
+			
     public static void main(String[] args) {
         SpringApplication.run(FilemanBackend.class, args);
     }

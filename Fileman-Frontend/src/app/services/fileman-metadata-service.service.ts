@@ -83,7 +83,6 @@ export class FilemanMetadataService {
   }
 
   addFileToCache(metadata: FileMetaData) {
-    this.forceReloadFromServer = true;
     return this.fileMetaDataCache.set(metadata.getName(), metadata);
   }
 

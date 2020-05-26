@@ -22,6 +22,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing/';
 import { FormatDateDirective } from './directives/format-date.directive';
 import { OutsideClickListenerDirective } from './directives/outside-click-listener.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AppComponent } from './app.component';
 import { MydatePipe } from './directives/mydate.pipe';
 
@@ -49,6 +51,7 @@ import { FilemanProblemPageComponent } from './components/fileman-problem-page/f
 import { FilemanHistoryViewComponent } from './components/fileman-history-view/fileman-history-view.component';
 import { FilemanListLayout } from './components/layout/fileman-list-layout/fileman-list-layout.component';
 import { FilemanTableLayout } from './components/layout/fileman-table-layout/fileman-table-layout.component';
+import { FilemanTilesLayout } from './components/layout/fileman-tiles-layout/fileman-tiles-layout.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,8 @@ import { FilemanTableLayout } from './components/layout/fileman-table-layout/fil
     FilemanLogoComponent,
     FilemanHistoryViewComponent,
     FilemanListLayout,
-    FilemanTableLayout
+    FilemanTableLayout,
+    FilemanTilesLayout
   ],
   imports: [
     MatIconModule, MatTooltipModule, MatFormFieldModule,
@@ -73,6 +77,7 @@ import { FilemanTableLayout } from './components/layout/fileman-table-layout/fil
     FormsModule, ReactiveFormsModule,
     BrowserModule, BrowserAnimationsModule,
     HttpClientModule,
+    PdfViewerModule, NgxDocViewerModule,
     RouterModule.forRoot([
       {path: '', redirectTo: '/fileman', pathMatch: 'full'},
       {path: 'fileman', component: FilemanLoginComponent},

@@ -124,7 +124,6 @@ export class FilemanDetailsComponent implements OnInit {
 
     }
 
-    this.metadataService.markDataAsOutdated();
     this.backToOverview();
   }
 
@@ -258,7 +257,7 @@ export class FilemanDetailsComponent implements OnInit {
   }
   // The form control block above is generated - do not modify manually!
 
-  
+
   get fileContentC() {
     return this.form.get('inputFieldControl.fileContentControl');
   }

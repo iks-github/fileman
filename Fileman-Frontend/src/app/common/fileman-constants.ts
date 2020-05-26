@@ -21,6 +21,10 @@ export enum SortType {ASC = 'asc', DESC = 'desc'}
 export enum Layout {List = 'overview_layout_type_list',
                     Table = 'overview_layout_type_table',
                     Tiles = 'overview_layout_type_tiles'}
+export enum PreviewType {Text = 'preview_type_text',
+                    Image = 'preview_type_image',
+                    PDF = 'preview_type_pdf',
+                    DOCX = 'preview_type_docx'}
 
 export class FilemanConstants
 {

@@ -43,6 +43,16 @@
         </fileman-table-layout>
     </div>
     <div *ngSwitchCase="layoutTypeTiles">
-        ToDo: implement tiles layout
-   </div>
+        <fileman-tiles-layout
+          [viewedFiles]="viewedFiles"
+          [allFilesMap]="allFilesMap"
+          [favouriteSettings]="favouriteSettings"
+          [readOnly]="readOnly"
+          (fileDownloaded)="download($event)"
+          (fileEdited)="edit($event)"
+          (fileDeleted)="delete($event)"
+          (fileHistoryShown)="showHistory($event)"
+          (fileFavouriteSettingChanged)="markFavourite($event)">
+        </fileman-tiles-layout>
+    </div>
 </div>

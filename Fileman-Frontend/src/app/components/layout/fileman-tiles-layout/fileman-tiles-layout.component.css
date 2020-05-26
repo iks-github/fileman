@@ -1,0 +1,35 @@
+.mat-icon {
+  color: blue;
+  background: lightgoldenrodyellow;
+  cursor: pointer;
+}
+
+.image-preview {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.text-preview {
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 30; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.docx-preview {
+  overflow: hidden;
+  width: 300px;
+  height: 980px;
+}
+
+::ng-deep img {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.pdf-preview {
+  display: block;
+  max-width: 300px;
+}

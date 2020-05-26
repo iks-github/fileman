@@ -29,6 +29,7 @@ import { Utils } from 'src/app/common/Utils';
 import { FilemanConstants, Layout } from 'src/app/common/fileman-constants';
 import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
 import { Subscription } from 'rxjs';
+import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 
 @Component({
   selector: 'fileman-overview',
@@ -59,7 +60,8 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
               private filesMetaDataService: FilemanMetadataService,
               private favouriteSettingService: FilemanFavouriteSettingsService,
               private fileService: FilemanFileService,
-              private componentStateService: FilemanComponentStateService) {
+              private componentStateService: FilemanComponentStateService,
+              private previewService: FilemanPreviewService) {
                     console.log('########### overview constr')
 
               }
@@ -112,6 +114,7 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
     });
     this.viewedFiles = Utils.sortList(this.viewedFiles);
     this.filesMetaDataService.setFileMetaDataCache(this.allFilesMap);
+    this.updateFilePreviews();
   }
 
   onLogoutClick() {
@@ -228,6 +231,12 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
             }
           }
         );
+  }
+
+  updateFilePreviews() {
+    this.allFilesMap.forEach((file: FileMetaData) => {
+      this.previewService.preparePreview(file.getName());
+    });
   }
 
   ngOnDestroy() {

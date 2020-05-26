@@ -1,0 +1,51 @@
+<li *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index "
+    class="list-group-item">
+    <td width="40">
+      <mat-icon data-toggle="tooltip" title="Download" (click)="download(file)">arrow_downwards</mat-icon>
+      <br>
+      <span *ngIf="! readOnly">
+          <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(file)">edit</mat-icon>
+      </span>
+      <br>
+      <span *ngIf="! readOnly">
+          <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(file)">delete</mat-icon>
+      </span>
+      <br>
+      <mat-icon data-toggle="tooltip" title="Show History" (click)="showHistory(file)">layers</mat-icon>
+      <br>
+      <mat-icon data-toggle="tooltip" title="{{getFavouriteTooltip(file)}}" (click)="changeFavouriteSetting(file)"
+          [ngStyle]="{'blue': 'yellow', 'backgroundColor': 'lavender'}">{{getFavouriteIcon(file)}}</mat-icon>
+    </td>
+    <td>
+      <span data-toggle="tooltip" title="{{getDetailsTooltip(file)}}" data-html="true">
+          {{i+1}}. {{file.name}}
+          <div>
+            <img class="image-preview" *ngIf="hasImagePreview(file.name)" [src]="getImagePreview(file.name)">
+            <span class="text-preview" *ngIf="hasTextPreview(file.name)">{{ getTextPreview(file.name) }}</span>
+            <!--<div
+              class="docx-preview"
+              *ngIf="hasDocxHtmlPreview(file.name)"
+              [innerHtml]="getDocxHtmlPreview(file.name)">
+            </div>-->
+            <ngx-doc-viewer
+              class="docx-preview"
+              *ngIf="hasDocxPreview(file.name)"
+              [url]="getDocxPreview(file.name)"
+              viewer="mammoth">
+            </ngx-doc-viewer>
+            <!--<ngx-doc-viewer
+              *ngIf="hasPdfPreview(file.name)"
+              [url]="getPdfPreview(file.name)"
+              viewer="pdf"
+              style="width:100%;height:93vh;">
+            </ngx-doc-viewer>-->
+            <pdf-viewer class="pdf-preview" *ngIf="hasPdfPreview(file.name)"
+              [src]="getPdfPreview(file.name)"
+              [render-text]="true"
+              [show-all]="false"
+              [original-size]="false">
+            </pdf-viewer>
+          </div>
+      </span>
+    </td>
+</li>

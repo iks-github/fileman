@@ -16,56 +16,57 @@
 import { Input, Output, EventEmitter } from '@angular/core';
 
 import { FilemanConstants } from 'src/app/common/fileman-constants';
+import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 
 export class LayoutCommons {
   @Input() viewedFiles;
   @Input() favouriteSettings;
   @Input() readOnly;
-  @Output() fileDownloaded: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-  @Output() fileEdited: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-  @Output() fileDeleted: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-  @Output() fileHistoryShown: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-  @Output() fileFavouriteSettingChanged: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
+  @Output() fileDownloaded: EventEmitter<FileMetaData> = new EventEmitter<FileMetaData>();
+  @Output() fileEdited: EventEmitter<FileMetaData> = new EventEmitter<FileMetaData>();
+  @Output() fileDeleted: EventEmitter<FileMetaData> = new EventEmitter<FileMetaData>();
+  @Output() fileHistoryShown: EventEmitter<FileMetaData> = new EventEmitter<FileMetaData>();
+  @Output() fileFavouriteSettingChanged: EventEmitter<FileMetaData> = new EventEmitter<FileMetaData>();
 
   trackFiles(index, file) {
     return file ? file.uuid : undefined;
   }
 
-  download(file: HTMLInputElement) {
+  download(file: FileMetaData) {
     this.fileDownloaded.emit(file);
   }
 
-  edit(file: HTMLInputElement) {
+  edit(file: FileMetaData) {
     this.fileEdited.emit(file);
   }
 
-  delete(file: HTMLInputElement) {
+  delete(file: FileMetaData) {
     this.fileDeleted.emit(file);
   }
 
-  showHistory(file: HTMLInputElement) {
+  showHistory(file: FileMetaData) {
     this.fileHistoryShown.emit(file);
   }
 
-  changeFavouriteSetting(file: HTMLInputElement) {
+  changeFavouriteSetting(file: FileMetaData) {
     this.fileFavouriteSettingChanged.emit(file);
   }
 
-  getFavouriteIcon(file: HTMLInputElement) {
-    if (this.isFileFavourite(file.name)) {
+  getFavouriteIcon(file: FileMetaData) {
+    if (this.isFileFavourite(file.getName())) {
       return FilemanConstants.ICON_FAVOURITE_FILTER_ACTIVE;
     }
     return FilemanConstants.ICON_FAVOURITE_FILTER_INACTIVE;
   }
 
-  getFavouriteTooltip(file: HTMLInputElement): string {
-    if (this.isFileFavourite(file.name)) {
+  getFavouriteTooltip(file: FileMetaData): string {
+    if (this.isFileFavourite(file.getName())) {
       return 'Click to deselect Favourite';
     }
     return 'Click to select as Favourite';
   }
 
-  isFileFavourite(filename): boolean {
+  isFileFavourite(filename: string): boolean {
     return this.favouriteSettings.has(filename);
   }
 }

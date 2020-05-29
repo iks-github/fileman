@@ -18,6 +18,7 @@ import { MatSelect } from '@angular/material/select';
 
 import { SortType } from 'src/app/common/fileman-constants';
 import { LayoutCommons } from '../layout-commons';
+import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 
 @Component({
   selector: 'fileman-table-layout',
@@ -66,9 +67,9 @@ export class FilemanTableLayout extends LayoutCommons {
     return null;
   }
 
-  favouriteAsterix(file: HTMLInputElement) {
-    console.log(file.name)
-    if (this.isFileFavourite(file.name)) {
+  favouriteAsterix(file: FileMetaData) {
+    console.log(file.getName())
+    if (this.isFileFavourite(file.getName())) {
       return '*';
     }
     return '';

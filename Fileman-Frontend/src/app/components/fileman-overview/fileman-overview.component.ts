@@ -127,8 +127,8 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
     return file ? file.uuid : undefined;
   }
 
-  edit(file: HTMLInputElement) {
-    this.router.navigate(['/fileman/details/' + file.name]);
+  edit(file: FileMetaData) {
+    this.router.navigate(['/fileman/details/' + file.getName()]);
   }
 
   onFavouriteFilterClick(isFilterOn: boolean) {
@@ -136,12 +136,12 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
     this.searchFor(this.currentSearchString);
   }
 
-  markFavourite(file: HTMLInputElement)
+  markFavourite(file: FileMetaData)
   {
-    if (this.isFileFavourite(file.name))
+    if (this.isFileFavourite(file.getName()))
     {
       // optimistic update
-      const toDelete = this.favouriteSettings.get(file.name);
+      const toDelete = this.favouriteSettings.get(file.getName());
       this.favouriteSettings.delete(toDelete.getFilename());
       this.favouriteSettingService.deleteFavouriteSetting(toDelete.getId())
           .subscribe(() => {},
@@ -155,15 +155,15 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
     else
     {
       // optimistic update
-      const newSetting = new FavouriteSetting({id: -1, username: this.currentUserName, filename: file.name});
-      this.favouriteSettings.set(file.name, newSetting);
+      const newSetting = new FavouriteSetting({id: -1, username: this.currentUserName, filename: file.getName()});
+      this.favouriteSettings.set(file.getName(), newSetting);
 
       this.favouriteSettingService.createFavouriteSetting(newSetting)
           .subscribe((id) => {
               newSetting.setId(id as number);
             }, (error) => {
               // remove optimistic update due to error
-              this.favouriteSettings.delete(file.name);
+              this.favouriteSettings.delete(file.getName());
               alert('Saving favourite setting failed!');
             }
           );
@@ -174,10 +174,10 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
     return this.favouriteSettings.has(filename);
   }
 
-  download(file: HTMLInputElement) {
-    this.fileService.download(file).subscribe(blobResponse => {
+  download(file: FileMetaData) {
+    this.fileService.download(file.getName()).subscribe(blobResponse => {
       const blob = new Blob([blobResponse], { type: 'text/json; charset=utf-8' });
-      saveAs(blob, file.name);
+      saveAs(blob, file.getName());
     });
   }
 
@@ -201,23 +201,23 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
     this.viewedFiles = fileList;
   }
 
-  showHistory(file: HTMLInputElement) {
-    this.router.navigate(['/fileman/history/' + file.name]);
+  showHistory(file: FileMetaData) {
+    this.router.navigate(['/fileman/history/' + file.getName()]);
   }
 
-  delete(file: HTMLInputElement) {
-    const ok = confirm('Are you sure to delete "' + file.name + '"?');
+  delete(file: FileMetaData) {
+    const ok = confirm('Are you sure to delete "' + file.getName() + '"?');
     if (! ok) {return;}
-    const toDelete = this.allFilesMap.get(file.name);
-    this.allFilesMap.delete(file.name);
+    const toDelete = this.allFilesMap.get(file.getName());
+    this.allFilesMap.delete(file.getName());
     const index = this.viewedFiles.indexOf(toDelete);
     this.viewedFiles.splice(index, 1);  // optimistic deletion
 
     this.fileService
-        .delete(file)
+        .delete(file.getName())
         .subscribe(
           deletedFile => {
-              console.log('Successfully deleted file: ' + file.name);
+              console.log('Successfully deleted file: ' + file.getName());
             },
           (error: FilemanError) => {
             this.viewedFiles.splice(index, 0, toDelete);  // roll back optimistic deletion

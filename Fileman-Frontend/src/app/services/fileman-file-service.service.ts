@@ -1,12 +1,12 @@
 /*
  * Copyright 2020 IKS Gesellschaft fuer Informations- und Kommunikationssysteme mbH
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,8 +32,8 @@ export class FilemanFileService {
     this.url = propertiesService.getProperty('serverurl') + '/files';
   }
 
-  getHistory(filename: string) {
-    return this.httpClient.get(this.url + '/' + filename + '/history', FilemanConstants.getRestCallHeaderOptions())
+  getHistory(fileName: string) {
+    return this.httpClient.get(this.url + '/' + fileName + '/history', FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
                           ));
@@ -61,8 +61,8 @@ export class FilemanFileService {
                           ));
   }
 
-  delete(file: HTMLInputElement) {
-    const uri = this.url + '/' + file.name;
+  delete(fileName: string) {
+    const uri = this.url + '/' + fileName;
     // console.log(uri);
     return this.httpClient.delete(uri, FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
@@ -70,8 +70,8 @@ export class FilemanFileService {
                           ));
   }
 
-  download(file: HTMLInputElement): Observable<Blob> {
-    const uri = this.url + '/' + file.name;
+  download(fileName: string): Observable<Blob> {
+    const uri = this.url + '/' + fileName;
     // console.log(uri);
     return this.httpClient.get(uri, {responseType: 'blob'})
                           .pipe(catchError((error: HttpErrorResponse) => {

@@ -16,6 +16,7 @@
 import { Component, Input } from '@angular/core';
 
 import { LayoutCommons } from '../layout-commons';
+import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 
 @Component({
   selector: 'fileman-list-layout',
@@ -25,8 +26,8 @@ import { LayoutCommons } from '../layout-commons';
 export class FilemanListLayout extends LayoutCommons {
   @Input() allFilesMap;
 
-  getDetailsTooltip(file: HTMLInputElement): string {
-    const data = this.allFilesMap.get(file.name);
+  getDetailsTooltip(file: FileMetaData): string {
+    const data = this.allFilesMap.get(file.getName());
     return data.getStringRepresentation();
   }
 }

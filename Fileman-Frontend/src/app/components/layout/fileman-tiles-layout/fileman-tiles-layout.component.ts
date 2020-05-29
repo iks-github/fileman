@@ -18,6 +18,7 @@ import { Component, Input } from '@angular/core';
 import { LayoutCommons } from '../layout-commons';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 import { PreviewType } from 'src/app/common/fileman-constants';
+import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 
 @Component({
   selector: 'fileman-tiles-layout',
@@ -31,8 +32,8 @@ export class FilemanTilesLayout extends LayoutCommons {
     super();
   }
 
-  getDetailsTooltip(file: HTMLInputElement): string {
-    const data = this.allFilesMap.get(file.name);
+  getDetailsTooltip(file: FileMetaData): string {
+    const data = this.allFilesMap.get(file.getName());
     return data.getStringRepresentation();
   }
 

@@ -13,25 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FilemanToolbarComponent } from './fileman-toolbar.component';
+import { DebugElement } from '@angular/core';
+import { Icon } from 'src/app/common/fileman-constants';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 describe('FilemanToolbarComponent', () => {
   let component: FilemanToolbarComponent;
   let fixture: ComponentFixture<FilemanToolbarComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FilemanToolbarComponent ],
-      imports: [ RouterTestingModule, HttpClientModule ]
-    })
-    .compileComponents();
-  }));
+  let mockRouter: any;
 
   beforeEach(() => {
+
+    mockRouter = {navigate: jasmine.createSpy('navigate')};
+
+    TestBed.configureTestingModule({
+      declarations: [ FilemanToolbarComponent ],
+      imports: [ RouterTestingModule, HttpClientModule ],
+      providers: [{ provide: Router, useValue: mockRouter}],
+    });
+
     fixture = TestBed.createComponent(FilemanToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -39,5 +45,63 @@ describe('FilemanToolbarComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should allow new-file dialog when not read-only', () => {
+    component.readOnly = false;
+    component.onNewClick();
+    expect(mockRouter.navigate).toHaveBeenCalled();
+  });
+
+  it('should not allow new-file dialog when read-only', () => {
+    component.readOnly = true;
+    component.onNewClick();
+    expect(mockRouter.navigate).not.toHaveBeenCalled();
+  });
+
+  it('should have all icons as admin', () => {
+    component.isAdmin = true;
+    fixture.detectChanges();
+
+    const debugElements: DebugElement[] = fixture.debugElement.queryAll(By.css('mat-icon'));
+    const iconStrings: Array<string> = [];
+
+    for (let debugElement of debugElements) {
+      iconStrings.push(debugElement.nativeElement.innerText);
+    }
+
+    expect(iconStrings.length).toEqual(9);
+    expect(iconStrings).toContain(Icon.List);
+    expect(iconStrings).toContain(Icon.Table);
+    expect(iconStrings).toContain(Icon.Tiles);
+    expect(iconStrings).toContain(Icon.New);
+    expect(iconStrings).toContain(Icon.Reload);
+    expect(iconStrings).toContain(Icon.Search);
+    expect(iconStrings).toContain(Icon.FavouriteFilterInactive);
+    expect(iconStrings).toContain(Icon.Settings);
+    expect(iconStrings).toContain(Icon.Logout);
+  });
+
+  it('should have all icons but settings as non-admin', () => {
+    component.isAdmin = false;
+    fixture.detectChanges();
+
+    const debugElements: DebugElement[] = fixture.debugElement.queryAll(By.css('mat-icon'));
+    const iconStrings: Array<string> = [];
+
+    for (let debugElement of debugElements) {
+      iconStrings.push(debugElement.nativeElement.innerText);
+    }
+
+    expect(iconStrings.length).toEqual(8);
+    expect(iconStrings).toContain(Icon.List);
+    expect(iconStrings).toContain(Icon.Table);
+    expect(iconStrings).toContain(Icon.Tiles);
+    expect(iconStrings).toContain(Icon.New);
+    expect(iconStrings).toContain(Icon.Reload);
+    expect(iconStrings).toContain(Icon.Search);
+    expect(iconStrings).toContain(Icon.FavouriteFilterInactive);
+    expect(iconStrings).not.toContain(Icon.Settings);
+    expect(iconStrings).toContain(Icon.Logout);
   });
 });

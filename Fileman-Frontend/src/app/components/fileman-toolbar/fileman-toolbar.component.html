@@ -8,27 +8,24 @@
               (click)="onLayoutClick(layoutTypeList)"
               [ngStyle]="{
               'color': layoutType === layoutTypeList ? '#777777' : 'lightgoldenrodyellow',
-              'backgroundColor': layoutType === layoutTypeList ? 'lightgray' : 'blue'}">
-              list
-    </mat-icon>
+              'backgroundColor': layoutType === layoutTypeList ? 'lightgray' : 'blue'}"
+              >{{iconList}}</mat-icon>
     <mat-icon data-toggle="tooltip" title="Change to Table Layout"
               (click)="onLayoutClick(layoutTypeTable)"
               disabled="layoutType.equals(layoutTypeTable)"
               [ngStyle]="{
               'color': layoutType === layoutTypeTable ? '#777777' : 'lightgoldenrodyellow',
               'backgroundColor': layoutType === layoutTypeTable ? 'lightgray' : 'blue'}"
-              style="margin-left: 5px;">
-              border_all
-    </mat-icon>
+              style="margin-left: 5px;"
+              >{{iconTable}}</mat-icon>
     <mat-icon data-toggle="tooltip" title="Change to Tiles Layout"
               (click)="onLayoutClick(layoutTypeTiles)"
               disabled="layoutType.equals(layoutTypeTiles)"
               [ngStyle]="{
               'color': layoutType === layoutTypeTiles ? '#777777' : 'lightgoldenrodyellow',
               'backgroundColor': layoutType === layoutTypeTiles ? 'lightgray' : 'blue'}"
-              style="margin-left: 5px;">
-              view_module
-    </mat-icon>
+              style="margin-left: 5px;"
+              >{{iconTiles}}</mat-icon>
 
     <span class="separator">|</span>
 
@@ -36,20 +33,20 @@
               (click)="onNewClick()"
               [ngStyle]="{
               'color': readOnly ? 'azure' : 'lightgoldenrodyellow',
-              'backgroundColor': readOnly ? 'lightgray' : 'blue'}">
-              note_add</mat-icon>
+              'backgroundColor': readOnly ? 'lightgray' : 'blue'}"
+              >{{iconNew}}</mat-icon>
 
     <mat-icon data-toggle="tooltip" title="Reload from server"
               (click)="onRefreshClick()"
-              style="margin-left: 5px;">
-              refresh</mat-icon>
+              style="margin-left: 5px;"
+              >{{iconReload}}</mat-icon>
 
     <span class="separator">|</span>
 
     <mat-icon data-toggle="tooltip"
               title="Type text to search for file(s)"
-              style="color: gray; background: lavender;">
-              find_in_page</mat-icon>
+              style="color: gray; background: lavender;"
+              >{{iconSearch}}</mat-icon>
 
     <input type="text" #searchString
            (keyup)="startSearch(searchString.value)"
@@ -61,16 +58,15 @@
               [ngStyle]="{
               'color': 'blue',
               'backgroundColor': 'lavender'}"
-              style="margin-left: 5px;">
-        {{favouriteFilterIcon}}
-    </mat-icon>
+              style="margin-left: 5px;"
+              >{{favouriteFilterIcon}}</mat-icon>
 
     <span *ngIf="isAdmin">
         <span class="separator">|</span>
         <mat-icon data-toggle="tooltip"
                   title="Select content of overview"
-                  style="color: gray; background: lightyellow;">
-                  settings_application</mat-icon>
+                  style="color: gray; background: lightyellow;"
+                  >{{iconSettings}}</mat-icon>
         <select id="contentType" style="background: lightyellow; margin-left: 5px;">
             <option [value]="'Files'">Files</option>
             <option [value]="'Users'">Users</option>
@@ -80,9 +76,8 @@
     <span class="spacer"></span>
 
     <mat-icon data-toggle="tooltip" title="Logout"
-            (click)="onLogout()">
-            exit_to_app
-    </mat-icon>
+            (click)="onLogout()"
+            >{{iconLogout}}</mat-icon>
 
     <span style="margin-left: 5px;">
       <ng-content select=".username"></ng-content>

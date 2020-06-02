@@ -28,6 +28,14 @@ export class FilemanToolbarComponent implements OnInit {
   readonly layoutTypeList: string = Layout.List;
   readonly layoutTypeTable: string = Layout.Table;
   readonly layoutTypeTiles: string = Layout.Tiles;
+  readonly iconList: string = Icon.List;
+  readonly iconTable: string = Icon.Table;
+  readonly iconTiles: string = Icon.Tiles;
+  readonly iconNew: string = Icon.New;
+  readonly iconReload: string = Icon.Reload;
+  readonly iconSearch: string = Icon.Search;
+  readonly iconSettings: string = Icon.Settings;
+  readonly iconLogout: string = Icon.Logout;
 
   @Input() isFavouriteFilterActive = false;
   @Output() logoutHandler = new EventEmitter();

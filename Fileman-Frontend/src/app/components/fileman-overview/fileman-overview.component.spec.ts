@@ -22,12 +22,14 @@ import { FilemanOverviewComponent } from './fileman-overview.component';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
+import { FilemanFavouriteSettingsService } from 'src/app/services/fileman-favourite-settings-service.service';
 
 describe('FilemanOverviewComponent', () => {
   let component: FilemanOverviewComponent;
   let fixture: ComponentFixture<FilemanOverviewComponent>;
   let metadataService: FilemanMetadataService;
   let fileService: FilemanFileService;
+  let favouriteSettingsService: FilemanFavouriteSettingsService;
 
   beforeEach(() => {
 
@@ -41,6 +43,7 @@ describe('FilemanOverviewComponent', () => {
 
     metadataService = fixture.debugElement.injector.get(FilemanMetadataService);
     fileService = fixture.debugElement.injector.get(FilemanFileService);
+    favouriteSettingsService = fixture.debugElement.injector.get(FilemanFavouriteSettingsService);
 
     fixture.detectChanges();
   });
@@ -84,5 +87,59 @@ describe('FilemanOverviewComponent', () => {
     component.delete(toBeDeleted);
 
     expect(deleteSpy).toHaveBeenCalled();
+  });
+
+  it('should search for file', () => {
+    const myFile1: FileMetaData = new FileMetaData({name: 'my_file_1.txt'});
+    const myFile2: FileMetaData = new FileMetaData({name: 'my_file_2.txt'});
+    const somethingElse: FileMetaData = new FileMetaData({name: 'something_else.txt'});
+
+    // fake server call in metadataService should return above test files
+    spyOn<any>(metadataService, 'getOverviewDataFromServer').and.returnValue(
+      new Observable(stream => {
+        stream.next([myFile1, myFile2, somethingElse]);
+        stream.complete();
+    }));
+
+    component.onReloadClick();
+
+    expect(component.viewedFiles.length).toEqual(3);
+    expect(component.viewedFiles[0].getName()).toEqual('my_file_1.txt');
+    expect(component.viewedFiles[1].getName()).toEqual('my_file_2.txt');
+    expect(component.viewedFiles[2].getName()).toEqual('something_else.txt');
+
+    component.searchFor('file');
+
+    expect(component.viewedFiles.length).toEqual(2);
+    expect(component.viewedFiles[0].getName()).toEqual('my_file_1.txt');
+    expect(component.viewedFiles[1].getName()).toEqual('my_file_2.txt');
+
+    component.searchFor('file_1');
+
+    expect(component.viewedFiles.length).toEqual(1);
+    expect(component.viewedFiles[0].getName()).toEqual('my_file_1.txt');
+
+    component.searchFor('not_there');
+
+    expect(component.viewedFiles.length).toEqual(0);
+
+    spyOn(favouriteSettingsService, 'createFavouriteSetting').and.returnValue(
+      new Observable(() => {
+        // dummy
+    }));
+
+    component.markFavourite(myFile2);
+    component.markFavourite(somethingElse);
+    component.currentSearchString = '';
+    component.onFavouriteFilterClick(true);
+
+    // all marked favourites
+    expect(component.viewedFiles[0].getName()).toEqual('my_file_2.txt');
+    expect(component.viewedFiles[1].getName()).toEqual('something_else.txt');
+
+    component.searchFor('file');
+
+    // marked favourites with matching filename
+    expect(component.viewedFiles[0].getName()).toEqual('my_file_2.txt');
   });
 });

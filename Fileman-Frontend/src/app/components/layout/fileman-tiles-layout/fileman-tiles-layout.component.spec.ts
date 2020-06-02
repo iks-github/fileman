@@ -49,8 +49,33 @@ describe('FilemanTableLayout', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should apply read-only restrictions', () => {
+  it('should have all icons as non-read-only', () => {
+    component.readOnly = false;
+    component.favouriteSettings = new Map<string, FavouriteSetting>();
+    component.allFilesMap = new Map<string, FileMetaData>();
 
+    const testFile: FileMetaData = new FileMetaData({name: 'test.txt'});
+    component.allFilesMap.set(testFile.getName(), testFile);
+    component.viewedFiles = [testFile];
+
+    fixture.detectChanges();
+
+    const debugElements: DebugElement[] = fixture.debugElement.queryAll(By.css('mat-icon'));
+    const iconStrings: Array<string> = [];
+
+    for (let debugElement of debugElements) {
+      iconStrings.push(debugElement.nativeElement.innerText);
+    }
+
+    expect(iconStrings.length).toEqual(5);
+    expect(iconStrings).toContain(Icon.Download);
+    expect(iconStrings).toContain(Icon.Edit);
+    expect(iconStrings).toContain(Icon.Delete);
+    expect(iconStrings).toContain(Icon.ShowHistory);
+    expect(iconStrings).toContain(Icon.FavouriteFilterInactive);
+  });
+
+  it('should have all icons but edit/delete as read-only', () => {
     component.readOnly = true;
     component.favouriteSettings = new Map<string, FavouriteSetting>();
     component.allFilesMap = new Map<string, FileMetaData>();

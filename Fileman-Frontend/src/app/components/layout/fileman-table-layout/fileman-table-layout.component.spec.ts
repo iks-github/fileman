@@ -47,8 +47,23 @@ describe('FilemanTableLayout', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should apply read-only restrictions', () => {
+  it('should have all options as non-read-only', () => {
+    component.readOnly = false;
+    component.favouriteSettings = new Map<string, FavouriteSetting>();
 
+    const testFile: FileMetaData = new FileMetaData({name: 'test.txt'});
+    component.viewedFiles = [testFile];
+
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.css('#option-download'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#option-edit'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#option-delete'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#option-show-history'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#option-change-favourite'))).toBeTruthy();
+  });
+
+  it('should have all options but edit/delete as read-only', () => {
     component.readOnly = true;
     component.favouriteSettings = new Map<string, FavouriteSetting>();
 

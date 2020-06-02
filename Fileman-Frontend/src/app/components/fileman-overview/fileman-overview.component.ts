@@ -50,7 +50,7 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
   favouriteSettingsResponse;
   favouriteSettings = new Map<string, FavouriteSetting>();
   currentUserName;
-  isFavouriteFilerOn = false;
+  isFavouriteFilterOn = false;
   currentSearchString = '';
   fileMetaAttributeNames;
   selectedFile;
@@ -132,7 +132,7 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
   }
 
   onFavouriteFilterClick(isFilterOn: boolean) {
-    this.isFavouriteFilerOn = isFilterOn;
+    this.isFavouriteFilterOn = isFilterOn;
     this.searchFor(this.currentSearchString);
   }
 
@@ -188,7 +188,7 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
 
     this.allFilesMap.forEach(file => {
       if (file.getName().indexOf(searchString) !== -1) {
-        if (this.isFavouriteFilerOn) {
+        if (this.isFavouriteFilterOn) {
           if (this.isFileFavourite(file.getName())) {
             fileList.push(file);
           }

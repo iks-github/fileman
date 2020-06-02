@@ -139,4 +139,57 @@ describe('FilemanDetailsComponent', () => {
 
     expect(updateSpy).toHaveBeenCalled();
   });
+
+  it('should modify content', () => {
+
+    const existingFile: FileMetaData = new FileMetaData(
+      {name: 'old_file.txt', size: 0}
+    );
+
+    // fake server call in metadataService should return above test file
+    spyOn<any>(metadataService, 'getOverviewDataFromServer').and.returnValue(
+      new Observable(stream => {
+        stream.next([existingFile]);
+        stream.complete();
+    }));
+
+    // before modification: old file
+    metadataService.getOverviewData().subscribe((metaData: FileMetaData[]) => {
+      expect(metaData.length).toEqual(1);
+      expect(metaData[0].getName()).toEqual('old_file.txt');
+      expect(metaData[0].getSize()).toEqual(0);
+    });
+
+    component.newFileMode = false;
+    component.nameC.setValue('old_file.txt');
+
+    const mockContent: string = 'someContent';
+    const mockFile = new File([mockContent], 'new_file.txt', { type: 'text/plain' });
+    const mockEvent: Event = <Event><any> {
+      srcElement: {
+        files: [mockFile]
+      }
+    };
+
+    component.onFileContentSourceChange(mockEvent);
+
+    // new file name visible as content source
+    expect(component.selectedFileContentSource.name).toEqual('new_file.txt');
+
+    // name field should not change after new file selection
+    expect(component.nameC.value).toEqual('old_file.txt');
+
+    const updateSpy = spyOn(fileService, 'update').and.returnValue(new Observable(() => {
+      // after modification: file with old name and new content (indicated by file size)
+      metadataService.getOverviewData().subscribe((metaData: FileMetaData[]) => {
+        expect(metaData.length).toEqual(1);
+        expect(metaData[0].getName()).toEqual('old_file.txt');
+        expect(metaData[0].getSize()).toEqual(mockContent.length);
+      });
+    }));
+
+    component.save();
+
+    expect(updateSpy).toHaveBeenCalled();
+  });
 });

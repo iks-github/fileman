@@ -2,7 +2,7 @@
     <tr style="font-weight:bold; background-color:darkgray;">
         <td></td>
         <td></td>
-        
+
         <!-- The header-td-sections below is generated: Do not modify manually! -->
 
         <td>
@@ -55,19 +55,19 @@
               (opened)="onPullDownOpened(pullDown)"
               filemanOutsideClickListener
               (clickedOutside)="closeOpenPullDowns()">
-              <mat-option (click)="download(file)">
-                <mat-icon>arrow_downwards</mat-icon>Download
+              <mat-option id="option-download" (click)="download(file)">
+                <mat-icon>{{iconDownload}}</mat-icon>Download
               </mat-option>
-              <mat-option *ngIf="!readOnly" (click)="edit(file)">
-                <mat-icon>edit</mat-icon>Edit
+              <mat-option id="option-edit" *ngIf="!readOnly" (click)="edit(file)">
+                <mat-icon>{{iconEdit}}</mat-icon>Edit
               </mat-option>
-              <mat-option *ngIf="!readOnly" (click)="delete(file)">
-                <mat-icon>delete</mat-icon>Delete
+              <mat-option id="option-delete" *ngIf="!readOnly" (click)="delete(file)">
+                <mat-icon>{{iconDelete}}</mat-icon>Delete
               </mat-option>
-              <mat-option (click)="showHistory(file)">
-                <mat-icon>layers</mat-icon>Show History
+              <mat-option id="option-show-history" (click)="showHistory(file)">
+                <mat-icon>{{iconShowHistory}}</mat-icon>Show History
               </mat-option>
-              <mat-option (click)="changeFavouriteSetting(file)">
+              <mat-option id="option-change-favourite" (click)="changeFavouriteSetting(file)">
                 <mat-icon>{{getFavouriteIcon(file)}}</mat-icon>{{getFavouriteButtonText(file.name)}}
               </mat-option>
             </mat-select>

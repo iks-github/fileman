@@ -15,7 +15,7 @@
  */
 import { Input, Output, EventEmitter } from '@angular/core';
 
-import { FilemanConstants } from 'src/app/common/fileman-constants';
+import { Icon } from 'src/app/common/fileman-constants';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 
 export class LayoutCommons {
@@ -27,6 +27,10 @@ export class LayoutCommons {
   @Output() fileDeleted: EventEmitter<FileMetaData> = new EventEmitter<FileMetaData>();
   @Output() fileHistoryShown: EventEmitter<FileMetaData> = new EventEmitter<FileMetaData>();
   @Output() fileFavouriteSettingChanged: EventEmitter<FileMetaData> = new EventEmitter<FileMetaData>();
+  readonly iconDownload: string = Icon.Download;
+  readonly iconEdit: string = Icon.Edit;
+  readonly iconDelete = Icon.Delete;
+  readonly iconShowHistory = Icon.ShowHistory;
 
   trackFiles(index, file) {
     return file ? file.uuid : undefined;
@@ -54,9 +58,9 @@ export class LayoutCommons {
 
   getFavouriteIcon(file: FileMetaData) {
     if (this.isFileFavourite(file.getName())) {
-      return FilemanConstants.ICON_FAVOURITE_FILTER_ACTIVE;
+      return Icon.FavouriteFilterActive;
     }
-    return FilemanConstants.ICON_FAVOURITE_FILTER_INACTIVE;
+    return Icon.FavouriteFilterInactive;
   }
 
   getFavouriteTooltip(file: FileMetaData): string {

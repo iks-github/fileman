@@ -16,7 +16,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { Router } from '@angular/router';
-import { FilemanConstants, Layout } from 'src/app/common/fileman-constants';
+import { Layout, Icon } from 'src/app/common/fileman-constants';
 import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
 
 @Component({
@@ -38,7 +38,7 @@ export class FilemanToolbarComponent implements OnInit {
   readOnly: boolean;
   isAdmin: boolean;
   layoutType: string;
-  favouriteFilterIcon = FilemanConstants.ICON_FAVOURITE_FILTER_INACTIVE;
+  favouriteFilterIcon = Icon.FavouriteFilterInactive;
 
   constructor(private authService: FilemanAuthserviceService,
               private router: Router,
@@ -72,9 +72,9 @@ export class FilemanToolbarComponent implements OnInit {
   onFavouriteFilterClick() {
     this.isFavouriteFilterActive = ! this.isFavouriteFilterActive;
     if (this.isFavouriteFilterActive) {
-      this.favouriteFilterIcon = FilemanConstants.ICON_FAVOURITE_FILTER_ACTIVE;
+      this.favouriteFilterIcon = Icon.FavouriteFilterActive;
     } else {
-      this.favouriteFilterIcon = FilemanConstants.ICON_FAVOURITE_FILTER_INACTIVE;
+      this.favouriteFilterIcon = Icon.FavouriteFilterInactive;
     }
     this.favouriteFilterHandler.emit(this.isFavouriteFilterActive);
   }

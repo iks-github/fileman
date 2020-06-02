@@ -25,12 +25,16 @@ export enum PreviewType {Text = 'preview_type_text',
                     Image = 'preview_type_image',
                     PDF = 'preview_type_pdf',
                     DOCX = 'preview_type_docx'}
+export enum Icon {Download = 'arrow_downwards',
+                    Edit = 'edit',
+                    Delete = 'delete',
+                    ShowHistory = 'layers',
+                    FavouriteFilterActive = 'star',
+                    FavouriteFilterInactive = 'star_border'}
 
 export class FilemanConstants
 {
   static VERSION = '1.0.0';
-  static ICON_FAVOURITE_FILTER_ACTIVE = 'star';
-  static ICON_FAVOURITE_FILTER_INACTIVE = 'star_border';
 
   public static getRestCallHeaderOptions() {
     const headers = new HttpHeaders({

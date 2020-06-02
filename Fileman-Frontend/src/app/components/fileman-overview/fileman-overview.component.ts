@@ -26,7 +26,7 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { saveAs } from 'file-saver';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { Utils } from 'src/app/common/Utils';
-import { FilemanConstants, Layout } from 'src/app/common/fileman-constants';
+import { Layout } from 'src/app/common/fileman-constants';
 import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
 import { Subscription } from 'rxjs';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';

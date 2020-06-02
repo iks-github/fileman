@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -26,28 +26,34 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 describe('FilemanOverviewComponent', () => {
   let component: FilemanOverviewComponent;
   let fixture: ComponentFixture<FilemanOverviewComponent>;
+  let metadataService: FilemanMetadataService;
+  let fileService: FilemanFileService;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
+
     TestBed.configureTestingModule({
       declarations: [ FilemanOverviewComponent ],
       imports: [ RouterTestingModule, HttpClientModule ]
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(FilemanOverviewComponent);
     component = fixture.componentInstance;
+
+    metadataService = fixture.debugElement.injector.get(FilemanMetadataService);
+    fileService = fixture.debugElement.injector.get(FilemanFileService);
+
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should delete file',
-      inject([FilemanMetadataService, FilemanFileService],
-      (metadataService: FilemanMetadataService, fileService: FilemanFileService) => {
+  it('should delete file', () => {
 
     const toBeDeleted: FileMetaData = new FileMetaData({name: 'to_be_deleted.txt'});
     const toPersist: FileMetaData = new FileMetaData({name: 'to_persist.txt'});
@@ -67,7 +73,8 @@ describe('FilemanOverviewComponent', () => {
     expect(component.viewedFiles[1].getName()).toEqual('to_persist.txt');
 
     spyOn(window, 'confirm').and.returnValue(true);
-    spyOn(fileService, 'delete').and.returnValue(
+
+    const deleteSpy = spyOn(fileService, 'delete').and.returnValue(
       new Observable(() => {
         // after deletion: only 1 file left (the one that was not deleted)
         expect(component.viewedFiles.length).toEqual(1);
@@ -75,5 +82,7 @@ describe('FilemanOverviewComponent', () => {
     }));
 
     component.delete(toBeDeleted);
-  }));
+
+    expect(deleteSpy).toHaveBeenCalled();
+  });
 });

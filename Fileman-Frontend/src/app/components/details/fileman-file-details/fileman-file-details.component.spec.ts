@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -27,31 +27,36 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 describe('FilemanDetailsComponent', () => {
   let component: FilemanDetailsComponent;
   let fixture: ComponentFixture<FilemanDetailsComponent>;
+  let metadataService: FilemanMetadataService;
+  let fileService: FilemanFileService;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
+
     TestBed.configureTestingModule({
       declarations: [ FilemanDetailsComponent ],
       imports: [ RouterTestingModule.withRoutes(
         [{path: 'fileman/overview', component: FilemanOverviewComponent}]
-      ), HttpClientModule ],
-      providers: [ FilemanMetadataService, FilemanFileService ]
-    })
-    .compileComponents();
-  }));
+      ), HttpClientModule ]
+    });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(FilemanDetailsComponent);
     component = fixture.componentInstance;
+
+    metadataService = fixture.debugElement.injector.get(FilemanMetadataService);
+    fileService = fixture.debugElement.injector.get(FilemanFileService);
+
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create new file',
-      inject([FilemanMetadataService, FilemanFileService],
-      (metadataService: FilemanMetadataService, fileService: FilemanFileService) => {
+  it('should create new file', () => {
 
     // fake server call in metadataService should return empty array
     spyOn<any>(metadataService, 'getOverviewDataFromServer').and.returnValue(
@@ -77,13 +82,61 @@ describe('FilemanDetailsComponent', () => {
       expect(metaData.length).toEqual(0);
     });
 
-    spyOn(fileService, 'create');
+    component.newFileMode = true;
+
+    const createSpy = spyOn(fileService, 'create').and.returnValue(new Observable(() => {
+      // after save: 1 file (mock file from above)
+      metadataService.getOverviewData().subscribe((metaData: FileMetaData[]) => {
+        expect(metaData.length).toEqual(1);
+        expect(metaData[0].getName()).toEqual('mock_file.txt');
+      });
+    }));
+
     component.save();
 
-    // after save: 1 file (mock file from above)
+    expect(createSpy).toHaveBeenCalled();
+  });
+
+  it('should modify metadata', () => {
+
+    const existingFile: FileMetaData = new FileMetaData(
+      {name: 'existing.txt',
+      description: 'description_before',
+      immediatelyActive: true}
+    );
+
+    // fake server call in metadataService should return above test file
+    spyOn<any>(metadataService, 'getOverviewDataFromServer').and.returnValue(
+      new Observable(stream => {
+        stream.next([existingFile]);
+        stream.complete();
+    }));
+
+    // before modification: old metadata
     metadataService.getOverviewData().subscribe((metaData: FileMetaData[]) => {
       expect(metaData.length).toEqual(1);
-      expect(metaData[0].getName()).toEqual('mock_file.txt');
+      expect(metaData[0].getName()).toEqual('existing.txt');
+      expect(metaData[0].getDescription()).toEqual('description_before');
+      expect(metaData[0].getImmediatelyActive()).toEqual(true);
     });
-  }));
+
+    component.newFileMode = false;
+    component.nameC.setValue('existing.txt');
+    component.descriptionC.setValue('description_after');
+    component.immediatelyActiveC.setValue(false);
+
+    const updateSpy = spyOn(fileService, 'update').and.returnValue(new Observable(() => {
+      // after modification: new metadata
+      metadataService.getOverviewData().subscribe((metaData: FileMetaData[]) => {
+        expect(metaData.length).toEqual(1);
+        expect(metaData[0].getName()).toEqual('existing.txt');
+        expect(metaData[0].getDescription()).toEqual('description_after');
+        expect(metaData[0].getImmediatelyActive()).toEqual(false);
+      });
+    }));
+
+    component.save();
+
+    expect(updateSpy).toHaveBeenCalled();
+  });
 });

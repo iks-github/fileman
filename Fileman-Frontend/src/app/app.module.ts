@@ -24,7 +24,7 @@ import { OutsideClickListenerDirective } from './directives/outside-click-listen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { TooltipModule } from 'ng2-tooltip-directive';
+import { TooltipModule, TooltipOptions } from 'ng2-tooltip-directive';
 import { AppComponent } from './app.component';
 import { MydatePipe } from './directives/mydate.pipe';
 
@@ -53,6 +53,7 @@ import { FilemanHistoryViewComponent } from './components/fileman-history-view/f
 import { FilemanListLayout } from './components/layout/fileman-list-layout/fileman-list-layout.component';
 import { FilemanTableLayout } from './components/layout/fileman-table-layout/fileman-table-layout.component';
 import { FilemanTilesLayout } from './components/layout/fileman-tiles-layout/fileman-tiles-layout.component';
+import { FilemanTooltipOptions } from './common/fileman-constants';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,7 @@ import { FilemanTilesLayout } from './components/layout/fileman-tiles-layout/fil
     BrowserModule, BrowserAnimationsModule,
     HttpClientModule,
     PdfViewerModule, NgxDocViewerModule,
-    TooltipModule,
+    TooltipModule.forRoot(FilemanTooltipOptions as TooltipOptions),
     RouterModule.forRoot([
       {path: '', redirectTo: '/fileman', pathMatch: 'full'},
       {path: 'fileman', component: FilemanLoginComponent},

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import { HttpHeaders } from '@angular/common/http';
+import { TooltipOptions } from 'ng2-tooltip-directive';
 // import sampleData from './properties.json';
 // import * as data from './properties.json';
 
@@ -39,6 +40,14 @@ export enum Icon {List = 'list',
                     ShowHistory = 'layers',
                     FavouriteFilterActive = 'star',
                     FavouriteFilterInactive = 'star_border'}
+
+export const FilemanTooltipOptions: TooltipOptions = {
+  'placement': 'right',
+  'theme': 'light',
+  'width': 300,
+  'max-width': 600,
+  'show-delay': 500
+}
 
 export class FilemanConstants
 {

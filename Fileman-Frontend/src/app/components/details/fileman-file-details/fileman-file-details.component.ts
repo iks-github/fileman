@@ -22,6 +22,7 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { FileContentData } from 'src/app/common/domainobjects/gen/FileContentData';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
+import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Utils } from 'src/app/common/Utils';
@@ -49,7 +50,8 @@ export class FilemanDetailsComponent implements OnInit {
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
               private fileService: FilemanFileService,
-              private metadataService: FilemanMetadataService) {
+              private metadataService: FilemanMetadataService,
+              private previewService: FilemanPreviewService) {
       this.form = this.createFormGroup();
       this.reader = new FileReader();
       this.currentUser = authService.getCurrentUserName();
@@ -109,7 +111,9 @@ export class FilemanDetailsComponent implements OnInit {
     if (this.newFileMode)
     {
       this.fileService.create(fileData)
-          .subscribe(() => {}, error => {
+          .subscribe(() => {
+            this.previewService.preparePreview(fileData.getMetaData().getName());
+          }, error => {
             this.metadataService.removeFileFromCache(fileData.getMetaData()); // rollback optimistic update
             alert('Error saving new file "' + fileData.getMetaData().getName() + '"!');
           });

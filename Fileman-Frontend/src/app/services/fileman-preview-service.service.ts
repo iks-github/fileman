@@ -20,27 +20,35 @@ import { catchError } from 'rxjs/operators';
 
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
 import { PreviewType } from '../common/fileman-constants';
+import { FileMetaData } from '../common/domainobjects/gen/FileMetaData';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilemanPreviewService {
   url;
-  namesOfAlreadyPreviewedFiles: Array<string>;
+  initialPreviewLoadingDone: boolean;
   previews: Map<string, string>;
 
   constructor(private httpClient: HttpClient,
               propertiesService: FilemanPropertiesLoaderService) {
     this.url = propertiesService.getProperty('serverurl') + '/files';
-    this.namesOfAlreadyPreviewedFiles = new Array<string>();
+    this.initialPreviewLoadingDone = false;
     this.previews = new Map<string, string>();
   }
 
-  preparePreview(fileName: string) {
-    if (this.namesOfAlreadyPreviewedFiles.includes(fileName)) {
+  preparePreviews(files: FileMetaData[]) {
+    if (this.initialPreviewLoadingDone) {
       return;
     }
 
+    files.forEach((file: FileMetaData) => {
+      this.preparePreview(file.getName());
+    });
+    this.initialPreviewLoadingDone = true;
+  }
+
+  preparePreview(fileName: string) {
     this.fetchFileFromServer(fileName).subscribe(blobResponse => {
       if (fileName.endsWith('jpg') || fileName.endsWith('jpeg')) {
         const file = new Blob([blobResponse], { type: 'image/jpeg' });
@@ -65,7 +73,6 @@ export class FilemanPreviewService {
     const reader = new FileReader();
 
     reader.onload = () => {
-      this.namesOfAlreadyPreviewedFiles.push(fileName);
       this.previews.set(this.getPreviewsKey(previewType, fileName), reader.result as string);
     }
 
@@ -76,7 +83,6 @@ export class FilemanPreviewService {
 
   createTextFilePreview(fileName: string, file: Blob) {
     file.text().then((textContent) => {
-      this.namesOfAlreadyPreviewedFiles.push(fileName);
       this.previews.set(this.getPreviewsKey(PreviewType.Text, fileName), textContent);
     });
   }

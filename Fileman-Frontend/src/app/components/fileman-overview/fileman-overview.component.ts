@@ -234,9 +234,7 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
   }
 
   updateFilePreviews() {
-    this.allFilesMap.forEach((file: FileMetaData) => {
-      this.previewService.preparePreview(file.getName());
-    });
+      this.previewService.preparePreviews(this.viewedFiles);
   }
 
   ngOnDestroy() {

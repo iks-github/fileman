@@ -17,6 +17,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import * as FileSaver from 'file-saver';
 
 import { FilemanOverviewComponent } from './fileman-overview.component';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
@@ -57,7 +58,6 @@ describe('FilemanOverviewComponent', () => {
   });
 
   it('should delete file', () => {
-
     const toBeDeleted: FileMetaData = new FileMetaData({name: 'to_be_deleted.txt'});
     const toPersist: FileMetaData = new FileMetaData({name: 'to_persist.txt'});
 
@@ -141,5 +141,23 @@ describe('FilemanOverviewComponent', () => {
 
     // marked favourites with matching filename
     expect(component.viewedFiles[0].getName()).toEqual('my_file_2.txt');
+  });
+
+  it('should download file', () => {
+    const toBeDownloaded: FileMetaData = new FileMetaData({name: 'to_be_downloaded.txt'});
+
+    const downloadSpy = spyOn(fileService, 'download').and.returnValue(
+      new Observable<Blob>(stream => {
+        stream.next(new Blob(['someContent'], { type: 'text/json; charset=utf-8' }));
+        stream.complete();
+      })
+    );
+
+    const saveAsSpy = spyOn(FileSaver, 'saveAs');
+
+    component.download(toBeDownloaded);
+
+    expect(downloadSpy).toHaveBeenCalled();
+    expect(saveAsSpy).toHaveBeenCalled();
   });
 });

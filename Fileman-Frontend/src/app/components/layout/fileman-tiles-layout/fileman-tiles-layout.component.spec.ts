@@ -23,16 +23,22 @@ import { FilemanTilesLayout } from './fileman-tiles-layout.component';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { FavouriteSetting } from 'src/app/common/domainobjects/gen/FavouriteSetting';
 import { Icon } from 'src/app/common/fileman-constants';
+import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 
-describe('FilemanTableLayout', () => {
+describe('FilemanTilesLayout', () => {
   let component: FilemanTilesLayout;
   let fixture: ComponentFixture<FilemanTilesLayout>;
 
   beforeEach(() => {
 
+    let previewService: FilemanPreviewService =
+      jasmine.createSpyObj<FilemanPreviewService>(
+      'FilemanPreviewService', ['fetchFileFromServer', 'hasPreview']);
+
     TestBed.configureTestingModule({
       declarations: [ FilemanTilesLayout ],
-      imports: [ RouterTestingModule, HttpClientModule ]
+      imports: [ RouterTestingModule, HttpClientModule ],
+      providers: [{provide: FilemanPreviewService, useValue: previewService}]
     });
 
     fixture = TestBed.createComponent(FilemanTilesLayout);

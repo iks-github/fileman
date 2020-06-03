@@ -24,6 +24,7 @@ import { FilemanMetadataService } from 'src/app/services/fileman-metadata-servic
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { FilemanFavouriteSettingsService } from 'src/app/services/fileman-favourite-settings-service.service';
+import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 
 describe('FilemanOverviewComponent', () => {
   let component: FilemanOverviewComponent;
@@ -34,9 +35,14 @@ describe('FilemanOverviewComponent', () => {
 
   beforeEach(() => {
 
+    let previewService: FilemanPreviewService =
+      jasmine.createSpyObj<FilemanPreviewService>(
+      'FilemanPreviewService', ['fetchFileFromServer', 'preparePreview']);
+
     TestBed.configureTestingModule({
       declarations: [ FilemanOverviewComponent ],
-      imports: [ RouterTestingModule, HttpClientModule ]
+      imports: [ RouterTestingModule, HttpClientModule ],
+      providers: [{provide: FilemanPreviewService, useValue: previewService}]
     });
 
     fixture = TestBed.createComponent(FilemanOverviewComponent);

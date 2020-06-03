@@ -73,4 +73,23 @@ export class LayoutCommons {
   isFileFavourite(filename: string): boolean {
     return this.favouriteSettings.has(filename);
   }
+
+  getMetadataHtmlTooltip(file: FileMetaData): string {
+    return '<div class="inner-html-enclosing-div"><h4>Details:</h4>' +
+      '<hr>' +
+      this.buildMetadataHtmlTooltipContentRow('Name', file.name) +
+      this.buildMetadataHtmlTooltipContentRow('Description', file.description) +
+      this.buildMetadataHtmlTooltipContentRow('ActiveUUID', ''+file.activeUUID) +
+      this.buildMetadataHtmlTooltipContentRow('ImmediatelyActive', ''+file.immediatelyActive) +
+      this.buildMetadataHtmlTooltipContentRow('TechType', file.techType) +
+      this.buildMetadataHtmlTooltipContentRow('TechVersion', ''+file.techVersion) +
+      this.buildMetadataHtmlTooltipContentRow('Creator', file.creator) +
+      this.buildMetadataHtmlTooltipContentRow('CreationDate', file.creationDate) +
+      this.buildMetadataHtmlTooltipContentRow('Size', ''+file.size)+'</div>'
+  }
+
+  private buildMetadataHtmlTooltipContentRow(title: string, content: string): string {
+    return '<span class="inner-html-left-span">' + title + ':</span>'
+        + '<span><b>' + content + '</b></span><br>';
+  }
 }

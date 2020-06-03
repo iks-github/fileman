@@ -33,3 +33,12 @@
   display: block;
   max-width: 300px;
 }
+
+::ng-deep .inner-html-enclosing-div {
+  text-align: left;
+}
+
+::ng-deep .inner-html-left-span {
+  float: left;
+  width: 50%;
+}

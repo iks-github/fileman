@@ -17,8 +17,8 @@
           [ngStyle]="{'blue': 'yellow', 'backgroundColor': 'lavender'}">{{getFavouriteIcon(file)}}</mat-icon>
     </td>
     <td>
-      <span data-toggle="tooltip" title="{{getDetailsTooltip(file)}}" data-html="true">
-          {{i+1}}. {{file.name}}
+      <span tooltip="{{getDetailsTooltip(file)}}" [options]="tooltipOptions">
+        {{i+1}}. {{file.name}}
           <div>
             <img class="image-preview" *ngIf="hasImagePreview(file.name)" [src]="getImagePreview(file.name)">
             <span class="text-preview" *ngIf="hasTextPreview(file.name)">{{ getTextPreview(file.name) }}</span>

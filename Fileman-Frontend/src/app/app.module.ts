@@ -24,6 +24,7 @@ import { OutsideClickListenerDirective } from './directives/outside-click-listen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { TooltipModule } from 'ng2-tooltip-directive';
 import { AppComponent } from './app.component';
 import { MydatePipe } from './directives/mydate.pipe';
 
@@ -78,6 +79,7 @@ import { FilemanTilesLayout } from './components/layout/fileman-tiles-layout/fil
     BrowserModule, BrowserAnimationsModule,
     HttpClientModule,
     PdfViewerModule, NgxDocViewerModule,
+    TooltipModule,
     RouterModule.forRoot([
       {path: '', redirectTo: '/fileman', pathMatch: 'full'},
       {path: 'fileman', component: FilemanLoginComponent},

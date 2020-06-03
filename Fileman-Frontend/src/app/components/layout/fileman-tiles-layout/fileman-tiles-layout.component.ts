@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { LayoutCommons } from '../layout-commons';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
@@ -27,12 +27,20 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 })
 export class FilemanTilesLayout extends LayoutCommons {
 
+  tooltipOptions = {
+    'placement': 'right',
+    'theme': 'light',
+    'width': 300,
+    'max-width': 600,
+    'show-delay': 500
+  }
+
   constructor(private previewService: FilemanPreviewService) {
     super();
   }
 
   getDetailsTooltip(file: FileMetaData): string {
-    return file.getStringRepresentation();
+    return this.getMetadataHtmlTooltip(file);
   }
 
   hasImagePreview(fileName: string): boolean {

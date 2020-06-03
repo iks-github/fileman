@@ -19,7 +19,7 @@
     <mat-icon data-toggle="tooltip" title="{{getFavouriteTooltip(file)}}" (click)="changeFavouriteSetting(file)"
         [ngStyle]="{'blue': 'yellow', 'backgroundColor': 'lavender'}">{{getFavouriteIcon(file)}}</mat-icon>
     &nbsp;
-    <span data-toggle="tooltip" title="{{getDetailsTooltip(file)}}" data-html="true">
+    <span tooltip="{{getDetailsTooltip(file)}}" [options]="tooltipOptions">
         {{i+1}}. {{file.name}}
     </span>
 </li>

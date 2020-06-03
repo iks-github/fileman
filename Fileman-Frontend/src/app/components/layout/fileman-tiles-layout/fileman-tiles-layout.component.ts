@@ -26,15 +26,13 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
   styleUrls: ['./fileman-tiles-layout.component.css']
 })
 export class FilemanTilesLayout extends LayoutCommons {
-  @Input() allFilesMap;
 
   constructor(private previewService: FilemanPreviewService) {
     super();
   }
 
   getDetailsTooltip(file: FileMetaData): string {
-    const data = this.allFilesMap.get(file.getName());
-    return data.getStringRepresentation();
+    return file.getStringRepresentation();
   }
 
   hasImagePreview(fileName: string): boolean {

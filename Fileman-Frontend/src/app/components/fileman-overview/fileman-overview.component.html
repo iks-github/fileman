@@ -20,7 +20,6 @@
     <div *ngSwitchCase="layoutTypeList">
         <fileman-list-layout
           [viewedFiles]="viewedFiles"
-          [allFilesMap]="allFilesMap"
           [favouriteSettings]="favouriteSettings"
           [readOnly]="readOnly"
           (fileDownloaded)="download($event)"
@@ -45,7 +44,6 @@
     <div *ngSwitchCase="layoutTypeTiles">
         <fileman-tiles-layout
           [viewedFiles]="viewedFiles"
-          [allFilesMap]="allFilesMap"
           [favouriteSettings]="favouriteSettings"
           [readOnly]="readOnly"
           (fileDownloaded)="download($event)"

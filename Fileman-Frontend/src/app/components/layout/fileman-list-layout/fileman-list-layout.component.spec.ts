@@ -52,10 +52,8 @@ describe('FilemanListLayout', () => {
   it('should have all icons as non-read-only', () => {
     component.readOnly = false;
     component.favouriteSettings = new Map<string, FavouriteSetting>();
-    component.allFilesMap = new Map<string, FileMetaData>();
 
     const testFile: FileMetaData = new FileMetaData({name: 'test.txt'});
-    component.allFilesMap.set(testFile.getName(), testFile);
     component.viewedFiles = [testFile];
 
     fixture.detectChanges();
@@ -78,10 +76,8 @@ describe('FilemanListLayout', () => {
   it('should have all icons but edit/delete as read-only', () => {
     component.readOnly = true;
     component.favouriteSettings = new Map<string, FavouriteSetting>();
-    component.allFilesMap = new Map<string, FileMetaData>();
 
     const testFile: FileMetaData = new FileMetaData({name: 'test.txt'});
-    component.allFilesMap.set(testFile.getName(), testFile);
     component.viewedFiles = [testFile];
 
     fixture.detectChanges();

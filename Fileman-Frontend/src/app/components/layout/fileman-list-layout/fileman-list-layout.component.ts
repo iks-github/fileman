@@ -24,10 +24,8 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
   styleUrls: ['./fileman-list-layout.component.css']
 })
 export class FilemanListLayout extends LayoutCommons {
-  @Input() allFilesMap;
 
   getDetailsTooltip(file: FileMetaData): string {
-    const data = this.allFilesMap.get(file.getName());
-    return data.getStringRepresentation();
+    return file.getStringRepresentation();
   }
 }

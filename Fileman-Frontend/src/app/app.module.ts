@@ -43,17 +43,17 @@ import { FilemanLoginComponent } from './components/fileman-login/fileman-login.
 import { FilemanOverviewComponent } from './components/fileman-overview/fileman-overview.component';
 import { FilemanToolbarComponent } from './components/fileman-toolbar/fileman-toolbar.component';
 import { FilemanSortIconComponent } from './components/helper/fileman-sort-icon/fileman-sort-icon.component';
-import { FilemanDetailsComponent } from './components/details/fileman-file-details/fileman-file-details.component';
 import { FilemanFavouriteSettingsService } from './services/fileman-favourite-settings-service.service';
 import { FilemanMetadataService } from './services/fileman-metadata-service.service';
 import { FilemanFileService } from './services/fileman-file-service.service';
 import { FilemanErrorHandler } from './common/fileman-error-handler';
 import { FilemanProblemPageComponent } from './components/fileman-problem-page/fileman-page-not-found.component';
 import { FilemanHistoryViewComponent } from './components/fileman-history-view/fileman-history-view.component';
-import { FilemanListLayout } from './components/layout/fileman-list-layout/fileman-list-layout.component';
-import { FilemanTableLayout } from './components/layout/fileman-table-layout/fileman-table-layout.component';
-import { FilemanTilesLayout } from './components/layout/fileman-tiles-layout/fileman-tiles-layout.component';
 import { FilemanTooltipOptions } from './common/fileman-constants';
+import { FilemetadataDetailsComponent } from './components/details/fileman-filemetadata-details/fileman-filemetadata-details.component';
+import { FilemetadataListLayout } from './components/layout/filemetadata/list-layout/fileman-filemetadata-list-layout-component';
+import { FilemetadataTableLayout } from './components/layout/filemetadata/table-layout/fileman-filemetadata-table-layout-component';
+import { FilemetadataTilesLayout } from './components/layout/filemetadata/tiles-layout/fileman-filemetadata-tiles-layout-component';
 
 @NgModule({
   declarations: [
@@ -62,16 +62,14 @@ import { FilemanTooltipOptions } from './common/fileman-constants';
     FormatDateDirective,
     OutsideClickListenerDirective,
     FilemanLoginComponent,
-    FilemanDetailsComponent,
+    FilemetadataDetailsComponent,
     FilemanOverviewComponent,
     FilemanToolbarComponent,
     FilemanProblemPageComponent,
     FilemanSortIconComponent,
     FilemanLogoComponent,
     FilemanHistoryViewComponent,
-    FilemanListLayout,
-    FilemanTableLayout,
-    FilemanTilesLayout
+    FilemetadataListLayout, FilemetadataTableLayout, FilemetadataTilesLayout
   ],
   imports: [
     MatIconModule, MatTooltipModule, MatFormFieldModule,
@@ -87,8 +85,8 @@ import { FilemanTooltipOptions } from './common/fileman-constants';
       {path: 'fileman/login', component: FilemanLoginComponent},
       {path: 'fileman/overview', component: FilemanOverviewComponent, canActivate: [AuthGuard]},
       {path: 'fileman/history/:filename', component: FilemanHistoryViewComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-      {path: 'fileman/details/:filename', component: FilemanDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-      {path: 'fileman/files/new', component: FilemanDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'fileman/details/:filename', component: FilemetadataDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'fileman/files/new', component: FilemetadataDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: 'fileman/problem', component: FilemanProblemPageComponent},
       {path: 'fileman/**', component: FilemanProblemPageComponent}
     ])

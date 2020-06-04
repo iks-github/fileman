@@ -7,7 +7,7 @@
 @TargetFileName app.module.ts
 @TargetDir ..\Fileman-Frontend\src\app
 @NameOfValidModel SpringBootBackendAngularFrontModel
-@InsertAbove FilemanOverviewComponent,
+@InsertAbove FilemanToolbarComponent,
 @SkipGeneration $skip
 
 '    ${NewDomainObject}Service,

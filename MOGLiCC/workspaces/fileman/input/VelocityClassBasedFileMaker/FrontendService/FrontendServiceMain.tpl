@@ -1,5 +1,5 @@
-#set( $skip = $classDescriptor.getMetaInfoValueFor("withFrontendService").contains("NOT FOUND") || 
-              $classDescriptor.getMetaInfoValueFor("withFrontendService").equals("false") )
+#set( $skip = $classDescriptor.getMetaInfoValueFor("FrontendService").contains("NOT FOUND") || 
+              $classDescriptor.getMetaInfoValueFor("FrontendService").equals("false") )
 #set( $className = $TemplateStringUtility.firstToLowerCase($classDescriptor.simpleName) )
 
 @TargetFileName fileman-${className}-service.ts

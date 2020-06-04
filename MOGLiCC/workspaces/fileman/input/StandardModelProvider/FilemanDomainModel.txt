@@ -42,16 +42,15 @@ model SpringBootBackendAngularFrontModel
   metainfo projectName Fileman
   metainfo dateTimeFormat "dd.MM.yyyy HH:mm:ss:SSS"
   metainfo namespace <<DomainPath>>
+  metainfo newDomainObject user  # use lower case !
 
 
 class <<DomainPath>>.FileData
   metainfo implements java.io.Serializable
   metainfo implements Cloneable
-  metainfo withDaoAndSql false
-  metainfo withController false
   metainfo swaggerDoc "Complete data on a hosted file"
   metainfo JavaDocLine "Complete data on a hosted file"
-  metainfo frontendInterface true
+  metainfo frontendClass true
 
   attribute metaData
     metainfo JavaType FileMetaData
@@ -64,11 +63,10 @@ class <<DomainPath>>.FileData
 class <<DomainPath>>.FileContentData
   metainfo implements java.io.Serializable
   metainfo implements Cloneable
-  metainfo withDaoAndSql true   
-  metainfo withController false
+  metainfo DaoAndSql true   
   metainfo swaggerDoc "Content of hosted file"
   metainfo JavaDocLine "Content of hosted file"
-  metainfo frontendInterface true
+  metainfo frontendClass true
 
   attribute uuid
     metainfo SqlType bigint
@@ -118,9 +116,8 @@ class <<DomainPath>>.FileMetaData
   metainfo generateStandardJavaDoc true
   metainfo swaggerDoc "Meta Data of a hosted file"
   metainfo JavaDocLine "Meta Data of a hosted file"
-  metainfo withDaoAndSql true   
-  metainfo withController false
-  metainfo frontendInterface true
+  metainfo DaoAndSql true   
+  metainfo frontendClass true
   
   attribute name
     metainfo SqlType varchar
@@ -157,7 +154,6 @@ class <<DomainPath>>.FileMetaData
     metainfo JavaType String
     metainfo ExampleData pdf
     metainfo MaxLength 16
-#    metainfo guiType Selectbox:Binary,Text
 
   attribute techVersion
     metainfo SqlType number
@@ -186,8 +182,9 @@ class <<DomainPath>>.User
   metainfo generateStandardJavaDoc true
   metainfo swaggerDoc "Data of a Fileman user"
   metainfo JavaDocLine "Data of a Fileman user"
-  metainfo withDaoAndSql true   
-  metainfo withController true
+  metainfo DaoAndSql true   
+  metainfo BackendController true
+  metainfo FrontendService true
 
   attribute id
     metainfo SqlType int
@@ -196,6 +193,7 @@ class <<DomainPath>>.User
     metainfo ExampleData 1
     metainfo unique true
     metainfo id true
+    metainfo hideFromClient true
     
   attribute name
     metainfo SqlType varchar
@@ -205,26 +203,36 @@ class <<DomainPath>>.User
     metainfo MinLength 2
     metainfo MaxLength 64
     metainfo unique true
-
-  attribute password
-    metainfo SqlType varchar
-    metainfo JavaType String
-    metainfo Mandatory true
-    metainfo ExampleData "ich"
-    metainfo MinLength 1
-    metainfo MaxLength 32
-    metainfo hideFromClient true
+    metainfo guiType TextField
 
   attribute role
     metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData Admin
+    metainfo guiType Selectbox:Reader,Writer,Admin
+
+  attribute password
+    metainfo SqlType varchar
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "123"
+    metainfo MinLength 1
+    metainfo MaxLength 32
+    metainfo hideFromClient true
+    metainfo guiType TextField
+
+  attribute passwordRepetition
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "123"
+    metainfo MinLength 1
+    metainfo MaxLength 32
+    metainfo hideFromServer true
+    metainfo guiType TextField
  
  class <<DomainPath>>.ExceptionMetaData
   metainfo implements java.io.Serializable
-  metainfo withDaoAndSql false
-  metainfo withController false
 
   attribute timestamp
     metainfo SqlType timestamp
@@ -245,9 +253,7 @@ class <<DomainPath>>.User
     metainfo ExampleData "User 1 not found"
     
 class <<DomainPath>>.LoginRequest
-  metainfo withDaoAndSql false
-  metainfo withController false
-  metainfo frontendInterface true
+  metainfo frontendClass true
 
   attribute userId
     metainfo JavaType String
@@ -270,9 +276,7 @@ class <<DomainPath>>.LoginRequest
     
     
 class <<DomainPath>>.LoginResponse
-  metainfo withDaoAndSql false
-  metainfo withController false
-  metainfo frontendInterface true
+  metainfo frontendClass true
 
   attribute errorMessage
     metainfo JavaType String
@@ -288,10 +292,9 @@ class <<DomainPath>>.FavouriteSetting
   metainfo generateStandardJavaDoc true
   metainfo swaggerDoc "Data for favourite filter"
   metainfo JavaDocLine "Data for favourite filter"
-  metainfo withDaoAndSql true
-  metainfo withController false
+  metainfo DaoAndSql true
   metainfo extraFindEndpoint User 
-  metainfo frontendInterface true
+  metainfo frontendClass true
 
   attribute id
     metainfo SqlType int

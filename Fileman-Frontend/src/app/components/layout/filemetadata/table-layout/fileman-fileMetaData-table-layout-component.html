@@ -1,0 +1,93 @@
+<table>
+    <tr style="font-weight:bold; background-color:darkgray;">
+        <td></td>
+        <td></td>
+
+        <!-- The header-td-sections below is generated: Do not modify manually! -->
+
+        <td>
+            Name
+            <fileman-sorticon [sortField]="'name'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
+            Description
+            <fileman-sorticon [sortField]="'description'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
+            ActiveUUID
+            <fileman-sorticon [sortField]="'activeUUID'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
+            ImmediatelyActive
+            <fileman-sorticon [sortField]="'immediatelyActive'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
+            TechType
+            <fileman-sorticon [sortField]="'techType'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
+            TechVersion
+            <fileman-sorticon [sortField]="'techVersion'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
+            Creator
+            <fileman-sorticon [sortField]="'creator'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
+            CreationDate
+            <fileman-sorticon [sortField]="'creationDate'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
+            Size
+            <fileman-sorticon [sortField]="'size'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+
+        <!-- The header-td-sections above is generated: Do not modify manually! -->
+
+      </tr>
+    <tr *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index">
+        <td>{{i+1}}.</td>
+        <td>
+          <mat-icon data-toggle="tooltip" title="Open Action Menu" (click)="pullDown.open()">more_vert</mat-icon>
+          <mat-form-field class="hidden-form-field">
+            <mat-select
+              #pullDown
+              (opened)="onPullDownOpened(pullDown)"
+              filemanOutsideClickListener
+              (clickedOutside)="closeOpenPullDowns()">
+              <mat-option id="option-download" (click)="download(file)">
+                <mat-icon>{{iconDownload}}</mat-icon>Download
+              </mat-option>
+              <mat-option id="option-edit" *ngIf="!readOnly" (click)="edit(file)">
+                <mat-icon>{{iconEdit}}</mat-icon>Edit
+              </mat-option>
+              <mat-option id="option-delete" *ngIf="!readOnly" (click)="delete(file)">
+                <mat-icon>{{iconDelete}}</mat-icon>Delete
+              </mat-option>
+              <mat-option id="option-show-history" (click)="showHistory(file)">
+                <mat-icon>{{iconShowHistory}}</mat-icon>Show History
+              </mat-option>
+              <mat-option id="option-change-favourite" (click)="changeFavouriteSetting(file)">
+                <mat-icon>{{getFavouriteIcon(file)}}</mat-icon>{{getFavouriteButtonText(file.name)}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+
+        <!-- The row-td-sections below is generated: Do not modify manually! -->
+
+        <td [ngStyle]="{'font-weight': isFileFavourite(file.name) ? 'bold' : ''}">{{file.name}} {{favouriteAsterix(file)}}</td>
+        <td>{{file.description}}</td>
+        <td>{{file.activeUUID}}</td>
+        <td>{{file.immediatelyActive}}</td>
+        <td>{{file.techType}}</td>
+        <td>{{file.techVersion}}</td>
+        <td>{{file.creator}}</td>
+        <td>{{file.creationDate}}</td>
+        <td>{{file.size}}</td>
+
+        <!-- The row-td-sections above is generated: Do not modify manually! -->
+
+      </tr>
+</table>
+<b>* Favourite Files</b>

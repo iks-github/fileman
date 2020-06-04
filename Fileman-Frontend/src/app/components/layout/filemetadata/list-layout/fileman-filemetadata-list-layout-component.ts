@@ -13,15 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { FilemanConstants } from 'src/app/common/fileman-constants';
+import { LayoutFilemetadataCommons } from '../layout-filemetadata-commons';
+import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 
-export class LayoutCommons {
-  @Input() viewedItems;
-  @Input() readOnly;
-  @Output() itemEdited: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-  @Output() itemDeleted: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
+@Component({
+  selector: 'fileman-list-layout',
+  templateUrl: './fileman-filemetadata-list-layout-component.html',
+  styleUrls: ['./fileman-filemetadata-list-layout-component.css']
+})
+export class FilemetadataListLayout extends LayoutFilemetadataCommons {
 
+  getDetailsTooltip(file: FileMetaData): string {
+    return  this.getMetadataHtmlTooltip(file);
+  }
 }
-

@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { FilemanConstants } from 'src/app/common/fileman-constants';
+import { Layout<<Type>>Commons } from '../layout-<<type>>-commons';
 
-export class LayoutCommons {
-  @Input() viewedItems;
-  @Input() readOnly;
-  @Output() itemEdited: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-  @Output() itemDeleted: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
+@Component({
+  selector: '<<type>>-list-layout',
+  templateUrl: './fileman-<<type>>-list-layout-component.html',
+  styleUrls: ['./fileman-<<type>>-list-layout-component.css']
+})
+export class <<Type>>ListLayout extends Layout<<Type>>Commons {
+  @Input() all<<Type>>sMap;
 
+  getDetailsTooltip(<<type>>: HTMLInputElement): string {
+    const data = this.all<<Type>>sMap.get(<<type>>.name);
+    return data.getStringRepresentation();
+  }
 }
-

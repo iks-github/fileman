@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 import { Input, Output, EventEmitter } from '@angular/core';
+import { Icon } from 'src/app/common/fileman-constants';
+import { <<Type>> } from 'src/app/common/domainobjects/gen/<<Type>>';
+import { LayoutCommons } from '../layout-commons';
 
-import { FilemanConstants } from 'src/app/common/fileman-constants';
+export class Layout<<Type>>Commons extends LayoutCommons {
+	
+  edit(item: <<Type>>) {
+    //this.itemEdited.emit(item);
+  }
 
-export class LayoutCommons {
-  @Input() viewedItems;
-  @Input() readOnly;
-  @Output() itemEdited: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-  @Output() itemDeleted: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-
+  delete(item: <<Type>>) {
+    //this.itemDeleted.emit(item);
+  }
+	
 }
 

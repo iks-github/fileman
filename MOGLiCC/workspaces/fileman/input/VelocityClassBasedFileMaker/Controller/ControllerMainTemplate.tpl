@@ -1,10 +1,14 @@
+#set( $notNeeded = $classDescriptor.getMetaInfoValueFor("BackendController").contains("NOT FOUND") || 
+                   ! $classDescriptor.getMetaInfoValueFor("BackendController").equalsIgnoreCase("true") )
+#set( $className = $TemplateStringUtility.firstToLowerCase($classDescriptor.simpleName)) 
+
 #set( $packagePath = $TemplateStringUtility.replaceAllIn(${classDescriptor.package}, ".", "/") + "/rest" ) 
 
 @TargetFileName ${classDescriptor.simpleName}RestController.java # Name of output file with extension but without path
 @TargetDir $model.getMetaInfoValueFor("backendGenDir")/$packagePath
 @CreateNew true # creates target dir if not existing and overwrites target file if existing
 @NameOfValidModel SpringBootBackendAngularFrontModel
-@SkipGeneration $classDescriptor.doesHaveMetaInfo( "withController", "false") 
+@SkipGeneration $notNeeded
 
 package ${classDescriptor.package}.rest;
 '

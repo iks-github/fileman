@@ -1,4 +1,5 @@
-#set( $notNeeded = ! $classDescriptor.doesHaveMetaInfo( "frontendInterface", "true"))
+#set( $notNeeded = $classDescriptor.getMetaInfoValueFor("FrontendService").contains("NOT FOUND") || 
+                   ! $classDescriptor.getMetaInfoValueFor("FrontendService").equalsIgnoreCase("true") )
 
 @TargetFileName ${classDescriptor.simpleName}.ts # Name of output file with extension but without path
 @TargetDir $model.getMetaInfoValueFor("frontendSrcDir")/common/domainobjects/gen

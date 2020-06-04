@@ -1,10 +1,12 @@
+#set( $notNeeded = $classDescriptor.getMetaInfoValueFor("DaoAndSql").contains("NOT FOUND") || 
+                   ! $classDescriptor.getMetaInfoValueFor("DaoAndSql").equalsIgnoreCase("true") )
 #set( $packagePath = $TemplateStringUtility.replaceAllIn(${classDescriptor.package}, ".", "/") + "/dao" ) 
 
 @TargetFileName ${classDescriptor.simpleName}DaoImpl.java # Name of output file with extension but without path
 @TargetDir $model.getMetaInfoValueFor("backendSrcDir")/$packagePath
 @CreateNew false # create only if not present
 @NameOfValidModel SpringBootBackendAngularFrontModel
-@SkipGeneration $classDescriptor.doesHaveMetaInfo( "withDaoAndSql", "false") 
+@SkipGeneration $notNeeded 
 
 package ${classDescriptor.package}.dao;
 '

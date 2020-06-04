@@ -12,4 +12,20 @@ import { ${NewDomainObject}ListLayout } from './components/layout/${newDomainObj
 import { ${NewDomainObject}TableLayout } from './components/layout/${newDomainObject}/table-layout/fileman-${newDomainObject}-table-layout-component';
 import { ${NewDomainObject}TilesLayout } from './components/layout/${newDomainObject}/tiles-layout/fileman-${newDomainObject}-tiles-layout-component';
 
+
+#foreach($classDescriptor in $model.classDescriptorList)
+
+	#if($classDescriptor.simpleName.equals($NewDomainObject)) 
+		
+		#set( $skip = $classDescriptor.getMetaInfoValueFor("FrontendService").contains("NOT FOUND") || 
+                      $classDescriptor.getMetaInfoValueFor("FrontendService").equals("false") )
+		
+		#if (! $skip) 
+
+			import { ${NewDomainObject}Service } from './services/fileman-${newDomainObject}-service';
+
+		#end
+	#end
+#end
+
 '

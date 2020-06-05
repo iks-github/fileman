@@ -26,7 +26,7 @@ export class User
            'name',
            'role',
            'password',
-           'PasswordRepetition',
+           'passwordRepetition',
            'avatar',
         ];
     }

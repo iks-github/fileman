@@ -13,7 +13,7 @@ export class UserService {
 
   constructor(private httpClient: HttpClient,
               propertiesService: FilemanPropertiesLoaderService) {
-    this.url = propertiesService.getProperty('serverurl') + '/files';
+    this.url = propertiesService.getProperty('serverurl') + '/user';
   }
 
   getUser(id: any) {

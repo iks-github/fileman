@@ -1,5 +1,5 @@
 '
-'  private setDataToControls(metadata: FileMetaData) {
+'  private setDataToControls(${className}: ${classDescriptor.simpleName}) {
 
 #foreach ($attributeDescriptor in $attributeDescriptorList)
 
@@ -8,7 +8,7 @@
 		#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeName, " ", "") ) 
 		#set( $AttributeName = $TemplateStringUtility.firstToUpperCase($attributeName) ) 
 	
-'    this.${attributeName}C.setValue(metadata.get${AttributeName}());
+'    this.${attributeName}C.setValue(${className}.get${AttributeName}());
 
 	#end
 #end

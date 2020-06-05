@@ -1,6 +1,7 @@
+
 '
-'  private getFileMetaData() { 
-'    const fileMetaData = new FileMetaData(null);
+'  private get${classDescriptor.simpleName}() { 
+'    const $className = new ${classDescriptor.simpleName}(null);
 '
 
 #foreach ($attributeDescriptor in $attributeDescriptorList)
@@ -9,10 +10,10 @@
 		#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeName, " ", "") ) 
 		#set( $AttributeName = $TemplateStringUtility.firstToUpperCase($attributeName) ) 
 	
-'    fileMetaData.set${AttributeName}(this.${attributeName}C.value);
+'    ${className}.set${AttributeName}(this.${attributeName}C.value);
 	#end
 #end
 
 '
-'    return fileMetaData;
+'    return ${className};
 '  }

@@ -202,7 +202,6 @@ class <<DomainPath>>.User
     metainfo ExampleData "ich"
     metainfo MinLength 2
     metainfo MaxLength 64
-    metainfo unique true
     metainfo guiType TextField
 
   attribute role
@@ -222,7 +221,7 @@ class <<DomainPath>>.User
     metainfo hideFromClient true
     metainfo guiType TextField
 
-  attribute passwordRepetition
+  attribute "Password Repetition"
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "123"
@@ -230,6 +229,11 @@ class <<DomainPath>>.User
     metainfo MaxLength 32
     metainfo hideFromServer true
     metainfo guiType TextField
+
+   attribute avatar
+    metainfo SqlType varchar
+    metainfo JavaType String
+    metainfo guiType FileSelector
  
  class <<DomainPath>>.ExceptionMetaData
   metainfo implements java.io.Serializable

@@ -33,6 +33,14 @@
 
 '                    <input id="$attributeName" type="checkbox" class="form-Control" formControlName="${attributeName}Control"/>
 
+#elseif ( $guiType.equals("FileSelector"))
+
+	'                    <input id="fileContentSource" class="form-Control" type="file"
+	'                    formControlName="${attributeName}Control"
+	'                    (change)="on${AttributeName}Change($event)"
+	'                    [style.border]="getBorder()"
+	'                    (focus)="setFocusOnFileSelector(true)" (blur)="setFocusOnFileSelector(false)"/>
+
 #else
 
 	Type of GUI Field "$guiType" is not yet supported in the MOGLiCC template "SubTemplate_GuiElements.tpl".	

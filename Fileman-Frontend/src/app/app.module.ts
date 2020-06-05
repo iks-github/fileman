@@ -55,11 +55,6 @@ import { FilemetadataListLayout } from './components/layout/filemetadata/list-la
 import { FilemetadataTableLayout } from './components/layout/filemetadata/table-layout/fileman-filemetadata-table-layout-component';
 import { FilemetadataTilesLayout } from './components/layout/filemetadata/tiles-layout/fileman-filemetadata-tiles-layout-component';
 
-//import { UserListLayout } from './components/layout/user/list-layout/fileman-user-list-layout-component';
-//import { UserTableLayout } from './components/layout/user/table-layout/fileman-user-table-layout-component';
-//import { UserTilesLayout } from './components/layout/user/tiles-layout/fileman-user-tiles-layout-component';
-import { UserService } from './services/fileman-user-service';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,7 +69,6 @@ import { UserService } from './services/fileman-user-service';
     FilemanSortIconComponent,
     FilemanLogoComponent,
     FilemanHistoryViewComponent,
-    //UserListLayout, UserTableLayout, UserTilesLayout,
     FilemetadataListLayout, FilemetadataTableLayout, FilemetadataTilesLayout
   ],
   imports: [
@@ -100,10 +94,7 @@ import { UserService } from './services/fileman-user-service';
   providers: [
     AuthGuard, AdminAuthGuard,
     HttpClientTestingModule,
-    FilemanOverviewComponent,
     FilemanMetadataService, FilemanFavouriteSettingsService, FilemanFileService,
-    UserService,
-    FilemanToolbarComponent,
     {provide: ErrorHandler, useClass: FilemanErrorHandler}
   ],
   bootstrap: [AppComponent]

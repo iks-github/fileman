@@ -52,7 +52,7 @@ export class FilemetadataDetailsComponent implements OnInit {
               private fileService: FilemanFileService,
               private metadataService: FilemanMetadataService,
               private previewService: FilemanPreviewService) {
-      this.form = this.createFormGroup();
+      this.form = this.createMetaDataFormGroup();
       this.reader = new FileReader();
       this.currentUser = authService.getCurrentUserName();
   }
@@ -190,8 +190,8 @@ export class FilemetadataDetailsComponent implements OnInit {
     this.backToOverview();
   }
 
-  createFormGroup() {
-    this.metaDataForm = this.createMetaDataFormControl();
+  createMetaDataFormGroup() {
+    this.metaDataForm = this.createFormGroup();
     return new FormGroup({inputFieldControl: new FormGroup({
                           metaDataForm: this.metaDataForm,
                           fileContentControl: new FormControl('')
@@ -216,7 +216,7 @@ export class FilemetadataDetailsComponent implements OnInit {
   }
 
   // The form control block below is generated - do not modify manually!
-  createMetaDataFormControl() {
+  createFormGroup() {
     return new FormGroup({
         nameControl: new FormControl('', [
                 Validators.required,

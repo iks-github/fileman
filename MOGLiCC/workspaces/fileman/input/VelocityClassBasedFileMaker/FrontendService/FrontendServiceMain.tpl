@@ -23,10 +23,10 @@
 
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
-import { HttpErrorResponse, HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { ${classDescriptor.simpleName} } from '../common/domainobjects/gen/${classDescriptor.simpleName}';
 import { FilemanConstants } from '../common/fileman-constants';
+import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
 
 '
 @Injectable({
@@ -36,9 +36,12 @@ export class ${classDescriptor.simpleName}Service {
 
 #set( $classname = $classDescriptor.simpleName.toLowerCase() )
 
-'  url = 'localHost:10000/${urlRootPath}/${className}';
+'  url;
 '
-'  constructor(private httpClient: HttpClient) { }
+'  constructor(private httpClient: HttpClient,
+'              propertiesService: FilemanPropertiesLoaderService) {
+'    this.url = propertiesService.getProperty('serverurl') + '/${className}';
+'  }
 '
 '  get${classDescriptor.simpleName}($idAttributeName: any) {
 '    const uri = this.url + '/' + $idAttributeName;

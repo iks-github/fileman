@@ -222,7 +222,7 @@ class <<DomainPath>>.User
     metainfo hideFromClient true
     metainfo guiType TextField
 
-  attribute "Password Repetition"
+  attribute passwordRepetition
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "123"

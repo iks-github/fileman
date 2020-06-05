@@ -1,4 +1,5 @@
 #set( $newDomainObject = $model.getMetaInfoValueFor("newDomainObject") )
+#set( $skip = $newDomainObject.contains("NOT FOUND") )
 #set( $notNeeded = $classDescriptor.getMetaInfoValueFor("FrontendService").contains("NOT FOUND") || 
                    ! $classDescriptor.getMetaInfoValueFor("FrontendService").equalsIgnoreCase("true") ||
                    $newDomainObject.contains("NOT FOUND"))
@@ -7,7 +8,7 @@
 @TargetFileName app.module.ts
 @TargetDir ..\Fileman-Frontend\src\app
 @NameOfValidModel SpringBootBackendAngularFrontModel
-@InsertAbove FilemanToolbarComponent,
+@InsertAbove FilemanMetadataService,
 @SkipGeneration $skip
 
 '    ${NewDomainObject}Service,

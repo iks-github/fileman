@@ -254,10 +254,10 @@ export class FilemetadataDetailsComponent implements OnInit {
     return fileMetaData;
   }
 
-  private setDataToControls(metadata: FileMetaData) {
-    this.nameC.setValue(metadata.getName());
-    this.descriptionC.setValue(metadata.getDescription());
-    this.immediatelyActiveC.setValue(metadata.getImmediatelyActive());
+  private setDataToControls(fileMetaData: FileMetaData) {
+    this.nameC.setValue(fileMetaData.getName());
+    this.descriptionC.setValue(fileMetaData.getDescription());
+    this.immediatelyActiveC.setValue(fileMetaData.getImmediatelyActive());
   }
   // The form control block above is generated - do not modify manually!
 

@@ -19,12 +19,13 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Data of a Fileman user")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1590505861797L;
+	private static final long serialVersionUID = 1591343643731L;
 
 	// ===============  instance fields  ===============
 
     @NotNull(message="Value of mandatory attribute 'id' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
+	@JsonIgnore
 	private Integer id;
 
     @NotNull(message="Value of mandatory attribute 'name' is not present.")
@@ -32,15 +33,22 @@ public class User implements Serializable
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 2 to 64.")
 	private String name;
 
+    @NotNull(message="Value of mandatory attribute 'role' is not present.")
+    @ApiModelProperty(notes = "Mandatory.")
+	private String role;
+
     @NotNull(message="Value of mandatory attribute 'password' is not present.")
     @Size(min=1, max=32, message="Value of attribute 'password' is out of valid range (1-32)")
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 1 to 32.")
 	@JsonIgnore
 	private String password;
 
-    @NotNull(message="Value of mandatory attribute 'role' is not present.")
-    @ApiModelProperty(notes = "Mandatory.")
-	private String role;
+    @NotNull(message="Value of mandatory attribute 'passwordRepetition' is not present.")
+    @Size(min=1, max=32, message="Value of attribute 'passwordRepetition' is out of valid range (1-32)")
+    @ApiModelProperty(notes = "Mandatory. Valid length ranges from 1 to 32.")
+	private String passwordRepetition;
+
+	private String avatar;
 
 
 	// ===============  setter methods  ===============
@@ -55,14 +63,24 @@ public class User implements Serializable
 		this.name = name;
 	}
 
+	public void setRole(final String role)
+	{
+		this.role = role;
+	}
+
 	public void setPassword(final String password)
 	{
 		this.password = password;
 	}
 
-	public void setRole(final String role)
+	public void setPasswordRepetition(final String passwordRepetition)
 	{
-		this.role = role;
+		this.passwordRepetition = passwordRepetition;
+	}
+
+	public void setAvatar(final String avatar)
+	{
+		this.avatar = avatar;
 	}
 
 	// ===============  getter methods  ===============
@@ -77,14 +95,24 @@ public class User implements Serializable
 		return name;
 	}
 
+	public String getRole()
+	{
+		return role;
+	}
+
 	public String getPassword()
 	{
 		return password;
 	}
 
-	public String getRole()
+	public String getPasswordRepetition()
 	{
-		return role;
+		return passwordRepetition;
+	}
+
+	public String getAvatar()
+	{
+		return avatar;
 	}
 
 	// ===============  additional Javabean methods  ===============
@@ -95,8 +123,10 @@ public class User implements Serializable
 		return "User ["
 				+ "id = " + id + ", "
 				+ "name = " + name + ", "
+				+ "role = " + role + ", "
 				+ "password = " + password + ", "
-				+ "role = " + role + ""
+				+ "passwordRepetition = " + passwordRepetition + ", "
+				+ "avatar = " + avatar + ""
 				+ "]";
 	}
 
@@ -129,6 +159,15 @@ public class User implements Serializable
 			if (! name.equals(other.name))
 				   return false;
 		}
+		if (role == null)
+		{
+			if (other.role != null)
+				return false;
+		} else
+		{
+			if (! role.equals(other.role))
+				   return false;
+		}
 		if (password == null)
 		{
 			if (other.password != null)
@@ -138,13 +177,22 @@ public class User implements Serializable
 			if (! password.equals(other.password))
 				   return false;
 		}
-		if (role == null)
+		if (passwordRepetition == null)
 		{
-			if (other.role != null)
+			if (other.passwordRepetition != null)
 				return false;
 		} else
 		{
-			if (! role.equals(other.role))
+			if (! passwordRepetition.equals(other.passwordRepetition))
+				   return false;
+		}
+		if (avatar == null)
+		{
+			if (other.avatar != null)
+				return false;
+		} else
+		{
+			if (! avatar.equals(other.avatar))
 				   return false;
 		}
 		return true;
@@ -157,8 +205,10 @@ public class User implements Serializable
 
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((passwordRepetition == null) ? 0 : passwordRepetition.hashCode());
+		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
 
 		return result;
 	}
@@ -174,14 +224,24 @@ public class User implements Serializable
            	 this.setName(otherUser.getName());
             }
        }
+        if (otherUser.getRole() != null) {
+            if(! otherUser.getRole().isEmpty()) {
+           	 this.setRole(otherUser.getRole());
+            }
+       }
         if (otherUser.getPassword() != null) {
             if(! otherUser.getPassword().isEmpty()) {
            	 this.setPassword(otherUser.getPassword());
             }
        }
-        if (otherUser.getRole() != null) {
-            if(! otherUser.getRole().isEmpty()) {
-           	 this.setRole(otherUser.getRole());
+        if (otherUser.getPasswordRepetition() != null) {
+            if(! otherUser.getPasswordRepetition().isEmpty()) {
+           	 this.setPasswordRepetition(otherUser.getPasswordRepetition());
+            }
+       }
+        if (otherUser.getAvatar() != null) {
+            if(! otherUser.getAvatar().isEmpty()) {
+           	 this.setAvatar(otherUser.getAvatar());
             }
        }
 	}

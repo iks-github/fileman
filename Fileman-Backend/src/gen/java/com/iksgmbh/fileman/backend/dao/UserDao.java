@@ -37,24 +37,20 @@ public class UserDao
 		if (! match.isPresent()) {
 			return false;
 		}
+
+       // with a real db this will be refactored
+		user.setPasswordRepetition(null);  // set default value for non-db field
+
 		users.remove(match.get());
 		users.add(user);
 		return true;
 	}
 
-	public User findByName(String name)
-	{
-	   	Optional<User> match = users.stream()
-                .filter (data -> data.getName()
-                .equals(name))
-                .findFirst();
-		if (match.isPresent()) {
-			return match.get();
-		}
-		return null;
-	}
-
 	public User create(User user) {
+
+       // with a real db this will be refactored
+		user.setPasswordRepetition(null);  // set default value for non-db field
+
 		users.add(user);
 		return user;
 	}

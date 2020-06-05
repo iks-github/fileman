@@ -18,28 +18,28 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { FilemanDetailsComponent } from './fileman-file-details.component';
+import { FilemetadataDetailsComponent } from './fileman-filemetadata-details.component';
 import { FilemanOverviewComponent } from '../../fileman-overview/fileman-overview.component';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 
 describe('FilemanDetailsComponent', () => {
-  let component: FilemanDetailsComponent;
-  let fixture: ComponentFixture<FilemanDetailsComponent>;
+  let component: FilemetadataDetailsComponent;
+  let fixture: ComponentFixture<FilemetadataDetailsComponent>;
   let metadataService: FilemanMetadataService;
   let fileService: FilemanFileService;
 
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ FilemanDetailsComponent ],
+      declarations: [ FilemetadataDetailsComponent ],
       imports: [ RouterTestingModule.withRoutes(
         [{path: 'fileman/overview', component: FilemanOverviewComponent}]
       ), HttpClientModule ]
     });
 
-    fixture = TestBed.createComponent(FilemanDetailsComponent);
+    fixture = TestBed.createComponent(FilemetadataDetailsComponent);
     component = fixture.componentInstance;
 
     metadataService = fixture.debugElement.injector.get(FilemanMetadataService);

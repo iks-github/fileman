@@ -42,15 +42,6 @@ public class UserRestController
 		return user;
    }
 
-	@GetMapping("/users/{name}")
-    public User findUserByName(@PathVariable String name) {
-		User user = userDao.findByName(name);
-		if (user == null) {
-			throw new ResourceNotFoundException("User '" + name +"' + not found.");
-		}
-		return user;
-   }
-
 	@PostMapping("/users")
 	public Integer createUser(@Valid @RequestBody User user)
 	{

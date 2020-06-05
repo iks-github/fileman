@@ -6,6 +6,7 @@ export class User
     role: string;
     password: string;
     passwordRepetition: string;
+    avatar: string;
 
     constructor(untypedUser: any) {
         if (untypedUser != null) {
@@ -14,6 +15,7 @@ export class User
             this.role = untypedUser.role;
             this.password = untypedUser.password;
             this.passwordRepetition = untypedUser.passwordRepetition;
+            this.avatar = untypedUser.avatar;
         }
     }
 
@@ -24,7 +26,8 @@ export class User
            'name',
            'role',
            'password',
-           'passwordRepetition',
+           'PasswordRepetition',
+           'avatar',
         ];
     }
 
@@ -48,6 +51,10 @@ export class User
         return this.passwordRepetition;
     }
 
+    getAvatar() {
+        return this.avatar;
+    }
+
 
     setId(id: number) {
         this.id = id;
@@ -69,6 +76,10 @@ export class User
         this.passwordRepetition = passwordRepetition;
     }
 
+    setAvatar(avatar: string) {
+        this.avatar = avatar;
+    }
+
 
     public equals(obj: User): boolean {
         if (this === obj) { return true; }
@@ -79,6 +90,7 @@ export class User
         if (this.role !== obj.role) { return false; }
         if (this.password !== obj.password) { return false; }
         if (this.passwordRepetition !== obj.passwordRepetition) { return false; }
+        if (this.avatar !== obj.avatar) { return false; }
 
         return true;
     }
@@ -90,6 +102,7 @@ export class User
            'Name: ' + this.name + '\n' +
            'Role: ' + this.role + '\n' +
            'Password: ' + this.password + '\n' +
-           'PasswordRepetition: ' + this.passwordRepetition + '\n';
+           'PasswordRepetition: ' + this.passwordRepetition + '\n' +
+           'Avatar: ' + this.avatar + '\n';
     }
 }

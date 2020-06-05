@@ -37,7 +37,7 @@ describe('FilemanOverviewComponent', () => {
 
     let previewService: FilemanPreviewService =
       jasmine.createSpyObj<FilemanPreviewService>(
-      'FilemanPreviewService', ['fetchFileFromServer', 'preparePreview']);
+      'FilemanPreviewService', ['fetchFileFromServer', 'preparePreviews']);
 
     TestBed.configureTestingModule({
       declarations: [ FilemanOverviewComponent ],

@@ -37,7 +37,7 @@
               >{{iconNew}}</mat-icon>
 
     <mat-icon data-toggle="tooltip" title="Reload from server"
-              (click)="onRefreshClick()"
+              (click)="onReloadClick()"
               style="margin-left: 5px;"
               >{{iconReload}}</mat-icon>
 
@@ -67,9 +67,10 @@
                   title="Select content of overview"
                   style="color: gray; background: lightyellow;"
                   >{{iconSettings}}</mat-icon>
-        <select id="contentType" style="background: lightyellow; margin-left: 5px;">
-            <option [value]="'Files'">Files</option>
-            <option [value]="'Users'">Users</option>
+        <select id="contentType" #contentType style="background: lightyellow; margin-left: 5px;"
+          (change)="onContentTypeChange(contentType.value)">
+            <option [value]="contentTypeFiles">Files</option>
+            <option [value]="contentTypeUsers">Users</option>
         </select>
     </span>
 

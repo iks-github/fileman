@@ -19,9 +19,11 @@ import { TooltipOptions } from 'ng2-tooltip-directive';
 // import * as data from './properties.json';
 
 export enum SortType {ASC = 'asc', DESC = 'desc'}
-export enum Layout {List = 'overview_layout_type_list',
-                    Table = 'overview_layout_type_table',
-                    Tiles = 'overview_layout_type_tiles'}
+export enum Content {Files = 'content_type_files',
+                    Users = 'content_type_users'}
+export enum Layout {List = 'layout_type_list',
+                    Table = 'layout_type_table',
+                    Tiles = 'layout_type_tiles'}
 export enum PreviewType {Text = 'preview_type_text',
                     Image = 'preview_type_image',
                     PDF = 'preview_type_pdf',

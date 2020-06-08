@@ -16,7 +16,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { Router } from '@angular/router';
-import { Layout, Icon } from 'src/app/common/fileman-constants';
+import { Content, Layout, Icon } from 'src/app/common/fileman-constants';
 import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
 
 @Component({
@@ -25,6 +25,8 @@ import { FilemanComponentStateService } from 'src/app/services/fileman-component
   styleUrls: ['./fileman-toolbar.component.css']
 })
 export class FilemanToolbarComponent implements OnInit {
+  readonly contentTypeFiles: string = Content.Files;
+  readonly contentTypeUsers: string = Content.Users;
   readonly layoutTypeList: string = Layout.List;
   readonly layoutTypeTable: string = Layout.Table;
   readonly layoutTypeTiles: string = Layout.Tiles;
@@ -37,15 +39,11 @@ export class FilemanToolbarComponent implements OnInit {
   readonly iconSettings: string = Icon.Settings;
   readonly iconLogout: string = Icon.Logout;
 
-  @Input() isFavouriteFilterActive = false;
-  @Output() logoutHandler = new EventEmitter();
-  @Output() searchHandler = new EventEmitter();
-  @Output() refreshHandler = new EventEmitter();
-  @Output() favouriteFilterHandler = new EventEmitter();
-
   readOnly: boolean;
   isAdmin: boolean;
   layoutType: string;
+  contentType: string;
+  favouriteFilterActive: boolean;
   favouriteFilterIcon = Icon.FavouriteFilterInactive;
 
   constructor(private authService: FilemanAuthserviceService,
@@ -55,12 +53,19 @@ export class FilemanToolbarComponent implements OnInit {
   ngOnInit(): void {
     this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
     this.isAdmin = this.authService.getCurrentUserRole() === 'Admin';
-    this.layoutType = this.componentStateService.getOverviewLayoutType();
+    this.layoutType = this.componentStateService.getLayoutType();
+    this.contentType = this.componentStateService.getContentType();
+    this.favouriteFilterActive = this.componentStateService.getFavouriteFilterActive();
   }
 
   onLayoutClick(layoutType: string) {
     this.layoutType = layoutType;
-    this.componentStateService.setOverviewLayoutType(layoutType);
+    this.componentStateService.setLayoutType(layoutType);
+  }
+
+  onContentTypeChange(contentType: string) {
+    this.contentType = contentType;
+    this.componentStateService.setContentType(contentType);
   }
 
   onNewClick() {
@@ -70,25 +75,27 @@ export class FilemanToolbarComponent implements OnInit {
   }
 
   onLogout() {
-    this.logoutHandler.emit();
+    this.router.navigate(['/fileman']);
+    this.authService.logout();
+    console.log('Logged out!');
   }
 
-  onRefreshClick() {
-    this.refreshHandler.emit();
+  onReloadClick() {
+    this.componentStateService.requestReload();
   }
 
   onFavouriteFilterClick() {
-    this.isFavouriteFilterActive = ! this.isFavouriteFilterActive;
-    if (this.isFavouriteFilterActive) {
+    this.favouriteFilterActive = ! this.favouriteFilterActive;
+    if (this.favouriteFilterActive) {
       this.favouriteFilterIcon = Icon.FavouriteFilterActive;
     } else {
       this.favouriteFilterIcon = Icon.FavouriteFilterInactive;
     }
-    this.favouriteFilterHandler.emit(this.isFavouriteFilterActive);
+    this.componentStateService.setFavouriteFilterActive(this.favouriteFilterActive);
   }
 
   startSearch(searchString) {
-    this.searchHandler.emit(searchString);
+    this.componentStateService.setSearchString(searchString);
   }
 
   getAddNewToolTip() {

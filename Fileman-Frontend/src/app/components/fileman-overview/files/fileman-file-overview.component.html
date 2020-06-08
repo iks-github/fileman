@@ -1,0 +1,48 @@
+<hr style="background: blue">
+
+<h5>Hosted Files:</h5>
+<div *ngIf="allFilesMap.size == 0">
+    <i>None.</i>
+</div>
+<div *ngIf="viewedFiles.length == 0 && allFilesMap.size > 0">
+    <i>No file matches your filter.</i>
+</div>
+
+<div [ngSwitch]="layoutType">
+    <div *ngSwitchCase="layoutTypeList">
+        <fileman-list-layout
+          [viewedFiles]="viewedFiles"
+          [favouriteSettings]="favouriteSettings"
+          [readOnly]="readOnly"
+          (fileDownloaded)="download($event)"
+          (fileEdited)="edit($event)"
+          (fileDeleted)="delete($event)"
+          (fileHistoryShown)="showHistory($event)"
+          (fileFavouriteSettingChanged)="markFavourite($event)">
+        </fileman-list-layout>
+    </div>
+    <div *ngSwitchCase="layoutTypeTable">
+        <fileman-table-layout
+          [viewedFiles]="viewedFiles"
+          [favouriteSettings]="favouriteSettings"
+          [readOnly]="readOnly"
+          (fileDownloaded)="download($event)"
+          (fileEdited)="edit($event)"
+          (fileDeleted)="delete($event)"
+          (fileHistoryShown)="showHistory($event)"
+          (fileFavouriteSettingChanged)="markFavourite($event)">
+        </fileman-table-layout>
+    </div>
+    <div *ngSwitchCase="layoutTypeTiles">
+        <fileman-tiles-layout
+          [viewedFiles]="viewedFiles"
+          [favouriteSettings]="favouriteSettings"
+          [readOnly]="readOnly"
+          (fileDownloaded)="download($event)"
+          (fileEdited)="edit($event)"
+          (fileDeleted)="delete($event)"
+          (fileHistoryShown)="showHistory($event)"
+          (fileFavouriteSettingChanged)="markFavourite($event)">
+        </fileman-tiles-layout>
+    </div>
+</div>

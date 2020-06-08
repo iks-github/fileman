@@ -41,6 +41,7 @@ import { AdminAuthGuard } from './services/guard/admin-auth-guard.service';
 import { FilemanLogoComponent } from './components/fileman-logo.component';
 import { FilemanLoginComponent } from './components/fileman-login/fileman-login.component';
 import { FilemanOverviewComponent } from './components/fileman-overview/fileman-overview.component';
+import { FilemanFileOverviewComponent } from './components/fileman-overview/files/fileman-file-overview.component';
 import { FilemanToolbarComponent } from './components/fileman-toolbar/fileman-toolbar.component';
 import { FilemanSortIconComponent } from './components/helper/fileman-sort-icon/fileman-sort-icon.component';
 import { FilemanFavouriteSettingsService } from './services/fileman-favourite-settings-service.service';
@@ -68,6 +69,7 @@ import { UserService } from './services/fileman-user-service.service';
     FilemanLoginComponent,
     FilemetadataDetailsComponent,
     FilemanOverviewComponent,
+    FilemanFileOverviewComponent,
     FilemanToolbarComponent,
     FilemanProblemPageComponent,
     FilemanSortIconComponent,

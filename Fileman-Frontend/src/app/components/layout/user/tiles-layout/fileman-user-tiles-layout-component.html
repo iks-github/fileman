@@ -1,0 +1,35 @@
+<li *ngFor="let <<type>> of viewedUsers; trackBy: trackFiles let i = index "
+    class="list-group-item">
+    <td width="40">
+      <mat-icon data-toggle="tooltip" title="Download" (click)="download(<<type>>)">arrow_downwards</mat-icon>
+      <br>
+      <span *ngIf="! readOnly">
+          <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(<<type>>)">edit</mat-icon>
+      </span>
+      <br>
+      <span *ngIf="! readOnly">
+          <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(<<type>>)">delete</mat-icon>
+      </span>
+    </td>
+    <td>
+      <span data-toggle="tooltip" title="{{getDetailsTooltip(<<type>>)}}" data-html="true">
+          {{i+1}}. {{<<type>>.id}}
+          <div>
+            <img class="image-preview" *ngIf="hasImagePreview(file.name)" [src]="getImagePreview(file.name)">
+            <span class="text-preview" *ngIf="hasTextPreview(file.name)">{{ getTextPreview(<<type>>.id) }}</span>
+            <ngx-doc-viewer
+              class="docx-preview"
+              *ngIf="hasDocxPreview(<<type>>.id)"
+              [url]="getDocxPreview(<<type>>.id)"
+              viewer="mammoth">
+            </ngx-doc-viewer>
+            <pdf-viewer class="pdf-preview" *ngIf="hasPdfPreview(<<type>>.id)"
+              [src]="getPdfPreview(<<type>>.id)"
+              [render-text]="true"
+              [show-all]="false"
+              [original-size]="false">
+            </pdf-viewer>
+          </div>
+      </span>
+    </td>
+</li>

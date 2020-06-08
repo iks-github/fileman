@@ -1,0 +1,104 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+    <h2>
+        <fileman-logo></fileman-logo>
+        <span *ngIf="newMode">Details of new User</span>
+        <span *ngIf="! newMode">Edit User Details</span>
+    </h2>
+
+    <div class="form-group" formGroupName="inputFieldControl">
+
+        <!-- The table section below is generated: Do not modify manually! -->
+        <table>
+            <tr>
+                <td>
+                    <label for="name">Name</label>
+                    <br>
+                    <input id="name" type="text" class="form-Control" formControlName="nameControl"/>
+                </td>
+				 <td class="space"></td>
+                <td>
+                    <label for="role">Role</label>
+                    <br>
+                    <select id="role" class="form-Control" formControlName="roleControl">
+                    	<option [value]="'Reader'">Reader</option>
+                    	<option [value]="'Writer'">Writer</option>
+                    	<option [value]="'Admin'">Admin</option>
+					 </select>
+                </td>
+            </tr>
+
+            <tr>&nbsp;</tr>
+
+            <tr>
+                <td>
+                    <label for="password">Password</label>
+                    <br>
+                    <input id="password" type="text" class="form-Control" formControlName="passwordControl"/>
+                </td>
+				 <td class="space"></td>
+                <td>
+                    <label for="passwordRepetition">PasswordRepetition</label>
+                    <br>
+                    <input id="passwordRepetition" type="text" class="form-Control" formControlName="passwordRepetitionControl"/>
+                </td>
+            </tr>
+
+            <tr>&nbsp;</tr>
+
+            <tr>
+                <td>
+                    <label for="avatar">Avatar</label>
+					 <br>
+                    <input id="fileContentSource" class="form-Control" type="file"
+                    formControlName="avatarControl"
+                    (change)="onAvatarChange($event)"
+                    [style.border]="getBorder()"
+                    (focus)="setFocusOnFileSelector(true)" (blur)="setFocusOnFileSelector(false)"/>
+                </td>
+            </tr>
+        </table>
+        <!-- The table section above is generated: Do not modify manually! -->
+
+        <div class="form-group alert alert-danger" *ngIf=" ! inputFieldControl.touched || inputFieldControl.invalid">
+            Validation errors:
+
+            <!-- The error sections below are generated: Do not modify manually! -->
+            <div *ngIf="nameC.errors?.required && nameC.touched">
+               The field <i>Name</i> is required.
+            </div>
+            <div *ngIf="nameC.errors?.minlength && nameC.touched">
+               Minimum length of field <i>Name</i> is {{nameC.errors.minlength.requiredLength}}.
+            </div>
+            <div *ngIf="nameC.errors?.isNotUnique">
+               The value for field <i>Name</i> must be unique! <i>{{nameC.value}}</i> is not unique.
+            </div>
+            <div *ngIf="roleC.errors?.required && roleC.touched">
+               The field <i>Role</i> is required.
+            </div>
+            <div *ngIf="passwordC.errors?.required && passwordC.touched">
+               The field <i>Password</i> is required.
+            </div>
+            <div *ngIf="passwordC.errors?.minlength && passwordC.touched">
+               Minimum length of field <i>Password</i> is {{passwordC.errors.minlength.requiredLength}}.
+            </div>
+            <div *ngIf="passwordRepetitionC.errors?.required && passwordRepetitionC.touched">
+               The field <i>PasswordRepetition</i> is required.
+            </div>
+            <div *ngIf="passwordRepetitionC.errors?.minlength && passwordRepetitionC.touched">
+               Minimum length of field <i>PasswordRepetition</i> is {{passwordRepetitionC.errors.minlength.requiredLength}}.
+            </div>
+            <!-- The error sections above are generated: Do not modify manually! -->
+
+        </div>
+
+        <button *ngIf="!readOnly"
+                [disabled]=" ! inputFieldControl.touched || inputFieldControl.invalid"
+                class="button btn btn-primary"
+                type="submit"
+                data-toggle="tooltip" title="{{getToolTip()}}"
+        >Save</button>
+        &nbsp;
+        <button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
+    </div>
+</form>

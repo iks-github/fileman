@@ -55,6 +55,11 @@ import { FilemetadataListLayout } from './components/layout/filemetadata/list-la
 import { FilemetadataTableLayout } from './components/layout/filemetadata/table-layout/fileman-filemetadata-table-layout-component';
 import { FilemetadataTilesLayout } from './components/layout/filemetadata/tiles-layout/fileman-filemetadata-tiles-layout-component';
 
+import { UserListLayout } from './components/layout/user/list-layout/fileman-user-list-layout-component';
+import { UserTableLayout } from './components/layout/user/table-layout/fileman-user-table-layout-component';
+import { UserTilesLayout } from './components/layout/user/tiles-layout/fileman-user-tiles-layout-component';
+import { UserService } from './services/fileman-user-service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +74,7 @@ import { FilemetadataTilesLayout } from './components/layout/filemetadata/tiles-
     FilemanSortIconComponent,
     FilemanLogoComponent,
     FilemanHistoryViewComponent,
+    UserListLayout, UserTableLayout, UserTilesLayout,
     FilemetadataListLayout, FilemetadataTableLayout, FilemetadataTilesLayout
   ],
   imports: [
@@ -94,6 +100,7 @@ import { FilemetadataTilesLayout } from './components/layout/filemetadata/tiles-
   providers: [
     AuthGuard, AdminAuthGuard,
     HttpClientTestingModule,
+    UserService,
     FilemanMetadataService, FilemanFavouriteSettingsService, FilemanFileService,
     {provide: ErrorHandler, useClass: FilemanErrorHandler}
   ],

@@ -16,6 +16,14 @@ export class UserService {
     this.url = propertiesService.getProperty('serverurl') + '/user';
   }
 
+  getAllUsers() {
+    // console.log(uri);
+    return this.httpClient.get(this.url, FilemanConstants.getRestCallHeaderOptions())
+                          .pipe(catchError((error: HttpErrorResponse) => {
+                            throw error; }
+                          ));
+  }
+
   getUser(id: any) {
     const uri = this.url + '/' + id;
     // console.log(uri);

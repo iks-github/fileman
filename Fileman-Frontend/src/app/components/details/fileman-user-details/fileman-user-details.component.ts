@@ -50,13 +50,15 @@ export class UserDetailsComponent implements OnInit {
     if ( ! this.newMode ) {
       const index = this.router.url.lastIndexOf('/') + 1;
       const id = this.router.url.substring(index);
-      this.toEdit = this.userService.getUser(id);
-      if (this.toEdit == null) {
-        alert('No data available for user "' + id + '"!');
-        this.backToOverview();  // no data to edit avaible - happends for page reload - reason unclear
-      } else {
-        this.setDataToControls(this.toEdit);
-      }
+      this.userService.getUser(id).subscribe((user: User) => {
+        this.toEdit = user;
+        if (this.toEdit == null) {
+          alert('No data available for user "' + id + '"!');
+          this.backToOverview();  // no data to edit avaible - happends for page reload - reason unclear
+        } else {
+          this.setDataToControls(this.toEdit);
+        }
+      });
     }
   }
 
@@ -95,6 +97,22 @@ export class UserDetailsComponent implements OnInit {
 
   cancel() {
     this.backToOverview();
+  }
+
+  isNotUnique(control: AbstractControl): Observable<ValidationErrors | null> {
+    return this.userService.getAllUsers()
+        .pipe(map((userArray: User[]) => {
+
+      const foundItem = userArray.find(
+        userItem => userItem.name === control.value
+      );
+
+      if (foundItem) {
+        return {isNotUnique: true};
+      }
+
+      return null;
+    }));
   }
 
   // The form control block below is generated - do not modify manually!

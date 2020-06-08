@@ -1,6 +1,5 @@
 package com.iksgmbh.fileman.backend.rest;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.iksgmbh.fileman.backend.User;
 import com.iksgmbh.fileman.backend.dao.UserDaoImpl;
@@ -33,6 +31,7 @@ public class UserRestController
 		return userDao.findAllUsers();
 	}
 
+	/*
 	@GetMapping("/users/{id}")
     public User findUserById(@PathVariable Integer id) {
 		User user = userDao.findById(id);
@@ -40,7 +39,7 @@ public class UserRestController
 			throw new ResourceNotFoundException("User '" + id +"' + not found.");
 		}
 		return user;
-   }
+   }*/
 
 	@GetMapping("/users/{name}")
     public User findUserByName(@PathVariable String name) {

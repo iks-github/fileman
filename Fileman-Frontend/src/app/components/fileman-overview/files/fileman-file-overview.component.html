@@ -10,7 +10,7 @@
 
 <div [ngSwitch]="layoutType">
     <div *ngSwitchCase="layoutTypeList">
-        <fileman-list-layout
+        <fileman-filemetadata-list-layout
           [viewedFiles]="viewedFiles"
           [favouriteSettings]="favouriteSettings"
           [readOnly]="readOnly"
@@ -19,10 +19,10 @@
           (fileDeleted)="delete($event)"
           (fileHistoryShown)="showHistory($event)"
           (fileFavouriteSettingChanged)="markFavourite($event)">
-        </fileman-list-layout>
+        </fileman-filemetadata-list-layout>
     </div>
     <div *ngSwitchCase="layoutTypeTable">
-        <fileman-table-layout
+        <fileman-filemetadata-table-layout
           [viewedFiles]="viewedFiles"
           [favouriteSettings]="favouriteSettings"
           [readOnly]="readOnly"
@@ -31,10 +31,10 @@
           (fileDeleted)="delete($event)"
           (fileHistoryShown)="showHistory($event)"
           (fileFavouriteSettingChanged)="markFavourite($event)">
-        </fileman-table-layout>
+        </fileman-filemetadata-table-layout>
     </div>
     <div *ngSwitchCase="layoutTypeTiles">
-        <fileman-tiles-layout
+        <fileman-filemetadata-tiles-layout
           [viewedFiles]="viewedFiles"
           [favouriteSettings]="favouriteSettings"
           [readOnly]="readOnly"
@@ -43,6 +43,6 @@
           (fileDeleted)="delete($event)"
           (fileHistoryShown)="showHistory($event)"
           (fileFavouriteSettingChanged)="markFavourite($event)">
-        </fileman-tiles-layout>
+        </fileman-filemetadata-tiles-layout>
     </div>
 </div>

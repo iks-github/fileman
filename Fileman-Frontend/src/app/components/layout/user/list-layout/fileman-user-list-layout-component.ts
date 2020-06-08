@@ -18,7 +18,7 @@ import { Component, Input } from '@angular/core';
 import { LayoutUserCommons } from '../layout-user-commons';
 
 @Component({
-  selector: 'user-list-layout',
+  selector: 'fileman-user-list-layout',
   templateUrl: './fileman-user-list-layout-component.html',
   styleUrls: ['./fileman-user-list-layout-component.css']
 })

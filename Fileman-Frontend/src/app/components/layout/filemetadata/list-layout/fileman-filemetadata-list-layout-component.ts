@@ -19,7 +19,7 @@ import { LayoutFilemetadataCommons } from '../layout-filemetadata-commons';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 
 @Component({
-  selector: 'fileman-list-layout',
+  selector: 'fileman-filemetadata-list-layout',
   templateUrl: './fileman-filemetadata-list-layout-component.html',
   styleUrls: ['./fileman-filemetadata-list-layout-component.css']
 })

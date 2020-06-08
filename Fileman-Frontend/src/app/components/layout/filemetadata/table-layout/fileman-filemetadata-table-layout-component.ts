@@ -21,7 +21,7 @@ import { LayoutFilemetadataCommons } from '../layout-filemetadata-commons';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 
 @Component({
-  selector: 'fileman-table-layout',
+  selector: 'fileman-filemetadata-table-layout',
   templateUrl: './fileman-filemetadata-table-layout-component.html',
   styleUrls: ['./fileman-filemetadata-table-layout-component.css']
 })

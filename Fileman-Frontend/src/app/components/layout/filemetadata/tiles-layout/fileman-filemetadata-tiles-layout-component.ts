@@ -21,7 +21,7 @@ import { PreviewType } from 'src/app/common/fileman-constants';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 
 @Component({
-  selector: 'fileman-tiles-layout',
+  selector: 'fileman-filemetadata-tiles-layout',
   templateUrl: './fileman-filemetadata-tiles-layout-component.html',
   styleUrls: ['./fileman-filemetadata-tiles-layout-component.css']
 })

@@ -16,6 +16,7 @@
 import { Component, Input } from '@angular/core';
 
 import { LayoutUserCommons } from '../layout-user-commons';
+import { User } from 'src/app/common/domainobjects/gen/User';
 
 @Component({
   selector: 'fileman-user-list-layout',
@@ -23,10 +24,7 @@ import { LayoutUserCommons } from '../layout-user-commons';
   styleUrls: ['./fileman-user-list-layout-component.css']
 })
 export class UserListLayout extends LayoutUserCommons {
-  @Input() allUsersMap;
-
-  getDetailsTooltip(user: HTMLInputElement): string {
-    const data = this.allUsersMap.get(user.name);
-    return data.getStringRepresentation();
+  getDetailsTooltip(user: User): string {
+    return this.getUserHtmlTooltip(user);
   }
 }

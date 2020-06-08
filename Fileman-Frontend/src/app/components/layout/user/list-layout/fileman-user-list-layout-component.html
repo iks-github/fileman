@@ -1,17 +1,17 @@
-<li *ngFor="let item of viewedItems; let i = index"
+<li *ngFor="let user of viewedUsers; let i = index"
     class="list-group-item">
 
-    <span *ngIf="! readOnly">
+    <span>
         &nbsp;
-        <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(item)">edit</mat-icon>
+        <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(user)">edit</mat-icon>
     </span>
 
-    <span *ngIf="! readOnly">
+    <span>
         &nbsp;
-        <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(item)">delete</mat-icon>
+        <mat-icon data-toggle="tooltip" title="Delete" (click)="delete(user)">delete</mat-icon>
     </span>
 
-    <span data-toggle="tooltip" title="{{getDetailsTooltip(item)}}" data-html="true">
-        {{i+1}}. {{item.id}}
+    <span tooltip="{{getDetailsTooltip(user)}}">
+        {{i+1}}. {{user.name}}
     </span>
 </li>

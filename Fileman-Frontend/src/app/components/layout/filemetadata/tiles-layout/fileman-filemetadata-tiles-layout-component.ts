@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { LayoutFilemetadataCommons } from '../layout-filemetadata-commons';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
@@ -26,8 +26,6 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
   styleUrls: ['./fileman-filemetadata-tiles-layout-component.css']
 })
 export class FilemetadataTilesLayout extends LayoutFilemetadataCommons {
-  @Input() allFilesMap;
-
   constructor(private previewService: FilemanPreviewService) {
     super();
   }

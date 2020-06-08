@@ -1,28 +1,28 @@
-<li *ngFor="let item of viewedItems; let i = index"
+<li *ngFor="let user of viewedUsers; let i = index"
     class="list-group-item">
     <td width="40">
-      <span *ngIf="! readOnly">
-          <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(item)">edit</mat-icon>
+      <span>
+          <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(user)">edit</mat-icon>
       </span>
       <br>
-      <span *ngIf="! readOnly">
-          <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(item)">delete</mat-icon>
+      <span>
+          <mat-icon data-toggle="tooltip" title="Delete" (click)="delete(user)">delete</mat-icon>
       </span>
     </td>
     <td>
-      <span data-toggle="tooltip" title="{{getDetailsTooltip(item)}}" data-html="true">
-          {{i+1}}. {{item.id}}
+      <span tooltip="{{getDetailsTooltip(user)}}">
+          {{i+1}}. {{user.name}}
           <div>
-            <img class="image-preview" *ngIf="hasImagePreview(item.name)" [src]="getImagePreview(item.name)">
-            <span class="text-preview" *ngIf="hasTextPreview(item.name)">{{ getTextPreview(item.id) }}</span>
+            <img class="image-preview" *ngIf="hasImagePreview(user.name)" [src]="getImagePreview(user.name)">
+            <span class="text-preview" *ngIf="hasTextPreview(user.name)">{{ getTextPreview(user.id) }}</span>
             <ngx-doc-viewer
               class="docx-preview"
-              *ngIf="hasDocxPreview(item.id)"
-              [url]="getDocxPreview(item.id)"
+              *ngIf="hasDocxPreview(user.id)"
+              [url]="getDocxPreview(user.id)"
               viewer="mammoth">
             </ngx-doc-viewer>
-            <pdf-viewer class="pdf-preview" *ngIf="hasPdfPreview(item.id)"
-              [src]="getPdfPreview(item.id)"
+            <pdf-viewer class="pdf-preview" *ngIf="hasPdfPreview(user.id)"
+              [src]="getPdfPreview(user.id)"
               [render-text]="true"
               [show-all]="false"
               [original-size]="false">

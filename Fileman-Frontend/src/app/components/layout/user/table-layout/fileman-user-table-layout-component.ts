@@ -28,9 +28,9 @@ export class UserTableLayout extends LayoutUserCommons {
   openPullDowns: Array<MatSelect> = new Array<MatSelect>();
 
   sort(event) {
-    const sortList = this.viewedItems;
+    const sortList = this.viewedUsers;
     if (event.sortType === SortType.ASC) {
-       this.viewedItems = sortList.sort((dataObject1, dataObject2) => {
+       this.viewedUsers = sortList.sort((dataObject1, dataObject2) => {
          const value1 = this.getValue(dataObject1, event.sortField);
          const value2 = this.getValue(dataObject2, event.sortField);
          if (value1 < value2) return -1;
@@ -38,7 +38,7 @@ export class UserTableLayout extends LayoutUserCommons {
         else return 0;
       });
     } else {
-      this.viewedItems = sortList.sort((dataObject1, dataObject2) => {
+      this.viewedUsers = sortList.sort((dataObject1, dataObject2) => {
          const value1 = this.getValue(dataObject1, event.sortField);
          const value2 = this.getValue(dataObject2, event.sortField);
          if (value1 > value2) {
@@ -78,5 +78,4 @@ export class UserTableLayout extends LayoutUserCommons {
     }
     this.openPullDowns.splice(0, this.openPullDowns.length)
   }
-
 }

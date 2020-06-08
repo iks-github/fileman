@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { LayoutUserCommons } from '../layout-user-commons';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 import { PreviewType } from 'src/app/common/fileman-constants';
+import { User } from 'src/app/common/domainobjects/gen/User';
 
 @Component({
   selector: 'fileman-user-tiles-layout',
@@ -25,15 +26,12 @@ import { PreviewType } from 'src/app/common/fileman-constants';
   styleUrls: ['./fileman-user-tiles-layout-component.css']
 })
 export class UserTilesLayout extends LayoutUserCommons {
-  @Input() allUsersMap;
-
   constructor(private previewService: FilemanPreviewService) {
     super();
   }
 
-  getDetailsTooltip(user: HTMLInputElement): string {
-    const data = this.allUsersMap.get(user.id);
-    return data.getStringRepresentation();
+  getDetailsTooltip(user: User): string {
+    return this.getUserHtmlTooltip(user);
   }
 
   hasImagePreview(id: string): boolean {

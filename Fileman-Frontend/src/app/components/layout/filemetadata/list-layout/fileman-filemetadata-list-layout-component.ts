@@ -24,8 +24,7 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
   styleUrls: ['./fileman-filemetadata-list-layout-component.css']
 })
 export class FilemetadataListLayout extends LayoutFilemetadataCommons {
-
   getDetailsTooltip(file: FileMetaData): string {
-    return  this.getMetadataHtmlTooltip(file);
+    return this.getMetadataHtmlTooltip(file);
   }
 }

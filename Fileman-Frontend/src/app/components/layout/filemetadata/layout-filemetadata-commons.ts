@@ -19,7 +19,7 @@ import { Icon } from 'src/app/common/fileman-constants';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { LayoutCommons } from '../layout-commons';
 
-export class LayoutFilemetadataCommons extends LayoutCommons{
+export class LayoutFilemetadataCommons extends LayoutCommons {
   @Input() viewedFiles;
   @Input() favouriteSettings;
   @Input() readOnly;
@@ -78,19 +78,14 @@ export class LayoutFilemetadataCommons extends LayoutCommons{
   getMetadataHtmlTooltip(file: FileMetaData): string {
     return '<div class="inner-html-enclosing-div"><h4>Details:</h4>' +
       '<hr>' +
-      this.buildMetadataHtmlTooltipContentRow('Name', file.name) +
-      this.buildMetadataHtmlTooltipContentRow('Description', file.description) +
-      this.buildMetadataHtmlTooltipContentRow('ActiveUUID', ''+file.activeUUID) +
-      this.buildMetadataHtmlTooltipContentRow('ImmediatelyActive', ''+file.immediatelyActive) +
-      this.buildMetadataHtmlTooltipContentRow('TechType', file.techType) +
-      this.buildMetadataHtmlTooltipContentRow('TechVersion', ''+file.techVersion) +
-      this.buildMetadataHtmlTooltipContentRow('Creator', file.creator) +
-      this.buildMetadataHtmlTooltipContentRow('CreationDate', file.creationDate) +
-      this.buildMetadataHtmlTooltipContentRow('Size', ''+file.size)+'</div>'
-  }
-
-  private buildMetadataHtmlTooltipContentRow(title: string, content: string): string {
-    return '<span class="inner-html-left-span">' + title + ':</span>'
-        + '<span><b>' + content + '</b></span><br>';
+      this.buildHtmlTooltipContentRow('Name', file.name) +
+      this.buildHtmlTooltipContentRow('Description', file.description) +
+      this.buildHtmlTooltipContentRow('ActiveUUID', ''+file.activeUUID) +
+      this.buildHtmlTooltipContentRow('ImmediatelyActive', ''+file.immediatelyActive) +
+      this.buildHtmlTooltipContentRow('TechType', file.techType) +
+      this.buildHtmlTooltipContentRow('TechVersion', ''+file.techVersion) +
+      this.buildHtmlTooltipContentRow('Creator', file.creator) +
+      this.buildHtmlTooltipContentRow('CreationDate', file.creationDate) +
+      this.buildHtmlTooltipContentRow('Size', ''+file.size)+'</div>'
   }
 }

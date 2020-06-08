@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Input, Output, EventEmitter } from '@angular/core';
-
-import { FilemanConstants } from 'src/app/common/fileman-constants';
+import { Output, EventEmitter } from '@angular/core';
 
 export class LayoutCommons {
-  @Input() viewedItems;
-  @Input() readOnly;
   @Output() itemEdited: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
   @Output() itemDeleted: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
 
+  protected buildHtmlTooltipContentRow(title: string, content: string): string {
+    return '<span class="inner-html-left-span">' + title + ':</span>'
+        + '<span><b>' + content + '</b></span><br>';
+  }
 }
-

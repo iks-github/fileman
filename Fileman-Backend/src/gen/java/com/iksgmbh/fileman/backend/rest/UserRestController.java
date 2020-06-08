@@ -31,16 +31,6 @@ public class UserRestController
 		return userDao.findAllUsers();
 	}
 
-	/*
-	@GetMapping("/users/{id}")
-    public User findUserById(@PathVariable Integer id) {
-		User user = userDao.findById(id);
-		if (user == null) {
-			throw new ResourceNotFoundException("User '" + id +"' + not found.");
-		}
-		return user;
-   }*/
-
 	@GetMapping("/users/{name}")
     public User findUserByName(@PathVariable String name) {
 		User user = userDao.findByName(name);

@@ -12,7 +12,6 @@
 
 package ${classDescriptor.package}.rest;
 '
-import java.net.URI;
 import java.util.List;
 '
 import javax.validation.Valid;
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 '
 #set( $ClassName = ${classDescriptor.simpleName} ) 
 #set( $className = $TemplateStringUtility.firstToLowerCase($ClassName) ) 
@@ -65,7 +63,7 @@ public class ${ClassName}RestController
 	#set( $AttributeName = $TemplateStringUtility.firstToUpperCase($attributeDescriptor.name) ) 
 	#set( $javaType =  $attributeDescriptor.getMetaInfoValueFor("JavaType") )
 	
-	#if ( $attributeDescriptor.doesHaveMetaInfo("unique", "true") )
+	#if ( $attributeDescriptor.doesHaveMetaInfo("unique", "true") && ! $attributeDescriptor.doesHaveMetaInfo("hideFromClient", "true") )
 
 		'	@GetMapping("/${className}s/{${attributeDescriptor.name}}")
 		'    public ${ClassName} find${ClassName}By${AttributeName}(@PathVariable $javaType $attributeDescriptor.name) {

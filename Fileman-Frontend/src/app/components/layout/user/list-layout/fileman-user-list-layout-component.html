@@ -1,22 +1,17 @@
-<li *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index "
+<li *ngFor="let item of viewedItems; let i = index"
     class="list-group-item">
-    <mat-icon data-toggle="tooltip" title="Download" (click)="download(file)">arrow_downwards</mat-icon>
 
     <span *ngIf="! readOnly">
         &nbsp;
-        <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(file)">edit</mat-icon>
+        <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(item)">edit</mat-icon>
     </span>
 
     <span *ngIf="! readOnly">
         &nbsp;
-        <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(file)">delete</mat-icon>
+        <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(item)">delete</mat-icon>
     </span>
 
-    &nbsp;
-    <mat-icon data-toggle="tooltip" title="Show History" (click)="showHistory(file)">layers</mat-icon>
-    &nbsp;
-
-    <span data-toggle="tooltip" title="{{getDetailsTooltip(file)}}" data-html="true">
-        {{i+1}}. {{<<type>>.id}}
+    <span data-toggle="tooltip" title="{{getDetailsTooltip(item)}}" data-html="true">
+        {{i+1}}. {{item.id}}
     </span>
 </li>

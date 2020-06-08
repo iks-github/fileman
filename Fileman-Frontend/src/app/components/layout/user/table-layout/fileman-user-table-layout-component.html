@@ -2,7 +2,7 @@
     <tr style="font-weight:bold; background-color:darkgray;">
         <td></td>
         <td></td>
-        
+
         <!-- The header-td-sections below is generated: Do not modify manually! -->
 
         <td>
@@ -33,7 +33,7 @@
         <!-- The header-td-sections above is generated: Do not modify manually! -->
 
       </tr>
-      <tr *ngFor="let file of viewedItems; trackBy: trackItems let i = index">
+      <tr *ngFor="let item of viewedItems; let i = index">
         <td>{{i+1}}.</td>
         <td>
           <mat-icon data-toggle="tooltip" title="Open Action Menu" (click)="pullDown.open()">more_vert</mat-icon>
@@ -55,12 +55,11 @@
 
         <!-- The row-td-sections below is generated: Do not modify manually! -->
 
-        <td>{{file.id}}</td>
-        <td [ngStyle]="{'font-weight': isFileFavourite(file.name) ? 'bold' : ''}">{{file.name}} {{favouriteAsterix(file)}}</td>
-        <td>{{file.role}}</td>
-        <td>{{file.password}}</td>
-        <td>{{file.passwordRepetition}}</td>
-        <td>{{file.avatar}}</td>
+        <td>{{item.id}}</td>
+        <td>{{item.role}}</td>
+        <td>{{item.password}}</td>
+        <td>{{item.passwordRepetition}}</td>
+        <td>{{item.avatar}}</td>
 
         <!-- The row-td-sections above is generated: Do not modify manually! -->
 

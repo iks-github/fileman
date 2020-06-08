@@ -20,7 +20,7 @@ import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.
 import { PreviewType } from 'src/app/common/fileman-constants';
 
 @Component({
-  selector: '<<type>>-tiles-layout',
+  selector: 'fileman-<<type>>-tiles-layout',
   templateUrl: './fileman-<<type>>-tiles-layout-component.html',
   styleUrls: ['./fileman-<<type>>-tiles-layout-component.css']
 })

@@ -20,7 +20,7 @@ import { SortType } from 'src/app/common/fileman-constants';
 import { Layout<<Type>>Commons } from '../layout-<<type>>-commons';
 
 @Component({
-  selector: '<<type>>-table-layout',
+  selector: 'fileman-<<type>>-table-layout',
   templateUrl: './fileman-<<type>>-table-layout-component.html',
   styleUrls: ['./fileman-<<type>>-table-layout-component.css']
 })

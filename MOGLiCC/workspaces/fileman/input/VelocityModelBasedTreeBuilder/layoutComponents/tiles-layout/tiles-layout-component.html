@@ -1,30 +1,28 @@
-<li *ngFor="let <<type>> of viewed<<Type>>s; trackBy: trackFiles let i = index "
+<li *ngFor="let item of viewedItems; let i = index"
     class="list-group-item">
     <td width="40">
-      <mat-icon data-toggle="tooltip" title="Download" (click)="download(<<type>>)">arrow_downwards</mat-icon>
-      <br>
       <span *ngIf="! readOnly">
-          <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(<<type>>)">edit</mat-icon>
+          <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(item)">edit</mat-icon>
       </span>
       <br>
       <span *ngIf="! readOnly">
-          <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(<<type>>)">delete</mat-icon>
+          <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(item)">delete</mat-icon>
       </span>
     </td>
     <td>
-      <span data-toggle="tooltip" title="{{getDetailsTooltip(<<type>>)}}" data-html="true">
-          {{i+1}}. {{<<type>>.id}}
+      <span data-toggle="tooltip" title="{{getDetailsTooltip(item)}}" data-html="true">
+          {{i+1}}. {{item.id}}
           <div>
-            <img class="image-preview" *ngIf="hasImagePreview(file.name)" [src]="getImagePreview(file.name)">
-            <span class="text-preview" *ngIf="hasTextPreview(file.name)">{{ getTextPreview(<<type>>.id) }}</span>
+            <img class="image-preview" *ngIf="hasImagePreview(item.name)" [src]="getImagePreview(item.name)">
+            <span class="text-preview" *ngIf="hasTextPreview(item.name)">{{ getTextPreview(item.id) }}</span>
             <ngx-doc-viewer
               class="docx-preview"
-              *ngIf="hasDocxPreview(<<type>>.id)"
-              [url]="getDocxPreview(<<type>>.id)"
+              *ngIf="hasDocxPreview(item.id)"
+              [url]="getDocxPreview(item.id)"
               viewer="mammoth">
             </ngx-doc-viewer>
-            <pdf-viewer class="pdf-preview" *ngIf="hasPdfPreview(<<type>>.id)"
-              [src]="getPdfPreview(<<type>>.id)"
+            <pdf-viewer class="pdf-preview" *ngIf="hasPdfPreview(item.id)"
+              [src]="getPdfPreview(item.id)"
               [render-text]="true"
               [show-all]="false"
               [original-size]="false">

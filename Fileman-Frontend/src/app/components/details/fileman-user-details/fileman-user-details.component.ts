@@ -18,10 +18,9 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors} 
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Utils } from 'src/app/common/Utils';
 import { User } from 'src/app/common/domainobjects/gen/User';
 import { FilemanLoginService } from 'src/app/services/fileman-login.service';
-import { UserService } from 'src/app/services/fileman-user-service';
+import { UserService } from 'src/app/services/fileman-user-service.service';
 
 @Component({
   selector: 'fileman-user-details',

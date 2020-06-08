@@ -22,7 +22,7 @@ import { ${NewDomainObject}TilesLayout } from './components/layout/${newDomainOb
 		
 		#if (! $skip) 
 
-			import { ${NewDomainObject}Service } from './services/fileman-${newDomainObject}-service';
+			import { ${NewDomainObject}Service } from './services/fileman-${newDomainObject}-service.service';
 
 		#end
 	#end

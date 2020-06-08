@@ -2,7 +2,7 @@
               $classDescriptor.getMetaInfoValueFor("FrontendService").equals("false") )
 #set( $className = $TemplateStringUtility.firstToLowerCase($classDescriptor.simpleName) )
 
-@TargetFileName fileman-${className}-service.ts
+@TargetFileName fileman-${className}-service.service.ts
 @TargetDir $model.getMetaInfoValueFor("frontendSrcDir")/services
 @CreateNew true # create and override
 @NameOfValidModel SpringBootBackendAngularFrontModel

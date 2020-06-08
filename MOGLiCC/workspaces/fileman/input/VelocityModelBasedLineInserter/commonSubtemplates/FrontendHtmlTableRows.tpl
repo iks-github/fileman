@@ -6,14 +6,8 @@
 
 #foreach ($attributeDescriptor in $attributeDescriptorList)
 
-	#if ($attributeDescriptor.name.equals("name")) 
-		'        <td [ngStyle]="{'font-weight': isFileFavourite(file.name) ? 'bold' : ''}">{{file.name}} {{favouriteAsterix(file)}}</td>
-	#else
-
-		#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
-		'        <td>{{file.${attributeName}}}</td>
-	
-	#end
+	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
+	'        <td>{{item.${attributeName}}}</td>
 		
 #end
 

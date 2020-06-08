@@ -17,8 +17,8 @@ export class UserService {
   }
 
   getAllUsers() {
-    // console.log(uri);
-    return this.httpClient.get(this.url, FilemanConstants.getRestCallHeaderOptions())
+    const uri = this.url;
+    return this.httpClient.get(uri, FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
                           ));
@@ -26,8 +26,7 @@ export class UserService {
 
   getUser(id: any) {
     const uri = this.url + '/' + id;
-    // console.log(uri);
-    return this.httpClient.get(this.url + '/' + id, FilemanConstants.getRestCallHeaderOptions())
+    return this.httpClient.get(uri, FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
                           ));
@@ -35,8 +34,7 @@ export class UserService {
 
   create(data: User) {
     const uri = this.url + '/' + data.getId();
-    // console.log(uri);
-    return this.httpClient.post(this.url, JSON.stringify(data), FilemanConstants.getRestCallHeaderOptions())
+    return this.httpClient.post(uri, JSON.stringify(data), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
                           ));
@@ -44,7 +42,6 @@ export class UserService {
 
   update(data: User) {
     const uri = this.url + '/' + data.getId();
-    // console.log(uri);
     return this.httpClient.put(uri, JSON.stringify(data), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             console.log(error);
@@ -54,7 +51,6 @@ export class UserService {
 
   delete(data: User) {
     const uri = this.url + '/' + data.getId();
-    // console.log(uri);
     return this.httpClient.delete(uri, FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                               throw error; }

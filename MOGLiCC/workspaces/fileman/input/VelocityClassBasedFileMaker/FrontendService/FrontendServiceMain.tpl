@@ -43,10 +43,17 @@ export class ${classDescriptor.simpleName}Service {
 '    this.url = propertiesService.getProperty('serverurl') + '/${className}';
 '  }
 '
+'  getAll${classDescriptor.simpleName}s() {
+'    const uri = this.url;
+'    return this.httpClient.get(uri, FilemanConstants.getRestCallHeaderOptions())
+'                          .pipe(catchError((error: HttpErrorResponse) => {
+'                            throw error; }
+'                          ));
+'  }
+'
 '  get${classDescriptor.simpleName}($idAttributeName: any) {
 '    const uri = this.url + '/' + $idAttributeName;
-'    // console.log(uri);
-'    return this.httpClient.get(this.url + '/' + $idAttributeName, FilemanConstants.getRestCallHeaderOptions())
+'    return this.httpClient.get(uri, FilemanConstants.getRestCallHeaderOptions())
 '                          .pipe(catchError((error: HttpErrorResponse) => {
 '                            throw error; }
 '                          ));
@@ -54,8 +61,7 @@ export class ${classDescriptor.simpleName}Service {
 '
 '  create(data: ${classDescriptor.simpleName}) {
 '    const uri = this.url + '/' + data.get${IdAttributeName}();
-'    // console.log(uri);
-'    return this.httpClient.post(this.url, JSON.stringify(data), FilemanConstants.getRestCallHeaderOptions())
+'    return this.httpClient.post(uri, JSON.stringify(data), FilemanConstants.getRestCallHeaderOptions())
 '                          .pipe(catchError((error: HttpErrorResponse) => {
 '                            throw error; }
 '                          ));
@@ -63,7 +69,6 @@ export class ${classDescriptor.simpleName}Service {
 '
 '  update(data: ${classDescriptor.simpleName}) {
 '    const uri = this.url + '/' + data.get${IdAttributeName}();
-'    // console.log(uri);
 '    return this.httpClient.put(uri, JSON.stringify(data), FilemanConstants.getRestCallHeaderOptions())
 '                          .pipe(catchError((error: HttpErrorResponse) => {
 '                            console.log(error);
@@ -73,7 +78,6 @@ export class ${classDescriptor.simpleName}Service {
 '
 '  delete(data: ${classDescriptor.simpleName}) {
 '    const uri = this.url + '/' + data.get${IdAttributeName}();
-'    // console.log(uri);
 '    return this.httpClient.delete(uri, FilemanConstants.getRestCallHeaderOptions())
 '                          .pipe(catchError((error: HttpErrorResponse) => {
 '                              throw error; }

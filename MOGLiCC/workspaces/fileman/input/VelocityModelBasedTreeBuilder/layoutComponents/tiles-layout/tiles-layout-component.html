@@ -10,7 +10,7 @@
       </span>
     </td>
     <td>
-      <span data-toggle="tooltip" title="{{getDetailsTooltip(item)}}" data-html="true">
+      <span tooltip="{{getDetailsTooltip(item)}}">
           {{i+1}}. {{item.id}}
           <div>
             <img class="image-preview" *ngIf="hasImagePreview(item.name)" [src]="getImagePreview(item.name)">

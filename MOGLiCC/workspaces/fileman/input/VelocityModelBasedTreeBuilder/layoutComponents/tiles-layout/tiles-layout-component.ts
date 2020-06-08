@@ -25,14 +25,14 @@ import { PreviewType } from 'src/app/common/fileman-constants';
   styleUrls: ['./fileman-<<type>>-tiles-layout-component.css']
 })
 export class <<Type>>TilesLayout extends Layout<<Type>>Commons {
-  @Input() allFilesMap;
+  @Input() all<<Type>>sMap;
 
   constructor(private previewService: FilemanPreviewService) {
     super();
   }
 
   getDetailsTooltip(<<type>>: HTMLInputElement): string {
-    const data = this.allFilesMap.get(<<type>>.id);
+    const data = this.all<<Type>>sMap.get(<<type>>.id);
     return data.getStringRepresentation();
   }
 

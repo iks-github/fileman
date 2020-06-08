@@ -90,12 +90,14 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
           this.layoutType = layoutType;
         }
       )
+    this.searchString = this.componentStateService.getSearchString();
     this.searchStringSubscription =
       this.componentStateService.getSearchStringChangeNotifier().subscribe(
         (searchString: string) => {
           this.searchFor(searchString);
         }
       )
+    this.favouriteFilterActive = this.componentStateService.getFavouriteFilterActive();
     this.favouriteFilterActiveSubscription =
       this.componentStateService.getFavouriteFilterActiveChangeNotifier().subscribe(
         (favouriteFilterActive: boolean) => {

@@ -104,12 +104,12 @@ export class UserDetailsComponent implements OnInit {
     if (this.newMode) {
       this.userService.create(toSave)
           .subscribe(() => {}, error => {
-            alert('Error saving new user "' + toSave.getName() + '"!');
+            alert('Error saving new user with name "' + toSave.getName() + '"!');
           });
     } else {
       this.userService.update(toSave)
           .subscribe(() => {}, error => {
-            alert('Error saving new user "' + toSave.getName() + '"!');
+            alert('Error updating user with ID "' + toSave.getId() + '"!');
           });
     }
 

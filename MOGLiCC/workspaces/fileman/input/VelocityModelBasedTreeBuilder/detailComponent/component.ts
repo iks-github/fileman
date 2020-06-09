@@ -53,7 +53,7 @@ export class <<Type>>DetailsComponent implements OnInit {
         this.toEdit = new <<Type>>(<<type>>);
         if (this.toEdit == null) {
           alert('No data available for <<type>> "' + id + '"!');
-          this.backToOverview();  // no data to edit avaible - happends for page reload - reason unclear
+          this.backToOverview();  // no data to edit available - happens for page reload - reason unclear
         } else {
           this.setDataToControls(this.toEdit);
         }
@@ -71,20 +71,16 @@ export class <<Type>>DetailsComponent implements OnInit {
     console.log('Saving ');
     console.log(toSave);
 
-    if (this.newMode)
-    {
+    if (this.newMode) {
       this.<<type>>Service.create(toSave)
           .subscribe(() => {}, error => {
-            alert('Error saving new <<type>> "' + toSave.getId() + '"!');
+            alert('Error saving new <<type>> with name "' + toSave.getName() + '"!');
           });
-    }
-    else
-    {
+    } else {
       this.<<type>>Service.update(toSave)
           .subscribe(() => {}, error => {
-            alert('Error saving new <<type>> "' + toSave.getId() + '"!');
+            alert('Error updating <<type>> with ID "' + toSave.getId() + '"!');
           });
-
     }
 
     this.backToOverview();

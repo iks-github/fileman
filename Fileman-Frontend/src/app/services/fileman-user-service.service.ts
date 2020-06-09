@@ -33,7 +33,7 @@ export class UserService {
   }
 
   create(user: User) {
-    const uri = this.url + '/' + user.getId();
+    const uri = this.url;
     return this.httpClient.post(uri, JSON.stringify(user), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
@@ -41,7 +41,7 @@ export class UserService {
   }
 
   update(user: User) {
-    const uri = this.url + '/' + user.getId();
+    const uri = this.url;
     return this.httpClient.put(uri, JSON.stringify(user), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             console.log(error);

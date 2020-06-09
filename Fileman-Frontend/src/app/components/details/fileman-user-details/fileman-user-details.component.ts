@@ -92,8 +92,11 @@ export class UserDetailsComponent implements OnInit {
 
   save() {
     const toSave = new User({
+      id: this.toEdit.getId(),
       name: this.nameC.value,
-      role: this.roleC.value
+      role: this.roleC.value,
+      password: this.passwordC.value,
+      passwordRepetition: this.passwordRepetitionC.value
     });
     console.log('Saving ');
     console.log(toSave);

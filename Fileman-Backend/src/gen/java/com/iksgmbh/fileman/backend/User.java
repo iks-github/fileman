@@ -39,7 +39,6 @@ public class User implements Serializable
     @NotNull(message="Value of mandatory attribute 'password' is not present.")
     @Size(min=1, max=32, message="Value of attribute 'password' is out of valid range (1-32)")
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 1 to 32.")
-	@JsonIgnore
 	private String password;
 
     @NotNull(message="Value of mandatory attribute 'passwordRepetition' is not present.")

@@ -40,7 +40,7 @@ export class ${classDescriptor.simpleName}Service {
 '
 '  constructor(private httpClient: HttpClient,
 '              propertiesService: FilemanPropertiesLoaderService) {
-'    this.url = propertiesService.getProperty('serverurl') + '/${className}';
+'    this.url = propertiesService.getProperty('serverurl') + '/${className}s';
 '  }
 '
 '  getAll${classDescriptor.simpleName}s() {

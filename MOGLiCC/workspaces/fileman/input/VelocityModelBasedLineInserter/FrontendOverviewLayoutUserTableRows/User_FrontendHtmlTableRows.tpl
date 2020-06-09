@@ -6,5 +6,17 @@
 @NameOfValidModel SpringBootBackendAngularFrontModel
 @ReplaceStart "<!-- The row-td-sections below is generated: Do not modify manually! -->"
 @ReplaceEnd "<!-- The row-td-sections above is generated: Do not modify manually! -->"
+'
 
-#parse("commonSubtemplates/FrontendHtmlTableRows.tpl")
+#set( $attributeDescriptorList = $classDescriptor.getAttributeDescriptorList() )
+#set( $quote = "'" ) 
+
+
+#foreach ($attributeDescriptor in $attributeDescriptorList)
+
+	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
+	'        <td>{{user.${attributeName}}}</td>
+		
+#end
+
+'

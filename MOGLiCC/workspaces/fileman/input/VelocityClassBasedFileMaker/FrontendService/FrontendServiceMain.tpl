@@ -59,25 +59,25 @@ export class ${classDescriptor.simpleName}Service {
 '                          ));
 '  }
 '
-'  create(data: ${classDescriptor.simpleName}) {
-'    const uri = this.url + '/' + data.get${IdAttributeName}();
-'    return this.httpClient.post(uri, JSON.stringify(data), FilemanConstants.getRestCallHeaderOptions())
+'  create(${className}: ${classDescriptor.simpleName}) {
+'    const uri = this.url + '/' + ${className}.get${IdAttributeName}();
+'    return this.httpClient.post(uri, JSON.stringify(${className}), FilemanConstants.getRestCallHeaderOptions())
 '                          .pipe(catchError((error: HttpErrorResponse) => {
 '                            throw error; }
 '                          ));
 '  }
 '
-'  update(data: ${classDescriptor.simpleName}) {
-'    const uri = this.url + '/' + data.get${IdAttributeName}();
-'    return this.httpClient.put(uri, JSON.stringify(data), FilemanConstants.getRestCallHeaderOptions())
+'  update(${className}: ${classDescriptor.simpleName}) {
+'    const uri = this.url + '/' + ${className}.get${IdAttributeName}();
+'    return this.httpClient.put(uri, JSON.stringify(${className}), FilemanConstants.getRestCallHeaderOptions())
 '                          .pipe(catchError((error: HttpErrorResponse) => {
 '                            console.log(error);
 '                            throw error; }
 '                          ));
 '  }
 '
-'  delete(data: ${classDescriptor.simpleName}) {
-'    const uri = this.url + '/' + data.get${IdAttributeName}();
+'  delete(${className}: ${classDescriptor.simpleName}) {
+'    const uri = this.url + '/' + ${className}.get${IdAttributeName}();
 '    return this.httpClient.delete(uri, FilemanConstants.getRestCallHeaderOptions())
 '                          .pipe(catchError((error: HttpErrorResponse) => {
 '                              throw error; }

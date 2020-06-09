@@ -24,8 +24,8 @@ export class UserService {
                           ));
   }
 
-  getUser(id: any) {
-    const uri = this.url + '/' + id;
+  getUser(name: any) {
+    const uri = this.url + '/' + name;
     return this.httpClient.get(uri, FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }

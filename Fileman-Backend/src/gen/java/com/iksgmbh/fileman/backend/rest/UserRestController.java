@@ -41,9 +41,9 @@ public class UserRestController
    }
 
 	@PostMapping("/users")
-	public Integer createUser(@Valid @RequestBody User user)
+	public String createUser(@Valid @RequestBody User user)
 	{
-		return userDao.create(user).getId();
+		return userDao.create(user).getName();
     }
 
 	@PutMapping("/users")
@@ -51,7 +51,7 @@ public class UserRestController
 	{
 		boolean ok = userDao.update(user);
 		if (! ok) {
-			throw new ResourceNotFoundException("User '" + user.getId() +"' + not found for update.");
+			throw new ResourceNotFoundException("User '" + user.getName() +"' + not found for update.");
 		}
 	}
 

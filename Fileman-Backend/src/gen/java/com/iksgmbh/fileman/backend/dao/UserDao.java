@@ -29,10 +29,22 @@ public class UserDao
 		return null;
 	}
 
+	public User findByName(String name)
+	{
+	   	Optional<User> match = users.stream()
+                .filter (data -> data.getName()
+                .equals(name))
+                .findFirst();
+		if (match.isPresent()) {
+			return match.get();
+		}
+		return null;
+	}
+
 	public boolean update(User user)
 	{
 		Optional<User> match = users.stream()
-                                                   .filter(o -> o.getId() == user.getId())
+                                                   .filter(o -> o.getName() == user.getName())
                                                    .findFirst();
 		if (! match.isPresent()) {
 			return false;
@@ -44,18 +56,6 @@ public class UserDao
 		users.remove(match.get());
 		users.add(user);
 		return true;
-	}
-
-	public User findByName(String name)
-	{
-	   	Optional<User> match = users.stream()
-                .filter (data -> data.getName()
-                .equals(name))
-                .findFirst();
-		if (match.isPresent()) {
-			return match.get();
-		}
-		return null;
 	}
 
 	public User create(User user) {

@@ -192,7 +192,7 @@ class <<DomainPath>>.User
     metainfo Mandatory true
     metainfo ExampleData 1
     metainfo unique true
-    metainfo hideFromClient true
+    metainfo id true
     
   attribute name
     metainfo SqlType varchar
@@ -202,7 +202,6 @@ class <<DomainPath>>.User
     metainfo MinLength 2
     metainfo MaxLength 64
     metainfo unique true
-    metainfo id true
     metainfo guiType TextField
 
   attribute role

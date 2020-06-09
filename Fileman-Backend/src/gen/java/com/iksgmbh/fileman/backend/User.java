@@ -19,13 +19,12 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Data of a Fileman user")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1591343643731L;
+	private static final long serialVersionUID = 1591705398241L;
 
 	// ===============  instance fields  ===============
 
     @NotNull(message="Value of mandatory attribute 'id' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-	@JsonIgnore
 	private Integer id;
 
     @NotNull(message="Value of mandatory attribute 'name' is not present.")

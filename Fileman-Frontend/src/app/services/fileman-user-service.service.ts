@@ -24,8 +24,8 @@ export class UserService {
                           ));
   }
 
-  getUser(name: any) {
-    const uri = this.url + '/' + name;
+  getUser(id: any) {
+    const uri = this.url + '/' + id;
     return this.httpClient.get(uri, FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
@@ -33,7 +33,7 @@ export class UserService {
   }
 
   create(user: User) {
-    const uri = this.url + '/' + user.getName();
+    const uri = this.url + '/' + user.getId();
     return this.httpClient.post(uri, JSON.stringify(user), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
@@ -41,7 +41,7 @@ export class UserService {
   }
 
   update(user: User) {
-    const uri = this.url + '/' + user.getName();
+    const uri = this.url + '/' + user.getId();
     return this.httpClient.put(uri, JSON.stringify(user), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             console.log(error);
@@ -50,7 +50,7 @@ export class UserService {
   }
 
   delete(user: User) {
-    const uri = this.url + '/' + user.getName();
+    const uri = this.url + '/' + user.getId();
     return this.httpClient.delete(uri, FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                               throw error; }

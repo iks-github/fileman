@@ -63,7 +63,7 @@ public class ${ClassName}RestController
 	#set( $AttributeName = $TemplateStringUtility.firstToUpperCase($attributeDescriptor.name) ) 
 	#set( $javaType =  $attributeDescriptor.getMetaInfoValueFor("JavaType") )
 	
-	#if ( $attributeDescriptor.doesHaveMetaInfo("unique", "true") && ! $attributeDescriptor.doesHaveMetaInfo("hideFromClient", "true") )
+	#if ( $attributeDescriptor.doesHaveMetaInfo("id", "true") )
 
 		'	@GetMapping("/${className}s/{${attributeDescriptor.name}}")
 		'    public ${ClassName} find${ClassName}By${AttributeName}(@PathVariable $javaType $attributeDescriptor.name) {

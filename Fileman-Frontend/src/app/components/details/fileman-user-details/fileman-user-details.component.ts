@@ -59,7 +59,7 @@ export class UserDetailsComponent implements OnInit {
         this.toEdit = new User(user);
         if (this.toEdit == null) {
           alert('No data available for user "' + id + '"!');
-          this.backToOverview();  // no data to edit avaible - happends for page reload - reason unclear
+          this.backToOverview();  // no data to edit available - happens for page reload - reason unclear
         } else {
           this.setDataToControls(this.toEdit);
         }
@@ -91,24 +91,23 @@ export class UserDetailsComponent implements OnInit {
   }
 
   save() {
-    const toSave = this.form.value as User;
+    const toSave = new User({
+      name: this.nameC.value,
+      role: this.roleC.value
+    });
     console.log('Saving ');
     console.log(toSave);
 
-    if (this.newMode)
-    {
+    if (this.newMode) {
       this.userService.create(toSave)
           .subscribe(() => {}, error => {
-            alert('Error saving new user "' + toSave.getId() + '"!');
+            alert('Error saving new user "' + toSave.getName() + '"!');
           });
-    }
-    else
-    {
+    } else {
       this.userService.update(toSave)
           .subscribe(() => {}, error => {
-            alert('Error saving new user "' + toSave.getId() + '"!');
+            alert('Error saving new user "' + toSave.getName() + '"!');
           });
-
     }
 
     this.backToOverview();

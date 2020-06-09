@@ -138,7 +138,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   }
 
   edit(user: User) {
-    this.router.navigate(['/fileman/details/users/' + user.getName()]);
+    this.router.navigate(['/fileman/details/users/' + user.getId()]);
   }
 
   markFavourite(file: FileMetaData)

@@ -31,19 +31,19 @@ public class UserRestController
 		return userDao.findAllUsers();
 	}
 
-	@GetMapping("/users/{name}")
-    public User findUserByName(@PathVariable String name) {
-		User user = userDao.findByName(name);
+	@GetMapping("/users/{id}")
+    public User findUserById(@PathVariable Integer id) {
+		User user = userDao.findById(id);
 		if (user == null) {
-			throw new ResourceNotFoundException("User '" + name +"' + not found.");
+			throw new ResourceNotFoundException("User '" + id +"' + not found.");
 		}
 		return user;
    }
 
 	@PostMapping("/users")
-	public String createUser(@Valid @RequestBody User user)
+	public Integer createUser(@Valid @RequestBody User user)
 	{
-		return userDao.create(user).getName();
+		return userDao.create(user).getId();
     }
 
 	@PutMapping("/users")
@@ -51,15 +51,15 @@ public class UserRestController
 	{
 		boolean ok = userDao.update(user);
 		if (! ok) {
-			throw new ResourceNotFoundException("User '" + user.getName() +"' + not found for update.");
+			throw new ResourceNotFoundException("User '" + user.getId() +"' + not found for update.");
 		}
 	}
 
-	@DeleteMapping("/users/{name}")
-	public ResponseEntity<?> deleteUser(@PathVariable String name) {
-		User user = userDao.findByName(name);
+	@DeleteMapping("/users/{id}")
+	public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+		User user = userDao.findById(id);
 		if (user == null) {
-			throw new ResourceNotFoundException("User '" + name +"' + not found.");
+			throw new ResourceNotFoundException("User '" + id +"' + not found.");
 		}
        userDao.delete(user);
        return ResponseEntity.ok().build();

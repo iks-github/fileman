@@ -59,10 +59,10 @@ public class UserDao
 	}
 
 	public User create(User user) {
+		user.setId(users.size() + 1);
 
        // with a real db this will be refactored
 		user.setPasswordRepetition(null);  // set default value for non-db field
-		user.setId(users.size() + 1);
 
 		users.add(user);
 		return user;

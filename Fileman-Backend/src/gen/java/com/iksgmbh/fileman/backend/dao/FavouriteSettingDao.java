@@ -57,6 +57,7 @@ public class FavouriteSettingDao
 	}
 
 	public FavouriteSetting create(FavouriteSetting favouriteSetting) {
+		favouriteSetting.setId(favouriteSettings.size() + 1);
 		favouriteSettings.add(favouriteSetting);
 		return favouriteSetting;
 	}

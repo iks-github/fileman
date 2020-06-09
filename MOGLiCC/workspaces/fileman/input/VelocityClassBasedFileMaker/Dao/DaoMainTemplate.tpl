@@ -43,7 +43,7 @@ public class ${ClassName}Dao
 
 	#if ( $attributeDescriptor.doesHaveMetaInfo("id", "true") )
 		#set( $IdAttributeName = $TemplateStringUtility.firstToUpperCase($attributeDescriptor.name) ) 
-		#set( $isIdAttributeTypeNumber = $IdAttributeType.equals("Integer") ) 
+		#set( $isIdAttributeTypeNumber = $attributeDescriptor.doesHaveMetaInfo("JavaType", "Integer") ) 
 	#end
 	
 	#set( $AttributeName = $TemplateStringUtility.firstToUpperCase($attributeDescriptor.name) ) 
@@ -104,7 +104,7 @@ public class ${ClassName}Dao
 '	public ${ClassName} create(${ClassName} ${className}) {
 
 	#if ( $isIdAttributeTypeNumber )
-	'		${className}.set${IdAttributeName}(${className}s.size()+1);
+	'		${className}.set${IdAttributeName}(${className}s.size() + 1);
 	#end
 
 	#parse("set-non-sql-field-to-null.tpl")

@@ -30,16 +30,22 @@ import { UserService } from 'src/app/services/fileman-user-service.service';
 export class UserDetailsComponent implements OnInit {
 
   readOnly: boolean;
-  metaDataForm: FormGroup;
   currentlyLoggedInUser: any;
+  isFocusOnFileSelector = false;
+  fileSelectionFocusGainedCounter = 0;
+  selectedFileContentSource: any;
+  fileContent: any;
+  reader: FileReader;
+  form: FormGroup;
+  userForm: FormGroup;
   newMode: boolean;
   toEdit: User;
-  form: any;
 
   constructor(private router: Router,
               private loginService: FilemanLoginService,
               private userService: UserService) {
-      this.form = this.createFormGroup();
+      this.form = this.createUserFormGroup();
+      this.reader = new FileReader();
       this.currentlyLoggedInUser = loginService.getCurrentUserName();
   }
 
@@ -49,8 +55,8 @@ export class UserDetailsComponent implements OnInit {
     if ( ! this.newMode ) {
       const index = this.router.url.lastIndexOf('/') + 1;
       const id = this.router.url.substring(index);
-      this.userService.getUser(id).subscribe((user: User) => {
-        this.toEdit = user;
+      this.userService.getUser(id).subscribe(user => {
+        this.toEdit = new User(user);
         if (this.toEdit == null) {
           alert('No data available for user "' + id + '"!');
           this.backToOverview();  // no data to edit avaible - happends for page reload - reason unclear
@@ -59,6 +65,24 @@ export class UserDetailsComponent implements OnInit {
         }
       });
     }
+  }
+
+  getBorder() {
+    if (this.showFileSelectorMandatoryMessage()) {
+      return '2px solid red';
+    }
+    return '';
+  }
+
+  setFocusOnFileSelector(focusGained: boolean) {
+    this.isFocusOnFileSelector = focusGained;
+    if (focusGained) {
+      this.fileSelectionFocusGainedCounter = this.fileSelectionFocusGainedCounter + 1;
+    }
+  }
+
+  showFileSelectorMandatoryMessage() {
+    return this.newMode && ! this.isFocusOnFileSelector && this.avatarC.value === '' && this.fileSelectionFocusGainedCounter > 1;
   }
 
   getToolTip() {
@@ -90,12 +114,35 @@ export class UserDetailsComponent implements OnInit {
     this.backToOverview();
   }
 
+  onAvatarChange(event) {
+    this.selectedFileContentSource = event.srcElement.files[0];
+    this.reader.readAsBinaryString(this.selectedFileContentSource);
+    this.reader.onload = (data) => {
+      this.fileContent = btoa(this.reader.result as string);
+      console.log(this.fileContent);
+    };
+
+    if (this.nameC.value == null || this.nameC.value === '') {
+      this.nameC.setValue(this.selectedFileContentSource.name);
+      this.nameC.markAsTouched();
+    }
+  }
+
   backToOverview() {
     this.router.navigate(['/fileman/overview']);
   }
 
   cancel() {
     this.backToOverview();
+  }
+
+  createUserFormGroup() {
+    this.userForm = this.createFormGroup();
+    return new FormGroup({
+      inputFieldControl: new FormGroup({
+        userForm: this.userForm
+      })
+    });
   }
 
   isNotUnique(control: AbstractControl): Observable<ValidationErrors | null> {
@@ -142,23 +189,23 @@ export class UserDetailsComponent implements OnInit {
   }
 
   get nameC() {
-    return this.form.get('inputFieldControl.metaDataForm.nameControl');
+    return this.form.get('inputFieldControl.userForm.nameControl');
   }
 
   get roleC() {
-    return this.form.get('inputFieldControl.metaDataForm.roleControl');
+    return this.form.get('inputFieldControl.userForm.roleControl');
   }
 
   get passwordC() {
-    return this.form.get('inputFieldControl.metaDataForm.passwordControl');
+    return this.form.get('inputFieldControl.userForm.passwordControl');
   }
 
   get passwordRepetitionC() {
-    return this.form.get('inputFieldControl.metaDataForm.passwordRepetitionControl');
+    return this.form.get('inputFieldControl.userForm.passwordRepetitionControl');
   }
 
   get avatarC() {
-    return this.form.get('inputFieldControl.metaDataForm.avatarControl');
+    return this.form.get('inputFieldControl.userForm.avatarControl');
   }
 
   private getUser() {

@@ -53,6 +53,7 @@ import { FilemanProblemPageComponent } from './components/fileman-problem-page/f
 import { FilemanHistoryViewComponent } from './components/fileman-history-view/fileman-history-view.component';
 import { FilemanTooltipOptions } from './common/fileman-constants';
 import { FilemetadataDetailsComponent } from './components/details/fileman-filemetadata-details/fileman-filemetadata-details.component';
+import { UserDetailsComponent } from './components/details/fileman-user-details/fileman-user-details.component';
 import { FilemetadataListLayout } from './components/layout/filemetadata/list-layout/fileman-filemetadata-list-layout-component';
 import { FilemetadataTableLayout } from './components/layout/filemetadata/table-layout/fileman-filemetadata-table-layout-component';
 import { FilemetadataTilesLayout } from './components/layout/filemetadata/tiles-layout/fileman-filemetadata-tiles-layout-component';
@@ -69,6 +70,7 @@ import { UserService } from './services/fileman-user-service.service';
     OutsideClickListenerDirective,
     FilemanLoginComponent,
     FilemetadataDetailsComponent,
+    UserDetailsComponent,
     FilemanOverviewComponent,
     FilemanFileOverviewComponent,
     FilemanUserOverviewComponent,
@@ -94,8 +96,10 @@ import { UserService } from './services/fileman-user-service.service';
       {path: 'fileman/login', component: FilemanLoginComponent},
       {path: 'fileman/overview', component: FilemanOverviewComponent, canActivate: [AuthGuard]},
       {path: 'fileman/history/:filename', component: FilemanHistoryViewComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-      {path: 'fileman/details/:filename', component: FilemetadataDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'fileman/details/files/:filename', component: FilemetadataDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'fileman/details/users/:username', component: UserDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: 'fileman/files/new', component: FilemetadataDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'fileman/users/new', component: UserDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: 'fileman/problem', component: FilemanProblemPageComponent},
       {path: 'fileman/**', component: FilemanProblemPageComponent}
     ])

@@ -141,7 +141,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   }
 
   edit(file: FileMetaData) {
-    this.router.navigate(['/fileman/details/' + file.getName()]);
+    this.router.navigate(['/fileman/details/files/' + file.getName()]);
   }
 
   markFavourite(file: FileMetaData)

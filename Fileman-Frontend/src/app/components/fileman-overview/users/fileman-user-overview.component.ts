@@ -138,7 +138,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   }
 
   edit(user: User) {
-    this.router.navigate(['/fileman/details/' + user.getName()]);
+    this.router.navigate(['/fileman/details/users/' + user.getName()]);
   }
 
   markFavourite(file: FileMetaData)
@@ -196,10 +196,6 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
     });
 
     this.viewedUsers = userList;
-  }
-
-  showHistory(file: FileMetaData) {
-    this.router.navigate(['/fileman/history/' + file.getName()]);
   }
 
   delete(user: User) {

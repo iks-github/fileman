@@ -70,7 +70,11 @@ export class FilemanToolbarComponent implements OnInit {
 
   onNewClick() {
     if (! this.readOnly) {
-      this.router.navigate(['/fileman/files/new']);
+      if (this.contentType === this.contentTypeFiles) {
+        this.router.navigate(['/fileman/files/new']);
+      } else if (this.contentType === this.contentTypeUsers) {
+        this.router.navigate(['/fileman/users/new']);
+      }
     }
   }
 

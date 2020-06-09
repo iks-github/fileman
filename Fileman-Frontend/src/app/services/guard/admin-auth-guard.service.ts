@@ -1,12 +1,12 @@
 /*
  * Copyright 2020 IKS Gesellschaft fuer Informations- und Kommunikationssysteme mbH
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,8 +27,8 @@ export class AdminAuthGuard implements CanActivate {
 
     canActivate() {
       const role = this.authService.getCurrentUserRole();
-      if (role !== 'Admin') { return true; }
+      if (role === 'Admin') { return true; }
       this.router.navigate(['/fileman/problem'], {queryParams: {type: '2'}});
-      return true;
+      return false;
     }
   }

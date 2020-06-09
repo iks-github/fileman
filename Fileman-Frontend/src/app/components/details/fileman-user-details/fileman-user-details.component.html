@@ -9,7 +9,7 @@
     <div class="form-group" formGroupName="inputFieldControl">
 
         <!-- The table section below is generated: Do not modify manually! -->
-        <table class="form-group" formGroupName="metaDataForm">
+        <table class="form-group" formGroupName="userForm">
             <tr>
                 <td>
                     <label for="name">Name</label>
@@ -60,7 +60,7 @@
         </table>
         <!-- The table section above is generated: Do not modify manually! -->
 
-        <div class="form-group alert alert-danger" *ngIf=" ! inputFieldControl.touched || inputFieldControl.invalid">
+        <div class="form-group alert alert-danger" *ngIf="(userForm.invalid && userForm.touched) || showFileSelectorMandatoryMessage()">
             Validation errors:
 
             <!-- The error sections below are generated: Do not modify manually! -->
@@ -93,7 +93,7 @@
         </div>
 
         <button *ngIf="!readOnly"
-                [disabled]=" ! inputFieldControl.touched || inputFieldControl.invalid"
+                [disabled]=" ! userForm.touched || userForm.invalid"
                 class="button btn btn-primary"
                 type="submit"
                 data-toggle="tooltip" title="{{getToolTip()}}"

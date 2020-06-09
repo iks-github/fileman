@@ -67,10 +67,17 @@
                   title="Select content of overview"
                   style="color: gray; background: lightyellow;"
                   >{{iconSettings}}</mat-icon>
-        <select id="contentType" #contentType style="background: lightyellow; margin-left: 5px;"
-          (change)="onContentTypeChange(contentType.value)">
-            <option [value]="contentTypeFiles">Files</option>
-            <option [value]="contentTypeUsers">Users</option>
+        <select
+          id="contentTypeSelect"
+          #contentTypeSelect
+          style="background: lightyellow; margin-left: 5px;"
+          (change)="onContentTypeChange(contentTypeSelect.value)">
+            <option
+              [value]="contentTypeFiles"
+              [selected]="contentType === contentTypeFiles">Files</option>
+            <option
+              [value]="contentTypeUsers"
+              [selected]="contentType === contentTypeUsers">Users</option>
         </select>
     </span>
 

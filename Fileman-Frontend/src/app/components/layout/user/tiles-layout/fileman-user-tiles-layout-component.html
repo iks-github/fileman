@@ -1,12 +1,12 @@
 <li *ngFor="let user of viewedUsers; let i = index"
     class="list-group-item">
     <td width="40">
-      <span>
+      <span *ngIf="! readOnly">
           <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(user)">edit</mat-icon>
       </span>
       <br>
-      <span>
-          <mat-icon data-toggle="tooltip" title="Delete" (click)="delete(user)">delete</mat-icon>
+      <span *ngIf="! readOnly">
+          <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(user)">delete</mat-icon>
       </span>
     </td>
     <td>
@@ -14,15 +14,15 @@
           {{i+1}}. {{user.name}}
           <div>
             <img class="image-preview" *ngIf="hasImagePreview(user.name)" [src]="getImagePreview(user.name)">
-            <span class="text-preview" *ngIf="hasTextPreview(user.name)">{{ getTextPreview(user.id) }}</span>
+            <span class="text-preview" *ngIf="hasTextPreview(user.name)">{{ getTextPreview(user.name) }}</span>
             <ngx-doc-viewer
               class="docx-preview"
-              *ngIf="hasDocxPreview(user.id)"
-              [url]="getDocxPreview(user.id)"
+              *ngIf="hasDocxPreview(user.name)"
+              [url]="getDocxPreview(user.name)"
               viewer="mammoth">
             </ngx-doc-viewer>
-            <pdf-viewer class="pdf-preview" *ngIf="hasPdfPreview(user.id)"
-              [src]="getPdfPreview(user.id)"
+            <pdf-viewer class="pdf-preview" *ngIf="hasPdfPreview(user.name)"
+              [src]="getPdfPreview(user.name)"
               [render-text]="true"
               [show-all]="false"
               [original-size]="false">

@@ -2,7 +2,7 @@
     <tr style="font-weight:bold; background-color:darkgray;">
         <td></td>
         <td></td>
-
+        
         <!-- The header-td-sections below is generated: Do not modify manually! -->
 
         <td>
@@ -43,10 +43,10 @@
               (opened)="onPullDownOpened(pullDown)"
               filemanOutsideClickListener
               (clickedOutside)="closeOpenPullDowns()">
-              <mat-option (click)="edit(user)">
+              <mat-option *ngIf="!readOnly" (click)="edit(user)">
                 <mat-icon>edit</mat-icon>Edit
               </mat-option>
-              <mat-option (click)="delete(user)">
+              <mat-option *ngIf="!readOnly" (click)="delete(user)">
                 <mat-icon>delete</mat-icon>Delete
               </mat-option>
             </mat-select>

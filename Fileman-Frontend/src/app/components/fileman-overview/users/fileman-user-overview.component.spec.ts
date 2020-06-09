@@ -17,20 +17,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 
-import { FilemanFileOverviewComponent } from './fileman-user-overview.component';
+import { FilemanUserOverviewComponent } from './fileman-user-overview.component';
 
-describe('FilemanFileOverviewComponent', () => {
-  let component: FilemanFileOverviewComponent;
-  let fixture: ComponentFixture<FilemanFileOverviewComponent>;
+describe('FilemanUserOverviewComponent', () => {
+  let component: FilemanUserOverviewComponent;
+  let fixture: ComponentFixture<FilemanUserOverviewComponent>;
 
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ FilemanFileOverviewComponent ],
+      declarations: [ FilemanUserOverviewComponent ],
       imports: [ RouterTestingModule, HttpClientModule ]
     });
 
-    fixture = TestBed.createComponent(FilemanFileOverviewComponent);
+    fixture = TestBed.createComponent(FilemanUserOverviewComponent);
     component = fixture.componentInstance;
 
     fixture.detectChanges();

@@ -78,4 +78,5 @@ export class UserTableLayout extends LayoutUserCommons {
     }
     this.openPullDowns.splice(0, this.openPullDowns.length)
   }
+
 }

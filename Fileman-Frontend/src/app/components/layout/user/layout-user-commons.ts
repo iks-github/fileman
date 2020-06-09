@@ -13,13 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { Input } from '@angular/core';
+
 import { User } from 'src/app/common/domainobjects/gen/User';
 import { LayoutCommons } from '../layout-commons';
-import { Input } from '@angular/core';
 
 export class LayoutUserCommons extends LayoutCommons {
   @Input() viewedUsers;
-
+  @Input() readOnly;
+	
   edit(item: User) {
     //this.itemEdited.emit(item);
   }

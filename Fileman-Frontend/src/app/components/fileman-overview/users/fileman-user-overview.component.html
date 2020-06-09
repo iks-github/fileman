@@ -11,17 +11,20 @@
 <div [ngSwitch]="layoutType">
     <div *ngSwitchCase="layoutTypeList">
         <fileman-user-list-layout
-          [viewedUsers]="viewedUsers">
+          [viewedUsers]="viewedUsers"
+          [readOnly]="readOnly">
         </fileman-user-list-layout>
     </div>
     <div *ngSwitchCase="layoutTypeTable">
       <fileman-user-table-layout
-        [viewedUsers]="viewedUsers">
+        [viewedUsers]="viewedUsers"
+        [readOnly]="readOnly">
       </fileman-user-table-layout>
     </div>
     <div *ngSwitchCase="layoutTypeTiles">
         <fileman-user-tiles-layout
-          [viewedUsers]="viewedUsers">
+          [viewedUsers]="viewedUsers"
+          [readOnly]="readOnly">
         </fileman-user-tiles-layout>
     </div>
 </div>

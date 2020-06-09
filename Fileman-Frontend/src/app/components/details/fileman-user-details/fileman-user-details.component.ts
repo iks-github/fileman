@@ -153,6 +153,7 @@ export class UserDetailsComponent implements OnInit {
 
       const foundItem = userArray.find(
         userItem => userItem.name === control.value
+          && !(this.toEdit != null && userItem.name === this.toEdit.name)
       );
 
       if (foundItem) {

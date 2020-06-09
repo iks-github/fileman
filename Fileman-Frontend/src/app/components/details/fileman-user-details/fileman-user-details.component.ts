@@ -92,7 +92,7 @@ export class UserDetailsComponent implements OnInit {
 
   save() {
     const toSave = new User({
-      id: this.toEdit.getId(),
+      id: this.toEdit != null ? this.toEdit.getId() : null,
       name: this.nameC.value,
       role: this.roleC.value,
       password: this.passwordC.value,
@@ -181,7 +181,7 @@ export class UserDetailsComponent implements OnInit {
                 Validators.maxLength(32),
               ]),
         passwordRepetitionControl: new FormControl('', [
-                Validators.minLength(1),
+                Validators.minLength(0),
                 Validators.maxLength(32),
               ]),
         avatarControl: new FormControl('', [

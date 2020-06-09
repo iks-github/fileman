@@ -189,7 +189,6 @@ class <<DomainPath>>.User
   attribute id
     metainfo SqlType int
     metainfo JavaType Integer
-    metainfo Mandatory true
     metainfo ExampleData 1
     metainfo unique true
     metainfo id true
@@ -223,7 +222,7 @@ class <<DomainPath>>.User
   attribute passwordRepetition
     metainfo JavaType String
     metainfo ExampleData "123"
-    metainfo MinLength 1
+    metainfo MinLength 0
     metainfo MaxLength 32
     metainfo hideFromServer true
     metainfo guiType TextField

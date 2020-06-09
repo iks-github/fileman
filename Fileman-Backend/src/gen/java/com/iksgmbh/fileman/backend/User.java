@@ -19,12 +19,10 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Data of a Fileman user")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1591711993753L;
+	private static final long serialVersionUID = 1591713438039L;
 
 	// ===============  instance fields  ===============
 
-    @NotNull(message="Value of mandatory attribute 'id' is not present.")
-    @ApiModelProperty(notes = "Mandatory.")
 	private Integer id;
 
     @NotNull(message="Value of mandatory attribute 'name' is not present.")
@@ -41,8 +39,8 @@ public class User implements Serializable
 	@JsonIgnore
 	private String password;
 
-    @Size(min=1, max=32, message="Value of attribute 'passwordRepetition' is out of valid range (1-32)")
-    @ApiModelProperty(notes = "Valid length ranges from 1 to 32.")
+    @Size(min=0, max=32, message="Value of attribute 'passwordRepetition' is out of valid range (0-32)")
+    @ApiModelProperty(notes = "Valid length ranges from 0 to 32.")
 	private String passwordRepetition;
 
 	private String avatar;

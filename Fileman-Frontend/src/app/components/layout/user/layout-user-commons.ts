@@ -23,7 +23,7 @@ export class LayoutUserCommons extends LayoutCommons {
   @Input() readOnly;
   @Output() userEdited: EventEmitter<User> = new EventEmitter<User>();
   @Output() userDeleted: EventEmitter<User> = new EventEmitter<User>();
-
+	
   edit(user: User) {
     this.userEdited.emit(user);
   }

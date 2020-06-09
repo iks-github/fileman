@@ -78,6 +78,13 @@ public class LoginRestController {
 			return ResponseEntity.ok(loginResponse);		// ResourceNotFoundException ??
 		}
 		
+		// temporary: allow login of newly created users before implementing 
+		//            real password logic
+		// TODO: implement password logic
+		if (user.getPassword() == null) {
+			user.setPassword("");
+		}
+		
 		if (!passwordEncoder.matches(loginRequest.getUserPw(), user.getPassword())) {
 			loginResponse.setErrorMessage(AUTH_FAIL_MESSAGE);
 			loginResponse.setOk(false);

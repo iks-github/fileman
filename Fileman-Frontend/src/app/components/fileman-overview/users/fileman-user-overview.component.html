@@ -12,19 +12,25 @@
     <div *ngSwitchCase="layoutTypeList">
         <fileman-user-list-layout
           [viewedUsers]="viewedUsers"
-          [readOnly]="readOnly">
+          [readOnly]="readOnly"
+          (userEdited)="edit($event)"
+          (userDeleted)="delete($event)">
         </fileman-user-list-layout>
     </div>
     <div *ngSwitchCase="layoutTypeTable">
       <fileman-user-table-layout
         [viewedUsers]="viewedUsers"
-        [readOnly]="readOnly">
+        [readOnly]="readOnly"
+        (userEdited)="edit($event)"
+        (userDeleted)="delete($event)">
       </fileman-user-table-layout>
     </div>
     <div *ngSwitchCase="layoutTypeTiles">
         <fileman-user-tiles-layout
           [viewedUsers]="viewedUsers"
-          [readOnly]="readOnly">
+          [readOnly]="readOnly"
+          (userEdited)="edit($event)"
+          (userDeleted)="delete($event)">
         </fileman-user-tiles-layout>
     </div>
 </div>

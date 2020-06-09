@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Input } from '@angular/core';
+import { Input, Output, EventEmitter } from '@angular/core';
 
 import { User } from 'src/app/common/domainobjects/gen/User';
 import { LayoutCommons } from '../layout-commons';
@@ -21,13 +21,15 @@ import { LayoutCommons } from '../layout-commons';
 export class LayoutUserCommons extends LayoutCommons {
   @Input() viewedUsers;
   @Input() readOnly;
-	
-  edit(item: User) {
-    //this.itemEdited.emit(item);
+  @Output() userEdited: EventEmitter<User> = new EventEmitter<User>();
+  @Output() userDeleted: EventEmitter<User> = new EventEmitter<User>();
+
+  edit(user: User) {
+    this.userEdited.emit(user);
   }
 
-  delete(item: User) {
-    //this.itemDeleted.emit(item);
+  delete(user: User) {
+    this.userDeleted.emit(user);
   }
 
   getUserHtmlTooltip(user: User): string {

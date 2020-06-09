@@ -55,11 +55,11 @@ public class UserRestController
 		}
 	}
 
-	@DeleteMapping("/users/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
-		User user = userDao.findById(id);
+	@DeleteMapping("/users/{name}")
+	public ResponseEntity<?> deleteUser(@PathVariable String name) {
+		User user = userDao.findByName(name);
 		if (user == null) {
-			throw new ResourceNotFoundException("User '" + id +"' + not found.");
+			throw new ResourceNotFoundException("User '" + name +"' + not found.");
 		}
        userDao.delete(user);
        return ResponseEntity.ok().build();

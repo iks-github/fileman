@@ -32,25 +32,25 @@ export class UserService {
                           ));
   }
 
-  create(data: User) {
-    const uri = this.url + '/' + data.getId();
-    return this.httpClient.post(uri, JSON.stringify(data), FilemanConstants.getRestCallHeaderOptions())
+  create(user: User) {
+    const uri = this.url + '/' + user.getName();
+    return this.httpClient.post(uri, JSON.stringify(user), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
                           ));
   }
 
-  update(data: User) {
-    const uri = this.url + '/' + data.getId();
-    return this.httpClient.put(uri, JSON.stringify(data), FilemanConstants.getRestCallHeaderOptions())
+  update(user: User) {
+    const uri = this.url + '/' + user.getName();
+    return this.httpClient.put(uri, JSON.stringify(user), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             console.log(error);
                             throw error; }
                           ));
   }
 
-  delete(data: User) {
-    const uri = this.url + '/' + data.getId();
+  delete(user: User) {
+    const uri = this.url + '/' + user.getName();
     return this.httpClient.delete(uri, FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                               throw error; }

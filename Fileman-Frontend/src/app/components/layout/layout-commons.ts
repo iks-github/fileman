@@ -13,12 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Output, EventEmitter } from '@angular/core';
-
 export class LayoutCommons {
-  @Output() itemEdited: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-  @Output() itemDeleted: EventEmitter<HTMLInputElement> = new EventEmitter<HTMLInputElement>();
-
   protected buildHtmlTooltipContentRow(title: string, content: string): string {
     return '<span class="inner-html-left-span">' + title + ':</span>'
         + '<span><b>' + content + '</b></span><br>';

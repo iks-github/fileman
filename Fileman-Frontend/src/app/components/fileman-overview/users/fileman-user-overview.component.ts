@@ -137,8 +137,8 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
     return file ? file.uuid : undefined;
   }
 
-  edit(file: FileMetaData) {
-    this.router.navigate(['/fileman/details/' + file.getName()]);
+  edit(user: User) {
+    this.router.navigate(['/fileman/details/' + user.getName()]);
   }
 
   markFavourite(file: FileMetaData)
@@ -213,7 +213,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
     this.userService
         .delete(user)
         .subscribe(
-          deletedFile => {
+          deletedUser => {
               console.log('Successfully deleted file: ' + user.getName());
             },
           (error: FilemanError) => {
@@ -222,7 +222,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
 
             if (error instanceof FilemanNotfoundError) {
               // TODO this.form.setErrors(error.cause);
-              alert('File does not (more?) exist.')
+              alert('User does not (more?) exist.')
             } else {
               throw error;
             }

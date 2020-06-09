@@ -39,7 +39,7 @@ export class FilemetadataDetailsComponent implements OnInit {
   fileContent: any;
   reader: FileReader;
   form: FormGroup;
-  metaDataForm: FormGroup;
+  detailsForm: FormGroup;
   isFocusOnFileSelector = false;
   currentUser: any;
   fileSelectionFocusGainedCounter = 0;
@@ -52,7 +52,7 @@ export class FilemetadataDetailsComponent implements OnInit {
               private fileService: FilemanFileService,
               private metadataService: FilemanMetadataService,
               private previewService: FilemanPreviewService) {
-      this.form = this.createMetaDataFormGroup();
+      this.form = this.createFormGroup();
       this.reader = new FileReader();
       this.currentUser = authService.getCurrentUserName();
   }
@@ -190,10 +190,10 @@ export class FilemetadataDetailsComponent implements OnInit {
     this.backToOverview();
   }
 
-  createMetaDataFormGroup() {
-    this.metaDataForm = this.createFormGroup();
+  createFormGroup() {
+    this.detailsForm = this.createDetailsFormGroup();
     return new FormGroup({inputFieldControl: new FormGroup({
-                          metaDataForm: this.metaDataForm,
+                          detailsForm: this.detailsForm,
                           fileContentControl: new FormControl('')
                     })
            });
@@ -216,7 +216,7 @@ export class FilemetadataDetailsComponent implements OnInit {
   }
 
   // The form control block below is generated - do not modify manually!
-  createFormGroup() {
+  createDetailsFormGroup() {
     return new FormGroup({
         nameControl: new FormControl('', [
                 Validators.required,
@@ -233,15 +233,15 @@ export class FilemetadataDetailsComponent implements OnInit {
   }
 
   get nameC() {
-    return this.form.get('inputFieldControl.metaDataForm.nameControl');
+    return this.form.get('inputFieldControl.detailsForm.nameControl');
   }
 
   get descriptionC() {
-    return this.form.get('inputFieldControl.metaDataForm.descriptionControl');
+    return this.form.get('inputFieldControl.detailsForm.descriptionControl');
   }
 
   get immediatelyActiveC() {
-    return this.form.get('inputFieldControl.metaDataForm.immediatelyActiveControl');
+    return this.form.get('inputFieldControl.detailsForm.immediatelyActiveControl');
   }
 
   private getFileMetaData() {

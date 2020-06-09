@@ -8,7 +8,7 @@
 
 		'
 		'  get ${attributeName}C() {
-		'    return this.form.get('inputFieldControl.metaDataForm.${attributeName}Control');
+		'    return this.form.get('inputFieldControl.detailsForm.${attributeName}Control');
 		'  }
 	
 	#end

@@ -37,14 +37,14 @@ export class UserDetailsComponent implements OnInit {
   fileContent: any;
   reader: FileReader;
   form: FormGroup;
-  userForm: FormGroup;
+  detailsForm: FormGroup;
   newMode: boolean;
   toEdit: User;
 
   constructor(private router: Router,
               private loginService: FilemanLoginService,
               private userService: UserService) {
-      this.form = this.createUserFormGroup();
+      this.form = this.createFormGroup();
       this.reader = new FileReader();
       this.currentlyLoggedInUser = loginService.getCurrentUserName();
   }
@@ -136,11 +136,11 @@ export class UserDetailsComponent implements OnInit {
     this.backToOverview();
   }
 
-  createUserFormGroup() {
-    this.userForm = this.createFormGroup();
+  createFormGroup() {
+    this.detailsForm = this.createDetailsFormGroup();
     return new FormGroup({
       inputFieldControl: new FormGroup({
-        userForm: this.userForm
+        detailsForm: this.detailsForm
       })
     });
   }
@@ -162,7 +162,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   // The form control block below is generated - do not modify manually!
-  createFormGroup() {
+  createDetailsFormGroup() {
     return new FormGroup({
         nameControl: new FormControl('', [
                 Validators.required,
@@ -189,23 +189,23 @@ export class UserDetailsComponent implements OnInit {
   }
 
   get nameC() {
-    return this.form.get('inputFieldControl.userForm.nameControl');
+    return this.form.get('inputFieldControl.detailsForm.nameControl');
   }
 
   get roleC() {
-    return this.form.get('inputFieldControl.userForm.roleControl');
+    return this.form.get('inputFieldControl.detailsForm.roleControl');
   }
 
   get passwordC() {
-    return this.form.get('inputFieldControl.userForm.passwordControl');
+    return this.form.get('inputFieldControl.detailsForm.passwordControl');
   }
 
   get passwordRepetitionC() {
-    return this.form.get('inputFieldControl.userForm.passwordRepetitionControl');
+    return this.form.get('inputFieldControl.detailsForm.passwordRepetitionControl');
   }
 
   get avatarC() {
-    return this.form.get('inputFieldControl.userForm.avatarControl');
+    return this.form.get('inputFieldControl.detailsForm.avatarControl');
   }
 
   private getUser() {

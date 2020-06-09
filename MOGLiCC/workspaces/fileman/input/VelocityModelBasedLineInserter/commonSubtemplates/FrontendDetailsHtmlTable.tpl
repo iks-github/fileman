@@ -1,4 +1,4 @@
-'        <table class="form-group" formGroupName="metaDataForm">
+'        <table class="form-group" formGroupName="detailsForm">
 
 #set( $attributeDescriptorList = $classDescriptor.getAttributeDescriptorList() )
 #set( $row1Attribute = "" )

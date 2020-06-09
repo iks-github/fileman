@@ -1,4 +1,4 @@
-'  createFormGroup() {
+'  createDetailsFormGroup() {
 '    return new FormGroup({
 
 

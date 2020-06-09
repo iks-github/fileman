@@ -30,11 +30,11 @@ import { <<Type>>Service } from 'src/app/services/fileman-<<type>>-service.servi
 export class <<Type>>DetailsComponent implements OnInit {
 
   readOnly: boolean;
-  metaDataForm: FormGroup;
   currentlyLoggedInUser: any;
+  form: FormGroup;
+  detailsForm: FormGroup;
   newMode: boolean;
   toEdit: <<Type>>;
-  form: any;
 
   constructor(private router: Router,
               private loginService: FilemanLoginService,
@@ -49,10 +49,10 @@ export class <<Type>>DetailsComponent implements OnInit {
     if ( ! this.newMode ) {
       const index = this.router.url.lastIndexOf('/') + 1;
       const id = this.router.url.substring(index);
-      this.userService.getUser(id).subscribe((user: User) => {
-        this.toEdit = user;
+      this.<<type>>Service.get<<Type>>(id).subscribe(<<type>> => {
+        this.toEdit = new <<Type>>(<<type>>);
         if (this.toEdit == null) {
-          alert('No data available for user "' + id + '"!');
+          alert('No data available for <<type>> "' + id + '"!');
           this.backToOverview();  // no data to edit avaible - happends for page reload - reason unclear
         } else {
           this.setDataToControls(this.toEdit);
@@ -98,12 +98,21 @@ export class <<Type>>DetailsComponent implements OnInit {
     this.backToOverview();
   }
 
-  isNotUnique(control: AbstractControl): Observable<ValidationErrors | null> {
-    return this.userService.getAllUsers()
-        .pipe(map((userArray: User[]) => {
+  createFormGroup() {
+    this.detailsForm = this.createDetailsFormGroup();
+    return new FormGroup({
+      inputFieldControl: new FormGroup({
+        detailsForm: this.detailsForm
+      })
+    });
+  }
 
-      const foundItem = userArray.find(
-        userItem => userItem.name === control.value
+  isNotUnique(control: AbstractControl): Observable<ValidationErrors | null> {
+    return this.<<type>>Service.getAll<<Type>>s()
+        .pipe(map((<<type>>Array: <<Type>>[]) => {
+
+      const foundItem = <<type>>Array.find(
+        <<type>>Item => <<type>>Item.name === control.value
       );
 
       if (foundItem) {

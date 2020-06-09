@@ -214,7 +214,6 @@ class <<DomainPath>>.User
   attribute password
     metainfo SqlType varchar
     metainfo JavaType String
-    metainfo Mandatory true
     metainfo ExampleData "123"
     metainfo MinLength 1
     metainfo MaxLength 32
@@ -223,7 +222,6 @@ class <<DomainPath>>.User
 
   attribute passwordRepetition
     metainfo JavaType String
-    metainfo Mandatory true
     metainfo ExampleData "123"
     metainfo MinLength 1
     metainfo MaxLength 32

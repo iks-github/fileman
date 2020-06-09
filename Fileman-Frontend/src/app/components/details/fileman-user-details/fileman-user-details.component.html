@@ -76,14 +76,8 @@
             <div *ngIf="roleC.errors?.required && roleC.touched">
                The field <i>Role</i> is required.
             </div>
-            <div *ngIf="passwordC.errors?.required && passwordC.touched">
-               The field <i>Password</i> is required.
-            </div>
             <div *ngIf="passwordC.errors?.minlength && passwordC.touched">
                Minimum length of field <i>Password</i> is {{passwordC.errors.minlength.requiredLength}}.
-            </div>
-            <div *ngIf="passwordRepetitionC.errors?.required && passwordRepetitionC.touched">
-               The field <i>PasswordRepetition</i> is required.
             </div>
             <div *ngIf="passwordRepetitionC.errors?.minlength && passwordRepetitionC.touched">
                Minimum length of field <i>PasswordRepetition</i> is {{passwordRepetitionC.errors.minlength.requiredLength}}.

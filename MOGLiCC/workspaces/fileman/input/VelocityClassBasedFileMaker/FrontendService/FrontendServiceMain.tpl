@@ -60,7 +60,7 @@ export class ${classDescriptor.simpleName}Service {
 '  }
 '
 '  create(${className}: ${classDescriptor.simpleName}) {
-'    const uri = this.url + '/' + ${className}.get${IdAttributeName}();
+'    const uri = this.url;
 '    return this.httpClient.post(uri, JSON.stringify(${className}), FilemanConstants.getRestCallHeaderOptions())
 '                          .pipe(catchError((error: HttpErrorResponse) => {
 '                            throw error; }
@@ -68,7 +68,7 @@ export class ${classDescriptor.simpleName}Service {
 '  }
 '
 '  update(${className}: ${classDescriptor.simpleName}) {
-'    const uri = this.url + '/' + ${className}.get${IdAttributeName}();
+'    const uri = this.url;
 '    return this.httpClient.put(uri, JSON.stringify(${className}), FilemanConstants.getRestCallHeaderOptions())
 '                          .pipe(catchError((error: HttpErrorResponse) => {
 '                            console.log(error);

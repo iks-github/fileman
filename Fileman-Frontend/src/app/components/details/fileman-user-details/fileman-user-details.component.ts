@@ -176,12 +176,10 @@ export class UserDetailsComponent implements OnInit {
                 Validators.required,
               ]),
         passwordControl: new FormControl('', [
-                Validators.required,
                 Validators.minLength(1),
                 Validators.maxLength(32),
               ]),
         passwordRepetitionControl: new FormControl('', [
-                Validators.required,
                 Validators.minLength(1),
                 Validators.maxLength(32),
               ]),

@@ -7,7 +7,7 @@
         <!-- The header-td-sections above is generated: Do not modify manually! -->
 
       </tr>
-      <tr *ngFor="let item of viewedItems; let i = index">
+      <tr *ngFor="let <<type>> of viewed<<Type>>s; let i = index">
         <td>{{i+1}}.</td>
         <td>
           <mat-icon data-toggle="tooltip" title="Open Action Menu" (click)="pullDown.open()">more_vert</mat-icon>
@@ -17,10 +17,10 @@
               (opened)="onPullDownOpened(pullDown)"
               filemanOutsideClickListener
               (clickedOutside)="closeOpenPullDowns()">
-              <mat-option *ngIf="!readOnly" (click)="edit(item)">
+              <mat-option *ngIf="!readOnly" (click)="edit(<<type>>)">
                 <mat-icon>edit</mat-icon>Edit
               </mat-option>
-              <mat-option *ngIf="!readOnly" (click)="delete(item)">
+              <mat-option *ngIf="!readOnly" (click)="delete(<<type>>)">
                 <mat-icon>delete</mat-icon>Delete
               </mat-option>
             </mat-select>

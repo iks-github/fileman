@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Input, Output, EventEmitter } from '@angular/core';
-import { Icon } from 'src/app/common/fileman-constants';
+import { Input } from '@angular/core';
+
 import { <<Type>> } from 'src/app/common/domainobjects/gen/<<Type>>';
 import { LayoutCommons } from '../layout-commons';
 
 export class Layout<<Type>>Commons extends LayoutCommons {
+  @Input() viewed<<Type>>s;
+  @Input() readOnly;
 	
   edit(item: <<Type>>) {
     //this.itemEdited.emit(item);
@@ -27,6 +29,11 @@ export class Layout<<Type>>Commons extends LayoutCommons {
   delete(item: <<Type>>) {
     //this.itemDeleted.emit(item);
   }
-	
-}
 
+  get<<Type>>HtmlTooltip(<<type>>: <<Type>>): string {
+    return '<div class="inner-html-enclosing-div"><h4>Details:</h4>' +
+      '<hr>' +
+      this.buildHtmlTooltipContentRow('Name', <<type>>.name) +
+      this.buildHtmlTooltipContentRow('Role', <<type>>.role)+'</div>'
+  }
+}

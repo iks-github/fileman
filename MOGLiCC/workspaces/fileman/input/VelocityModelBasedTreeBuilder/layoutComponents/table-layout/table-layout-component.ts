@@ -28,9 +28,9 @@ export class <<Type>>TableLayout extends Layout<<Type>>Commons {
   openPullDowns: Array<MatSelect> = new Array<MatSelect>();
 
   sort(event) {
-    const sortList = this.viewedItems;
+    const sortList = this.viewed<<Type>>s;
     if (event.sortType === SortType.ASC) {
-       this.viewedItems = sortList.sort((dataObject1, dataObject2) => {
+       this.viewed<<Type>>s = sortList.sort((dataObject1, dataObject2) => {
          const value1 = this.getValue(dataObject1, event.sortField);
          const value2 = this.getValue(dataObject2, event.sortField);
          if (value1 < value2) return -1;
@@ -38,7 +38,7 @@ export class <<Type>>TableLayout extends Layout<<Type>>Commons {
         else return 0;
       });
     } else {
-      this.viewedItems = sortList.sort((dataObject1, dataObject2) => {
+      this.viewed<<Type>>s = sortList.sort((dataObject1, dataObject2) => {
          const value1 = this.getValue(dataObject1, event.sortField);
          const value2 = this.getValue(dataObject2, event.sortField);
          if (value1 > value2) {

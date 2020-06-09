@@ -1,17 +1,17 @@
-<li *ngFor="let item of viewedItems; let i = index"
+<li *ngFor="let <<type>> of viewed<<Type>>s; let i = index"
     class="list-group-item">
 
     <span *ngIf="! readOnly">
         &nbsp;
-        <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(item)">edit</mat-icon>
+        <mat-icon data-toggle="tooltip" title="Edit" (click)="edit(<<type>>)">edit</mat-icon>
     </span>
 
     <span *ngIf="! readOnly">
         &nbsp;
-        <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(item)">delete</mat-icon>
+        <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(<<type>>)">delete</mat-icon>
     </span>
 
-    <span tooltip="{{getDetailsTooltip(item)}}">
-        {{i+1}}. {{item.id}}
+    <span tooltip="{{getDetailsTooltip(<<type>>)}}">
+        {{i+1}}. {{<<type>>.name}}
     </span>
 </li>

@@ -16,6 +16,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Layout<<Type>>Commons } from '../layout-<<type>>-commons';
+import { <<Type>> } from 'src/app/common/domainobjects/gen/<<Type>>';
 
 @Component({
   selector: 'fileman-<<type>>-list-layout',
@@ -23,10 +24,7 @@ import { Layout<<Type>>Commons } from '../layout-<<type>>-commons';
   styleUrls: ['./fileman-<<type>>-list-layout-component.css']
 })
 export class <<Type>>ListLayout extends Layout<<Type>>Commons {
-  @Input() all<<Type>>sMap;
-
-  getDetailsTooltip(<<type>>: HTMLInputElement): string {
-    const data = this.all<<Type>>sMap.get(<<type>>.name);
-    return data.getStringRepresentation();
+  getDetailsTooltip(<<type>>: <<Type>>): string {
+    return this.getUserHtmlTooltip(<<type>>);
   }
 }

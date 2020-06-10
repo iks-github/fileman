@@ -230,7 +230,6 @@ class <<DomainPath>>.User
    attribute avatar
     metainfo SqlType varchar
     metainfo JavaType String
-    metainfo guiType FileSelector
  
  class <<DomainPath>>.ExceptionMetaData
   metainfo implements java.io.Serializable

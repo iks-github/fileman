@@ -69,22 +69,11 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
-  getBorder() {
-    if (this.showFileSelectorMandatoryMessage()) {
-      return '2px solid red';
-    }
-    return '';
-  }
-
   setFocusOnFileSelector(focusGained: boolean) {
     this.isFocusOnFileSelector = focusGained;
     if (focusGained) {
       this.fileSelectionFocusGainedCounter = this.fileSelectionFocusGainedCounter + 1;
     }
-  }
-
-  showFileSelectorMandatoryMessage() {
-    return this.newMode && ! this.isFocusOnFileSelector && this.avatarC.value === '' && this.fileSelectionFocusGainedCounter > 1;
   }
 
   getToolTip() {
@@ -186,8 +175,6 @@ export class UserDetailsComponent implements OnInit {
                 Validators.minLength(0),
                 Validators.maxLength(32),
               ]),
-        avatarControl: new FormControl('', [
-              ]),
     });
   }
 
@@ -207,10 +194,6 @@ export class UserDetailsComponent implements OnInit {
     return this.form.get('inputFieldControl.detailsForm.passwordRepetitionControl');
   }
 
-  get avatarC() {
-    return this.form.get('inputFieldControl.detailsForm.avatarControl');
-  }
-
   private getUser() {
     const user = new User(null);
 
@@ -218,7 +201,6 @@ export class UserDetailsComponent implements OnInit {
     user.setRole(this.roleC.value);
     user.setPassword(this.passwordC.value);
     user.setPasswordRepetition(this.passwordRepetitionC.value);
-    user.setAvatar(this.avatarC.value);
 
     return user;
   }

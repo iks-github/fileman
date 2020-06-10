@@ -46,21 +46,19 @@
 
             <tr>&nbsp;</tr>
 
-            <tr>
-                <td>
-                    <label for="avatar">Avatar</label>
-					 <br>
-                    <input id="fileContentSource" class="form-Control" type="file"
-                    formControlName="avatarControl"
-                    (change)="onAvatarChange($event)"
-                    [style.border]="getBorder()"
-                    (focus)="setFocusOnFileSelector(true)" (blur)="setFocusOnFileSelector(false)"/>
-                </td>
-            </tr>
         </table>
         <!-- The table section above is generated: Do not modify manually! -->
 
-        <div class="form-group alert alert-danger" *ngIf="(detailsForm.invalid && detailsForm.touched) || showFileSelectorMandatoryMessage()">
+        <td>
+          <label for="avatar">Avatar</label>
+          <br>
+          <input id="fileContentSource" class="form-Control" type="file"
+            (change)="onAvatarChange($event)"
+            (focus)="setFocusOnFileSelector(true)" (blur)="setFocusOnFileSelector(false)"/>
+        </td>
+        <br>
+
+        <div class="form-group alert alert-danger" *ngIf="(detailsForm.invalid && detailsForm.touched)">
             Validation errors:
 
             <!-- The error sections below are generated: Do not modify manually! -->
@@ -87,7 +85,7 @@
         </div>
 
         <button *ngIf="!readOnly"
-                [disabled]=" ! detailsForm.touched || detailsForm.invalid"
+                [disabled]="(!detailsForm.touched && !avatarFileContent) || detailsForm.invalid"
                 class="button btn btn-primary"
                 type="submit"
                 data-toggle="tooltip" title="{{getToolTip()}}"

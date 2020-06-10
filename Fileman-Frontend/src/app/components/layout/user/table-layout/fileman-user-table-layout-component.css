@@ -12,6 +12,11 @@ table tr:nth-child(even) {
   background-color: #ffffff;
 }
 
+.image-preview {
+  max-width: 50px;
+  max-height: 50px;
+}
+
 .mat-icon {
   color: blue;
   background: lightgoldenrodyellow;

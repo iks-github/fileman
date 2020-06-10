@@ -25,7 +25,6 @@ import { FilemanAvatarService } from 'src/app/services/fileman-avatar-service.se
   styleUrls: ['./fileman-user-tiles-layout-component.css']
 })
 export class UserTilesLayout extends LayoutUserCommons {
-
   constructor(private avatarService: FilemanAvatarService) {
     super();
   }

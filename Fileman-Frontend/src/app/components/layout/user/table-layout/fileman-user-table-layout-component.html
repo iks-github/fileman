@@ -2,7 +2,7 @@
     <tr style="font-weight:bold; background-color:darkgray;">
         <td></td>
         <td></td>
-        
+
         <!-- The header-td-sections below is generated: Do not modify manually! -->
 
         <td>
@@ -25,12 +25,13 @@
             PasswordRepetition
             <fileman-sorticon [sortField]="'passwordRepetition'" (sortEventHandler)="sort($event)"></fileman-sorticon>
         </td>
-        <td>
-            Avatar
-            <fileman-sorticon [sortField]="'avatar'" (sortEventHandler)="sort($event)"></fileman-sorticon>
-        </td>
 
         <!-- The header-td-sections above is generated: Do not modify manually! -->
+
+        <td>
+          Avatar
+          <fileman-sorticon [sortField]="'avatar'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
 
       </tr>
       <tr *ngFor="let user of viewedUsers; let i = index">
@@ -60,9 +61,11 @@
         <td>{{user.role}}</td>
         <td>{{user.password}}</td>
         <td>{{user.passwordRepetition}}</td>
-        <td>{{user.avatar}}</td>
 
         <!-- The row-td-sections above is generated: Do not modify manually! -->
+        <td>
+          <img class="image-preview" *ngIf="hasAvatar(user.name)" [src]="getAvatar(user.name)">
+        </td>
 
       </tr>
 </table>

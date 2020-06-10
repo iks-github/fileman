@@ -25,7 +25,7 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { saveAs } from 'file-saver';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { Utils } from 'src/app/common/Utils';
-import { Layout } from 'src/app/common/fileman-constants';
+import { Layout, UserRole } from 'src/app/common/fileman-constants';
 import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
 import { Subscription } from 'rxjs';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
@@ -73,7 +73,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     this.currentUserName = this.authService.getCurrentUserName();
     this.filesMetaDataService.getOverviewData()
         .subscribe(responseData => {this.extractFiles(responseData)});
-    this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
+    this.readOnly = this.authService.getCurrentUserRole() === UserRole.Reader;
     this.favouriteSettingService.getAllFavouriteSettings(this.currentUserName)
                                 .subscribe(favouriteSettingsResponse => {
                                     this.favouriteSettingsResponse = favouriteSettingsResponse;

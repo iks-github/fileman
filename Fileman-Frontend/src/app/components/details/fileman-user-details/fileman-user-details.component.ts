@@ -125,11 +125,28 @@ export class UserDetailsComponent implements OnInit {
 
   onAvatarChange(event) {
     this.selectedFileContentSource = event.srcElement.files[0];
+
+    if (this.selectedFileContentSource == null) {
+      return;
+    }
+
     this.reader.readAsBinaryString(this.selectedFileContentSource);
     this.reader.onload = (data) => {
       this.avatarFileContent = btoa(this.reader.result as string);
       console.log(this.avatarFileContent);
+      this.checkAllowedContentType();
     };
+  }
+
+  private checkAllowedContentType() {
+    if (this.avatarFileContent != null && this.toEdit != null) {
+      const allowedContentType: boolean =
+        this.avatarService.checkAllowedContentType(this.avatarFileContent);
+
+      if (!allowedContentType) {
+        this.avatarC.setErrors({invalid: true});
+      }
+    }
   }
 
   backToOverview() {

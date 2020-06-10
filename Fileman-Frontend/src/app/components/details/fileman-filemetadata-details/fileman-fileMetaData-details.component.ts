@@ -159,6 +159,11 @@ export class FilemetadataDetailsComponent implements OnInit {
 
   onFileContentSourceChange(event) {
     this.selectedFileContentSource = event.srcElement.files[0];
+
+    if (this.selectedFileContentSource == null) {
+      return;
+    }
+
     this.reader.readAsBinaryString(this.selectedFileContentSource);
     this.reader.onload = (data) => {
       this.fileContent = btoa(this.reader.result as string);

@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
-import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
 import { User } from '../common/domainobjects/gen/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilemanAvatarService {
-  url;
   initialAvatarLoadingDone: boolean;
   avatars: Map<string, string>;
 
-  constructor(private httpClient: HttpClient,
-              propertiesService: FilemanPropertiesLoaderService) {
-    this.url = propertiesService.getProperty('serverurl') + '/files';
+  constructor() {
     this.initialAvatarLoadingDone = false;
     this.avatars = new Map<string, string>();
   }
@@ -50,40 +45,22 @@ export class FilemanAvatarService {
 
     reader.onload = () => {
       this.avatars.set(user.name, reader.result as string);
-      console.log("set avatar for user "+user.name);
     }
 
     const avatar: string = user.getAvatar();
 
     if (avatar != null) {
-      const file = this.createBlobFromBase64Data(avatar);
-      reader.readAsDataURL(file);
+      let contentType: string = this.extractContentType(avatar);
+      if (contentType != null) {
+        const file = this.createBlobFromBase64String(avatar, contentType);
+        reader.readAsDataURL(file);
+      }
     }
   }
 
-  createBlobFromBase64Data(base64Data: string) {
-
-    var signatures = {
-      R0lGODdh: "image/gif",
-      R0lGODlh: "image/gif",
-      iVBORw0KGgo: "image/png",
-      '/9j/': "image/jpg"
-    };
-
-    let contentType: string;
-
-    for (var s in signatures) {
-      if (base64Data.indexOf(s) === 0) {
-        contentType = signatures[s];
-      }
-    }
-
-    if (contentType == null) {
-      throw new Error("Unknown content type");
-    }
-
+  createBlobFromBase64String(fileContent: string, contentType: string) {
     var sliceSize = 1024;
-    var byteCharacters = atob(base64Data);
+    var byteCharacters = atob(fileContent);
     var bytesLength = byteCharacters.length;
     var slicesCount = Math.ceil(bytesLength / sliceSize);
     var byteArrays = new Array(slicesCount);
@@ -107,5 +84,28 @@ export class FilemanAvatarService {
 
   getAvatarData(userName: string): string {
     return this.avatars.get(userName);
+  }
+
+  private extractContentType(fileContent: string): string {
+    const signatures = {
+      R0lGODdh: "image/gif",
+      R0lGODlh: "image/gif",
+      iVBORw0KGgo: "image/png",
+      '/9j/': "image/jpg"
+    };
+
+    let contentType: string;
+
+    for (var s in signatures) {
+      if (fileContent.indexOf(s) === 0) {
+        contentType = signatures[s];
+      }
+    }
+
+    return contentType;
+  }
+
+  checkAllowedContentType(fileContent: string) {
+    return this.extractContentType(fileContent) != null;
   }
 }

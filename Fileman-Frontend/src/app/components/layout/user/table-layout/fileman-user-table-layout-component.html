@@ -25,13 +25,12 @@
             PasswordRepetition
             <fileman-sorticon [sortField]="'passwordRepetition'" (sortEventHandler)="sort($event)"></fileman-sorticon>
         </td>
+        <td>
+            Avatar
+            <fileman-sorticon [sortField]="'avatar'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
 
         <!-- The header-td-sections above is generated: Do not modify manually! -->
-
-        <td>
-          Avatar
-          <fileman-sorticon [sortField]="'avatar'" (sortEventHandler)="sort($event)"></fileman-sorticon>
-        </td>
 
       </tr>
       <tr *ngFor="let user of viewedUsers; let i = index">

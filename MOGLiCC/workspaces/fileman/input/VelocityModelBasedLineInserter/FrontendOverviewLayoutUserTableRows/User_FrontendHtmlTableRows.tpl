@@ -14,8 +14,10 @@
 
 #foreach ($attributeDescriptor in $attributeDescriptorList)
 
-	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
+	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") )
+	#if ( ! $attributeDescriptor.doesHaveMetaInfo("guiType", "FileSelector"))
 	'        <td>{{user.${attributeName}}}</td>
+	#end 
 		
 #end
 

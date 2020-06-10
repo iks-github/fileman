@@ -3,7 +3,7 @@
 
 #foreach ($attributeDescriptor in $attributeDescriptorList)
 
-	#if ( $attributeDescriptor.doesHaveAnyMetaInfosWithName("guiType"))
+	#if ( $attributeDescriptor.doesHaveAnyMetaInfosWithName("guiType") && ! $attributeDescriptor.doesHaveMetaInfo("guiType", "FileSelector"))
 		#set( $attributeName = $TemplateStringUtility.firstToLowerCase($attributeDescriptor.name) ) 
 		#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeName, " ", "") ) 
 		#set( $AttributeName = $TemplateStringUtility.firstToUpperCase($attributeName) ) 

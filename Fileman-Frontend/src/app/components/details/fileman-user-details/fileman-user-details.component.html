@@ -83,7 +83,9 @@
                Minimum length of field <i>PasswordRepetition</i> is {{passwordRepetitionC.errors.minlength.requiredLength}}.
             </div>
             <!-- The error sections above are generated: Do not modify manually! -->
-
+            <div *ngIf="avatarC.errors?.wrongContentType">
+              Invalid content type for selected file in field <i>Avatar</i>.
+           </div>
         </div>
 
         <button *ngIf="!readOnly"

@@ -144,7 +144,7 @@ export class UserDetailsComponent implements OnInit {
         this.avatarService.checkAllowedContentType(this.avatarFileContent);
 
       if (!allowedContentType) {
-        this.avatarC.setErrors({invalid: true});
+        this.avatarC.setErrors({wrongContentType: true});
       }
     }
   }

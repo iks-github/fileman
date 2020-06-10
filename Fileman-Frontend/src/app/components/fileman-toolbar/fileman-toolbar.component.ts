@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { Router } from '@angular/router';
-import { Content, Layout, Icon } from 'src/app/common/fileman-constants';
+import { Content, Layout, Icon, UserRole } from 'src/app/common/fileman-constants';
 import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
 
 @Component({
@@ -51,8 +51,8 @@ export class FilemanToolbarComponent implements OnInit {
               private componentStateService: FilemanComponentStateService) { }
 
   ngOnInit(): void {
-    this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
-    this.isAdmin = this.authService.getCurrentUserRole() === 'Admin';
+    this.readOnly = this.authService.getCurrentUserRole() === UserRole.Reader;
+    this.isAdmin = this.authService.getCurrentUserRole() === UserRole.Admin;
     this.layoutType = this.componentStateService.getLayoutType();
     this.contentType = this.componentStateService.getContentType();
     this.favouriteFilterActive = this.componentStateService.getFavouriteFilterActive();

@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 import { Injectable } from '@angular/core';
-import { FilemanAuthserviceService } from '../fileman-authservice.service';
 import { CanActivate, Router } from '@angular/router';
+
+import { FilemanAuthserviceService } from '../fileman-authservice.service';
+import { UserRole } from 'src/app/common/fileman-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +29,7 @@ export class AdminAuthGuard implements CanActivate {
 
     canActivate() {
       const role = this.authService.getCurrentUserRole();
-      if (role === 'Admin') { return true; }
+      if (role === UserRole.Admin) { return true; }
       this.router.navigate(['/fileman/problem'], {queryParams: {type: '2'}});
       return false;
     }

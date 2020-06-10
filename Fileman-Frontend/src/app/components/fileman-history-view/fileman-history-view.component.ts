@@ -4,6 +4,7 @@ import { FilemanFileService } from 'src/app/services/fileman-file-service.servic
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
+import { UserRole } from 'src/app/common/fileman-constants';
 
 @Component({
   selector: 'file-history',
@@ -27,7 +28,7 @@ export class FilemanHistoryViewComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
+    this.readOnly = this.authService.getCurrentUserRole() === UserRole.Reader;
     this.contentVersions = [] as FileContentData[];
     this.route.params.subscribe((params) => {
       this.selectedFile = params.filename;

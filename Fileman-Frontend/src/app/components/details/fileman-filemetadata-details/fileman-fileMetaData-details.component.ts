@@ -26,6 +26,7 @@ import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Utils } from 'src/app/common/Utils';
+import { UserRole } from 'src/app/common/fileman-constants';
 
 @Component({
   selector: 'fileman-file-details',
@@ -58,7 +59,7 @@ export class FilemetadataDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
+    this.readOnly = this.authService.getCurrentUserRole() === UserRole.Reader;
     this.newFileMode = this.router.url.endsWith('new');
     if ( ! this.newFileMode ) {
       const index = this.router.url.lastIndexOf('/') + 1;

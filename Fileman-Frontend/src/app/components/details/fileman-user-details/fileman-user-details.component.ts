@@ -70,7 +70,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getBorder() {
-    if (this.showFileSelectorMandatoryMessage()) {
+    if (this.avatarC.hasError('wrongContentType')) {
       return '2px solid red';
     }
     return '';
@@ -81,10 +81,6 @@ export class UserDetailsComponent implements OnInit {
     if (focusGained) {
       this.fileSelectionFocusGainedCounter = this.fileSelectionFocusGainedCounter + 1;
     }
-  }
-
-  showFileSelectorMandatoryMessage() {
-    return this.newMode && ! this.isFocusOnFileSelector && this.avatarC.value === '' && this.fileSelectionFocusGainedCounter > 1;
   }
 
   getToolTip() {

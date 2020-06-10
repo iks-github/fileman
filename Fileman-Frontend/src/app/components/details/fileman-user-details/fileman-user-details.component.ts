@@ -21,6 +21,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/common/domainobjects/gen/User';
 import { FilemanLoginService } from 'src/app/services/fileman-login.service';
 import { UserService } from 'src/app/services/fileman-user-service.service';
+import { FilemanAvatarService } from 'src/app/services/fileman-avatar-service.service';
 
 @Component({
   selector: 'fileman-user-details',
@@ -34,7 +35,7 @@ export class UserDetailsComponent implements OnInit {
   isFocusOnFileSelector = false;
   fileSelectionFocusGainedCounter = 0;
   selectedFileContentSource: any;
-  fileContent: any;
+  avatarFileContent: any;
   reader: FileReader;
   form: FormGroup;
   detailsForm: FormGroup;
@@ -43,7 +44,8 @@ export class UserDetailsComponent implements OnInit {
 
   constructor(private router: Router,
               private loginService: FilemanLoginService,
-              private userService: UserService) {
+              private userService: UserService,
+              private avatarService: FilemanAvatarService) {
       this.form = this.createFormGroup();
       this.reader = new FileReader();
       this.currentlyLoggedInUser = loginService.getCurrentUserName();
@@ -96,19 +98,24 @@ export class UserDetailsComponent implements OnInit {
       name: this.nameC.value,
       role: this.roleC.value,
       password: this.passwordC.value,
-      passwordRepetition: this.passwordRepetitionC.value
+      passwordRepetition: this.passwordRepetitionC.value,
+      avatar: this.avatarFileContent
     });
     console.log('Saving ');
     console.log(toSave);
 
     if (this.newMode) {
       this.userService.create(toSave)
-          .subscribe(() => {}, error => {
+          .subscribe(() => {
+            this.avatarService.prepareAvatar(toSave);
+          }, error => {
             alert('Error saving new user with name "' + toSave.getName() + '"!');
           });
     } else {
       this.userService.update(toSave)
-          .subscribe(() => {}, error => {
+          .subscribe(() => {
+            this.avatarService.prepareAvatar(toSave);
+          }, error => {
             alert('Error updating user with ID "' + toSave.getId() + '"!');
           });
     }
@@ -120,14 +127,9 @@ export class UserDetailsComponent implements OnInit {
     this.selectedFileContentSource = event.srcElement.files[0];
     this.reader.readAsBinaryString(this.selectedFileContentSource);
     this.reader.onload = (data) => {
-      this.fileContent = btoa(this.reader.result as string);
-      console.log(this.fileContent);
+      this.avatarFileContent = btoa(this.reader.result as string);
+      console.log(this.avatarFileContent);
     };
-
-    if (this.nameC.value == null || this.nameC.value === '') {
-      this.nameC.setValue(this.selectedFileContentSource.name);
-      this.nameC.markAsTouched();
-    }
   }
 
   backToOverview() {
@@ -226,7 +228,6 @@ export class UserDetailsComponent implements OnInit {
     this.roleC.setValue(user.getRole());
     this.passwordC.setValue(user.getPassword());
     this.passwordRepetitionC.setValue(user.getPasswordRepetition());
-    this.avatarC.setValue(user.getAvatar());
   }
   // The form control block above is generated - do not modify manually!
 }

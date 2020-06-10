@@ -13,20 +13,7 @@
       <span tooltip="{{getDetailsTooltip(user)}}">
           {{i+1}}. {{user.name}}
           <div>
-            <img class="image-preview" *ngIf="hasImagePreview(user.name)" [src]="getImagePreview(user.name)">
-            <span class="text-preview" *ngIf="hasTextPreview(user.name)">{{ getTextPreview(user.name) }}</span>
-            <ngx-doc-viewer
-              class="docx-preview"
-              *ngIf="hasDocxPreview(user.name)"
-              [url]="getDocxPreview(user.name)"
-              viewer="mammoth">
-            </ngx-doc-viewer>
-            <pdf-viewer class="pdf-preview" *ngIf="hasPdfPreview(user.name)"
-              [src]="getPdfPreview(user.name)"
-              [render-text]="true"
-              [show-all]="false"
-              [original-size]="false">
-            </pdf-viewer>
+            <img class="image-preview" *ngIf="hasAvatar(user.name)" [src]="getAvatar(user.name)">
           </div>
       </span>
     </td>

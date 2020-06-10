@@ -25,9 +25,9 @@ import { Utils } from 'src/app/common/Utils';
 import { Layout, UserRole } from 'src/app/common/fileman-constants';
 import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
 import { Subscription } from 'rxjs';
-import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 import { User } from 'src/app/common/domainobjects/gen/User';
 import { UserService } from 'src/app/services/fileman-user-service.service';
+import { FilemanAvatarService } from 'src/app/services/fileman-avatar-service.service';
 
 @Component({
   selector: 'fileman-user-overview',
@@ -62,7 +62,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
               private userService: UserService,
               private favouriteSettingService: FilemanFavouriteSettingsService,
               private componentStateService: FilemanComponentStateService,
-              private previewService: FilemanPreviewService) {
+              private avatarService: FilemanAvatarService) {
                   console.log('########### overview constr');
               }
 
@@ -130,6 +130,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
       this.allUsersMap.set(dataset.getName(), dataset)
     });
     this.viewedUsers = Utils.sortList(this.viewedUsers);
+    this.avatarService.preparePreviews(this.viewedUsers);
   }
 
   trackFiles(index, file) {

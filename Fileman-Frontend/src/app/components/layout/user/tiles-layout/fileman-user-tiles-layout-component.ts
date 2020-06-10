@@ -16,9 +16,8 @@
 import { Component } from '@angular/core';
 
 import { LayoutUserCommons } from '../layout-user-commons';
-import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
-import { PreviewType } from 'src/app/common/fileman-constants';
 import { User } from 'src/app/common/domainobjects/gen/User';
+import { FilemanAvatarService } from 'src/app/services/fileman-avatar-service.service';
 
 @Component({
   selector: 'fileman-user-tiles-layout',
@@ -26,7 +25,8 @@ import { User } from 'src/app/common/domainobjects/gen/User';
   styleUrls: ['./fileman-user-tiles-layout-component.css']
 })
 export class UserTilesLayout extends LayoutUserCommons {
-  constructor(private previewService: FilemanPreviewService) {
+
+  constructor(private avatarService: FilemanAvatarService) {
     super();
   }
 
@@ -34,35 +34,11 @@ export class UserTilesLayout extends LayoutUserCommons {
     return this.getUserHtmlTooltip(user);
   }
 
-  hasImagePreview(id: string): boolean {
-    return this.previewService.hasPreview(PreviewType.Image, id);
+  hasAvatar(userName: string): boolean {
+    return this.avatarService.hasAvatar(userName);
   }
 
-  getImagePreview(id: string): string {
-    return this.previewService.getPreviewData(PreviewType.Image, id);
-  }
-
-  hasTextPreview(id: string): boolean {
-    return this.previewService.hasPreview(PreviewType.Text, id);
-  }
-
-  getTextPreview(id: string): string {
-    return this.previewService.getPreviewData(PreviewType.Text, id);
-  }
-
-  hasDocxPreview(id: string): boolean {
-    return this.previewService.hasPreview(PreviewType.DOCX, id);
-  }
-
-  getDocxPreview(id: string): string {
-    return this.previewService.getPreviewData(PreviewType.DOCX, id);
-  }
-
-  hasPdfPreview(id: string): boolean {
-    return this.previewService.hasPreview(PreviewType.PDF, id);
-  }
-
-  getPdfPreview(id: string): string {
-    return this.previewService.getPreviewData(PreviewType.PDF, id);
+  getAvatar(userName: string): string {
+    return this.avatarService.getAvatarData(userName);
   }
 }

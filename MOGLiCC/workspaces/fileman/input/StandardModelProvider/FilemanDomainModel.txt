@@ -222,9 +222,9 @@ class <<DomainPath>>.User
   attribute passwordRepetition
     metainfo JavaType String
     metainfo ExampleData "123"
-    metainfo MinLength 0
+    metainfo MinLength 1
     metainfo MaxLength 32
-    metainfo hideFromServer true
+    metainfo hideFromClient true
     metainfo guiType TextField
 
    attribute avatar

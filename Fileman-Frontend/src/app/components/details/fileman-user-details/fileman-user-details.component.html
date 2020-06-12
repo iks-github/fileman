@@ -60,7 +60,13 @@
         </table>
         <!-- The table section above is generated: Do not modify manually! -->
 
-        <div class="form-group alert alert-danger" *ngIf="(detailsForm.invalid && detailsForm.touched)">
+        <div class="form-group alert alert-danger"
+            *ngIf="(detailsForm.errors && detailsForm.touched)
+              || (nameC.errors && nameC.touched)
+              || (roleC.errors && roleC.touched)
+              || (passwordC.errors && passwordC.touched)
+              || (passwordRepetitionC.errors && passwordRepetitionC.touched)
+              || avatarC.errors">
             Validation errors:
 
             <!-- The error sections below are generated: Do not modify manually! -->

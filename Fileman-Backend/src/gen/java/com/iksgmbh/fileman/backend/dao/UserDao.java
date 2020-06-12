@@ -41,6 +41,10 @@ public class UserDao
        // with a real db this will be refactored
 		user.setPasswordRepetition(null);  // set default value for non-db field
 
+        if (user.getPassword() == null || user.getPassword().length() == 0) {
+            user.setPassword(match.get().getPassword());
+        }
+
 		users.remove(match.get());
 		users.add(user);
 		return true;

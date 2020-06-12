@@ -91,10 +91,14 @@ export class UserDetailsComponent implements OnInit {
   save() {
     const toSave = new User({
       id: this.toEdit != null ? this.toEdit.getId() : null,
-      name: this.nameC.value,
+      name: this.nameC.value.trim(),
       role: this.roleC.value,
-      password: this.passwordC.value,
-      passwordRepetition: this.passwordRepetitionC.value,
+      password: this.passwordC.value != null
+                  && this.passwordC.value.trim().length > 0 ?
+                  this.passwordC.value.trim() : null,
+      passwordRepetition: this.passwordRepetitionC.value != null
+                  && this.passwordRepetitionC.value.trim().length > 0 ?
+                  this.passwordRepetitionC.value.trim() : null,
       avatar: this.avatarFileContent
     });
     console.log('Saving ');
@@ -179,6 +183,31 @@ export class UserDetailsComponent implements OnInit {
     }));
   }
 
+  requiredForNewUser(control: FormControl) {
+    if (!this.newMode || (control.value != null && control.value.length > 0)) {
+      return null;
+    }
+
+    return {noPasswordGivenForNewUser: true};
+  }
+
+  applyCrossFieldValidation(group: FormGroup) {
+
+    const password = group.controls['passwordControl'].value;
+    const passwordRepetition = group.controls['passwordRepetitionControl'].value;
+
+    const passwordEmpty = (password == null || password.trim().length == 0);
+    const passwordRepetitionEmpty =
+        (passwordRepetition == null || passwordRepetition.trim().length == 0);
+
+    if ((passwordEmpty && passwordRepetitionEmpty) ||
+         password.trim() === passwordRepetition.trim()) {
+      return null;
+    }
+
+    return {passwordFieldsDontMatch: true};
+  }
+
   // The form control block below is generated - do not modify manually!
   createDetailsFormGroup() {
     return new FormGroup({
@@ -194,6 +223,7 @@ export class UserDetailsComponent implements OnInit {
         passwordControl: new FormControl('', [
                 Validators.minLength(1),
                 Validators.maxLength(32),
+                this.requiredForNewUser.bind(this),
               ]),
         passwordRepetitionControl: new FormControl('', [
                 Validators.minLength(1),
@@ -201,7 +231,7 @@ export class UserDetailsComponent implements OnInit {
               ]),
         avatarControl: new FormControl('', [
               ]),
-    });
+    }, this.applyCrossFieldValidation.bind(this));
   }
 
   get nameC() {

@@ -84,7 +84,13 @@
             </div>
             <!-- The error sections above are generated: Do not modify manually! -->
             <div *ngIf="avatarC.errors?.wrongContentType">
-              Invalid content type for selected file in field <i>Avatar</i>.
+               Invalid content type for selected file in field <i>Avatar</i>.
+           </div>
+           <div *ngIf="passwordC.errors?.noPasswordGivenForNewUser && passwordC.touched">
+               A password is required for new users.
+           </div>
+           <div *ngIf="detailsForm.errors?.passwordFieldsDontMatch">
+               Password fields don't match.
            </div>
         </div>
 

@@ -185,6 +185,7 @@ class <<DomainPath>>.User
   metainfo DaoAndSql true   
   metainfo BackendController true
   metainfo FrontendService true
+  metainfo CrossFieldValidation true
 
   attribute id
     metainfo SqlType int
@@ -217,6 +218,8 @@ class <<DomainPath>>.User
     metainfo MinLength 1
     metainfo MaxLength 32
     metainfo hideFromClient true
+    metainfo requiredForNewInstance true
+    metainfo preventUpdateWithEmptyValue true
     metainfo guiType TextField
 
   attribute passwordRepetition

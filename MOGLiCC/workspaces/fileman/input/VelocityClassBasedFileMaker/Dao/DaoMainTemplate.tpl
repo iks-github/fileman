@@ -90,6 +90,16 @@ public class ${ClassName}Dao
 		
 		#parse("set-non-sql-field-to-null.tpl")
 		
+		#foreach ($attributeDescriptor2 in $attributeDescriptorList)
+		    #set( $AttributeName = $TemplateStringUtility.firstToUpperCase($attributeDescriptor2.name) ) 
+		    #if ( $attributeDescriptor2.doesHaveMetaInfo("preventUpdateWithEmptyValue", "true") )
+		    '        if (${className}.get${AttributeName}() == null || ${className}.get${AttributeName}().length() == 0) {
+		    '            ${className}.set${AttributeName}(match.get().get${AttributeName}());
+		    '        }
+		    '
+		    #end
+		#end
+		
 		'		${className}s.remove(match.get());
 		'		${className}s.add(${className});
 		'		return true;

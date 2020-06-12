@@ -36,6 +36,10 @@
 		#if ( $attributeDescriptor.doesHaveMetaInfo("allowSpace", "no"))
 '                FilemanValidators.doesNotContainSpace,
 		#end
+		
+		#if ( $attributeDescriptor.doesHaveMetaInfo("requiredForNewInstance", "true"))
+'                this.requiredForNew${classDescriptor.simpleName}.bind(this),
+		#end
 
 		#if ( $attributeDescriptor.doesHaveMetaInfo("unique", "true"))
 '              ],		
@@ -48,7 +52,11 @@
 
 #end
 
+#if ( $classDescriptor.doesHaveMetaInfo("CrossFieldValidation", "true"))
+'    }, this.applyCrossFieldValidation.bind(this));
+#else
 '    });
+#end
 '  }
 
 #parse("commonSubtemplates/SubTemplate_FromGetterMethods.tpl")

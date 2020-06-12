@@ -4,10 +4,10 @@ import com.iksgmbh.fileman.backend.FileContentData;
 import com.iksgmbh.fileman.backend.FileMetaData;
 import java.io.Serializable;
 
-import java.util.*;
 import javax.validation.constraints.*;
 import io.swagger.annotations.*;
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty.*;
 
 /**
  * Complete data on a hosted file
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Complete data on a hosted file")
 public class FileData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1590505861361L;
+	private static final long serialVersionUID = 1591951045223L;
 
 	// ===============  instance fields  ===============
 

@@ -6,10 +6,10 @@ import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
 
-import java.util.*;
 import javax.validation.constraints.*;
 import io.swagger.annotations.*;
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty.*;
 
 /**
  * JavaBean class of the MOGLiCC JavaBean Group.
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Meta Data of a hosted file")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1590505861634L;
+	private static final long serialVersionUID = 1591951045336L;
 
 	// ===============  instance fields  ===============
 

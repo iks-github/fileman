@@ -68,7 +68,7 @@
 	#end
 	
 	#if ( $attributeDescriptor.doesHaveMetaInfo("hideFromClient", "true") )
-		'	@JsonIgnore
+		'    @JsonProperty(access = Access.WRITE_ONLY)
 	#end
 		
 	'	private $javaType $attributeName;

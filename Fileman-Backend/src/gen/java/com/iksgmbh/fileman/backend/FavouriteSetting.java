@@ -5,10 +5,10 @@ import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
 
-import java.util.*;
 import javax.validation.constraints.*;
 import io.swagger.annotations.*;
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty.*;
 
 /**
  * JavaBean class of the MOGLiCC JavaBean Group.
@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Data for favourite filter")
 public class FavouriteSetting implements Serializable
 {
-	private static final long serialVersionUID = 1590505862139L;
+	private static final long serialVersionUID = 1591951045654L;
 
 	// ===============  instance fields  ===============
 

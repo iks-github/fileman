@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
 
-import java.util.*;
 import javax.validation.constraints.*;
 import io.swagger.annotations.*;
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty.*;
 
 /**
  * JavaBean class of the MOGLiCC JavaBean Group.
@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Data of a Fileman user")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1591713438039L;
+	private static final long serialVersionUID = 1591951045396L;
 
 	// ===============  instance fields  ===============
 
@@ -36,7 +36,7 @@ public class User implements Serializable
 
     @Size(min=1, max=32, message="Value of attribute 'password' is out of valid range (1-32)")
     @ApiModelProperty(notes = "Valid length ranges from 1 to 32.")
-	@JsonIgnore
+    @JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
     @Size(min=0, max=32, message="Value of attribute 'passwordRepetition' is out of valid range (0-32)")

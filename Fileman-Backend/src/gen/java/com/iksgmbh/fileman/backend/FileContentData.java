@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
 
-import java.util.*;
 import javax.validation.constraints.*;
 import io.swagger.annotations.*;
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty.*;
 
 /**
  * Content of hosted file
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.*;
 @ApiModel(description = "Content of hosted file")
 public class FileContentData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1590505861503L;
+	private static final long serialVersionUID = 1591951045265L;
 
 	// ===============  instance fields  ===============
 

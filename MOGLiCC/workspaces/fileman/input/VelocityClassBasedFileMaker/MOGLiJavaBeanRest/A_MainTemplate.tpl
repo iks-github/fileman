@@ -9,10 +9,10 @@ package ${classDescriptor.package};
 '
 #parse("commonSubtemplates/importDomainModelClasses.tpl")
 '
-import java.util.*;
 import javax.validation.constraints.*;
 import io.swagger.annotations.*;
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty.*;
 
 '
 

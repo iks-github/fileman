@@ -8,7 +8,7 @@
 #foreach ($attributeDescriptor in $attributeDescriptorList)
 
 	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
-	#if ( ! $attributeDescriptor.doesHaveMetaInfo("guiType", "FileSelector"))
+	#if ( ! $attributeDescriptor.doesHaveMetaInfo("hideFromClient", "true") && ! $attributeDescriptor.doesHaveMetaInfo("guiType", "FileSelector"))
 	'        <td>{{${className}.${attributeName}}}</td>
 	#end 
 		

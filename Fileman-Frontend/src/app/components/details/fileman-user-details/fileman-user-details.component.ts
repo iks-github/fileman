@@ -139,7 +139,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   private checkAllowedContentType() {
-    if (this.avatarFileContent != null && this.toEdit != null) {
+    if (this.avatarFileContent != null) {
       const allowedContentType: boolean =
         this.avatarService.checkAllowedContentType(this.avatarFileContent);
 

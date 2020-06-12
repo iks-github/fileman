@@ -14,6 +14,10 @@
 
 '                    <input id="$attributeName" type="text" class="form-Control" formControlName="${attributeName}Control"/>
 
+#elseif ( $guiType.equals("PasswordField"))
+
+'                    <input id="$attributeName" type="password" class="form-Control" formControlName="${attributeName}Control"/>
+
 #elseif ( $guiType.equals("TextArea"))
 
 '                    <textarea id="$attributeName" class="form-Control" formControlName="${attributeName}Control"></textarea>

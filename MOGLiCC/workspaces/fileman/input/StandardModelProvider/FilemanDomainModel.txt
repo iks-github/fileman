@@ -220,7 +220,7 @@ class <<DomainPath>>.User
     metainfo hideFromClient true
     metainfo requiredForNewInstance true
     metainfo preventUpdateWithEmptyValue true
-    metainfo guiType TextField
+    metainfo guiType PasswordField
 
   attribute passwordRepetition
     metainfo JavaType String
@@ -228,7 +228,7 @@ class <<DomainPath>>.User
     metainfo MinLength 1
     metainfo MaxLength 32
     metainfo hideFromClient true
-    metainfo guiType TextField
+    metainfo guiType PasswordField
 
    attribute avatar
     metainfo SqlType varchar

@@ -91,7 +91,8 @@ export class FilemanAvatarService {
       R0lGODdh: "image/gif",
       R0lGODlh: "image/gif",
       iVBORw0KGgo: "image/png",
-      '/9j/': "image/jpg"
+      '/9j/': "image/jpg",
+      Qk02: "image/bmp"
     };
 
     let contentType: string;

@@ -1,4 +1,4 @@
-<form #formControl="ngForm" (ngSubmit)="onLogin(formControl)" 
+<form #formControl="ngForm" (ngSubmit)="onLogin(formControl)"
       style="text-align: left">
 
     <table>
@@ -12,7 +12,7 @@
             <div class="alert alert-danger" *ngIf="formControl.errors">
                 {{errorMessage}}
             </div>
-            
+
             <br>
 
             <table>
@@ -21,8 +21,8 @@
                         <label for="userId">User ID</label>
                     </td>
                     <td>
-                        <input required minlength="3" maxlength="32" 
-                            ngModel name="userId" #userIdControl="ngModel" 
+                        <input required minlength="3" maxlength="32"
+                            ngModel name="userId" #userIdControl="ngModel"
                             id="userId" type="text" class="form-Control"/>
                     </td>
                 </tr>
@@ -34,7 +34,7 @@
                         <label for="userPw">Password&nbsp;&nbsp;</label>
                     </td>
                     <td>
-                        <input ngModel name="userPw" id="userPw" type="text" class="form-Control"/>
+                        <input ngModel name="userPw" id="userPw" type="password" class="form-Control"/>
                     </td>
                 </tr>
 
@@ -42,24 +42,24 @@
 
             </table>
 
-            <div class="alert alert-danger" 
+            <div class="alert alert-danger"
                 *ngIf="userIdControl.touched && !userIdControl.valid">
-                <div *ngIf="userIdControl.errors.minlength"> 
+                <div *ngIf="userIdControl.errors.minlength">
                     The {{userIdControl.name}} must exceed {{ userIdControl.errors.minlength.requiredLength}} characters.
                 </div>
                 <div *ngIf="userIdControl.errors.required">
                     This field is required.
                 </div>
             </div>
-            
-            <button class="btn btn-primary" 
+
+            <button class="btn btn-primary"
                     [disabled]="!formControl.valid"
                     [ngStyle]="{
                                 'color': formControl.valid ? 'white' : 'black',
                                 'backgroundColor': formControl.valid ? 'blue' : 'gray'
                             }"
                     >Login</button>
-        
+
         </td>
 
         <td><img width="250" src="assets/images/Files.jpg"></td>

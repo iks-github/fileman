@@ -193,15 +193,17 @@ export class UserDetailsComponent implements OnInit {
 
   applyCrossFieldValidation(group: FormGroup) {
 
-    const password = group.controls['passwordControl'].value;
-    const passwordRepetition = group.controls['passwordRepetitionControl'].value;
+    let password = group.controls['passwordControl'].value;
+    if (password == null) {
+      password = '';
+    }
 
-    const passwordEmpty = (password == null || password.trim().length == 0);
-    const passwordRepetitionEmpty =
-        (passwordRepetition == null || passwordRepetition.trim().length == 0);
+    let passwordRepetition = group.controls['passwordRepetitionControl'].value;
+    if (passwordRepetition == null) {
+      passwordRepetition = '';
+    }
 
-    if ((passwordEmpty && passwordRepetitionEmpty) ||
-         password.trim() === passwordRepetition.trim()) {
+    if (password.trim() === passwordRepetition.trim()) {
       return null;
     }
 

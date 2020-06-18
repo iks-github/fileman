@@ -33,8 +33,8 @@ public class FileMetaDataBasicDao
 	public FileMetaData findByName(String name) {
 		return entityManager.find(FileMetaData.class, name);
 	}
-	public boolean update(FileMetaData entity)
-	{
+
+	public boolean update(FileMetaData entity) {
 		try {
 			entityManager.persist(entity);
 			return true;

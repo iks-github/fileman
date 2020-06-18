@@ -77,10 +77,13 @@ public class ${ClassName}BasicDao
 	#else
 
 		#if ( $attributeDescriptor.doesHaveMetaInfo("withFindAllMethod", "true") )
-			'	public List<${ClassName}> findAllFor${AttributeName}(String toSearch)
-			'	{
-			'        return null; // TODO really needed ?
-			'	}	
+			'	public List<${ClassName}> findAllFor${AttributeName}(String toSearch) {
+			'        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+			'        CriteriaQuery<${ClassName}> criteria = criteriaBuilder.createQuery(${ClassName}.class);
+			'        Root<${ClassName}> ${className} = criteria.from(${ClassName}.class);
+			'        criteria.where(criteriaBuilder.equal(${className}.get("${attributeDescriptor.name}"), toSearch));
+			'        return entityManager.createQuery(criteria).getResultList();
+			'	}
 			'
 			'
 		#end
@@ -92,10 +95,10 @@ public class ${ClassName}BasicDao
 		'	public ${ClassName} findBy${AttributeName}($JavaType ${attributeDescriptor.name}) { 
 		'		return entityManager.find(${ClassName}.class, ${attributeDescriptor.name});
 		'	}
+		'
 		
 		
-		'	public boolean update(${ClassName} entity) 
-		'	{
+		'	public boolean update(${ClassName} entity) {
 		'		try {
 		'			entityManager.persist(entity);
 		'			return true;

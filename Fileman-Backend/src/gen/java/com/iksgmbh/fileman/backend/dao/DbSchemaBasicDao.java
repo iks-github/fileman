@@ -33,8 +33,8 @@ public class DbSchemaBasicDao
 	public DbSchema findByCreationDate(java.util.Date creationDate) {
 		return entityManager.find(DbSchema.class, creationDate);
 	}
-	public boolean update(DbSchema entity)
-	{
+
+	public boolean update(DbSchema entity) {
 		try {
 			entityManager.persist(entity);
 			return true;

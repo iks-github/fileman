@@ -33,8 +33,8 @@ public class FileContentDataBasicDao
 	public FileContentData findByUuid(Long uuid) {
 		return entityManager.find(FileContentData.class, uuid);
 	}
-	public boolean update(FileContentData entity)
-	{
+
+	public boolean update(FileContentData entity) {
 		try {
 			entityManager.persist(entity);
 			return true;
@@ -43,9 +43,12 @@ public class FileContentDataBasicDao
 		}
 	}
 
-	public List<FileContentData> findAllForName(String toSearch)
-	{
-        return null; // TODO really needed ?
+	public List<FileContentData> findAllForName(String toSearch) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<FileContentData> criteria = criteriaBuilder.createQuery(FileContentData.class);
+        Root<FileContentData> fileContentData = criteria.from(FileContentData.class);
+        criteria.where(criteriaBuilder.equal(fileContentData.get("name"), toSearch));
+        return entityManager.createQuery(criteria).getResultList();
 	}
 
 

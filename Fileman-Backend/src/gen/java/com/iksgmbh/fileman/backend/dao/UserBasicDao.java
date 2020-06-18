@@ -33,8 +33,8 @@ public class UserBasicDao
 	public User findById(Integer id) {
 		return entityManager.find(User.class, id);
 	}
-	public boolean update(User entity)
-	{
+
+	public boolean update(User entity) {
 		try {
 			entityManager.persist(entity);
 			return true;

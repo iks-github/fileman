@@ -10,7 +10,7 @@
       </span>
     </td>
     <td>
-      <span>
+      <span tooltip="{{getDetailsTooltip(user)}}">
           {{i+1}}. {{user.name}}
           <div>
             <img class="image-preview" *ngIf="hasAvatar(user.name)" [src]="getAvatar(user.name)">

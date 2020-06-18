@@ -26,14 +26,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.FileMetaData;
-import com.iksgmbh.fileman.backend.dao.FileMetaDataDaoImpl;
+import com.iksgmbh.fileman.backend.dao.FileMetaDataDao;
 
 @RestController
 @CrossOrigin(origins = {"*"})
 public class MetaDataRestController
 {
 	@Autowired
-	private FileMetaDataDaoImpl metaDataDao; 
+	private FileMetaDataDao metaDataDao; 
 
 	@GetMapping("/fileMetaDatas")
 	public List<FileMetaData> findAllFileMetaDatas() {

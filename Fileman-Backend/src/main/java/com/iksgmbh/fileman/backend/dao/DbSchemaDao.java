@@ -19,9 +19,9 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created as draft by MOGLiCC.
- * Adapt freely if you need.
+ * Add new functionality manually if needed.
  *
 **/
 @Component
-public class FavouriteSettingDaoImpl extends FavouriteSettingDao
+public class DbSchemaDao extends DbSchemaBasicDao
 {}

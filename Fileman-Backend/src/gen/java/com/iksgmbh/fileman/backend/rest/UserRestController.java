@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.User;
-import com.iksgmbh.fileman.backend.dao.UserDaoImpl;
+import com.iksgmbh.fileman.backend.dao.UserDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 
 @RestController
@@ -24,7 +24,7 @@ import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 public class UserRestController
 {
 	@Autowired
-	private UserDaoImpl userDao;
+	private UserDao userDao;
 
 	@GetMapping("/users")
 	public List<User> findAllUsers() {

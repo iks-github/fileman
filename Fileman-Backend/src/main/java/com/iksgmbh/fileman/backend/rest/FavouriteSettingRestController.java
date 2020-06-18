@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.FavouriteSetting;
-import com.iksgmbh.fileman.backend.dao.FavouriteSettingDaoImpl;
+import com.iksgmbh.fileman.backend.dao.FavouriteSettingDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 
 @RestController
@@ -38,7 +38,7 @@ import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 public class FavouriteSettingRestController
 {
 	@Autowired
-	private FavouriteSettingDaoImpl favouriteSettingDao;
+	private FavouriteSettingDao favouriteSettingDao;
 
    @GetMapping("/favouriteSettings/username/{username}")
    public List<FavouriteSetting> findAllFavouriteSettingByUsername(@PathVariable String username) {

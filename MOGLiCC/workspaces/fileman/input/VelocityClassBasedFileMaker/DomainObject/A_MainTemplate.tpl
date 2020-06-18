@@ -1,21 +1,23 @@
-#set( $packagePath = $TemplateStringUtility.replaceAllIn(${classDescriptor.package}, ".", "/") ) 
+#set( $package = ${classDescriptor.package} )
+#set( $packagePath = $TemplateStringUtility.replaceAllIn($package, ".", "/"))
 
 @TargetFileName ${classDescriptor.simpleName}.java # Name of output file with extension but without path
 @TargetDir $model.getMetaInfoValueFor("backendGenDir")/$packagePath
 @CreateNew true # creates target dir if not existing and overwrites target file if existing
 @NameOfValidModel SpringBootBackendAngularFrontModel
 
-package ${classDescriptor.package};
+package $package;
 '
 #parse("commonSubtemplates/importDomainModelClasses.tpl")
 '
 import javax.validation.constraints.*;
-import io.swagger.annotations.*;
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.annotation.JsonProperty.*;
-
+import javax.persistence.*;
 '
-
+import io.swagger.annotations.*;
+'
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+'
 #parse("B1_ClassJavaDoc.tpl")
 #parse("B2_ClassSwaggerDoc.tpl")
  

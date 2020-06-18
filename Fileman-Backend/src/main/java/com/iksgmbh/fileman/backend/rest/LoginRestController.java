@@ -33,7 +33,7 @@ import com.iksgmbh.fileman.backend.FilemanBackend;
 import com.iksgmbh.fileman.backend.LoginRequest;
 import com.iksgmbh.fileman.backend.LoginResponse;
 import com.iksgmbh.fileman.backend.User;
-import com.iksgmbh.fileman.backend.dao.UserDaoImpl;
+import com.iksgmbh.fileman.backend.dao.UserDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
@@ -50,7 +50,7 @@ public class LoginRestController {
 	private Environment env;
 	
 	@Autowired
-	private UserDaoImpl userDao;
+	private UserDao userDao;
 	
 	@Value("${jwt.secret}")
 	private static String secret;

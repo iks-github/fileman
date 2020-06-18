@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 #set( $className = $TemplateStringUtility.firstToLowerCase($ClassName) ) 
 
 import ${classDescriptor.package}.$ClassName;
-import ${classDescriptor.package}.dao.${ClassName}DaoImpl;
+import ${classDescriptor.package}.dao.${ClassName}Dao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 '
 @RestController
@@ -40,7 +40,7 @@ import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 public class ${ClassName}RestController 
 {
 '	@Autowired
-'	private ${ClassName}DaoImpl ${className}Dao;
+'	private ${ClassName}Dao ${className}Dao;
 '
 '	@GetMapping("/${className}s")
 '	public List<${ClassName}> findAll${ClassName}s() {

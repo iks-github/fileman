@@ -34,9 +34,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iksgmbh.fileman.backend.FileContentData;
 import com.iksgmbh.fileman.backend.FileData;
 import com.iksgmbh.fileman.backend.FileMetaData;
-import com.iksgmbh.fileman.backend.dao.FavouriteSettingDaoImpl;
-import com.iksgmbh.fileman.backend.dao.FileContentDataDaoImpl;
-import com.iksgmbh.fileman.backend.dao.FileMetaDataDaoImpl;
+import com.iksgmbh.fileman.backend.dao.FavouriteSettingDao;
+import com.iksgmbh.fileman.backend.dao.FileContentDataDao;
+import com.iksgmbh.fileman.backend.dao.FileMetaDataDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 
 @RestController
@@ -44,13 +44,13 @@ import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 public class FileRestController
 {
 	@Autowired
-	private FileMetaDataDaoImpl metaDataDao; 
+	private FileMetaDataDao metaDataDao; 
 
 	@Autowired
-	private FileContentDataDaoImpl contentDataDao; 
+	private FileContentDataDao contentDataDao; 
 
 	@Autowired
-	private FavouriteSettingDaoImpl favouriteSettingDao; 
+	private FavouriteSettingDao favouriteSettingDao; 
 
 	@PostMapping("/files")
 	public void createFileData(@Valid @RequestBody FileData fileData)

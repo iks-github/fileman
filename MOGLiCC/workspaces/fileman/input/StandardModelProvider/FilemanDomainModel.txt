@@ -63,13 +63,13 @@ class <<DomainPath>>.FileData
 class <<DomainPath>>.FileContentData
   metainfo implements java.io.Serializable
   metainfo implements Cloneable
-  metainfo DaoAndSql true   
   metainfo swaggerDoc "Content of hosted file"
   metainfo JavaDocLine "Content of hosted file"
   metainfo frontendClass true
+  metainfo dbEntity true
 
   attribute uuid
-    metainfo SqlType bigint
+    metainfo dbType bigint
     metainfo JavaType Long
     metainfo Mandatory true
     metainfo ExampleData 0
@@ -77,7 +77,7 @@ class <<DomainPath>>.FileContentData
     metainfo id true
   
   attribute name
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData logo.png
@@ -86,26 +86,26 @@ class <<DomainPath>>.FileContentData
     metainfo withFindAllMethod true
 
   attribute content
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData 10101
 
   attribute size
-    metainfo SqlType bigint
+    metainfo dbType bigint
     metainfo JavaType Long
     metainfo Mandatory false
     metainfo ExampleData 30000
 
   attribute creator
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData Hans Mustermann
 
   attribute creationDate
-    metainfo SqlType datetime
-    metainfo JavaType String
+    metainfo dbType datetime
+    metainfo JavaType java.util.Date
     metainfo Mandatory true
     metainfo ExampleData "10.10.2020 13:55:59"
     
@@ -116,11 +116,11 @@ class <<DomainPath>>.FileMetaData
   metainfo generateStandardJavaDoc true
   metainfo swaggerDoc "Meta Data of a hosted file"
   metainfo JavaDocLine "Meta Data of a hosted file"
-  metainfo DaoAndSql true   
   metainfo frontendClass true
+  metainfo dbEntity true
   
   attribute name
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData logo.png
@@ -132,14 +132,14 @@ class <<DomainPath>>.FileMetaData
     metainfo allowSpace false
 
   attribute description
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo ExampleData "A logo image"
     metainfo MaxLength 1024
     metainfo guiType TextArea
 
   attribute activeUUID
-    metainfo SqlType bigint
+    metainfo dbType bigint
     metainfo JavaType Long
     metainfo ExampleData 123456
 
@@ -148,32 +148,33 @@ class <<DomainPath>>.FileMetaData
     metainfo guiType Checkbox
     metainfo defaultValue true
     metainfo ExampleData true
+    metainfo hideFromDB true
     
   attribute techType
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo ExampleData pdf
     metainfo MaxLength 16
 
   attribute techVersion
-    metainfo SqlType number
+    metainfo dbType number
     metainfo JavaType Integer
     metainfo ExampleData 1
 
   attribute creator
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData Hans Mustermann
 
   attribute creationDate
-    metainfo SqlType datetime
-    metainfo JavaType String
+    metainfo dbType datetime
+    metainfo JavaType java.util.Date
     metainfo Mandatory true
     metainfo ExampleData "10.10.2020 13:55:59"
 
   attribute size
-    metainfo SqlType bigint
+    metainfo dbType bigint
     metainfo JavaType Integer
     metainfo ExampleData 1234
 
@@ -182,20 +183,20 @@ class <<DomainPath>>.User
   metainfo generateStandardJavaDoc true
   metainfo swaggerDoc "Data of a Fileman user"
   metainfo JavaDocLine "Data of a Fileman user"
-  metainfo DaoAndSql true   
   metainfo BackendController true
   metainfo FrontendService true
   metainfo CrossFieldValidation true
+  metainfo dbEntity true
 
   attribute id
-    metainfo SqlType int
+    metainfo dbType int
     metainfo JavaType Integer
     metainfo ExampleData 1
     metainfo unique true
     metainfo id true
     
   attribute name
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "ich"
@@ -205,14 +206,14 @@ class <<DomainPath>>.User
     metainfo guiType TextField
 
   attribute role
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData Admin
     metainfo guiType Selectbox:Reader,Writer,Admin
 
   attribute password
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo ExampleData "123"
     metainfo MinLength 1
@@ -228,10 +229,11 @@ class <<DomainPath>>.User
     metainfo MinLength 1
     metainfo MaxLength 32
     metainfo hideFromClient true
+    metainfo hideFromDB true
     metainfo guiType PasswordField
 
    attribute avatar
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo guiType FileSelector
  
@@ -239,19 +241,16 @@ class <<DomainPath>>.User
   metainfo implements java.io.Serializable
 
   attribute timestamp
-    metainfo SqlType timestamp
     metainfo JavaType Long
     metainfo Mandatory true
     metainfo ExampleData 11234823442
 
   attribute message
-    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "Resource not found"
 
   attribute details
-    metainfo SqlType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData "User 1 not found"
@@ -296,12 +295,12 @@ class <<DomainPath>>.FavouriteSetting
   metainfo generateStandardJavaDoc true
   metainfo swaggerDoc "Data for favourite filter"
   metainfo JavaDocLine "Data for favourite filter"
-  metainfo DaoAndSql true
   metainfo extraFindEndpoint User 
   metainfo frontendClass true
+  metainfo dbEntity true
 
   attribute id
-    metainfo SqlType int
+    metainfo dbType int
     metainfo JavaType Integer
     metainfo Mandatory true
     metainfo ExampleData 1
@@ -309,15 +308,28 @@ class <<DomainPath>>.FavouriteSetting
     metainfo id true
     
   attribute username
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo withFindAllMethod true
 
   attribute filename
-    metainfo SqlType varchar
+    metainfo dbType varchar
     metainfo JavaType String
     metainfo Mandatory true
     metainfo withFindAllMethod true
     
+class <<DomainPath>>.DbSchema
+  metainfo dbEntity true
+    
+  attribute creationDate
+    metainfo dbType datetime
+    metainfo JavaType java.util.Date
+    metainfo Mandatory true
+    metainfo id true
+    
+  attribute sql
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo Mandatory true
     

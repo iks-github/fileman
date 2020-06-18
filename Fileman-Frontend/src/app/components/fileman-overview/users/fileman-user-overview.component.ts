@@ -160,7 +160,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
     else
     {
       // optimistic update
-      const newSetting = new FavouriteSetting({id: -1, username: this.currentUserName, filename: file.getName()});
+      const newSetting = new FavouriteSetting({id: null, username: this.currentUserName, filename: file.getName()});
       this.favouriteSettings.set(file.getName(), newSetting);
 
       this.favouriteSettingService.createFavouriteSetting(newSetting)

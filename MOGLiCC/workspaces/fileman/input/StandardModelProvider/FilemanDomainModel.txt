@@ -302,7 +302,6 @@ class <<DomainPath>>.FavouriteSetting
   attribute id
     metainfo dbType int
     metainfo JavaType Integer
-    metainfo Mandatory true
     metainfo ExampleData 1
     metainfo unique true
     metainfo id true

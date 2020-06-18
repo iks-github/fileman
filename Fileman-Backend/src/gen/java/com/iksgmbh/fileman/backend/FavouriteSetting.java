@@ -25,12 +25,10 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FAVOURITE_SETTING")
 public class FavouriteSetting implements Serializable
 {
-	private static final long serialVersionUID = 1592411345968L;
+	private static final long serialVersionUID = 1592489392543L;
 
 	// ===============  instance fields  ===============
 
-    @NotNull(message="Value of mandatory attribute 'id' is not present.")
-    @ApiModelProperty(notes = "Mandatory.")
     @Column(name="ID", unique=true, columnDefinition="int")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

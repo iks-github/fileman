@@ -17,6 +17,7 @@ package com.iksgmbh.fileman.backend.rest;
 
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -55,10 +56,12 @@ public class FileRestController
 	@PostMapping("/files")
 	public void createFileData(@Valid @RequestBody FileData fileData)
 	{
+		fileData.getContentData().setCreationDate(new Date());
 		FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
 		if (fileData.getMetaData().getImmediatelyActive() == true) {				
 			fileData.getMetaData().setActiveUUID(newContentVersion.getUuid());
 		}
+		fileData.getMetaData().setCreationDate(new Date());
 		metaDataDao.create(fileData.getMetaData());
 	}
 

@@ -71,7 +71,6 @@ class <<DomainPath>>.FileContentData
   attribute uuid
     metainfo dbType bigint
     metainfo JavaType Long
-    metainfo Mandatory true
     metainfo ExampleData 0
     metainfo unique true
     metainfo id true
@@ -106,9 +105,7 @@ class <<DomainPath>>.FileContentData
   attribute creationDate
     metainfo dbType datetime
     metainfo JavaType java.util.Date
-    metainfo Mandatory true
     metainfo ExampleData "10.10.2020 13:55:59"
-    
 
 class <<DomainPath>>.FileMetaData  
   metainfo implements java.io.Serializable
@@ -170,7 +167,6 @@ class <<DomainPath>>.FileMetaData
   attribute creationDate
     metainfo dbType datetime
     metainfo JavaType java.util.Date
-    metainfo Mandatory true
     metainfo ExampleData "10.10.2020 13:55:59"
 
   attribute size

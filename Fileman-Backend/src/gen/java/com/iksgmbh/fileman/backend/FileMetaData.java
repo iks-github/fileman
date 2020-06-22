@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_META_DATA")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1592411345785L;
+	private static final long serialVersionUID = 1592836560526L;
 
 	// ===============  instance fields  ===============
 
@@ -62,8 +62,6 @@ public class FileMetaData implements Serializable, Cloneable
     @Column(name="CREATOR", columnDefinition="varchar")
 	private String creator;
 
-    @NotNull(message="Value of mandatory attribute 'creationDate' is not present.")
-    @ApiModelProperty(notes = "Mandatory.")
     @Column(name="CREATION_DATE", columnDefinition="datetime")
 	private Date creationDate;
 

@@ -23,12 +23,10 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_CONTENT_DATA")
 public class FileContentData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1592411345732L;
+	private static final long serialVersionUID = 1592836560415L;
 
 	// ===============  instance fields  ===============
 
-    @NotNull(message="Value of mandatory attribute 'uuid' is not present.")
-    @ApiModelProperty(notes = "Mandatory.")
     @Column(name="UUID", unique=true, columnDefinition="bigint")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,8 +53,6 @@ public class FileContentData implements Serializable, Cloneable
     @Column(name="CREATOR", columnDefinition="varchar")
 	private String creator;
 
-    @NotNull(message="Value of mandatory attribute 'creationDate' is not present.")
-    @ApiModelProperty(notes = "Mandatory.")
     @Column(name="CREATION_DATE", columnDefinition="datetime")
 	private Date creationDate;
 

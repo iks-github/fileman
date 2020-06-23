@@ -26,7 +26,7 @@ import { saveAs } from 'file-saver';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { Utils } from 'src/app/common/Utils';
 import { Layout, UserRole } from 'src/app/common/fileman-constants';
-import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
+import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
 import { Subscription } from 'rxjs';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 
@@ -63,7 +63,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
               private filesMetaDataService: FilemanMetadataService,
               private favouriteSettingService: FilemanFavouriteSettingsService,
               private fileService: FilemanFileService,
-              private componentStateService: FilemanComponentStateService,
+              private userComponentStateService: UserComponentStateService,
               private previewService: FilemanPreviewService) {
                   console.log('########### overview constr');
               }
@@ -83,30 +83,30 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
                                     })
                                 });
     this.fileMetaAttributeNames = FileMetaData.getAttributeNames();
-    this.layoutType = this.componentStateService.getLayoutType();
+    this.layoutType = this.userComponentStateService.getLayoutType();
     this.layoutTypeSubscription =
-      this.componentStateService.getLayoutTypeChangeNotifier().subscribe(
+      this.userComponentStateService.getLayoutTypeChangeNotifier().subscribe(
         (layoutType: string) => {
           this.layoutType = layoutType;
         }
       )
-    this.searchString = this.componentStateService.getSearchString();
+    this.searchString = this.userComponentStateService.getSearchString();
     this.searchStringSubscription =
-      this.componentStateService.getSearchStringChangeNotifier().subscribe(
+      this.userComponentStateService.getSearchStringChangeNotifier().subscribe(
         (searchString: string) => {
           this.searchFor(searchString);
         }
       )
-    this.favouriteFilterActive = this.componentStateService.getFavouriteFilterActive();
+    this.favouriteFilterActive = this.userComponentStateService.getFavouriteFilterActive();
     this.favouriteFilterActiveSubscription =
-      this.componentStateService.getFavouriteFilterActiveChangeNotifier().subscribe(
+      this.userComponentStateService.getFavouriteFilterActiveChangeNotifier().subscribe(
         (favouriteFilterActive: boolean) => {
           this.favouriteFilterActive = favouriteFilterActive;
           this.searchFor(this.searchString);
         }
       )
     this.reloadRequestSubscription =
-      this.componentStateService.getReloadRequestNotifier().subscribe(
+      this.userComponentStateService.getReloadRequestNotifier().subscribe(
         () => {
           this.reload();
         }

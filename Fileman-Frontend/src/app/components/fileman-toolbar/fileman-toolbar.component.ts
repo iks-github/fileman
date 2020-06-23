@@ -17,7 +17,7 @@ import { Component, OnInit } from '@angular/core';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { Router } from '@angular/router';
 import { Content, Layout, Icon, UserRole } from 'src/app/common/fileman-constants';
-import { FilemanComponentStateService } from 'src/app/services/fileman-component-state.service';
+import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
 
 @Component({
   selector: 'fileman-toolbar',
@@ -49,24 +49,24 @@ export class FilemanToolbarComponent implements OnInit {
 
   constructor(private authService: FilemanAuthserviceService,
               private router: Router,
-              private componentStateService: FilemanComponentStateService) { }
+              private userComponentStateService: UserComponentStateService) { }
 
   ngOnInit(): void {
     this.readOnly = this.authService.getCurrentUserRole() === UserRole.Reader;
     this.isAdmin = this.authService.getCurrentUserRole() === UserRole.Admin;
-    this.layoutType = this.componentStateService.getLayoutType();
-    this.contentType = this.componentStateService.getContentType();
-    this.favouriteFilterActive = this.componentStateService.getFavouriteFilterActive();
+    this.layoutType = this.userComponentStateService.getLayoutType();
+    this.contentType = this.userComponentStateService.getContentType();
+    this.favouriteFilterActive = this.userComponentStateService.getFavouriteFilterActive();
   }
 
   onLayoutClick(layoutType: string) {
     this.layoutType = layoutType;
-    this.componentStateService.setLayoutType(layoutType);
+    this.userComponentStateService.setLayoutType(layoutType);
   }
 
   onContentTypeChange(contentType: string) {
     this.contentType = contentType;
-    this.componentStateService.setContentType(contentType);
+    this.userComponentStateService.setContentType(contentType);
     if (contentType == this.contentTypeUsers) {
       this.showFavouriteIcon = false;
     } else {
@@ -91,7 +91,7 @@ export class FilemanToolbarComponent implements OnInit {
   }
 
   onReloadClick() {
-    this.componentStateService.requestReload();
+    this.userComponentStateService.requestReload();
   }
 
   onFavouriteFilterClick() {
@@ -101,11 +101,11 @@ export class FilemanToolbarComponent implements OnInit {
     } else {
       this.favouriteFilterIcon = Icon.FavouriteFilterInactive;
     }
-    this.componentStateService.setFavouriteFilterActive(this.favouriteFilterActive);
+    this.userComponentStateService.setFavouriteFilterActive(this.favouriteFilterActive);
   }
 
   startSearch(searchString) {
-    this.componentStateService.setSearchString(searchString);
+    this.userComponentStateService.setSearchString(searchString);
   }
 
   getAddNewToolTip() {

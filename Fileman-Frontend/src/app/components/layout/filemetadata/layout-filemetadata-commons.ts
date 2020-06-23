@@ -76,7 +76,7 @@ export class LayoutFilemetadataCommons extends LayoutCommons {
   }
 
   getMetadataHtmlTooltip(file: FileMetaData): string {
-    return '<div class="inner-html-enclosing-div"><h4>Details:</h4>' +
+    return '<div class="inner-html-enclosing-div"><b>Details:</b>' +
       '<hr>' +
       this.buildHtmlTooltipContentRow('Name', file.name) +
       this.buildHtmlTooltipContentRow('Description', file.description) +
@@ -85,7 +85,23 @@ export class LayoutFilemetadataCommons extends LayoutCommons {
       this.buildHtmlTooltipContentRow('TechType', file.techType) +
       this.buildHtmlTooltipContentRow('TechVersion', ''+file.techVersion) +
       this.buildHtmlTooltipContentRow('Creator', file.creator) +
-      this.buildHtmlTooltipContentRow('CreationDate', file.creationDate) +
+      this.buildHtmlTooltipContentRow('CreationDate',
+        this.formatCreationDate(file.creationDate)) +
       this.buildHtmlTooltipContentRow('Size', ''+file.size)+'</div>'
+  }
+
+  formatCreationDate(dateString: string): string {
+    const formattedDateString: string =
+      new Date(dateString).toLocaleString('de', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+
+    const emptyCharToPreventDateUnderlining: string = "&#8203;";
+    return emptyCharToPreventDateUnderlining + formattedDateString;
   }
 }

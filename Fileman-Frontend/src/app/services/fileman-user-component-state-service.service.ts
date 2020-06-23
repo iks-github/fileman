@@ -13,7 +13,7 @@ export class UserComponentStateService {
 
   constructor(private httpClient: HttpClient,
               propertiesService: FilemanPropertiesLoaderService) {
-    this.url = propertiesService.getProperty('serverurl') + '/userComponentStates';
+    this.url = propertiesService.getProperty('serverurl') + '/user-component-states';
   }
 
   getAllUserComponentStates() {
@@ -32,25 +32,25 @@ export class UserComponentStateService {
                           ));
   }
 
-  create(userComponentState: UserComponentState) {
+  create(user-component-state: UserComponentState) {
     const uri = this.url;
-    return this.httpClient.post(uri, JSON.stringify(userComponentState), FilemanConstants.getRestCallHeaderOptions())
+    return this.httpClient.post(uri, JSON.stringify(user-component-state), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
                           ));
   }
 
-  update(userComponentState: UserComponentState) {
+  update(user-component-state: UserComponentState) {
     const uri = this.url;
-    return this.httpClient.put(uri, JSON.stringify(userComponentState), FilemanConstants.getRestCallHeaderOptions())
+    return this.httpClient.put(uri, JSON.stringify(user-component-state), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             console.log(error);
                             throw error; }
                           ));
   }
 
-  delete(userComponentState: UserComponentState) {
-    const uri = this.url + '/' + userComponentState.getUserId();
+  delete(user-component-state: UserComponentState) {
+    const uri = this.url + '/' + user-component-state.getUserId();
     return this.httpClient.delete(uri, FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                               throw error; }

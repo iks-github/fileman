@@ -43,6 +43,7 @@ export class FilemanToolbarComponent implements OnInit {
   isAdmin: boolean;
   layoutType: string;
   contentType: string;
+  showFavouriteIcon: boolean = true;
   favouriteFilterActive: boolean;
   favouriteFilterIcon = Icon.FavouriteFilterInactive;
 
@@ -66,6 +67,11 @@ export class FilemanToolbarComponent implements OnInit {
   onContentTypeChange(contentType: string) {
     this.contentType = contentType;
     this.componentStateService.setContentType(contentType);
+    if (contentType == this.contentTypeUsers) {
+      this.showFavouriteIcon = false;
+    } else {
+      this.showFavouriteIcon = true;
+    }
   }
 
   onNewClick() {

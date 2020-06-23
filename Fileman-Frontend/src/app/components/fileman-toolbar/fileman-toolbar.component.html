@@ -53,7 +53,9 @@
            [ngStyle]="{'max-width.px': 200}"
            style="background: lavender; margin-left: 5px;">
 
-    <mat-icon data-toggle="tooltip" title="Favourite Filter"
+    <mat-icon *ngIf="showFavouriteIcon"
+              data-toggle="tooltip"
+              title="Favourite Filter"
               (click)="onFavouriteFilterClick()"
               [ngStyle]="{
               'color': 'blue',

@@ -31,6 +31,15 @@ export class UserComponentStateService {
     this.url = propertiesService.getProperty('serverurl') + '/userComponentStates';
   }
 
+  public initializeForUser(userId: number) {
+    this.getUserComponentState(userId).subscribe((result: UserComponentState) => {
+      this.contentType = result.getContentType();
+      this.layoutType = result.getLayoutType();
+      this.searchString = result.getSearchString();
+      this.favouriteFilterActive = result.getFavouriteFilterActive();
+    });
+  }
+
   public getContentType(): string {
     return this.contentType;
   }
@@ -101,7 +110,7 @@ export class UserComponentStateService {
 
   getUserComponentState(userId: any) {
     const uri = this.url + '/' + userId;
-    return this.httpClient.get(uri, FilemanConstants.getRestCallHeaderOptions())
+    return this.httpClient.get<UserComponentState>(uri, FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
                           ));

@@ -331,19 +331,25 @@ class <<DomainPath>>.UserComponentState
     metainfo unique true
     metainfo id true
     
+  attribute contentType
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo ExampleData content_type_files
+    metainfo Mandatory true
+    
   attribute layoutType
     metainfo dbType varchar
     metainfo JavaType String
     metainfo ExampleData layout_type_list
     metainfo Mandatory true
 
-  attribute searchText
+  attribute searchString
     metainfo dbType varchar
     metainfo JavaType String
     metainfo ExampleData file.txt
     metainfo Mandatory true
     
-  attribute favouriteFilterOn
+  attribute favouriteFilterActive
     metainfo dbType boolean
     metainfo JavaType Boolean
     metainfo ExampleData true

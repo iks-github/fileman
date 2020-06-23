@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="USER_COMPONENT_STATE")
 public class UserComponentState implements Serializable
 {
-	private static final long serialVersionUID = 1592918434754L;
+	private static final long serialVersionUID = 1592923615313L;
 
 	// ===============  instance fields  ===============
 
@@ -35,20 +35,25 @@ public class UserComponentState implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
 
+    @NotNull(message="Value of mandatory attribute 'contentType' is not present.")
+    @ApiModelProperty(notes = "Mandatory.")
+    @Column(name="CONTENT_TYPE", columnDefinition="varchar")
+	private String contentType;
+
     @NotNull(message="Value of mandatory attribute 'layoutType' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="LAYOUT_TYPE", columnDefinition="varchar")
 	private String layoutType;
 
-    @NotNull(message="Value of mandatory attribute 'searchText' is not present.")
+    @NotNull(message="Value of mandatory attribute 'searchString' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-    @Column(name="SEARCH_TEXT", columnDefinition="varchar")
-	private String searchText;
+    @Column(name="SEARCH_STRING", columnDefinition="varchar")
+	private String searchString;
 
-    @NotNull(message="Value of mandatory attribute 'favouriteFilterOn' is not present.")
+    @NotNull(message="Value of mandatory attribute 'favouriteFilterActive' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-    @Column(name="FAVOURITE_FILTER_ON", columnDefinition="boolean")
-	private Boolean favouriteFilterOn;
+    @Column(name="FAVOURITE_FILTER_ACTIVE", columnDefinition="boolean")
+	private Boolean favouriteFilterActive;
 
 
 	// ===============  setter methods  ===============
@@ -58,19 +63,24 @@ public class UserComponentState implements Serializable
 		this.userId = userId;
 	}
 
+	public void setContentType(final String contentType)
+	{
+		this.contentType = contentType;
+	}
+
 	public void setLayoutType(final String layoutType)
 	{
 		this.layoutType = layoutType;
 	}
 
-	public void setSearchText(final String searchText)
+	public void setSearchString(final String searchString)
 	{
-		this.searchText = searchText;
+		this.searchString = searchString;
 	}
 
-	public void setFavouriteFilterOn(final Boolean favouriteFilterOn)
+	public void setFavouriteFilterActive(final Boolean favouriteFilterActive)
 	{
-		this.favouriteFilterOn = favouriteFilterOn;
+		this.favouriteFilterActive = favouriteFilterActive;
 	}
 
 	// ===============  getter methods  ===============
@@ -80,19 +90,24 @@ public class UserComponentState implements Serializable
 		return userId;
 	}
 
+	public String getContentType()
+	{
+		return contentType;
+	}
+
 	public String getLayoutType()
 	{
 		return layoutType;
 	}
 
-	public String getSearchText()
+	public String getSearchString()
 	{
-		return searchText;
+		return searchString;
 	}
 
-	public Boolean getFavouriteFilterOn()
+	public Boolean getFavouriteFilterActive()
 	{
-		return favouriteFilterOn;
+		return favouriteFilterActive;
 	}
 
 	// ===============  additional Javabean methods  ===============
@@ -102,9 +117,10 @@ public class UserComponentState implements Serializable
 	{
 		return "UserComponentState ["
 				+ "userId = " + userId + ", "
+				+ "contentType = " + contentType + ", "
 				+ "layoutType = " + layoutType + ", "
-				+ "searchText = " + searchText + ", "
-				+ "favouriteFilterOn = " + favouriteFilterOn + ""
+				+ "searchString = " + searchString + ", "
+				+ "favouriteFilterActive = " + favouriteFilterActive + ""
 				+ "]";
 	}
 
@@ -128,6 +144,15 @@ public class UserComponentState implements Serializable
 			if (! userId.equals(other.userId))
 				   return false;
 		}
+		if (contentType == null)
+		{
+			if (other.contentType != null)
+				return false;
+		} else
+		{
+			if (! contentType.equals(other.contentType))
+				   return false;
+		}
 		if (layoutType == null)
 		{
 			if (other.layoutType != null)
@@ -137,22 +162,22 @@ public class UserComponentState implements Serializable
 			if (! layoutType.equals(other.layoutType))
 				   return false;
 		}
-		if (searchText == null)
+		if (searchString == null)
 		{
-			if (other.searchText != null)
+			if (other.searchString != null)
 				return false;
 		} else
 		{
-			if (! searchText.equals(other.searchText))
+			if (! searchString.equals(other.searchString))
 				   return false;
 		}
-		if (favouriteFilterOn == null)
+		if (favouriteFilterActive == null)
 		{
-			if (other.favouriteFilterOn != null)
+			if (other.favouriteFilterActive != null)
 				return false;
 		} else
 		{
-			if (! favouriteFilterOn.equals(other.favouriteFilterOn))
+			if (! favouriteFilterActive.equals(other.favouriteFilterActive))
 				   return false;
 		}
 		return true;
@@ -164,9 +189,10 @@ public class UserComponentState implements Serializable
 		int result = 1;
 
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((contentType == null) ? 0 : contentType.hashCode());
 		result = prime * result + ((layoutType == null) ? 0 : layoutType.hashCode());
-		result = prime * result + ((searchText == null) ? 0 : searchText.hashCode());
-		result = prime * result + ((favouriteFilterOn == null) ? 0 : favouriteFilterOn.hashCode());
+		result = prime * result + ((searchString == null) ? 0 : searchString.hashCode());
+		result = prime * result + ((favouriteFilterActive == null) ? 0 : favouriteFilterActive.hashCode());
 
 		return result;
 	}
@@ -177,18 +203,23 @@ public class UserComponentState implements Serializable
         if (otherUserComponentState.getUserId() != null) {
             this.setUserId(otherUserComponentState.getUserId());
        }
+        if (otherUserComponentState.getContentType() != null) {
+            if(! otherUserComponentState.getContentType().isEmpty()) {
+           	 this.setContentType(otherUserComponentState.getContentType());
+            }
+       }
         if (otherUserComponentState.getLayoutType() != null) {
             if(! otherUserComponentState.getLayoutType().isEmpty()) {
            	 this.setLayoutType(otherUserComponentState.getLayoutType());
             }
        }
-        if (otherUserComponentState.getSearchText() != null) {
-            if(! otherUserComponentState.getSearchText().isEmpty()) {
-           	 this.setSearchText(otherUserComponentState.getSearchText());
+        if (otherUserComponentState.getSearchString() != null) {
+            if(! otherUserComponentState.getSearchString().isEmpty()) {
+           	 this.setSearchString(otherUserComponentState.getSearchString());
             }
        }
-        if (otherUserComponentState.getFavouriteFilterOn() != null) {
-            this.setFavouriteFilterOn(otherUserComponentState.getFavouriteFilterOn());
+        if (otherUserComponentState.getFavouriteFilterActive() != null) {
+            this.setFavouriteFilterActive(otherUserComponentState.getFavouriteFilterActive());
        }
 	}
 }

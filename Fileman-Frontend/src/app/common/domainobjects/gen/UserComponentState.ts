@@ -2,16 +2,18 @@
 export class UserComponentState
 {
     userId: number;
+    contentType: string;
     layoutType: string;
-    searchText: string;
-    favouriteFilterOn: boolean;
+    searchString: string;
+    favouriteFilterActive: boolean;
 
     constructor(untypedUserComponentState: any) {
         if (untypedUserComponentState != null) {
             this.userId = untypedUserComponentState.userId;
+            this.contentType = untypedUserComponentState.contentType;
             this.layoutType = untypedUserComponentState.layoutType;
-            this.searchText = untypedUserComponentState.searchText;
-            this.favouriteFilterOn = untypedUserComponentState.favouriteFilterOn;
+            this.searchString = untypedUserComponentState.searchString;
+            this.favouriteFilterActive = untypedUserComponentState.favouriteFilterActive;
         }
     }
 
@@ -19,9 +21,10 @@ export class UserComponentState
     static getAttributeNames(): string[] {
         return [
            'userId',
+           'contentType',
            'layoutType',
-           'searchText',
-           'favouriteFilterOn',
+           'searchString',
+           'favouriteFilterActive',
         ];
     }
 
@@ -29,16 +32,20 @@ export class UserComponentState
         return this.userId;
     }
 
+    getContentType() {
+        return this.contentType;
+    }
+
     getLayoutType() {
         return this.layoutType;
     }
 
-    getSearchText() {
-        return this.searchText;
+    getSearchString() {
+        return this.searchString;
     }
 
-    getFavouriteFilterOn() {
-        return this.favouriteFilterOn;
+    getFavouriteFilterActive() {
+        return this.favouriteFilterActive;
     }
 
 
@@ -46,16 +53,20 @@ export class UserComponentState
         this.userId = userId;
     }
 
+    setContentType(contentType: string) {
+        this.contentType = contentType;
+    }
+
     setLayoutType(layoutType: string) {
         this.layoutType = layoutType;
     }
 
-    setSearchText(searchText: string) {
-        this.searchText = searchText;
+    setSearchString(searchString: string) {
+        this.searchString = searchString;
     }
 
-    setFavouriteFilterOn(favouriteFilterOn: boolean) {
-        this.favouriteFilterOn = favouriteFilterOn;
+    setFavouriteFilterActive(favouriteFilterActive: boolean) {
+        this.favouriteFilterActive = favouriteFilterActive;
     }
 
 
@@ -64,9 +75,10 @@ export class UserComponentState
         if (obj == null) { return false; }
 
         if (this.userId !== obj.userId) { return false; }
+        if (this.contentType !== obj.contentType) { return false; }
         if (this.layoutType !== obj.layoutType) { return false; }
-        if (this.searchText !== obj.searchText) { return false; }
-        if (this.favouriteFilterOn !== obj.favouriteFilterOn) { return false; }
+        if (this.searchString !== obj.searchString) { return false; }
+        if (this.favouriteFilterActive !== obj.favouriteFilterActive) { return false; }
 
         return true;
     }
@@ -75,8 +87,9 @@ export class UserComponentState
         return 'DETAILS:\n' +
                '------------------------------------------\n' +
            'UserId: ' + this.userId + '\n' +
+           'ContentType: ' + this.contentType + '\n' +
            'LayoutType: ' + this.layoutType + '\n' +
-           'SearchText: ' + this.searchText + '\n' +
-           'FavouriteFilterOn: ' + this.favouriteFilterOn + '\n';
+           'SearchString: ' + this.searchString + '\n' +
+           'FavouriteFilterActive: ' + this.favouriteFilterActive + '\n';
     }
 }

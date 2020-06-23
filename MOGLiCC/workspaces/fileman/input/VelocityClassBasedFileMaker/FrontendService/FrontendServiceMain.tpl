@@ -4,7 +4,7 @@
 
 @TargetFileName fileman-${className}-service.service.ts
 @TargetDir $model.getMetaInfoValueFor("frontendSrcDir")/services
-@CreateNew true # create and override
+@CreateNew false # do not override existing service
 @NameOfValidModel SpringBootBackendAngularFrontModel
 @SkipGeneration $skip
 

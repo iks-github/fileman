@@ -46,6 +46,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   searchString: string;
   searchStringSubscription: Subscription;
   reloadRequestSubscription: Subscription;
+  newUserCreatedSubscription: Subscription;
   responseData;
   allUsersMap = new Map<string, User>();
   viewedUsers = [] as User[];
@@ -87,14 +88,14 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
         (layoutType: string) => {
           this.layoutType = layoutType;
         }
-      )
+      );
     this.searchString = this.componentStateService.getSearchString();
     this.searchStringSubscription =
       this.componentStateService.getSearchStringChangeNotifier().subscribe(
         (searchString: string) => {
           this.searchFor(searchString);
         }
-      )
+      );
     this.favouriteFilterActive = this.componentStateService.getFavouriteFilterActive();
     this.favouriteFilterActiveSubscription =
       this.componentStateService.getFavouriteFilterActiveChangeNotifier().subscribe(
@@ -102,13 +103,15 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
           this.favouriteFilterActive = favouriteFilterActive;
           this.searchFor(this.searchString);
         }
-      )
+      );
     this.reloadRequestSubscription =
       this.componentStateService.getReloadRequestNotifier().subscribe(
-        () => {
-          this.reload();
-        }
-      )
+        () => this.reload()
+      );
+    this.newUserCreatedSubscription =
+      this.userService.getNewUserCreatedNotifier().subscribe(
+        () => this.reload()
+      );
   }
 
   isUsernameUnique(username: string) {
@@ -117,20 +120,20 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
 
   reload() {
     this.allUsersMap.clear();
-    this.viewedUsers = [] as User[];
     this.userService.getAllUsers()
         .subscribe(responseData => {this.extractUsers(responseData)});
   }
 
   extractUsers(responseData) {
     this.responseData = responseData;
+    const users = [] as User[];
     this.responseData.forEach(element => {
       const dataset = new User(element);
-      this.viewedUsers.push(dataset);
+      users.push(dataset);
       this.allUsersMap.set(dataset.getName(), dataset)
     });
-    this.viewedUsers = Utils.sortList(this.viewedUsers);
-    this.avatarService.preparePreviews(this.viewedUsers);
+    this.viewedUsers = Utils.sortList(users);
+    this.avatarService.preparePreviews(users);
   }
 
   trackFiles(index, file) {
@@ -231,5 +234,6 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
     this.searchStringSubscription.unsubscribe();
     this.favouriteFilterActiveSubscription.unsubscribe();
     this.reloadRequestSubscription.unsubscribe();
+    this.newUserCreatedSubscription.unsubscribe();
   }
 }

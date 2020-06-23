@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+
 import { User } from '../common/domainobjects/gen/User';
 import { FilemanConstants } from '../common/fileman-constants';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
@@ -10,6 +12,7 @@ import { FilemanPropertiesLoaderService } from './fileman-properties-loader.serv
 })
 export class UserService {
   url;
+  newUserCreatedNotifier: Subject<void> = new Subject<void>();
 
   constructor(private httpClient: HttpClient,
               propertiesService: FilemanPropertiesLoaderService) {
@@ -37,7 +40,7 @@ export class UserService {
     return this.httpClient.post(uri, JSON.stringify(user), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
-                          ));
+                          ), tap(() => this.newUserCreatedNotifier.next()));
   }
 
   update(user: User) {
@@ -57,4 +60,7 @@ export class UserService {
                           ));
   }
 
+  getNewUserCreatedNotifier(): Subject<void> {
+    return this.newUserCreatedNotifier;
+  }
 }

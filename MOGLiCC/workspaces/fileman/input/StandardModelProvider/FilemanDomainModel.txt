@@ -267,13 +267,12 @@ class <<DomainPath>>.LoginRequest
     metainfo ExampleData "pw"
     # metainfo MinLength 3
     metainfo MaxLength 32
-            
+
   attribute filemanVersion
     metainfo JavaType String
     metainfo Mandatory true
     metainfo ExampleData 1.1
-    
-    
+
 class <<DomainPath>>.LoginResponse
   metainfo frontendClass true
 
@@ -313,6 +312,41 @@ class <<DomainPath>>.FavouriteSetting
     metainfo JavaType String
     metainfo Mandatory true
     metainfo withFindAllMethod true
+
+class <<DomainPath>>.UserComponentState
+  metainfo implements java.io.Serializable
+  metainfo generateStandardJavaDoc true
+  metainfo swaggerDoc "Data for user component state"
+  metainfo JavaDocLine "Data for user component state"
+  metainfo BackendController true
+  metainfo FrontendService true
+  metainfo extraFindEndpoint User
+  metainfo dbEntity true
+
+  attribute userId
+    metainfo dbType int
+    metainfo JavaType Integer
+    metainfo ExampleData 1
+    metainfo unique true
+    metainfo id true
+    
+  attribute layoutType
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo ExampleData layout_type_list
+    metainfo Mandatory true
+
+  attribute searchText
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo ExampleData file.txt
+    metainfo Mandatory true
+    
+  attribute favouriteFilterOn
+    metainfo dbType boolean
+    metainfo JavaType Boolean
+    metainfo ExampleData true
+    metainfo Mandatory true
     
 class <<DomainPath>>.DbSchema
   metainfo dbEntity true

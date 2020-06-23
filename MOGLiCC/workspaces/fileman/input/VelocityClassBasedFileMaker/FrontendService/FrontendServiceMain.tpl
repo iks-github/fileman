@@ -1,12 +1,13 @@
 #set( $skip = $classDescriptor.getMetaInfoValueFor("FrontendService").contains("NOT FOUND") || 
               $classDescriptor.getMetaInfoValueFor("FrontendService").equals("false") )
+#set( $className = $TemplateStringUtility.firstToLowerCase($classDescriptor.simpleName) )
 #if ( $classDescriptor.getMetaInfoValueFor("FrontendServiceName").contains("NOT FOUND") )
-    #set( $className = $TemplateStringUtility.firstToLowerCase($classDescriptor.simpleName) )
+    #set( $frontendServiceName = $className )
 #else
-    #set( $className = $classDescriptor.getMetaInfoValueFor("FrontendServiceName") )
+    #set( $frontendServiceName = $classDescriptor.getMetaInfoValueFor("FrontendServiceName") )
 #end
 
-@TargetFileName fileman-${className}-service.service.ts
+@TargetFileName fileman-${frontendServiceName}-service.service.ts
 @TargetDir $model.getMetaInfoValueFor("frontendSrcDir")/services
 @CreateNew false # do not override existing service
 @NameOfValidModel SpringBootBackendAngularFrontModel

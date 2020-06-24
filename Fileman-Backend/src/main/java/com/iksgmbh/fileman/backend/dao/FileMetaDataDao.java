@@ -31,14 +31,14 @@ public class FileMetaDataDao extends FileMetaDataBasicDao
 	public FileMetaData create(FileMetaData fileMetaData) 
 	{
 		setTechType(fileMetaData);
-		//fileMetaData.setTechVersion(1);
+		fileMetaData.setTechVersion(1);
 		return super.create(fileMetaData);
 	}
 
 	public boolean update(FileMetaData fileMetaData, boolean withContentChange) 
 	{
 		if (withContentChange) {			
-			fileMetaData.setTechVersion(fileMetaData.getTechVersion()+1);
+			fileMetaData.setTechVersion(fileMetaData.getTechVersion() + 1);
 		}
 		return super.update(fileMetaData);
 	}

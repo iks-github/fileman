@@ -12,7 +12,7 @@ import { FilemanPropertiesLoaderService } from './fileman-properties-loader.serv
 })
 export class UserService {
   url;
-  newUserCreatedNotifier: Subject<void> = new Subject<void>();
+  private newUserCreatedNotifier: Subject<void> = new Subject<void>();
 
   constructor(private httpClient: HttpClient,
               propertiesService: FilemanPropertiesLoaderService) {

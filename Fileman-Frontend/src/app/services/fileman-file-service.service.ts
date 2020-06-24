@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 import { Injectable } from '@angular/core';
-import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
-import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+
+import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
 import { FilemanConstants } from '../common/fileman-constants';
 import { FileData } from '../common/domainobjects/gen/FileData';
 
@@ -26,6 +27,7 @@ import { FileData } from '../common/domainobjects/gen/FileData';
 })
 export class FilemanFileService {
   url;
+  private newFileCreatedNotifier: Subject<void> = new Subject<void>();
 
   constructor(private httpClient: HttpClient,
               private propertiesService: FilemanPropertiesLoaderService) {
@@ -48,7 +50,7 @@ export class FilemanFileService {
     return this.httpClient.post(this.url, JSON.stringify(fileData), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
-                          ));
+                          ), tap(() => this.newFileCreatedNotifier.next()));
   }
 
   update(fileData: FileData) {
@@ -79,4 +81,7 @@ export class FilemanFileService {
                            ));
   }
 
+  getNewFileCreatedNotifier(): Subject<void> {
+    return this.newFileCreatedNotifier;
+  }
 }

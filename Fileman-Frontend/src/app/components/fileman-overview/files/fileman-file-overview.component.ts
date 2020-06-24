@@ -45,6 +45,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   userComponentState: UserComponentState;
   userComponentStateSubscription: Subscription;
   reloadRequestSubscription: Subscription;
+  newFileCreatedSubscription: Subscription;
   responseData;
   allFilesMap = new Map<string, FileMetaData>();
   viewedFiles = [] as FileMetaData[];
@@ -95,6 +96,10 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
           this.reload();
         }
       )
+    this.newFileCreatedSubscription =
+      this.fileService.getNewFileCreatedNotifier().subscribe(
+        () => this.reload()
+      );
   }
 
   isFilenameUnique(filename: string) {
@@ -232,5 +237,6 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.userComponentStateSubscription.unsubscribe();
     this.reloadRequestSubscription.unsubscribe();
+    this.newFileCreatedSubscription.unsubscribe();
   }
 }

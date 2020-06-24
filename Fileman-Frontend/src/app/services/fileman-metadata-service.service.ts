@@ -82,16 +82,8 @@ export class FilemanMetadataService {
     return this.fileMetaDataCache.has(filename);
   }
 
-  addFileToCache(metadata: FileMetaData) {
-    return this.fileMetaDataCache.set(metadata.getName(), metadata);
-  }
-
   getFileFromCache(filename: string) {
     return this.fileMetaDataCache.get(filename);
-  }
-
-  removeFileFromCache(metadata: FileMetaData) {
-    this.fileMetaDataCache.delete(metadata.getName());
   }
 
   setActive(filename: string, uuid: number) {

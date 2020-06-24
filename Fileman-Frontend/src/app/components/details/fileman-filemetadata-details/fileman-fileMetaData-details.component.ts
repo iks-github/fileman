@@ -107,26 +107,19 @@ export class FilemetadataDetailsComponent implements OnInit {
   save() {
     const fileData = this.getFileDataToSave();
     console.log(fileData);
-    this.metadataService.addFileToCache(fileData.getMetaData()); // optimistic update
 
-    if (this.newFileMode)
-    {
+    if (this.newFileMode) {
       this.fileService.create(fileData)
           .subscribe(() => {
             this.previewService.preparePreview(fileData.getMetaData().getName());
           }, error => {
-            this.metadataService.removeFileFromCache(fileData.getMetaData()); // rollback optimistic update
             alert('Error saving new file "' + fileData.getMetaData().getName() + '"!');
           });
-    }
-    else
-    {
+    } else {
       this.fileService.update(fileData)
           .subscribe(() => {}, error => {
-            this.metadataService.removeFileFromCache(fileData.getMetaData()); // rollback optimistic update
             alert('Error saving new file "' + fileData.getMetaData().getName() + '"!');
           });
-
     }
 
     this.backToOverview();

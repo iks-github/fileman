@@ -136,7 +136,7 @@ describe('FilemanFileOverviewComponent', () => {
 
     component.markFavourite(myFile2);
     component.markFavourite(somethingElse);
-    component.favouriteFilterActive = true;
+    component.userComponentState.favouriteFilterActive = true;
     component.searchFor('');
 
     // all marked favourites

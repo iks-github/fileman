@@ -36,7 +36,7 @@ public class UserComponentStateBasicDao
 
 	public boolean update(UserComponentState entity) {
 		try {
-			entityManager.persist(entity);
+			entityManager.merge(entity);
 			return true;
 		} catch (Exception e) {
 			return false;

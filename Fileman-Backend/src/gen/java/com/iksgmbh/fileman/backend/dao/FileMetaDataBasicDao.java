@@ -36,7 +36,7 @@ public class FileMetaDataBasicDao
 
 	public boolean update(FileMetaData entity) {
 		try {
-			entityManager.persist(entity);
+			entityManager.merge(entity);
 			return true;
 		} catch (Exception e) {
 			return false;

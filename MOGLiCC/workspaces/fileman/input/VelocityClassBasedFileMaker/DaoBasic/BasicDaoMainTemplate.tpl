@@ -100,7 +100,7 @@ public class ${ClassName}BasicDao
 		
 		'	public boolean update(${ClassName} entity) {
 		'		try {
-		'			entityManager.persist(entity);
+		'			entityManager.merge(entity);
 		'			return true;
 		'		} catch (Exception e) {
 		'			return false;

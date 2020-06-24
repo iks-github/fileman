@@ -36,7 +36,7 @@ public class DbSchemaBasicDao
 
 	public boolean update(DbSchema entity) {
 		try {
-			entityManager.persist(entity);
+			entityManager.merge(entity);
 			return true;
 		} catch (Exception e) {
 			return false;

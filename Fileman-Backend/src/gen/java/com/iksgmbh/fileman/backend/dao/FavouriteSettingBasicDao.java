@@ -36,7 +36,7 @@ public class FavouriteSettingBasicDao
 
 	public boolean update(FavouriteSetting entity) {
 		try {
-			entityManager.persist(entity);
+			entityManager.merge(entity);
 			return true;
 		} catch (Exception e) {
 			return false;

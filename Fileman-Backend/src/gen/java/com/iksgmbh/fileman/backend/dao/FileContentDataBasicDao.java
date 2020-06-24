@@ -36,7 +36,7 @@ public class FileContentDataBasicDao
 
 	public boolean update(FileContentData entity) {
 		try {
-			entityManager.persist(entity);
+			entityManager.merge(entity);
 			return true;
 		} catch (Exception e) {
 			return false;

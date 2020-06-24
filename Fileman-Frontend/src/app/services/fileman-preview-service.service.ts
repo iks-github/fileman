@@ -56,6 +56,9 @@ export class FilemanPreviewService {
       } else if (fileName.endsWith('png')) {
         const file = new Blob([blobResponse], { type: 'image/png' });
         this.createBinaryFilePreview(fileName, file, PreviewType.Image);
+      } else if (fileName.endsWith('bmp')) {
+        const file = new Blob([blobResponse], { type: 'image/bmp' });
+        this.createBinaryFilePreview(fileName, file, PreviewType.Image);
       } else if (fileName.endsWith('docx')) {
         const file = new Blob([blobResponse], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
         this.createBinaryFilePreview(fileName, file, PreviewType.DOCX);

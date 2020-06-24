@@ -36,7 +36,7 @@ public class UserBasicDao
 
 	public boolean update(User entity) {
 		try {
-			entityManager.persist(entity);
+			entityManager.merge(entity);
 			return true;
 		} catch (Exception e) {
 			return false;

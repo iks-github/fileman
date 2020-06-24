@@ -102,8 +102,7 @@
 
 			#if ( $attributeDescriptor.doesHaveMetaInfo("id", "true") )
 				'    @Id
-				#if ( $attributeDescriptor.doesHaveMetaInfo("JavaType", "Integer") || $attributeDescriptor.doesHaveMetaInfo("JavaType", "Long")
-						|| $attributeDescriptor.doesHaveMetaInfo("JavaType", "int") || $attributeDescriptor.doesHaveMetaInfo("JavaType", "long"))
+				#if ( $attributeDescriptor.doesHaveMetaInfo("generatedValue", "true") )
 					'    @GeneratedValue(strategy = GenerationType.IDENTITY)
 				#end
 			#end

@@ -86,22 +86,19 @@ export class LayoutFilemetadataCommons extends LayoutCommons {
       this.buildHtmlTooltipContentRow('TechVersion', ''+file.techVersion) +
       this.buildHtmlTooltipContentRow('Creator', file.creator) +
       this.buildHtmlTooltipContentRow('CreationDate',
-        this.formatCreationDate(file.creationDate)) +
+        "&#8203;" // empty char to prevent date underlining
+        + this.formatCreationDate(file.creationDate)) +
       this.buildHtmlTooltipContentRow('Size', ''+file.size)+'</div>'
   }
 
   formatCreationDate(dateString: string): string {
-    const formattedDateString: string =
-      new Date(dateString).toLocaleString('de', {
+    return new Date(dateString).toLocaleString('de', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit'
-      });
-
-    const emptyCharToPreventDateUnderlining: string = "&#8203;";
-    return emptyCharToPreventDateUnderlining + formattedDateString;
+    });
   }
 }

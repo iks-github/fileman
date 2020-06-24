@@ -17,8 +17,9 @@
 
 	#if ($attributeDescriptor.name.equals("name")) 
 		'        <td [ngStyle]="{'font-weight': isFileFavourite(file.name) ? 'bold' : ''}">{{file.name}} {{favouriteAsterix(file)}}</td>
+	#elseif ($attributeDescriptor.name.equals("creationDate")) 
+		'        <td>&#8203;{{formatCreationDate(file.creationDate)}}</td>
 	#else
-
 		#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
 		'        <td>{{file.${attributeName}}}</td>
 	

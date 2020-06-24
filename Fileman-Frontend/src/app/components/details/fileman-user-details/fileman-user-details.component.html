@@ -20,9 +20,7 @@
                 <td>
                     <label for="role">Role</label>
                     <br>
-                    <select id="role" class="form-Control"
-                      formControlName="roleControl"
-                      (change)="roleC.markAsTouched()">
+                    <select id="role" class="form-Control" formControlName="roleControl" (change)="roleC.markAsTouched()">
                     	<option [value]="'Reader'">Reader</option>
                     	<option [value]="'Writer'">Writer</option>
                     	<option [value]="'Admin'">Admin</option>

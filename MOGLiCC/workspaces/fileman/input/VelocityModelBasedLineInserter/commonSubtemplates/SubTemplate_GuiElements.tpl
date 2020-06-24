@@ -24,14 +24,14 @@
 
 #elseif ( $guiType.equals("Selectbox"))
 
-'                    <select id="$attributeName" class="form-Control" formControlName="${attributeName}Control">
+'                    <select id="$attributeName" class="form-Control" formControlName="${attributeName}Control" (change)="${attributeName}C.markAsTouched()">
 
 	#foreach ($option in $options)
 '                    	<option [value]="'$option'">$option</option>
 
 	#end
 
-'					 </select>
+'                    </select>
 
 #elseif ( $guiType.equals("Checkbox"))
 

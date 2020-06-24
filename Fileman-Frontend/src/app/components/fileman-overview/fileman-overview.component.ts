@@ -16,7 +16,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Content, UserRole } from 'src/app/common/fileman-constants';
+import { Content } from 'src/app/common/fileman-constants';
 import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { UserComponentState } from 'src/app/common/domainobjects/gen/UserComponentState';
@@ -39,19 +39,13 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentUserName = this.authService.getCurrentUserName();
-
-    if (this.authService.getCurrentUserRole() === UserRole.Admin) {
-      this.contentType = this.userComponentStateService.getContentType();
-      this.userComponentStateSubscription =
-        this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
-          (userComponentState: UserComponentState) => {
-            this.contentType = userComponentState.contentType;
-          }
-        )
-    } else {
-      this.contentType = Content.Files;
-      this.userComponentStateService.setContentType(this.contentType);
-    }
+    this.contentType = this.userComponentStateService.getContentType();
+    this.userComponentStateSubscription =
+      this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
+        (userComponentState: UserComponentState) => {
+          this.contentType = userComponentState.contentType;
+        }
+      );
   }
 
   ngOnDestroy() {

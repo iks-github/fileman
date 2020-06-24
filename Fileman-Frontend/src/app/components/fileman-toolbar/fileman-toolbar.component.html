@@ -49,6 +49,7 @@
               >{{iconSearch}}</mat-icon>
 
     <input type="text" #searchString
+           [ngModel]="userComponentState.searchString"
            (keyup)="startSearch(searchString.value)"
            [ngStyle]="{'max-width.px': 200}"
            style="background: lavender; margin-left: 5px;">

@@ -32,7 +32,6 @@ public class UserComponentState implements Serializable
 
     @Column(name="USER_ID", unique=true, columnDefinition="int")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
 
     @NotNull(message="Value of mandatory attribute 'contentType' is not present.")

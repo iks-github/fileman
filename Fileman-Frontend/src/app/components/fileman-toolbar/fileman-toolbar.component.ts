@@ -58,12 +58,12 @@ export class FilemanToolbarComponent implements OnInit {
     this.isAdmin = this.authService.getCurrentUserRole() === UserRole.Admin;
     this.userComponentState = this.userComponentStateService.getUserComponentState();
     this.userComponentStateSubscription =
-    this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
-      (userComponentState: UserComponentState) => {
-        this.userComponentState = userComponentState;
-        this.updateLayoutForUserComponentState(userComponentState);
-      }
-    );
+      this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
+        (userComponentState: UserComponentState) => {
+          this.userComponentState = userComponentState;
+          this.updateLayoutForUserComponentState(userComponentState);
+        }
+      );
   }
 
   updateLayoutForUserComponentState(userComponentState: UserComponentState) {

@@ -37,26 +37,26 @@ import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 @CrossOrigin(origins = {"*"})
 public class FavouriteSettingRestController
 {
-	@Autowired
-	private FavouriteSettingDao favouriteSettingDao;
+    @Autowired
+    private FavouriteSettingDao favouriteSettingDao;
 
-   @GetMapping("/favouriteSettings/username/{username}")
-   public List<FavouriteSetting> findAllFavouriteSettingByUsername(@PathVariable String username) {
-		List<FavouriteSetting> favouriteSettingList = favouriteSettingDao.findAllForUsername(username);
-		if (favouriteSettingList == null) {
-			throw new ResourceNotFoundException("FavouriteSetting '" + username +"' + not found.");
-		}
-       return favouriteSettingList;
+    @GetMapping("/favouriteSettings/username/{username}")
+    public List<FavouriteSetting> findAllFavouriteSettingByUsername(@PathVariable String username) {
+        List<FavouriteSetting> favouriteSettingList = favouriteSettingDao.findAllForUsername(username);
+        if (favouriteSettingList == null) {
+            throw new ResourceNotFoundException("FavouriteSetting '" + username +"' + not found.");
+        }
+        return favouriteSettingList;
    }
 
-   @GetMapping("/favouriteSettings/filename/{filename}")
-   public List<FavouriteSetting> findAllFavouriteSettingByFilename(@PathVariable String filename) {
-		List<FavouriteSetting> favouriteSettingList = favouriteSettingDao.findAllForFilename(filename);
-		if (favouriteSettingList == null) {
-			throw new ResourceNotFoundException("FavouriteSetting '" + filename +"' + not found.");
-		}
-       return favouriteSettingList;
-   }
+    @GetMapping("/favouriteSettings/filename/{filename}")
+    public List<FavouriteSetting> findAllFavouriteSettingByFilename(@PathVariable String filename) {
+        List<FavouriteSetting> favouriteSettingList = favouriteSettingDao.findAllForFilename(filename);
+        if (favouriteSettingList == null) {
+            throw new ResourceNotFoundException("FavouriteSetting '" + filename +"' + not found.");
+        }
+        return favouriteSettingList;
+    }
 
 	@PostMapping("/favouriteSettings")
 	public Integer createFavouriteSetting(@Valid @RequestBody FavouriteSetting favouriteSetting) {

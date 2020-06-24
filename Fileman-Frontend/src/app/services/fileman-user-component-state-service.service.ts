@@ -33,17 +33,20 @@ export class UserComponentStateService {
   public initializeForUser(userId: number) {
     this.fetchUserComponentStateFromServer(userId).subscribe(result => {
       const userComponentState: UserComponentState = new UserComponentState(result);
-
-      if (userComponentState.getContentType() == null) {
-        userComponentState.setContentType(this.defaultContentType);
-      }
-
       if (userComponentState.getLayoutType() == null) {
+        // no current instance available -> instantiate with default
+        userComponentState.setContentType(this.defaultContentType);
         userComponentState.setLayoutType(this.defaultLayoutType);
+        userComponentState.setSearchString('');
+        userComponentState.setFavouriteFilterActive(false);
+        this.create(userComponentState).subscribe(() => {
+          this.userComponentState = userComponentState;
+          this.userComponentStateChangeNotifier.next(this.userComponentState);
+        });
+      } else {
+        this.userComponentState = userComponentState;
+        this.userComponentStateChangeNotifier.next(this.userComponentState);
       }
-
-      this.userComponentState = userComponentState;
-      this.userComponentStateChangeNotifier.next(this.userComponentState);
     });
   }
 
@@ -57,7 +60,9 @@ export class UserComponentStateService {
 
   public setContentType(overviewType: string) {
     this.userComponentState.contentType = overviewType;
-    this.userComponentStateChangeNotifier.next(this.userComponentState);
+    this.update(this.userComponentState).subscribe(() => {
+      this.userComponentStateChangeNotifier.next(this.userComponentState);
+    });
   }
 
   public getLayoutType(): string {
@@ -66,7 +71,9 @@ export class UserComponentStateService {
 
   public setLayoutType(layoutType: string) {
     this.userComponentState.layoutType = layoutType;
-    this.userComponentStateChangeNotifier.next(this.userComponentState);
+    this.update(this.userComponentState).subscribe(() => {
+      this.userComponentStateChangeNotifier.next(this.userComponentState);
+    });
   }
 
   public getSearchString(): string {
@@ -75,7 +82,9 @@ export class UserComponentStateService {
 
   public setSearchString(searchString: string) {
     this.userComponentState.searchString = searchString;
-    this.userComponentStateChangeNotifier.next(this.userComponentState);
+    this.update(this.userComponentState).subscribe(() => {
+      this.userComponentStateChangeNotifier.next(this.userComponentState);
+    });
   }
 
   public getFavouriteFilterActive(): boolean {
@@ -84,7 +93,9 @@ export class UserComponentStateService {
 
   public setFavouriteFilterActive(favouriteFilterActive: boolean) {
     this.userComponentState.favouriteFilterActive = favouriteFilterActive;
-    this.userComponentStateChangeNotifier.next(this.userComponentState);
+    this.update(this.userComponentState).subscribe(() => {
+      this.userComponentStateChangeNotifier.next(this.userComponentState);
+    });
   }
 
   public getUserComponentStateChangeNotifier(): Subject<UserComponentState> {

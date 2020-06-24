@@ -68,6 +68,14 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     console.log('### file overview init')
     this.currentUserName = this.authService.getCurrentUserName();
+    this.userComponentState = this.userComponentStateService.getUserComponentState();
+    this.userComponentStateSubscription =
+      this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
+        (userComponentState: UserComponentState) => {
+          this.userComponentState = userComponentState;
+          this.searchFor(this.userComponentState.searchString);
+        }
+      );
     this.userService.getAllUsers()
         .subscribe(responseData => {this.extractUsers(responseData)});
     this.readOnly = this.authService.getCurrentUserRole() === UserRole.Reader;
@@ -80,14 +88,6 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
                                     })
                                 });
     this.fileMetaAttributeNames = FileMetaData.getAttributeNames();
-    this.userComponentState = this.userComponentStateService.getUserComponentState();
-    this.userComponentStateSubscription =
-      this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
-        (userComponentState: UserComponentState) => {
-          this.userComponentState = userComponentState;
-          this.searchFor(userComponentState.searchString);
-        }
-      );
     this.reloadRequestSubscription =
       this.userComponentStateService.getReloadRequestNotifier().subscribe(
         () => this.reload()
@@ -118,6 +118,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
     });
     this.viewedUsers = Utils.sortList(users);
     this.avatarService.preparePreviews(users);
+    this.searchFor(this.userComponentState.searchString);
   }
 
   trackFiles(index, file) {

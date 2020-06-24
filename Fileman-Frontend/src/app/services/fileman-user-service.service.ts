@@ -12,7 +12,7 @@ import { FilemanPropertiesLoaderService } from './fileman-properties-loader.serv
 })
 export class UserService {
   url;
-  private newUserCreatedNotifier: Subject<void> = new Subject<void>();
+  private userDataChangedNotifier: Subject<void> = new Subject<void>();
 
   constructor(private httpClient: HttpClient,
               propertiesService: FilemanPropertiesLoaderService) {
@@ -40,7 +40,7 @@ export class UserService {
     return this.httpClient.post(uri, JSON.stringify(user), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
-                          ), tap(() => this.newUserCreatedNotifier.next()));
+                          ), tap(() => this.userDataChangedNotifier.next()));
   }
 
   update(user: User) {
@@ -49,7 +49,7 @@ export class UserService {
                           .pipe(catchError((error: HttpErrorResponse) => {
                             console.log(error);
                             throw error; }
-                          ));
+                          ), tap(() => this.userDataChangedNotifier.next()));
   }
 
   delete(user: User) {
@@ -60,7 +60,7 @@ export class UserService {
                           ));
   }
 
-  getNewUserCreatedNotifier(): Subject<void> {
-    return this.newUserCreatedNotifier;
+  getUserDataChangedNotifier(): Subject<void> {
+    return this.userDataChangedNotifier;
   }
 }

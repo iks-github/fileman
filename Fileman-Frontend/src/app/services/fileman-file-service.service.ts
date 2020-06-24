@@ -27,7 +27,7 @@ import { FileData } from '../common/domainobjects/gen/FileData';
 })
 export class FilemanFileService {
   url;
-  private newFileCreatedNotifier: Subject<void> = new Subject<void>();
+  private fileDataChangedNotifier: Subject<void> = new Subject<void>();
 
   constructor(private httpClient: HttpClient,
               private propertiesService: FilemanPropertiesLoaderService) {
@@ -50,7 +50,7 @@ export class FilemanFileService {
     return this.httpClient.post(this.url, JSON.stringify(fileData), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
-                          ), tap(() => this.newFileCreatedNotifier.next()));
+                          ), tap(() => this.fileDataChangedNotifier.next()));
   }
 
   update(fileData: FileData) {
@@ -60,7 +60,7 @@ export class FilemanFileService {
                           .pipe(catchError((error: HttpErrorResponse) => {
                             console.log(error);
                             throw error; }
-                          ));
+                          ), tap(() => this.fileDataChangedNotifier.next()));
   }
 
   delete(fileName: string) {
@@ -81,7 +81,7 @@ export class FilemanFileService {
                            ));
   }
 
-  getNewFileCreatedNotifier(): Subject<void> {
-    return this.newFileCreatedNotifier;
+  getFileDataChangedNotifier(): Subject<void> {
+    return this.fileDataChangedNotifier;
   }
 }

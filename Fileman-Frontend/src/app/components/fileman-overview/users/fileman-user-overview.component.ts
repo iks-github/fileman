@@ -44,7 +44,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   userComponentState: UserComponentState;
   userComponentStateSubscription: Subscription;
   reloadRequestSubscription: Subscription;
-  newUserCreatedSubscription: Subscription;
+  userDataChangedSubscription: Subscription;
   responseData;
   allUsersMap = new Map<string, User>();
   viewedUsers = [] as User[];
@@ -92,8 +92,8 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
       this.userComponentStateService.getReloadRequestNotifier().subscribe(
         () => this.reload()
       );
-    this.newUserCreatedSubscription =
-      this.userService.getNewUserCreatedNotifier().subscribe(
+    this.userDataChangedSubscription =
+      this.userService.getUserDataChangedNotifier().subscribe(
         () => this.reload()
       );
   }
@@ -217,6 +217,6 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.userComponentStateSubscription.unsubscribe();
     this.reloadRequestSubscription.unsubscribe();
-    this.newUserCreatedSubscription.unsubscribe();
+    this.userDataChangedSubscription.unsubscribe();
   }
 }

@@ -23,7 +23,7 @@ export class LayoutUserCommons extends LayoutCommons {
   @Input() readOnly;
   @Output() userEdited: EventEmitter<User> = new EventEmitter<User>();
   @Output() userDeleted: EventEmitter<User> = new EventEmitter<User>();
-	
+
   edit(user: User) {
     this.userEdited.emit(user);
   }
@@ -33,7 +33,7 @@ export class LayoutUserCommons extends LayoutCommons {
   }
 
   getUserHtmlTooltip(user: User): string {
-    return '<div class="inner-html-enclosing-div"><h4>Details:</h4>' +
+    return '<div class="inner-html-enclosing-div"><b>Details:</b>' +
       '<hr>' +
       this.buildHtmlTooltipContentRow('Name', user.name) +
       this.buildHtmlTooltipContentRow('Role', user.role)+'</div>'

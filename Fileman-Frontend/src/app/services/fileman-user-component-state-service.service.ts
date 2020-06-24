@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { UserComponentState } from '../common/domainobjects/gen/UserComponentState';
 import { FilemanConstants, Content, Layout } from '../common/fileman-constants';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
+import { FilemanAuthserviceService } from './fileman-authservice.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class UserComponentStateService {
   private reloadRequestNotifier: Subject<void>;
 
   constructor(private httpClient: HttpClient,
-              propertiesService: FilemanPropertiesLoaderService) {
+              propertiesService: FilemanPropertiesLoaderService,
+              private authService: FilemanAuthserviceService) {
     this.url = propertiesService.getProperty('serverurl') + '/userComponentStates';
     this.userComponentState = new UserComponentState({
       contentType: this.defaultContentType,
@@ -51,22 +53,28 @@ export class UserComponentStateService {
   }
 
   public getUserComponentState(): UserComponentState {
+
+    // re-initialize if information got lost upon side reload
+    if (this.userComponentState.userId == null) {
+      this.initializeForUser(this.authService.getCurrentUserId());
+    }
+
     return this.userComponentState;
   }
 
   public getContentType(): string {
-    return this.userComponentState.contentType;
+    return this.getUserComponentState().contentType;
   }
 
-  public setContentType(overviewType: string) {
-    this.userComponentState.contentType = overviewType;
+  public setContentType(contentType: string) {
+    this.userComponentState.contentType = contentType;
     this.update(this.userComponentState).subscribe(() => {
       this.userComponentStateChangeNotifier.next(this.userComponentState);
     });
   }
 
   public getLayoutType(): string {
-    return this.userComponentState.layoutType;
+    return this.getUserComponentState().layoutType;
   }
 
   public setLayoutType(layoutType: string) {
@@ -77,7 +85,7 @@ export class UserComponentStateService {
   }
 
   public getSearchString(): string {
-    return this.userComponentState.searchString;
+    return this.getUserComponentState().searchString;
   }
 
   public setSearchString(searchString: string) {
@@ -88,7 +96,7 @@ export class UserComponentStateService {
   }
 
   public getFavouriteFilterActive(): boolean {
-    return this.userComponentState.favouriteFilterActive;
+    return this.getUserComponentState().favouriteFilterActive;
   }
 
   public setFavouriteFilterActive(favouriteFilterActive: boolean) {

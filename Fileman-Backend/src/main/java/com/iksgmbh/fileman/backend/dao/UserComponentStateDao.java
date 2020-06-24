@@ -24,5 +24,23 @@ import com.iksgmbh.fileman.backend.UserComponentState;
  *
 **/
 @Component
-public class UserComponentStateDao extends UserComponentStateBasicDao
-{}
+public class UserComponentStateDao extends UserComponentStateBasicDao {
+	
+	@Override
+	public UserComponentState findByUserId(Integer userId) {
+		UserComponentState userComponentState = super.findByUserId(userId);
+		
+		// return dummy object if component state is not yet present
+		if (userComponentState == null) {
+			UserComponentState dummy = new UserComponentState();
+			dummy.setUserId(userId);
+			dummy.setContentType(null);
+			dummy.setLayoutType(null);
+			dummy.setSearchString("");
+			dummy.setFavouriteFilterActive(false);
+			userComponentState = dummy;
+		}
+		
+		return userComponentState;
+	}
+}

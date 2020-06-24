@@ -8,7 +8,7 @@
     <i>No user matches your filter.</i>
 </div>
 
-<div [ngSwitch]="layoutType">
+<div [ngSwitch]="userComponentState.layoutType">
     <div *ngSwitchCase="layoutTypeList">
         <fileman-user-list-layout
           [viewedUsers]="viewedUsers"

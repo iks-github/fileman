@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 import { Component, OnInit } from '@angular/core';
-import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { Content, Layout, Icon, UserRole } from 'src/app/common/fileman-constants';
 import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
+import { UserComponentState } from 'src/app/common/domainobjects/gen/UserComponentState';
 
 @Component({
   selector: 'fileman-toolbar',
@@ -41,10 +44,9 @@ export class FilemanToolbarComponent implements OnInit {
 
   readOnly: boolean;
   isAdmin: boolean;
-  layoutType: string;
-  contentType: string;
+  userComponentState: UserComponentState;
+  userComponentStateSubscription: Subscription;
   showFavouriteIcon: boolean = true;
-  favouriteFilterActive: boolean;
   favouriteFilterIcon = Icon.FavouriteFilterInactive;
 
   constructor(private authService: FilemanAuthserviceService,
@@ -54,31 +56,43 @@ export class FilemanToolbarComponent implements OnInit {
   ngOnInit(): void {
     this.readOnly = this.authService.getCurrentUserRole() === UserRole.Reader;
     this.isAdmin = this.authService.getCurrentUserRole() === UserRole.Admin;
-    this.layoutType = this.userComponentStateService.getLayoutType();
-    this.contentType = this.userComponentStateService.getContentType();
-    this.favouriteFilterActive = this.userComponentStateService.getFavouriteFilterActive();
+    this.userComponentState = this.userComponentStateService.getUserComponentState();
+    this.userComponentStateSubscription =
+    this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
+      (userComponentState: UserComponentState) => {
+        this.userComponentState = userComponentState;
+        this.updateLayoutForUserComponentState(userComponentState);
+      }
+    );
   }
 
-  onLayoutClick(layoutType: string) {
-    this.layoutType = layoutType;
-    this.userComponentStateService.setLayoutType(layoutType);
-  }
-
-  onContentTypeChange(contentType: string) {
-    this.contentType = contentType;
-    this.userComponentStateService.setContentType(contentType);
-    if (contentType == this.contentTypeUsers) {
+  updateLayoutForUserComponentState(userComponentState: UserComponentState) {
+    if (userComponentState.contentType == this.contentTypeUsers) {
       this.showFavouriteIcon = false;
     } else {
       this.showFavouriteIcon = true;
     }
+
+    if (userComponentState.favouriteFilterActive) {
+      this.favouriteFilterIcon = Icon.FavouriteFilterActive;
+    } else {
+      this.favouriteFilterIcon = Icon.FavouriteFilterInactive;
+    }
+  }
+
+  onLayoutClick(layoutType: string) {
+    this.userComponentStateService.setLayoutType(layoutType);
+  }
+
+  onContentTypeChange(contentType: string) {
+    this.userComponentStateService.setContentType(contentType);
   }
 
   onNewClick() {
     if (! this.readOnly) {
-      if (this.contentType === this.contentTypeFiles) {
+      if (this.userComponentState.contentType === this.contentTypeFiles) {
         this.router.navigate(['/fileman/files/new']);
-      } else if (this.contentType === this.contentTypeUsers) {
+      } else if (this.userComponentState.contentType === this.contentTypeUsers) {
         this.router.navigate(['/fileman/users/new']);
       }
     }
@@ -95,13 +109,10 @@ export class FilemanToolbarComponent implements OnInit {
   }
 
   onFavouriteFilterClick() {
-    this.favouriteFilterActive = ! this.favouriteFilterActive;
-    if (this.favouriteFilterActive) {
-      this.favouriteFilterIcon = Icon.FavouriteFilterActive;
-    } else {
-      this.favouriteFilterIcon = Icon.FavouriteFilterInactive;
-    }
-    this.userComponentStateService.setFavouriteFilterActive(this.favouriteFilterActive);
+    const favouriteFilterActive: boolean =
+      !this.userComponentState.favouriteFilterActive;
+
+    this.userComponentStateService.setFavouriteFilterActive(favouriteFilterActive);
   }
 
   startSearch(searchString) {

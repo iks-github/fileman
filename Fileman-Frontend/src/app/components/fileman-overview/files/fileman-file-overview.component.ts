@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { saveAs } from 'file-saver';
+import { Subscription } from 'rxjs';
+
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 import { FilemanError } from 'src/app/common/errors/fileman-error';
 import { FilemanNotfoundError } from 'src/app/common/errors/fileman-not-found-error';
-import { Router } from '@angular/router';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { FilemanFavouriteSettingsService } from 'src/app/services/fileman-favourite-settings-service.service';
 import { FavouriteSetting } from 'src/app/common/domainobjects/gen/FavouriteSetting';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
-import { saveAs } from 'file-saver';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { Utils } from 'src/app/common/Utils';
 import { Layout, UserRole } from 'src/app/common/fileman-constants';
 import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
-import { Subscription } from 'rxjs';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
+import { UserComponentState } from 'src/app/common/domainobjects/gen/UserComponentState';
 
 @Component({
   selector: 'fileman-file-overview',
@@ -40,12 +42,8 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   readonly layoutTypeTable: string = Layout.Table;
   readonly layoutTypeTiles: string = Layout.Tiles;
 
-  layoutType: string;
-  layoutTypeSubscription: Subscription;
-  favouriteFilterActive: boolean;
-  favouriteFilterActiveSubscription: Subscription;
-  searchString: string;
-  searchStringSubscription: Subscription;
+  userComponentState: UserComponentState;
+  userComponentStateSubscription: Subscription;
   reloadRequestSubscription: Subscription;
   responseData;
   allFilesMap = new Map<string, FileMetaData>();
@@ -83,26 +81,12 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
                                     })
                                 });
     this.fileMetaAttributeNames = FileMetaData.getAttributeNames();
-    this.layoutType = this.userComponentStateService.getLayoutType();
-    this.layoutTypeSubscription =
-      this.userComponentStateService.getLayoutTypeChangeNotifier().subscribe(
-        (layoutType: string) => {
-          this.layoutType = layoutType;
-        }
-      )
-    this.searchString = this.userComponentStateService.getSearchString();
-    this.searchStringSubscription =
-      this.userComponentStateService.getSearchStringChangeNotifier().subscribe(
-        (searchString: string) => {
-          this.searchFor(searchString);
-        }
-      )
-    this.favouriteFilterActive = this.userComponentStateService.getFavouriteFilterActive();
-    this.favouriteFilterActiveSubscription =
-      this.userComponentStateService.getFavouriteFilterActiveChangeNotifier().subscribe(
-        (favouriteFilterActive: boolean) => {
-          this.favouriteFilterActive = favouriteFilterActive;
-          this.searchFor(this.searchString);
+    this.userComponentState = this.userComponentStateService.getUserComponentState();
+    this.userComponentStateSubscription =
+      this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
+        (userComponentState: UserComponentState) => {
+          this.userComponentState = userComponentState;
+          this.searchFor(this.userComponentState.searchString);
         }
       )
     this.reloadRequestSubscription =
@@ -190,12 +174,12 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   }
 
   searchFor(searchString: string) {
-    this.searchString = searchString;
+    this.userComponentState.searchString = searchString;
     const fileList = [];
 
     this.allFilesMap.forEach(file => {
       if (file.getName().indexOf(searchString) !== -1) {
-        if (this.favouriteFilterActive) {
+        if (this.userComponentState.favouriteFilterActive) {
           if (this.isFileFavourite(file.getName())) {
             fileList.push(file);
           }
@@ -245,9 +229,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.layoutTypeSubscription.unsubscribe();
-    this.searchStringSubscription.unsubscribe();
-    this.favouriteFilterActiveSubscription.unsubscribe();
+    this.userComponentStateSubscription.unsubscribe();
     this.reloadRequestSubscription.unsubscribe();
   }
 }

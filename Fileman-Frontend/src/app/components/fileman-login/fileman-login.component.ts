@@ -1,12 +1,12 @@
 /*
  * Copyright 2020 IKS Gesellschaft fuer Informations- und Kommunikationssysteme mbH
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 import { Component, OnInit } from '@angular/core';
-import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { FilemanConstants } from 'src/app/common/fileman-constants';
 import { LoginResponse } from 'src/app/common/domainobjects/gen/LoginResponse';
 import { LoginRequest } from 'src/app/common/domainobjects/gen/LoginRequest';
+import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
 
 @Component({
   selector: 'fileman-login',
@@ -31,7 +33,8 @@ export class FilemanLoginComponent implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private authService : FilemanAuthserviceService) { }
+              private authService: FilemanAuthserviceService,
+              private userComponentStateService: UserComponentStateService) { }
 
   ngOnInit(): void {
   }
@@ -49,6 +52,7 @@ export class FilemanLoginComponent implements OnInit {
                         localStorage.setItem('token', loginResponse.authToken);
                         console.log('Logged in!');
                         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+                        this.userComponentStateService.initializeForUser(this.authService.getCurrentUserId());
                         this.router.navigate([returnUrl || '/fileman/overview']);
                       } else {
                         formControl.form.setErrors({invalidLogin: true});  // wirft runtime fehler, warum ??

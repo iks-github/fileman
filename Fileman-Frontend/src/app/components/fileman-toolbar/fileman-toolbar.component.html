@@ -7,23 +7,23 @@
     <mat-icon data-toggle="tooltip" title="Change to List Layout"
               (click)="onLayoutClick(layoutTypeList)"
               [ngStyle]="{
-              'color': layoutType === layoutTypeList ? '#777777' : 'lightgoldenrodyellow',
-              'backgroundColor': layoutType === layoutTypeList ? 'lightgray' : 'blue'}"
+              'color': userComponentState.layoutType === layoutTypeList ? '#777777' : 'lightgoldenrodyellow',
+              'backgroundColor': userComponentState.layoutType === layoutTypeList ? 'lightgray' : 'blue'}"
               >{{iconList}}</mat-icon>
     <mat-icon data-toggle="tooltip" title="Change to Table Layout"
               (click)="onLayoutClick(layoutTypeTable)"
               disabled="layoutType.equals(layoutTypeTable)"
               [ngStyle]="{
-              'color': layoutType === layoutTypeTable ? '#777777' : 'lightgoldenrodyellow',
-              'backgroundColor': layoutType === layoutTypeTable ? 'lightgray' : 'blue'}"
+              'color': userComponentState.layoutType === layoutTypeTable ? '#777777' : 'lightgoldenrodyellow',
+              'backgroundColor': userComponentState.layoutType === layoutTypeTable ? 'lightgray' : 'blue'}"
               style="margin-left: 5px;"
               >{{iconTable}}</mat-icon>
     <mat-icon data-toggle="tooltip" title="Change to Tiles Layout"
               (click)="onLayoutClick(layoutTypeTiles)"
               disabled="layoutType.equals(layoutTypeTiles)"
               [ngStyle]="{
-              'color': layoutType === layoutTypeTiles ? '#777777' : 'lightgoldenrodyellow',
-              'backgroundColor': layoutType === layoutTypeTiles ? 'lightgray' : 'blue'}"
+              'color': userComponentState.layoutType === layoutTypeTiles ? '#777777' : 'lightgoldenrodyellow',
+              'backgroundColor': userComponentState.layoutType === layoutTypeTiles ? 'lightgray' : 'blue'}"
               style="margin-left: 5px;"
               >{{iconTiles}}</mat-icon>
 
@@ -76,10 +76,10 @@
           (change)="onContentTypeChange(contentTypeSelect.value)">
             <option
               [value]="contentTypeFiles"
-              [selected]="contentType === contentTypeFiles">Files</option>
+              [selected]="userComponentState.contentType === contentTypeFiles">Files</option>
             <option
               [value]="contentTypeUsers"
-              [selected]="contentType === contentTypeUsers">Users</option>
+              [selected]="userComponentState.contentType === contentTypeUsers">Users</option>
         </select>
     </span>
 

@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 import { FilemanError } from 'src/app/common/errors/fileman-error';
 import { FilemanNotfoundError } from 'src/app/common/errors/fileman-not-found-error';
-import { Router } from '@angular/router';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { FilemanFavouriteSettingsService } from 'src/app/services/fileman-favourite-settings-service.service';
 import { FavouriteSetting } from 'src/app/common/domainobjects/gen/FavouriteSetting';
@@ -24,10 +26,10 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { Utils } from 'src/app/common/Utils';
 import { Layout, UserRole } from 'src/app/common/fileman-constants';
 import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
-import { Subscription } from 'rxjs';
 import { User } from 'src/app/common/domainobjects/gen/User';
 import { UserService } from 'src/app/services/fileman-user-service.service';
 import { FilemanAvatarService } from 'src/app/services/fileman-avatar-service.service';
+import { UserComponentState } from 'src/app/common/domainobjects/gen/UserComponentState';
 
 @Component({
   selector: 'fileman-user-overview',
@@ -39,12 +41,8 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   readonly layoutTypeTable: string = Layout.Table;
   readonly layoutTypeTiles: string = Layout.Tiles;
 
-  layoutType: string;
-  layoutTypeSubscription: Subscription;
-  favouriteFilterActive: boolean;
-  favouriteFilterActiveSubscription: Subscription;
-  searchString: string;
-  searchStringSubscription: Subscription;
+  userComponentState: UserComponentState;
+  userComponentStateSubscription: Subscription;
   reloadRequestSubscription: Subscription;
   newUserCreatedSubscription: Subscription;
   responseData;
@@ -82,26 +80,12 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
                                     })
                                 });
     this.fileMetaAttributeNames = FileMetaData.getAttributeNames();
-    this.layoutType = this.userComponentStateService.getLayoutType();
-    this.layoutTypeSubscription =
-      this.userComponentStateService.getLayoutTypeChangeNotifier().subscribe(
-        (layoutType: string) => {
-          this.layoutType = layoutType;
-        }
-      );
-    this.searchString = this.userComponentStateService.getSearchString();
-    this.searchStringSubscription =
-      this.userComponentStateService.getSearchStringChangeNotifier().subscribe(
-        (searchString: string) => {
-          this.searchFor(searchString);
-        }
-      );
-    this.favouriteFilterActive = this.userComponentStateService.getFavouriteFilterActive();
-    this.favouriteFilterActiveSubscription =
-      this.userComponentStateService.getFavouriteFilterActiveChangeNotifier().subscribe(
-        (favouriteFilterActive: boolean) => {
-          this.favouriteFilterActive = favouriteFilterActive;
-          this.searchFor(this.searchString);
+    this.userComponentState = this.userComponentStateService.getUserComponentState();
+    this.userComponentStateSubscription =
+      this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
+        (userComponentState: UserComponentState) => {
+          this.userComponentState = userComponentState;
+          this.searchFor(userComponentState.searchString);
         }
       );
     this.reloadRequestSubscription =
@@ -183,12 +167,12 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   }
 
   searchFor(searchString: string) {
-    this.searchString = searchString;
+    this.userComponentState.searchString = searchString;
     const userList = [];
 
     this.allUsersMap.forEach(user => {
       if (user.getName().indexOf(searchString) !== -1) {
-        if (this.favouriteFilterActive) {
+        if (this.userComponentState.favouriteFilterActive) {
           if (this.isFileFavourite(user.getName())) {
             userList.push(user);
           }
@@ -230,9 +214,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.layoutTypeSubscription.unsubscribe();
-    this.searchStringSubscription.unsubscribe();
-    this.favouriteFilterActiveSubscription.unsubscribe();
+    this.userComponentStateSubscription.unsubscribe();
     this.reloadRequestSubscription.unsubscribe();
     this.newUserCreatedSubscription.unsubscribe();
   }

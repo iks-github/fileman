@@ -11,85 +11,84 @@ import { FilemanPropertiesLoaderService } from './fileman-properties-loader.serv
   providedIn: 'root'
 })
 export class UserComponentStateService {
-  url;
-  private contentType: string = Content.Files;
-  private contentTypeChangeNotifier: Subject<string> = new Subject<string>();
+  private readonly defaultContentType: string = Content.Files;
+  private readonly defaultLayoutType: string = Layout.List;
 
-  private layoutType: string = Layout.List;
-  private layoutTypeChangeNotifier: Subject<string> = new Subject<string>();
-
-  private searchString: string = '';
-  private searchStringChangeNotifier: Subject<string> = new Subject<string>();
-
-  private favouriteFilterActive: boolean;
-  private favouriteFilterActiveChangeNotifier: Subject<boolean> = new Subject<boolean>();
-
-  private reloadRequestNotifier: Subject<void> = new Subject<void>();
+  private url: string;
+  private userComponentState: UserComponentState;
+  private userComponentStateChangeNotifier: Subject<UserComponentState>;
+  private reloadRequestNotifier: Subject<void>;
 
   constructor(private httpClient: HttpClient,
               propertiesService: FilemanPropertiesLoaderService) {
     this.url = propertiesService.getProperty('serverurl') + '/userComponentStates';
+    this.userComponentState = new UserComponentState({
+      contentType: this.defaultContentType,
+      layoutType: this.defaultLayoutType
+    });
+    this.userComponentStateChangeNotifier = new Subject<UserComponentState>();
+    this.reloadRequestNotifier = new Subject<void>();
   }
 
   public initializeForUser(userId: number) {
-    this.getUserComponentState(userId).subscribe((result: UserComponentState) => {
-      this.contentType = result.getContentType();
-      this.layoutType = result.getLayoutType();
-      this.searchString = result.getSearchString();
-      this.favouriteFilterActive = result.getFavouriteFilterActive();
+    this.fetchUserComponentStateFromServer(userId).subscribe(result => {
+      const userComponentState: UserComponentState = new UserComponentState(result);
+
+      if (userComponentState.getContentType() == null) {
+        userComponentState.setContentType(this.defaultContentType);
+      }
+
+      if (userComponentState.getLayoutType() == null) {
+        userComponentState.setLayoutType(this.defaultLayoutType);
+      }
+
+      this.userComponentState = userComponentState;
+      this.userComponentStateChangeNotifier.next(this.userComponentState);
     });
   }
 
+  public getUserComponentState(): UserComponentState {
+    return this.userComponentState;
+  }
+
   public getContentType(): string {
-    return this.contentType;
+    return this.userComponentState.contentType;
   }
 
   public setContentType(overviewType: string) {
-    this.contentType = overviewType;
-    this.contentTypeChangeNotifier.next(this.contentType);
-  }
-
-  public getContentTypeChangeNotifier(): Subject<string> {
-    return this.contentTypeChangeNotifier;
+    this.userComponentState.contentType = overviewType;
+    this.userComponentStateChangeNotifier.next(this.userComponentState);
   }
 
   public getLayoutType(): string {
-    return this.layoutType;
+    return this.userComponentState.layoutType;
   }
 
   public setLayoutType(layoutType: string) {
-    this.layoutType = layoutType;
-    this.layoutTypeChangeNotifier.next(this.layoutType);
-  }
-
-  public getLayoutTypeChangeNotifier(): Subject<string> {
-    return this.layoutTypeChangeNotifier;
+    this.userComponentState.layoutType = layoutType;
+    this.userComponentStateChangeNotifier.next(this.userComponentState);
   }
 
   public getSearchString(): string {
-    return this.searchString;
+    return this.userComponentState.searchString;
   }
 
   public setSearchString(searchString: string) {
-    this.searchString = searchString;
-    this.searchStringChangeNotifier.next(this.searchString);
-  }
-
-  public getSearchStringChangeNotifier(): Subject<string> {
-    return this.searchStringChangeNotifier;
+    this.userComponentState.searchString = searchString;
+    this.userComponentStateChangeNotifier.next(this.userComponentState);
   }
 
   public getFavouriteFilterActive(): boolean {
-    return this.favouriteFilterActive;
+    return this.userComponentState.favouriteFilterActive;
   }
 
   public setFavouriteFilterActive(favouriteFilterActive: boolean) {
-    this.favouriteFilterActive = favouriteFilterActive;
-    this.favouriteFilterActiveChangeNotifier.next(this.favouriteFilterActive);
+    this.userComponentState.favouriteFilterActive = favouriteFilterActive;
+    this.userComponentStateChangeNotifier.next(this.userComponentState);
   }
 
-  public getFavouriteFilterActiveChangeNotifier(): Subject<boolean> {
-    return this.favouriteFilterActiveChangeNotifier;
+  public getUserComponentStateChangeNotifier(): Subject<UserComponentState> {
+    return this.userComponentStateChangeNotifier;
   }
 
   public requestReload() {
@@ -100,17 +99,9 @@ export class UserComponentStateService {
     return this.reloadRequestNotifier;
   }
 
-  getAllUserComponentStates() {
-    const uri = this.url;
-    return this.httpClient.get(uri, FilemanConstants.getRestCallHeaderOptions())
-                          .pipe(catchError((error: HttpErrorResponse) => {
-                            throw error; }
-                          ));
-  }
-
-  getUserComponentState(userId: any) {
+  fetchUserComponentStateFromServer(userId: any) {
     const uri = this.url + '/' + userId;
-    return this.httpClient.get<UserComponentState>(uri, FilemanConstants.getRestCallHeaderOptions())
+    return this.httpClient.get(uri, FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
                           ));
@@ -140,5 +131,4 @@ export class UserComponentStateService {
                               throw error; }
                           ));
   }
-
 }

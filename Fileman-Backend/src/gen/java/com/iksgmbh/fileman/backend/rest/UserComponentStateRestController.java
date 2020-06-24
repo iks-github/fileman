@@ -35,7 +35,14 @@ public class UserComponentStateRestController
     public UserComponentState findUserComponentStateByUserId(@PathVariable Integer userId) {
 		UserComponentState userComponentState = userComponentStateDao.findByUserId(userId);
 		if (userComponentState == null) {
-			throw new ResourceNotFoundException("UserComponentState '" + userId +"' + not found.");
+			// return dummy object if component state is not yet present
+			UserComponentState dummy = new UserComponentState();
+			dummy.setUserId(userId);
+			dummy.setContentType(null);
+			dummy.setLayoutType(null);
+			dummy.setSearchString("");
+			dummy.setFavouriteFilterActive(false);
+			return dummy;
 		}
 		return userComponentState;
    }

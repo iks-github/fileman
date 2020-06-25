@@ -11,7 +11,7 @@
         <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(user)">delete</mat-icon>
     </span>
 
-    <span tooltip="{{getDetailsTooltip(user)}}">
+    <span tooltip="{{getUserHtmlTooltip(user)}}">
         {{i+1}}. {{user.name}}
     </span>
 </li>

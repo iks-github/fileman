@@ -18,7 +18,6 @@ import { MatSelect } from '@angular/material/select';
 
 import { SortType } from 'src/app/common/fileman-constants';
 import { LayoutUserCommons } from '../layout-user-commons';
-import { FilemanAvatarService } from 'src/app/services/fileman-avatar-service.service';
 
 @Component({
   selector: 'fileman-user-table-layout',
@@ -26,10 +25,6 @@ import { FilemanAvatarService } from 'src/app/services/fileman-avatar-service.se
   styleUrls: ['./fileman-user-table-layout-component.css']
 })
 export class UserTableLayout extends LayoutUserCommons {
-  constructor(private avatarService: FilemanAvatarService) {
-    super();
-  }
-
   openPullDowns: Array<MatSelect> = new Array<MatSelect>();
 
   sort(event) {
@@ -82,13 +77,5 @@ export class UserTableLayout extends LayoutUserCommons {
       pullDown.close();
     }
     this.openPullDowns.splice(0, this.openPullDowns.length)
-  }
-
-  hasAvatar(userName: string): boolean {
-    return this.avatarService.hasAvatar(userName);
-  }
-
-  getAvatar(userName: string): string {
-    return this.avatarService.getAvatarData(userName);
   }
 }

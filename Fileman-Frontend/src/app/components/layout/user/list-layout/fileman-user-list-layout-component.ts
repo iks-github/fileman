@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { LayoutUserCommons } from '../layout-user-commons';
-import { User } from 'src/app/common/domainobjects/gen/User';
 
 @Component({
   selector: 'fileman-user-list-layout',
@@ -24,7 +23,4 @@ import { User } from 'src/app/common/domainobjects/gen/User';
   styleUrls: ['./fileman-user-list-layout-component.css']
 })
 export class UserListLayout extends LayoutUserCommons {
-  getDetailsTooltip(user: User): string {
-    return this.getUserHtmlTooltip(user);
-  }
 }

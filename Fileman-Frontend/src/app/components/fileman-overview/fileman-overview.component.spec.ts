@@ -18,10 +18,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FilemanOverviewComponent } from './fileman-overview.component';
-import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
-import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
-import { FilemanFavouriteSettingsService } from 'src/app/services/fileman-favourite-settings-service.service';
-import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 
 describe('FilemanOverviewComponent', () => {
   let component: FilemanOverviewComponent;

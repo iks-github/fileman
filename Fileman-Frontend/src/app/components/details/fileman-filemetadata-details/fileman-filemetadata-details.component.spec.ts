@@ -24,7 +24,7 @@ import { FilemanMetadataService } from 'src/app/services/fileman-metadata-servic
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 
-describe('FilemanDetailsComponent', () => {
+describe('FilemetadataDetailsComponent', () => {
   let component: FilemetadataDetailsComponent;
   let fixture: ComponentFixture<FilemetadataDetailsComponent>;
   let metadataService: FilemanMetadataService;

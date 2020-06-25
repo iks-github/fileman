@@ -1,5 +1,6 @@
-<li *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index "
-    class="list-group-item">
+<div class="tiles-grid">
+  <div *ngFor="let file of viewedFiles; trackBy: trackFiles let i = index "
+       class="tiles-item">
     <td width="40">
       <mat-icon data-toggle="tooltip" title="Download" (click)="download(file)">{{iconDownload}}</mat-icon>
       <br>
@@ -37,4 +38,5 @@
           </div>
       </span>
     </td>
-</li>
+  </div>
+</div>

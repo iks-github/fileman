@@ -1,3 +1,15 @@
+.tiles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-auto-rows: minmax(100px, auto);
+  grid-gap: 10px;
+}
+
+.tiles-grid .tiles-item {
+  padding: 15px;
+  background-color: lightgray;
+}
+
 .mat-icon {
   color: blue;
   background: lightgoldenrodyellow;
@@ -5,8 +17,8 @@
 }
 
 .image-preview {
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 150px;
+  max-height: 200px;
 }
 
 .text-preview {
@@ -14,22 +26,22 @@
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 30; /* number of lines to show */
+  -webkit-line-clamp: 9; /* number of lines to show */
   -webkit-box-orient: vertical;
 }
 
 .docx-preview {
   overflow: hidden;
-  width: 300px;
-  height: 980px;
+  width: 150px;
+  height: 200px;
 }
 
 ::ng-deep img {
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 150px;
+  max-height: 200px;
 }
 
 .pdf-preview {
   display: block;
-  max-width: 300px;
+  max-width: 150px;
 }

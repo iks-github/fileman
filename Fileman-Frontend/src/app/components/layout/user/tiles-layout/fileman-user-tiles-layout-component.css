@@ -20,3 +20,18 @@
   max-width: 150px;
   max-height: 200px;
 }
+
+.default-avatar {
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  line-height: 135px;
+}
+
+.default-avatar .avatar-text-content {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  font-size: 55px;
+  font-weight: 600;
+}

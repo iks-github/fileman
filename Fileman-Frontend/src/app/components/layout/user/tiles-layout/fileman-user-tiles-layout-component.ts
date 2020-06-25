@@ -40,4 +40,30 @@ export class UserTilesLayout extends LayoutUserCommons {
   getAvatar(userName: string): string {
     return this.avatarService.getAvatarData(userName);
   }
+
+  getInitials(userName: string): string {
+    return userName.split(' ')
+                   .map(namePart => namePart[0])
+                   .join('');
+  }
+
+  getCharCodeForUserName(userInitials: string): number {
+    return parseInt(userInitials.split('')
+                                .map(char => char.charCodeAt(0))
+                                .join(''));
+  }
+
+  getAvatarBackgroundColor(userName: string): string {
+    const colors = ['#5A9BD5', '#EE7F30', '#538234', 'lightsalmon',
+                    '#012456', '#951629', '#5C60E3', 'gold', 'darkkhaki'];
+    const charCode = this.getCharCodeForUserName(userName);
+    return colors[charCode % colors.length];
+  }
+
+  getAvatarTextColor(userName: string): string {
+    const colors = ['white', 'black', '#FDE494', 'black',
+                    'white', '#DFA129', '#FFFF60', 'darkblue', 'black'];
+    const charCode = this.getCharCodeForUserName(userName);
+    return colors[charCode % colors.length];
+  }
 }

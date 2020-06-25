@@ -15,6 +15,11 @@
           {{i+1}}. {{user.name}}
           <div>
             <img class="image-preview" *ngIf="hasAvatar(user.name)" [src]="getAvatar(user.name)">
+            <div class="default-avatar" *ngIf="!hasAvatar(user.name)"
+                 [ngStyle]="{'background-color': getAvatarBackgroundColor(user.name),
+                             'color': getAvatarTextColor(user.name)}">
+              <span class="avatar-text-content">{{getInitials(user.name)}}</span>
+            </div>
           </div>
       </span>
     </td>

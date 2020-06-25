@@ -19,7 +19,8 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'http://localhost:10002/fileman'
+  serverUrl: 'http://localhost:10002/fileman',
+  version: '1.0.0'
 };
 
 /*

@@ -31,6 +31,7 @@ export class FilemanPropertiesLoaderService {
   constructor(private http: HttpClient) {
     this.properties = new Map();
     this.properties.set('serverurl', environment.serverUrl);
+    this.properties.set('version', environment.version);
   }
 
   getProperties(): Map<string, string> {

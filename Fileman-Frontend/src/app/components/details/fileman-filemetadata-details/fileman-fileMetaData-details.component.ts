@@ -107,6 +107,7 @@ export class FilemetadataDetailsComponent implements OnInit {
   save() {
     const fileData = this.getFileDataToSave();
     console.log(fileData);
+    this.metadataService.addFileToCache(fileData.getMetaData());
 
     if (this.newFileMode) {
       this.fileService.create(fileData)

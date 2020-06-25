@@ -25,6 +25,7 @@ import { FilemanFileService } from 'src/app/services/fileman-file-service.servic
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { FilemanFavouriteSettingsService } from 'src/app/services/fileman-favourite-settings-service.service';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
+import { UserComponentState } from 'src/app/common/domainobjects/gen/UserComponentState';
 
 describe('FilemanFileOverviewComponent', () => {
   let component: FilemanFileOverviewComponent;
@@ -74,6 +75,7 @@ describe('FilemanFileOverviewComponent', () => {
         stream.complete();
     }));
 
+    component.userComponentState = new UserComponentState({searchString: ''});
     component.reload();
 
     // before deletion: 2 files
@@ -107,6 +109,7 @@ describe('FilemanFileOverviewComponent', () => {
         stream.complete();
     }));
 
+    component.userComponentState = new UserComponentState({searchString: ''});
     component.reload();
 
     expect(component.viewedFiles.length).toEqual(3);

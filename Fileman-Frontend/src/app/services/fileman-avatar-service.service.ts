@@ -35,21 +35,21 @@ export class FilemanAvatarService {
     }
 
     users.forEach((user: User) => {
-      this.prepareAvatar(user);
+      this.prepareAvatar(user, user.getAvatar());
     });
     this.initialAvatarLoadingDone = true;
   }
 
-  prepareAvatar(user: User) {
+  prepareAvatar(user: User, avatar: string) {
     const reader = new FileReader();
 
     reader.onload = () => {
-      this.avatars.set(user.name, reader.result as string);
+      this.avatars.set(user.getName(), reader.result as string);
     }
 
-    const avatar: string = user.getAvatar();
-
-    if (avatar != null) {
+    if (avatar == null && this.hasAvatar(user.getName())) {
+      this.avatars.delete(user.getName());
+    } else if (avatar != null) {
       let contentType: string = this.extractContentType(avatar);
       if (contentType != null) {
         const file = this.createBlobFromBase64String(avatar, contentType);

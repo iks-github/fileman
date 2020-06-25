@@ -24,3 +24,8 @@ td {
 .space {
     background: white;
 }
+
+.image-preview {
+  max-width: 150px;
+  max-height: 200px;
+}

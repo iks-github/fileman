@@ -64,6 +64,10 @@ export class UserDetailsComponent implements OnInit {
           this.backToOverview();  // no data to edit available - happens for page reload - reason unclear
         } else {
           this.setDataToControls(this.toEdit);
+          if (this.toEdit.getAvatar() != null) {
+            this.avatarFileContent = this.toEdit.getAvatar();
+            this.avatarService.prepareAvatar(this.toEdit, this.toEdit.getAvatar());
+          }
         }
       });
     }
@@ -107,14 +111,14 @@ export class UserDetailsComponent implements OnInit {
     if (this.newMode) {
       this.userService.create(toSave)
           .subscribe(() => {
-            this.avatarService.prepareAvatar(toSave);
+            this.avatarService.prepareAvatar(toSave, toSave.getAvatar());
           }, error => {
             alert('Error saving new user with name "' + toSave.getName() + '"!');
           });
     } else {
       this.userService.update(toSave)
           .subscribe(() => {
-            this.avatarService.prepareAvatar(toSave);
+            this.avatarService.prepareAvatar(toSave, toSave.getAvatar());
           }, error => {
             alert('Error updating user with ID "' + toSave.getId() + '"!');
           });
@@ -133,6 +137,7 @@ export class UserDetailsComponent implements OnInit {
     this.reader.readAsBinaryString(this.selectedFileContentSource);
     this.reader.onload = (data) => {
       this.avatarFileContent = btoa(this.reader.result as string);
+      this.avatarService.prepareAvatar(this.toEdit, this.avatarFileContent);
       console.log(this.avatarFileContent);
       this.checkAllowedContentType();
     };
@@ -154,6 +159,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   cancel() {
+    this.avatarService.prepareAvatar(this.toEdit, this.toEdit.getAvatar());
     this.backToOverview();
   }
 
@@ -208,6 +214,20 @@ export class UserDetailsComponent implements OnInit {
     }
 
     return {passwordFieldsDontMatch: true};
+  }
+
+  hasAvatar(): boolean {
+    return this.toEdit != null && this.avatarFileContent != null
+      && this.avatarService.hasAvatar(this.toEdit.getName());
+  }
+
+  getAvatar(): string {
+    return this.avatarService.getAvatarData(this.toEdit.getName());
+  }
+
+  clearAvatar() {
+    this.avatarFileContent = null;
+    this.avatarC.markAsTouched();
   }
 
   // The form control block below is generated - do not modify manually!

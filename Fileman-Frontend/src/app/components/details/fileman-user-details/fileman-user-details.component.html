@@ -49,13 +49,18 @@
             <tr>
                 <td>
                     <label for="avatar">Avatar</label>
-					 <br>
+                    <br>
                     <input id="fileContentSource" class="form-Control" type="file"
                     formControlName="avatarControl"
                     (change)="onAvatarChange($event)"
                     [style.border]="getBorder()"
                     (focus)="setFocusOnFileSelector(true)" (blur)="setFocusOnFileSelector(false)"/>
                 </td>
+            </tr>
+            <br>
+            <tr *ngIf="hasAvatar()">
+              <img class="image-preview" [src]="getAvatar()">&nbsp;
+              <button type="button" class="btn btn-info" (click)="clearAvatar()">Clear avatar</button>
             </tr>
         </table>
         <!-- The table section above is generated: Do not modify manually! -->

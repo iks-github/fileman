@@ -48,7 +48,7 @@
 '                <td>
 					 #set( $AttributeName = $TemplateStringUtility.firstToUpperCase($row1Attribute.name) ) 
 '                    <label for="$row1Attribute.name">$AttributeName</label>
-'					 <br>
+'                    <br>
 	         		 #set( $attribute = $row1Attribute )
 					 #parse("commonSubtemplates/SubTemplate_GuiElements.tpl")
 '                </td>

@@ -57,13 +57,14 @@
                     (focus)="setFocusOnFileSelector(true)" (blur)="setFocusOnFileSelector(false)"/>
                 </td>
             </tr>
-            <br>
-            <tr *ngIf="hasAvatar()">
-              <img class="image-preview" [src]="getAvatar()">&nbsp;
-              <button type="button" class="btn btn-info" (click)="clearAvatar()">Clear avatar</button>
-            </tr>
         </table>
         <!-- The table section above is generated: Do not modify manually! -->
+
+        <tr *ngIf="hasAvatar()">
+          <img class="image-preview" [src]="getAvatar()">&nbsp;
+          <button type="button" class="btn btn-info" (click)="clearAvatar()">Clear avatar</button>
+        </tr>
+        <br>
 
         <div class="form-group alert alert-danger"
             *ngIf="(detailsForm.errors && detailsForm.touched)

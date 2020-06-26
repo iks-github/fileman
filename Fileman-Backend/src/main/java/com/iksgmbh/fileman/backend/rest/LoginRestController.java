@@ -79,9 +79,8 @@ public class LoginRestController {
 			return ResponseEntity.ok(loginResponse);		// ResourceNotFoundException ??
 		}
 		
-		// temporary: allow login of newly created users before implementing 
-		//            real password logic
-		// TODO: implement password logic
+		// temporary: allow login without password (only for predefined users)
+		// TODO: remove later when predefined users also have passwords
 		if (user.getPassword() == null) {
 			user.setPassword("");
 		}

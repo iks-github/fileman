@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="USER")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1592411345841L;
+	private static final long serialVersionUID = 1593159387566L;
 
 	// ===============  instance fields  ===============
 
@@ -44,14 +44,14 @@ public class User implements Serializable
     @Column(name="ROLE", columnDefinition="varchar")
 	private String role;
 
-    @Size(min=1, max=60, message="Value of attribute 'password' is out of valid range (1-32)")
-    @ApiModelProperty(notes = "Valid length ranges from 1 to 32.")
+    @Size(min=1, max=60, message="Value of attribute 'password' is out of valid range (1-60)")
+    @ApiModelProperty(notes = "Valid length ranges from 1 to 60.")
     @JsonProperty(access = Access.WRITE_ONLY)
     @Column(name="PASSWORD", columnDefinition="varchar")
 	private String password;
 
-    @Size(min=1, max=32, message="Value of attribute 'passwordRepetition' is out of valid range (1-32)")
-    @ApiModelProperty(notes = "Valid length ranges from 1 to 32.")
+    @Size(min=1, max=60, message="Value of attribute 'passwordRepetition' is out of valid range (1-60)")
+    @ApiModelProperty(notes = "Valid length ranges from 1 to 60.")
     @JsonProperty(access = Access.WRITE_ONLY)
     @Transient
 	private String passwordRepetition;

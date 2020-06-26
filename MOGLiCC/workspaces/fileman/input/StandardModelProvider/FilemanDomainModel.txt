@@ -215,7 +215,7 @@ class <<DomainPath>>.User
     metainfo JavaType String
     metainfo ExampleData "123"
     metainfo MinLength 1
-    metainfo MaxLength 32
+    metainfo MaxLength 60
     metainfo hideFromClient true
     metainfo requiredForNewInstance true
     metainfo preventUpdateWithEmptyValue true
@@ -225,7 +225,7 @@ class <<DomainPath>>.User
     metainfo JavaType String
     metainfo ExampleData "123"
     metainfo MinLength 1
-    metainfo MaxLength 32
+    metainfo MaxLength 60
     metainfo hideFromClient true
     metainfo hideFromDB true
     metainfo guiType PasswordField

@@ -244,12 +244,12 @@ export class UserDetailsComponent implements OnInit {
               ]),
         passwordControl: new FormControl('', [
                 Validators.minLength(1),
-                Validators.maxLength(32),
+                Validators.maxLength(60),
                 this.requiredForNewUser.bind(this),
               ]),
         passwordRepetitionControl: new FormControl('', [
                 Validators.minLength(1),
-                Validators.maxLength(32),
+                Validators.maxLength(60),
               ]),
         avatarControl: new FormControl('', [
               ]),

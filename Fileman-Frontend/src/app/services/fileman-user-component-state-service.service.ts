@@ -19,6 +19,7 @@ export class UserComponentStateService {
   private userComponentState: UserComponentState;
   private userComponentStateChangeNotifier: Subject<UserComponentState>;
   private reloadRequestNotifier: Subject<void>;
+  private initializing: boolean = false;
 
   constructor(private httpClient: HttpClient,
               propertiesService: FilemanPropertiesLoaderService,
@@ -33,6 +34,7 @@ export class UserComponentStateService {
   }
 
   public initializeForUser(userId: number) {
+    this.initializing = true;
     this.fetchUserComponentStateFromServer(userId).subscribe(result => {
       const userComponentState: UserComponentState = new UserComponentState(result);
       if (userComponentState.getLayoutType() == null) {
@@ -44,10 +46,12 @@ export class UserComponentStateService {
         this.create(userComponentState).subscribe(() => {
           this.userComponentState = userComponentState;
           this.userComponentStateChangeNotifier.next(this.userComponentState);
+          this.initializing = false;
         });
       } else {
         this.userComponentState = userComponentState;
         this.userComponentStateChangeNotifier.next(this.userComponentState);
+        this.initializing = false;
       }
     });
   }
@@ -55,7 +59,7 @@ export class UserComponentStateService {
   public getUserComponentState(): UserComponentState {
 
     // re-initialize if information got lost upon side reload
-    if (this.userComponentState.userId == null) {
+    if (this.userComponentState.getUserId() == null && !this.initializing) {
       this.initializeForUser(this.authService.getCurrentUserId());
     }
 

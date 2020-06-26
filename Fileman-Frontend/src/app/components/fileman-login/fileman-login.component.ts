@@ -42,7 +42,6 @@ export class FilemanLoginComponent implements OnInit {
   onLogin(formControl) {
     const requestData = new LoginRequest(formControl.value);
     requestData.setFilemanVersion(FilemanConstants.VERSION);
-    console.log(requestData);
     const loginOk = this.authService.login(requestData).subscribe(result => {
                       const loginResponse = result as LoginResponse;
                       console.log('Received LoginResponse:');

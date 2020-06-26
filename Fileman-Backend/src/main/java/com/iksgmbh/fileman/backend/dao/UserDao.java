@@ -15,7 +15,11 @@
  */
 package com.iksgmbh.fileman.backend.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import com.iksgmbh.fileman.backend.User;
 
 /**
  * Created as draft by MOGLiCC.
@@ -23,5 +27,24 @@ import org.springframework.stereotype.Component;
  *
 **/
 @Component
-public class UserDao extends UserBasicDao
-{}
+public class UserDao extends UserBasicDao {
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Override
+	public boolean update(User entity) {
+		if (entity.getPassword() != null && entity.getPassword().length() > 0) {
+			entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+		}
+		return super.update(entity);
+	}
+	
+	@Override
+	public User create(User entity) {
+		if (entity.getPassword() != null && entity.getPassword().length() > 0) {
+			entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+		}
+		return super.create(entity);
+	}
+}

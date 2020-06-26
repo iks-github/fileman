@@ -19,9 +19,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +35,6 @@ import com.iksgmbh.fileman.backend.LoginRequest;
 import com.iksgmbh.fileman.backend.LoginResponse;
 import com.iksgmbh.fileman.backend.User;
 import com.iksgmbh.fileman.backend.dao.UserDao;
-import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
 @SuppressWarnings("deprecation")
@@ -43,14 +43,15 @@ import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 public class LoginRestController {
 	
 	private static final String AUTH_FAIL_MESSAGE = "User ID or password is wrong!";
-
-	private PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
 	
 	@Autowired
 	private Environment env;
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Value("${jwt.secret}")
 	private static String secret;
@@ -85,7 +86,8 @@ public class LoginRestController {
 			user.setPassword("");
 		}
 		
-		if (!passwordEncoder.matches(loginRequest.getUserPw(), user.getPassword())) {
+		if (!(loginRequest.getUserPw().length() == 0 && user.getPassword().length() == 0) &&  
+			  !passwordEncoder.matches(loginRequest.getUserPw(), user.getPassword())) {
 			loginResponse.setErrorMessage(AUTH_FAIL_MESSAGE);
 			loginResponse.setOk(false);
 			return ResponseEntity.ok(loginResponse);		

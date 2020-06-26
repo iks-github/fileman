@@ -44,7 +44,7 @@ public class User implements Serializable
     @Column(name="ROLE", columnDefinition="varchar")
 	private String role;
 
-    @Size(min=1, max=32, message="Value of attribute 'password' is out of valid range (1-32)")
+    @Size(min=1, max=60, message="Value of attribute 'password' is out of valid range (1-32)")
     @ApiModelProperty(notes = "Valid length ranges from 1 to 32.")
     @JsonProperty(access = Access.WRITE_ONLY)
     @Column(name="PASSWORD", columnDefinition="varchar")

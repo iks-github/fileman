@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_META_DATA")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1592836560526L;
+	private static final long serialVersionUID = 1593425043184L;
 
 	// ===============  instance fields  ===============
 
@@ -63,6 +63,7 @@ public class FileMetaData implements Serializable, Cloneable
 	private String creator;
 
     @Column(name="CREATION_DATE", columnDefinition="datetime")
+    @org.springframework.data.annotation.CreatedDate
 	private Date creationDate;
 
     @Column(name="SIZE", columnDefinition="bigint")

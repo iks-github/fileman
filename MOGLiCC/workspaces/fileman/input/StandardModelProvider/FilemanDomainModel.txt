@@ -107,6 +107,7 @@ class <<DomainPath>>.FileContentData
     metainfo dbType datetime
     metainfo JavaType java.util.Date
     metainfo ExampleData "10.10.2020 13:55:59"
+    metainfo autoFillDate true
 
 class <<DomainPath>>.FileMetaData  
   metainfo implements java.io.Serializable
@@ -169,6 +170,7 @@ class <<DomainPath>>.FileMetaData
     metainfo dbType datetime
     metainfo JavaType java.util.Date
     metainfo ExampleData "10.10.2020 13:55:59"
+    metainfo autoFillDate true
 
   attribute size
     metainfo dbType bigint

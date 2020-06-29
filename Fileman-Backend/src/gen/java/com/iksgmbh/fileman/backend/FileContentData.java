@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_CONTENT_DATA")
 public class FileContentData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1592836560415L;
+	private static final long serialVersionUID = 1593425043106L;
 
 	// ===============  instance fields  ===============
 
@@ -54,6 +54,7 @@ public class FileContentData implements Serializable, Cloneable
 	private String creator;
 
     @Column(name="CREATION_DATE", columnDefinition="datetime")
+    @org.springframework.data.annotation.CreatedDate
 	private Date creationDate;
 
 

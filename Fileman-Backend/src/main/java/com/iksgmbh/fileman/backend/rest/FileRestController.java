@@ -54,14 +54,11 @@ public class FileRestController
 	private FavouriteSettingDao favouriteSettingDao; 
 
 	@PostMapping("/files")
-	public void createFileData(@Valid @RequestBody FileData fileData)
-	{
-		fileData.getContentData().setCreationDate(new Date());
+	public void createFileData(@Valid @RequestBody FileData fileData) {
 		FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
 		if (fileData.getMetaData().getImmediatelyActive() == true) {				
 			fileData.getMetaData().setActiveUUID(newContentVersion.getUuid());
 		}
-		fileData.getMetaData().setCreationDate(new Date());
 		metaDataDao.create(fileData.getMetaData());
 	}
 

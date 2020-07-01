@@ -23,12 +23,14 @@ import { FilemanOverviewComponent } from '../../fileman-overview/fileman-overvie
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
+import { FileData } from 'src/app/common/domainobjects/gen/FileData';
 
 describe('FilemetadataDetailsComponent', () => {
   let component: FilemetadataDetailsComponent;
   let fixture: ComponentFixture<FilemetadataDetailsComponent>;
   let metadataService: FilemanMetadataService;
   let fileService: FilemanFileService;
+  let fakeServer: FakeServer;
 
   beforeEach(() => {
 
@@ -36,7 +38,9 @@ describe('FilemetadataDetailsComponent', () => {
       declarations: [ FilemetadataDetailsComponent ],
       imports: [ RouterTestingModule.withRoutes(
         [{path: 'fileman/overview', component: FilemanOverviewComponent}]
-      ), HttpClientModule ]
+      ), HttpClientModule ],
+      providers: [{ provide: FilemanMetadataService, useClass: MockFilemanMetadataService },
+        { provide: FilemanFileService, useClass: MockFilemanFileService }]
     });
 
     fixture = TestBed.createComponent(FilemetadataDetailsComponent);
@@ -44,6 +48,7 @@ describe('FilemetadataDetailsComponent', () => {
 
     metadataService = fixture.debugElement.injector.get(FilemanMetadataService);
     fileService = fixture.debugElement.injector.get(FilemanFileService);
+    fakeServer = new FakeServer();
 
     fixture.detectChanges();
   });
@@ -52,18 +57,39 @@ describe('FilemetadataDetailsComponent', () => {
     TestBed.resetTestingModule();
   });
 
+  class FakeServer {
+    initialFileMetaData: FileMetaData[];
+    updatedFileData: FileData;
+    createdFileData: FileData;
+  }
+
+  class MockFilemanMetadataService extends FilemanMetadataService {
+    protected getOverviewDataFromServer(): Observable<FileMetaData[]> {
+      return new Observable(stream => {
+        stream.next(fakeServer.initialFileMetaData);
+        stream.complete();
+      });
+    }
+  }
+
+  class MockFilemanFileService extends FilemanFileService {
+    create(fileData: FileData) {
+      fakeServer.createdFileData = fileData;
+      return new Observable();
+    }
+    update(fileData: FileData) {
+      fakeServer.updatedFileData = fileData;
+      return new Observable();
+    }
+  }
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should create new file', () => {
 
-    // fake server call in metadataService should return empty array
-    spyOn<any>(metadataService, 'getOverviewDataFromServer').and.returnValue(
-      new Observable(stream => {
-        stream.next([]);
-        stream.complete();
-    }));
+    fakeServer.initialFileMetaData = [];
 
     const mockFile = new File([], 'mock_file.txt', { type: 'text/plain' });
     const mockEvent: Event = <Event><any> {
@@ -77,24 +103,21 @@ describe('FilemetadataDetailsComponent', () => {
     // correct file name is displayed after file selection
     expect(component.nameC.value).toEqual('mock_file.txt');
 
-    // before save: 0 files
+    // before save: no files
     metadataService.getOverviewData().subscribe((metaData: FileMetaData[]) => {
       expect(metaData.length).toEqual(0);
     });
 
     component.newFileMode = true;
 
-    const createSpy = spyOn(fileService, 'create').and.returnValue(new Observable(() => {
-      // after save: 1 file (mock file from above)
-      metadataService.getOverviewData().subscribe((metaData: FileMetaData[]) => {
-        expect(metaData.length).toEqual(1);
-        expect(metaData[0].getName()).toEqual('mock_file.txt');
-      });
-    }));
+    const createSpy = spyOn(fileService, 'create').and.callThrough();
 
     component.save();
 
     expect(createSpy).toHaveBeenCalled();
+
+    // after save: mock file from above
+    expect(fakeServer.createdFileData.getMetaData().getName()).toEqual('mock_file.txt');
   });
 
   it('should modify metadata', () => {
@@ -105,12 +128,7 @@ describe('FilemetadataDetailsComponent', () => {
       immediatelyActive: true}
     );
 
-    // fake server call in metadataService should return above test file
-    spyOn<any>(metadataService, 'getOverviewDataFromServer').and.returnValue(
-      new Observable(stream => {
-        stream.next([existingFile]);
-        stream.complete();
-    }));
+    fakeServer.initialFileMetaData = [existingFile];
 
     // before modification: old metadata
     metadataService.getOverviewData().subscribe((metaData: FileMetaData[]) => {
@@ -125,19 +143,16 @@ describe('FilemetadataDetailsComponent', () => {
     component.descriptionC.setValue('description_after');
     component.immediatelyActiveC.setValue(false);
 
-    const updateSpy = spyOn(fileService, 'update').and.returnValue(new Observable(() => {
-      // after modification: new metadata
-      metadataService.getOverviewData().subscribe((metaData: FileMetaData[]) => {
-        expect(metaData.length).toEqual(1);
-        expect(metaData[0].getName()).toEqual('existing.txt');
-        expect(metaData[0].getDescription()).toEqual('description_after');
-        expect(metaData[0].getImmediatelyActive()).toEqual(false);
-      });
-    }));
+    const updateSpy = spyOn(fileService, 'update').and.callThrough();
 
     component.save();
 
     expect(updateSpy).toHaveBeenCalled();
+
+    // after modification: new metadata
+    expect(fakeServer.updatedFileData.getMetaData().getName()).toEqual('existing.txt');
+    expect(fakeServer.updatedFileData.getMetaData().getDescription()).toEqual('description_after');
+    expect(fakeServer.updatedFileData.getMetaData().getImmediatelyActive()).toEqual(false);
   });
 
   it('should modify content', () => {
@@ -146,12 +161,7 @@ describe('FilemetadataDetailsComponent', () => {
       {name: 'old_file.txt', size: 0}
     );
 
-    // fake server call in metadataService should return above test file
-    spyOn<any>(metadataService, 'getOverviewDataFromServer').and.returnValue(
-      new Observable(stream => {
-        stream.next([existingFile]);
-        stream.complete();
-    }));
+    fakeServer.initialFileMetaData = [existingFile];
 
     // before modification: old file
     metadataService.getOverviewData().subscribe((metaData: FileMetaData[]) => {
@@ -179,17 +189,14 @@ describe('FilemetadataDetailsComponent', () => {
     // name field should not change after new file selection
     expect(component.nameC.value).toEqual('old_file.txt');
 
-    const updateSpy = spyOn(fileService, 'update').and.returnValue(new Observable(() => {
-      // after modification: file with old name and new content (indicated by file size)
-      metadataService.getOverviewData().subscribe((metaData: FileMetaData[]) => {
-        expect(metaData.length).toEqual(1);
-        expect(metaData[0].getName()).toEqual('old_file.txt');
-        expect(metaData[0].getSize()).toEqual(mockContent.length);
-      });
-    }));
+    const updateSpy = spyOn(fileService, 'update').and.callThrough();
 
     component.save();
 
     expect(updateSpy).toHaveBeenCalled();
+
+    // after modification: file with old name and new content (indicated by file size)
+    expect(fakeServer.updatedFileData.getMetaData().getName()).toEqual('old_file.txt');
+    expect(fakeServer.updatedFileData.getMetaData().getSize()).toEqual(mockContent.length);
   });
 });

@@ -59,7 +59,7 @@ export class FilemanMetadataService {
     }
   }
 
-  private getOverviewDataFromServer(): Observable<FileMetaData[]> {
+  protected getOverviewDataFromServer(): Observable<FileMetaData[]> {
     return this.httpClient.get<FileMetaData[]>(this.url)
         .pipe(catchError((error: HttpErrorResponse) => {
           throw error;
@@ -80,10 +80,6 @@ export class FilemanMetadataService {
 
   isNotUnique(filename: string) {
     return this.fileMetaDataCache.has(filename);
-  }
-
-  addFileToCache(metadata: FileMetaData) {
-    return this.fileMetaDataCache.set(metadata.getName(), metadata);
   }
 
   getFileFromCache(filename: string) {

@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AdminAuthGuard } from './admin-auth-guard.service';
 
-describe('AdminAuthGuardService', () => {
+describe('AdminAuthGuard', () => {
   let service: AdminAuthGuard;
 
   beforeEach(() => {

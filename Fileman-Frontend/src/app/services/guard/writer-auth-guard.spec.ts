@@ -17,16 +17,16 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AuthGuard } from './auth-guard.service';
+import { WriterAuthGuard } from './writer-auth-guard.service';
 
-describe('AuthGuard', () => {
-  let service: AuthGuard;
+describe('WriterAuthGuard', () => {
+  let service: WriterAuthGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule, HttpClientModule ]
     });
-    service = TestBed.inject(AuthGuard);
+    service = TestBed.inject(WriterAuthGuard);
   });
 
   it('should be created', () => {

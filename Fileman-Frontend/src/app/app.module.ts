@@ -36,6 +36,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AuthGuard } from './services/guard/auth-guard.service';
+import { WriterAuthGuard } from './services/guard/writer-auth-guard.service';
 import { AdminAuthGuard } from './services/guard/admin-auth-guard.service';
 
 import { FilemanLogoComponent } from './components/fileman-logo.component';
@@ -95,17 +96,17 @@ import { UserService } from './services/fileman-user-service.service';
       {path: 'fileman', component: FilemanLoginComponent},
       {path: 'fileman/login', component: FilemanLoginComponent},
       {path: 'fileman/overview', component: FilemanOverviewComponent, canActivate: [AuthGuard]},
-      {path: 'fileman/history/:filename', component: FilemanHistoryViewComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-      {path: 'fileman/details/files/:filename', component: FilemetadataDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'fileman/history/:filename', component: FilemanHistoryViewComponent, canActivate: [AuthGuard]},
+      {path: 'fileman/details/files/:filename', component: FilemetadataDetailsComponent, canActivate: [AuthGuard, WriterAuthGuard]},
       {path: 'fileman/details/users/:username', component: UserDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
-      {path: 'fileman/files/new', component: FilemetadataDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'fileman/files/new', component: FilemetadataDetailsComponent, canActivate: [AuthGuard, WriterAuthGuard]},
       {path: 'fileman/users/new', component: UserDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: 'fileman/problem', component: FilemanProblemPageComponent},
       {path: 'fileman/**', component: FilemanProblemPageComponent}
     ])
   ],
   providers: [
-    AuthGuard, AdminAuthGuard,
+    AuthGuard, WriterAuthGuard, AdminAuthGuard,
     HttpClientTestingModule,
     UserService,
     FilemanMetadataService, FilemanFavouriteSettingsService, FilemanFileService,

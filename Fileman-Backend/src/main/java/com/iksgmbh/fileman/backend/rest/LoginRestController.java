@@ -35,7 +35,6 @@ import com.iksgmbh.fileman.backend.User;
 import com.iksgmbh.fileman.backend.dao.UserDao;
 import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
-@SuppressWarnings("deprecation")
 @RestController
 @CrossOrigin(origins = {"*"})
 public class LoginRestController {

@@ -17,12 +17,13 @@ package com.iksgmbh.fileman.backend.rest;
 
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -83,12 +84,13 @@ public class FileRestController
 	}
 
 	@GetMapping("/files/{fileName}")
-	public byte[] getFileContent(@PathVariable String fileName)
+	public ResponseEntity<byte[]> getFileContent(@PathVariable String fileName)
 	{
-		List<FileContentData> data = contentDataDao.findAllForName(fileName);
-		String toReturn = data.get(data.size()-1).getContent();
-		return Base64.getDecoder().decode(toReturn);
-		//String base64String = Base64.getEncoder().encodeToString("bytes".getBytes());
+		FileMetaData result = metaDataDao.findByName(fileName);
+		if (result == null) return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+		FileContentData fileContentData = contentDataDao.findByUuid(result.getActiveUUID());
+		String toReturn = fileContentData.getContent();
+		return ResponseEntity.ok(Base64.getDecoder().decode(toReturn));
 	}
 	
 	@GetMapping("/files/{fileName}/history")

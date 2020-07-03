@@ -21,6 +21,7 @@ import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.
 import { Content, Layout, Icon, UserRole } from 'src/app/common/fileman-constants';
 import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
 import { UserComponentState } from 'src/app/common/domainobjects/gen/UserComponentState';
+import { FilemanPropertiesLoaderService } from 'src/app/services/fileman-properties-loader.service';
 
 @Component({
   selector: 'fileman-toolbar',
@@ -51,6 +52,7 @@ export class FilemanToolbarComponent implements OnInit {
 
   constructor(private authService: FilemanAuthserviceService,
               private router: Router,
+              private propertiesService: FilemanPropertiesLoaderService,
               private userComponentStateService: UserComponentStateService) { }
 
   ngOnInit(): void {
@@ -120,7 +122,11 @@ export class FilemanToolbarComponent implements OnInit {
   }
 
   getAddNewToolTip() {
-    if (this.readOnly) return "You have no permission to add new files.";
-    return "Add new file";
+    if (this.readOnly) { return 'You have no permission to add new files.'; }
+    return 'Add new file';
+  }
+
+  openDbLink() {
+    window.open(this.propertiesService.getProperty('dburl'), '_blank');
   }
 }

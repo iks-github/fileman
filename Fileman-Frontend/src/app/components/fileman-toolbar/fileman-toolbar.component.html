@@ -70,6 +70,7 @@
                   title="Select content of overview"
                   style="color: gray; background: lightyellow;"
                   >{{iconSettings}}</mat-icon>
+
         <select
           id="contentTypeSelect"
           #contentTypeSelect
@@ -82,6 +83,12 @@
               [value]="contentTypeUsers"
               [selected]="userComponentState.contentType === contentTypeUsers">Users</option>
         </select>
+        &nbsp;
+        <mat-icon data-toggle="tooltip"
+                  title="Login to Database"
+                  style="color: gray; background: lightyellow;"
+                  (click)="openDbLink()"
+                  >storage</mat-icon>        
     </span>
 
     <span class="spacer"></span>

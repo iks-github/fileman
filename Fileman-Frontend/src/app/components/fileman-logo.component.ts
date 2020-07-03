@@ -16,6 +16,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FilemanPropertiesLoaderService } from '../services/fileman-properties-loader.service';
+import { FilemanConstants } from '../common/fileman-constants';
 
 @Component({
   selector: 'fileman-logo',
@@ -28,6 +29,6 @@ export class FilemanLogoComponent implements OnInit {
   constructor(private propertiesLoaderService: FilemanPropertiesLoaderService) {}
 
   ngOnInit() {
-    this.version = this.propertiesLoaderService.getProperty('version');
+    this.version = FilemanConstants.VERSION;
   }
 }

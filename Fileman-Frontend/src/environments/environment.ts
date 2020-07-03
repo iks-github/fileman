@@ -20,7 +20,7 @@
 export const environment = {
   production: false,
   serverUrl: 'http://localhost:10002/fileman',
-  version: '1.0.0'
+  dbUrl: 'http://localhost:10002/fileman/db'
 };
 
 /*

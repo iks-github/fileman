@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AuthGuard } from './auth-guard.service';
 
-describe('AuthGuardService', () => {
+describe('AuthGuard', () => {
   let service: AuthGuard;
 
   beforeEach(() => {

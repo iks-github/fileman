@@ -4,6 +4,22 @@
 
     <span class="separator">|</span>
 
+    <mat-icon data-toggle="tooltip" title="{{getAddNewToolTip()}}"
+          (click)="onNewClick()"
+          [ngStyle]="{
+          'color': readOnly ? 'azure' : 'lightgoldenrodyellow',
+          'backgroundColor': readOnly ? 'lightgray' : 'blue'}"
+          >{{iconNew}}</mat-icon>
+
+    <mat-icon data-toggle="tooltip" title="Reload from server"
+              (click)="onReloadClick()"
+              style="margin-left: 5px;"
+              >{{iconReload}}</mat-icon>
+
+    <span class="separator">|</span>
+
+    Layout:
+    &nbsp;
     <mat-icon data-toggle="tooltip" title="Change to List Layout"
               (click)="onLayoutClick(layoutTypeList)"
               [ngStyle]="{
@@ -29,25 +45,13 @@
 
     <span class="separator">|</span>
 
-    <mat-icon data-toggle="tooltip" title="{{getAddNewToolTip()}}"
-              (click)="onNewClick()"
-              [ngStyle]="{
-              'color': readOnly ? 'azure' : 'lightgoldenrodyellow',
-              'backgroundColor': readOnly ? 'lightgray' : 'blue'}"
-              >{{iconNew}}</mat-icon>
-
-    <mat-icon data-toggle="tooltip" title="Reload from server"
-              (click)="onReloadClick()"
-              style="margin-left: 5px;"
-              >{{iconReload}}</mat-icon>
-
-    <span class="separator">|</span>
-
+    <!--
     <mat-icon data-toggle="tooltip"
-              title="Type text to search for file(s)"
-              style="color: gray; background: lavender;"
-              >{{iconSearch}}</mat-icon>
-
+          title="Type text to search for file(s)"
+          style="color: gray; background: lavender;"
+          >{{iconSearch}}</mat-icon>
+    -->
+    Search:
     <input type="text" #searchString
            [ngModel]="userComponentState.searchString"
            (keyup)="startSearch(searchString.value)"
@@ -66,11 +70,13 @@
 
     <span *ngIf="isAdmin">
         <span class="separator">|</span>
+        Display:
+        <!--
         <mat-icon data-toggle="tooltip"
                   title="Select content of overview"
                   style="color: gray; background: lightyellow;"
                   >{{iconSettings}}</mat-icon>
-
+        -->
         <select
           id="contentTypeSelect"
           #contentTypeSelect

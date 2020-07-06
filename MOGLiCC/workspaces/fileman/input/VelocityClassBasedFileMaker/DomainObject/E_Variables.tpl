@@ -67,7 +67,7 @@
 		'    @ApiModelProperty(notes = "$TemplateStringUtility.cutSuffix(${swaggerDoc}, " ")")
 	#end
 	
-	#if ( $attributeDescriptor.doesHaveMetaInfo("hideFromClient", "true") )
+	#if ( $attributeDescriptor.doesHaveMetaInfo("hideFromClientOverview", "true") )
 		'    @JsonProperty(access = Access.WRITE_ONLY)
 	#end
 

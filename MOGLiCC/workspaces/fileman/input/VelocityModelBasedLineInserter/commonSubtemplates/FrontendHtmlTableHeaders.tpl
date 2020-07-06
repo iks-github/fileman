@@ -9,7 +9,7 @@
 	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeName, " ", "") ) 
 	#set( $AttributeName = $TemplateStringUtility.firstToUpperCase($attributeName) )
 
-    #if ( ! $attributeDescriptor.doesHaveMetaInfo("hideFromClient", "true"))
+    #if ( ! $attributeDescriptor.doesHaveMetaInfo("hideFromClientOverview", "true"))
 	'        <td>
 	'            $AttributeName
 	'            <fileman-sorticon [sortField]="$quote$attributeName$quote" (sortEventHandler)="sort($event)"></fileman-sorticon>

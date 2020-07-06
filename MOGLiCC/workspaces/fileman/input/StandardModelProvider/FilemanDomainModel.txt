@@ -218,7 +218,7 @@ class <<DomainPath>>.User
     metainfo ExampleData "123"
     metainfo MinLength 1
     metainfo MaxLength 60
-    metainfo hideFromClient true
+    metainfo hideFromClientOverview true
     metainfo requiredForNewInstance true
     metainfo preventUpdateWithEmptyValue true
     metainfo guiType PasswordField
@@ -228,7 +228,7 @@ class <<DomainPath>>.User
     metainfo ExampleData "123"
     metainfo MinLength 1
     metainfo MaxLength 60
-    metainfo hideFromClient true
+    metainfo hideFromClientOverview true
     metainfo hideFromDB true
     metainfo guiType PasswordField
 

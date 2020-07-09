@@ -2,14 +2,14 @@
 
 @import "~bootstrap/dist/css/bootstrap.css";
 
-body { padding: 20px; } 
+body { padding: 20px; }
 
 .form-Control.ng-touched.ng-invalid {
-    border: 2px solid red; 
+    border: 2px solid red;
 }
 
 .right {
-  /* margin-left:auto; 
+  /* margin-left:auto;
   margin-right:0; */
   float: right !important;
 }
@@ -20,4 +20,8 @@ body { padding: 20px; }
 
 .bottom {
   vertical-align: bottom;
+}
+
+.global-tooltip-style {
+  background-color: lavender !important;
 }

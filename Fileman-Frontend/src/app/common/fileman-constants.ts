@@ -51,7 +51,8 @@ export const FilemanTooltipOptions: TooltipOptions = {
   'theme': 'light',
   'width': 300,
   'max-width': 600,
-  'show-delay': 500
+  'show-delay': 500,
+  'tooltip-class': 'global-tooltip-style'
 }
 
 export class FilemanConstants

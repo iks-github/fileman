@@ -1,6 +1,7 @@
 span {
   font-size: 0;
-  line-height: 8px;
+  line-height: 12px;
   text-align: center;
+  padding-bottom: 15px;
   display: inline-block;
 }

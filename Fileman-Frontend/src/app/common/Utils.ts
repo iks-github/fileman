@@ -19,4 +19,14 @@ export class Utils
     return filename.substring(pos + 1);
   }
 
+  static getFormattedDateString(nativeDateString: string): string {
+    return new Date(nativeDateString).toLocaleString('de', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+  }
 }

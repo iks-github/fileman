@@ -18,6 +18,7 @@ import { Input, Output, EventEmitter } from '@angular/core';
 import { Icon } from 'src/app/common/fileman-constants';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { LayoutCommons } from '../layout-commons';
+import { Utils } from 'src/app/common/Utils';
 
 export class LayoutFilemetadataCommons extends LayoutCommons {
   @Input() viewedFiles;
@@ -87,18 +88,7 @@ export class LayoutFilemetadataCommons extends LayoutCommons {
       this.buildHtmlTooltipContentRow('Creator', file.creator) +
       this.buildHtmlTooltipContentRow('CreationDate',
         "&#8203;" // empty char to prevent date underlining
-        + this.formatCreationDate(file.creationDate)) +
+        + Utils.getFormattedDateString(file.creationDate)) +
       this.buildHtmlTooltipContentRow('Size', ''+file.size)+'</div>'
-  }
-
-  formatCreationDate(dateString: string): string {
-    return new Date(dateString).toLocaleString('de', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-    });
   }
 }

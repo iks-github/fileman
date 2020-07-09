@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { UserRole } from 'src/app/common/fileman-constants';
+import { Utils } from 'src/app/common/Utils';
 
 @Component({
   selector: 'file-history',
@@ -72,5 +73,9 @@ export class FilemanHistoryViewComponent implements OnInit {
 
   cancel() {
     this.backToOverview();
+  }
+
+  formatCreationDate(creationDate: string) {
+    return Utils.getFormattedDateString(creationDate);
   }
 }

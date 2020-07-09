@@ -19,6 +19,7 @@ import { MatSelect } from '@angular/material/select';
 import { SortType } from 'src/app/common/fileman-constants';
 import { LayoutFilemetadataCommons } from '../layout-filemetadata-commons';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
+import { Utils } from 'src/app/common/Utils';
 
 @Component({
   selector: 'fileman-filemetadata-table-layout',
@@ -93,5 +94,9 @@ export class FilemetadataTableLayout extends LayoutFilemetadataCommons {
       return 'Deselect as Favourite';
     }
     return 'Select as Favourite';
+  }
+
+  formatCreationDate(creationDate: string) {
+    return Utils.getFormattedDateString(creationDate);
   }
 }

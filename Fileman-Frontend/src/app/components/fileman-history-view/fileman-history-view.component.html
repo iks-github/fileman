@@ -11,7 +11,7 @@
 	</tr>
 	<tr *ngFor="let contentVersion of contentVersions; let i = index">
 		<td align="center">
-		<input type="radio" name="avtive" 
+		<input type="radio" name="avtive"
 			   checked="{{isActive(contentVersion.name, contentVersion.uuid)}}"
 			   (click)="setSelected(contentVersion.uuid)"
 		/>
@@ -20,18 +20,18 @@
 		<td>{{contentVersion.uuid}}</td>
 		<td align="right">{{contentVersion.size}}</td>
 		<td>{{contentVersion.creator}}</td>
-		<td>{{contentVersion.creationDate}}</td>
+    <td>&#8203;{{formatCreationDate(contentVersion.creationDate)}}</td>
 	</tr>
 </table>
 
 <br>
 
 <button *ngIf="!readOnly"
-        [disabled]="!viewTouched" 
+        [disabled]="!viewTouched"
 		class="btn btn-primary"
 		(click)="save()"
 >Save</button>
 &nbsp;
-<button class="btn btn-primary" 
+<button class="btn btn-primary"
 		(click)="cancel()"
 >Cancel</button>

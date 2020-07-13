@@ -3,6 +3,7 @@ import { FileContentData } from 'src/app/common/domainobjects/gen/FileContentDat
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
+import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { UserRole } from 'src/app/common/fileman-constants';
 import { Utils } from 'src/app/common/Utils';
@@ -24,6 +25,7 @@ export class FilemanHistoryViewComponent implements OnInit {
   constructor(private fileService: FilemanFileService,
               private filesMetaDataService: FilemanMetadataService,
               private metadataService: FilemanMetadataService,
+              private previewService: FilemanPreviewService,
               private authService: FilemanAuthserviceService,
               private router: Router,
               private route: ActivatedRoute) { }
@@ -54,8 +56,11 @@ export class FilemanHistoryViewComponent implements OnInit {
   }
 
   save() {
-    this.filesMetaDataService.setActive(this.selectedFile, this.selectedUUID);
-    this.metadataService.markDataAsOutdated();
+    this.filesMetaDataService.setActive(this.selectedFile, this.selectedUUID).subscribe(() => {
+      this.metadataService.markDataAsOutdated();
+      this.previewService.preparePreview(this.selectedFile);
+    });
+
     this.backToOverview();
   }
 

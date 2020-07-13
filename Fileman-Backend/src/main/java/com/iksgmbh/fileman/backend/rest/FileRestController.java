@@ -77,6 +77,7 @@ public class FileRestController
 		boolean withContentChange = fileData.getContentData() != null;
 		if (withContentChange) 
 		{
+			fileData.getContentData().setCreationDate(new Date());
 			FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
 			if (fileData.getMetaData().getImmediatelyActive() == true) {				
 				fileData.getMetaData().setActiveUUID(newContentVersion.getUuid());

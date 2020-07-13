@@ -59,7 +59,7 @@ public class FileRestController
 	public void createFileData(@Valid @RequestBody FileData fileData) {
 		fileData.getContentData().setCreationDate(new Date());
 		FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
-		if (fileData.getMetaData().getImmediatelyActive() == true) {				
+		if (fileData.getMetaData().getImmediatelyActive() != null && fileData.getMetaData().getImmediatelyActive()) {
 			fileData.getMetaData().setActiveUUID(newContentVersion.getUuid());
 		}
 		fileData.getMetaData().setCreationDate(new Date());
@@ -79,7 +79,7 @@ public class FileRestController
 		{
 			fileData.getContentData().setCreationDate(new Date());
 			FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
-			if (fileData.getMetaData().getImmediatelyActive() == true) {				
+			if (fileData.getMetaData().getImmediatelyActive() != null && fileData.getMetaData().getImmediatelyActive()) {
 				fileData.getMetaData().setActiveUUID(newContentVersion.getUuid());
 			}
 		}

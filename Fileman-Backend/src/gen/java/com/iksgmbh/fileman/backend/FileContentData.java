@@ -54,7 +54,6 @@ public class FileContentData implements Serializable, Cloneable
 	private String creator;
 
     @Column(name="CREATION_DATE", columnDefinition="datetime")
-    @org.springframework.data.annotation.CreatedDate
 	private Date creationDate;
 
 

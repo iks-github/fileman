@@ -106,10 +106,6 @@
 					'    @GeneratedValue(strategy = GenerationType.IDENTITY)
 				#end
 			#end
-			
-			#if ( $attributeDescriptor.doesHaveMetaInfo("autoFillDate", "true") )
-				'    @org.springframework.data.annotation.CreatedDate
-			#end
 		#end
 	#end
 

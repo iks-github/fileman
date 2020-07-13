@@ -63,7 +63,6 @@ public class FileMetaData implements Serializable, Cloneable
 	private String creator;
 
     @Column(name="CREATION_DATE", columnDefinition="datetime")
-    @org.springframework.data.annotation.CreatedDate
 	private Date creationDate;
 
     @Column(name="SIZE", columnDefinition="bigint")

@@ -19,7 +19,8 @@
       </td>
       <td>
         <span tooltip="{{getDetailsTooltip(file)}}">
-            {{i+1}}. {{file.name}}
+            <b>{{i+1}}. {{file.name}}</b>
+            <hr>
             <div>
               <img class="image-preview" *ngIf="hasImagePreview(file.name)" [src]="getImagePreview(file.name)">
               <span class="text-preview" *ngIf="hasTextPreview(file.name)">{{ getTextPreview(file.name) }}</span>

@@ -117,8 +117,10 @@ export class FilemetadataDetailsComponent implements OnInit {
           });
     } else {
       this.fileService.update(fileData)
-          .subscribe(() => {}, error => {
-            alert('Error saving new file "' + fileData.getMetaData().getName() + '"!');
+          .subscribe(() => {
+            this.previewService.preparePreview(fileData.getMetaData().getName());
+          }, error => {
+            alert('Error saving updated file "' + fileData.getMetaData().getName() + '"!');
           });
     }
 

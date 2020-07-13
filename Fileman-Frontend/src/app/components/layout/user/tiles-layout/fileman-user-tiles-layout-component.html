@@ -1,27 +1,28 @@
 <div class="tiles-grid">
-  <div *ngFor="let user of viewedUsers; let i = index"
-      class="tiles-item">
-    <td width="40">
-      <span *ngIf="! readOnly">
-          <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(user)">edit</mat-icon>
-      </span>
-      <br>
-      <span *ngIf="! readOnly">
-          <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(user)">delete</mat-icon>
-      </span>
-    </td>
-    <td>
-      <span tooltip="{{getUserHtmlTooltip(user)}}">
-          {{i+1}}. {{user.name}}
-          <div>
-            <img class="image-preview" *ngIf="hasAvatar(user.name)" [src]="getAvatar(user.name)">
-            <div class="default-avatar" *ngIf="!hasAvatar(user.name)"
-                 [ngStyle]="{'background-color': getAvatarBackgroundColor(user.name),
-                             'color': getAvatarTextColor(user.name)}">
-              <span class="avatar-text-content">{{getUserInitials(user.name)}}</span>
+  <div *ngFor="let user of viewedUsers; let i = index" class="tiles-item">
+    <div class="tiles-item-inner">
+      <td width="40">
+        <span *ngIf="! readOnly">
+            <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(user)">edit</mat-icon>
+        </span>
+        <br>
+        <span *ngIf="! readOnly">
+            <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(user)">delete</mat-icon>
+        </span>
+      </td>
+      <td>
+        <span tooltip="{{getUserHtmlTooltip(user)}}">
+            {{i+1}}. {{user.name}}
+            <div>
+              <img class="image-preview" *ngIf="hasAvatar(user.name)" [src]="getAvatar(user.name)">
+              <div class="default-avatar" *ngIf="!hasAvatar(user.name)"
+                  [ngStyle]="{'background-color': getAvatarBackgroundColor(user.name),
+                              'color': getAvatarTextColor(user.name)}">
+                <span class="avatar-text-content">{{getUserInitials(user.name)}}</span>
+              </div>
             </div>
-          </div>
-      </span>
-    </td>
+        </span>
+      </td>
+    </div>
   </div>
 </div>

@@ -79,6 +79,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
       this.userPreferencesService.getUserPreferencesChangeNotifier().subscribe(
         (userPreferences: UserPreferences) => {
           this.userPreferences = userPreferences;
+          this.searchFor(this.searchString);
         }
       );
     this.searchString = this.searchService.getSearchString();

@@ -16,7 +16,7 @@
 package com.iksgmbh.fileman.backend.dao;
 
 import org.springframework.stereotype.Component;
-import com.iksgmbh.fileman.backend.UserComponentState;
+import com.iksgmbh.fileman.backend.UserPreferences;
 
 /**
  * Created as draft by MOGLiCC.
@@ -24,23 +24,22 @@ import com.iksgmbh.fileman.backend.UserComponentState;
  *
 **/
 @Component
-public class UserComponentStateDao extends UserComponentStateBasicDao {
+public class UserPreferencesDao extends UserPreferencesBasicDao{
 	
 	@Override
-	public UserComponentState findByUserId(Integer userId) {
-		UserComponentState userComponentState = super.findByUserId(userId);
+	public UserPreferences findByUserId(Integer userId) {
+		UserPreferences userPreferences = super.findByUserId(userId);
 		
 		// return dummy object if component state is not yet present
-		if (userComponentState == null) {
-			UserComponentState dummy = new UserComponentState();
+		if (userPreferences == null) {
+			UserPreferences dummy = new UserPreferences();
 			dummy.setUserId(userId);
 			dummy.setContentType(null);
 			dummy.setLayoutType(null);
-			dummy.setSearchString("");
 			dummy.setFavouriteFilterActive(false);
-			userComponentState = dummy;
+			userPreferences = dummy;
 		}
 		
-		return userComponentState;
+		return userPreferences;
 	}
 }

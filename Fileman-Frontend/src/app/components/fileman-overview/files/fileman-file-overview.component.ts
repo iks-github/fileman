@@ -28,9 +28,11 @@ import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { Utils } from 'src/app/common/Utils';
 import { Layout, UserRole } from 'src/app/common/fileman-constants';
-import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
-import { UserComponentState } from 'src/app/common/domainobjects/gen/UserComponentState';
+import { FilemanUserPreferencesService } from 'src/app/services/fileman-user-preferences-service.service';
+import { UserPreferences } from 'src/app/common/domainobjects/gen/UserPreferences';
+import { FilemanSearchService } from 'src/app/services/fileman-search-service.service';
+import { FilemanReloadService } from 'src/app/services/fileman-reload-service.service';
 
 @Component({
   selector: 'fileman-file-overview',
@@ -42,8 +44,10 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   readonly layoutTypeTable: string = Layout.Table;
   readonly layoutTypeTiles: string = Layout.Tiles;
 
-  userComponentState: UserComponentState;
-  userComponentStateSubscription: Subscription;
+  userPreferences: UserPreferences;
+  userPreferencesSubscription: Subscription;
+  searchString: string;
+  searchStringSubscription: Subscription;
   reloadRequestSubscription: Subscription;
   fileDataChangedSubscription: Subscription;
   responseData;
@@ -62,21 +66,28 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
               private filesMetaDataService: FilemanMetadataService,
               private favouriteSettingService: FilemanFavouriteSettingsService,
               private fileService: FilemanFileService,
-              private userComponentStateService: UserComponentStateService,
-              private previewService: FilemanPreviewService) {
+              private previewService: FilemanPreviewService,
+              private userPreferencesService: FilemanUserPreferencesService,
+              private searchService: FilemanSearchService,
+              private reloadService: FilemanReloadService) {
                   console.log('########### overview constr');
               }
 
   ngOnInit(): void {
     console.log('### file overview init')
     this.currentUserName = this.authService.getCurrentUserName();
-    this.userComponentState = this.userComponentStateService.getUserComponentState();
-    this.userComponentStateSubscription =
-      this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
-        (userComponentState: UserComponentState) => {
-          this.userComponentState = userComponentState;
-          this.searchFor(this.userComponentState.searchString);
+    this.userPreferences = this.userPreferencesService.getUserPreferences();
+    this.userPreferencesSubscription =
+      this.userPreferencesService.getUserPreferencesChangeNotifier().subscribe(
+        (userPreferences: UserPreferences) => {
+          this.userPreferences = userPreferences;
+          this.searchFor(this.searchString);
         }
+      );
+    this.searchString = this.searchService.getSearchString();
+    this.searchStringSubscription =
+      this.searchService.getSearchStringChangeNotifier().subscribe(
+        (searchString: string) => this.searchFor(searchString)
       );
     this.filesMetaDataService.getOverviewData()
         .subscribe(responseData => {this.extractFiles(responseData)});
@@ -91,9 +102,9 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
                                 });
     this.fileMetaAttributeNames = FileMetaData.getAttributeNames();
     this.reloadRequestSubscription =
-      this.userComponentStateService.getReloadRequestNotifier().subscribe(
+      this.reloadService.getReloadRequestNotifier().subscribe(
         () => this.reload()
-      )
+      );
     this.fileDataChangedSubscription =
       this.fileService.getFileDataChangedNotifier().subscribe(
         () => this.reload()
@@ -121,7 +132,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     this.viewedFiles = Utils.sortList(this.viewedFiles);
     this.filesMetaDataService.setFileMetaDataCache(this.allFilesMap);
     this.updateFilePreviews();
-    this.searchFor(this.userComponentState.searchString);
+    this.searchFor(this.searchString);
   }
 
   trackFiles(index, file) {
@@ -178,12 +189,12 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   }
 
   searchFor(searchString: string) {
-    this.userComponentState.searchString = searchString;
+    this.searchString = searchString;
     const fileList = [];
 
     this.allFilesMap.forEach(file => {
       if (file.getName().indexOf(searchString) !== -1) {
-        if (this.userComponentState.favouriteFilterActive) {
+        if (this.userPreferences.favouriteFilterActive) {
           if (this.isFileFavourite(file.getName())) {
             fileList.push(file);
           }
@@ -233,7 +244,8 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userComponentStateSubscription.unsubscribe();
+    this.userPreferencesSubscription.unsubscribe();
+    this.searchStringSubscription.unsubscribe();
     this.reloadRequestSubscription.unsubscribe();
     this.fileDataChangedSubscription.unsubscribe();
   }

@@ -8,7 +8,7 @@
     <i>No file matches your filter.</i>
 </div>
 
-<div [ngSwitch]="userComponentState.layoutType">
+<div [ngSwitch]="userPreferences.layoutType">
     <div *ngSwitchCase="layoutTypeList">
         <fileman-filemetadata-list-layout
           [viewedFiles]="viewedFiles"

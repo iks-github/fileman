@@ -19,9 +19,11 @@ import { Subscription } from 'rxjs';
 
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { Content, Layout, Icon, UserRole } from 'src/app/common/fileman-constants';
-import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
-import { UserComponentState } from 'src/app/common/domainobjects/gen/UserComponentState';
 import { FilemanPropertiesLoaderService } from 'src/app/services/fileman-properties-loader.service';
+import { FilemanUserPreferencesService } from 'src/app/services/fileman-user-preferences-service.service';
+import { UserPreferences } from 'src/app/common/domainobjects/gen/UserPreferences';
+import { FilemanSearchService } from 'src/app/services/fileman-search-service.service';
+import { FilemanReloadService } from 'src/app/services/fileman-reload-service.service';
 
 @Component({
   selector: 'fileman-toolbar',
@@ -45,37 +47,39 @@ export class FilemanToolbarComponent implements OnInit {
 
   readOnly: boolean;
   isAdmin: boolean;
-  userComponentState: UserComponentState;
-  userComponentStateSubscription: Subscription;
+  userPreferences: UserPreferences;
+  userPreferencesSubscription: Subscription;
   showFavouriteIcon: boolean = true;
   favouriteFilterIcon = Icon.FavouriteFilterInactive;
 
   constructor(private authService: FilemanAuthserviceService,
               private router: Router,
               private propertiesService: FilemanPropertiesLoaderService,
-              private userComponentStateService: UserComponentStateService) { }
+              private userPreferencesService: FilemanUserPreferencesService,
+              private searchService: FilemanSearchService,
+              private reloadService: FilemanReloadService) { }
 
   ngOnInit(): void {
     this.readOnly = this.authService.getCurrentUserRole() === UserRole.Reader;
     this.isAdmin = this.authService.getCurrentUserRole() === UserRole.Admin;
-    this.userComponentState = this.userComponentStateService.getUserComponentState();
-    this.userComponentStateSubscription =
-      this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
-        (userComponentState: UserComponentState) => {
-          this.userComponentState = userComponentState;
-          this.updateLayoutForUserComponentState(userComponentState);
+    this.userPreferences = this.userPreferencesService.getUserPreferences();
+    this.userPreferencesSubscription =
+      this.userPreferencesService.getUserPreferencesChangeNotifier().subscribe(
+        (userPreferences: UserPreferences) => {
+          this.userPreferences = userPreferences;
+          this.updateLayoutForUserPreferences(userPreferences);
         }
       );
   }
 
-  updateLayoutForUserComponentState(userComponentState: UserComponentState) {
-    if (userComponentState.contentType == this.contentTypeUsers) {
+  updateLayoutForUserPreferences(userPreferences: UserPreferences) {
+    if (userPreferences.contentType == this.contentTypeUsers) {
       this.showFavouriteIcon = false;
     } else {
       this.showFavouriteIcon = true;
     }
 
-    if (userComponentState.favouriteFilterActive) {
+    if (userPreferences.favouriteFilterActive) {
       this.favouriteFilterIcon = Icon.FavouriteFilterActive;
     } else {
       this.favouriteFilterIcon = Icon.FavouriteFilterInactive;
@@ -83,18 +87,18 @@ export class FilemanToolbarComponent implements OnInit {
   }
 
   onLayoutClick(layoutType: string) {
-    this.userComponentStateService.setLayoutType(layoutType);
+    this.userPreferencesService.setLayoutType(layoutType);
   }
 
   onContentTypeChange(contentType: string) {
-    this.userComponentStateService.setContentType(contentType);
+    this.userPreferencesService.setContentType(contentType);
   }
 
   onNewClick() {
     if (! this.readOnly) {
-      if (this.userComponentState.contentType === this.contentTypeFiles) {
+      if (this.userPreferences.contentType === this.contentTypeFiles) {
         this.router.navigate(['/fileman/files/new']);
-      } else if (this.userComponentState.contentType === this.contentTypeUsers) {
+      } else if (this.userPreferences.contentType === this.contentTypeUsers) {
         this.router.navigate(['/fileman/users/new']);
       }
     }
@@ -107,18 +111,22 @@ export class FilemanToolbarComponent implements OnInit {
   }
 
   onReloadClick() {
-    this.userComponentStateService.requestReload();
+    this.reloadService.requestReload();
   }
 
   onFavouriteFilterClick() {
     const favouriteFilterActive: boolean =
-      !this.userComponentState.favouriteFilterActive;
+      !this.userPreferences.favouriteFilterActive;
 
-    this.userComponentStateService.setFavouriteFilterActive(favouriteFilterActive);
+    this.userPreferencesService.setFavouriteFilterActive(favouriteFilterActive);
+  }
+
+  getSearchString(): string {
+    return this.searchService.getSearchString();
   }
 
   startSearch(searchString) {
-    this.userComponentStateService.setSearchString(searchString);
+    this.searchService.setSearchString(searchString);
   }
 
   getAddNewToolTip() {

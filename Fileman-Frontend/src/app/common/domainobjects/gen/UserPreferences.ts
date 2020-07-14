@@ -1,19 +1,17 @@
 
-export class UserComponentState
+export class UserPreferences
 {
     userId: number;
     contentType: string;
     layoutType: string;
-    searchString: string;
     favouriteFilterActive: boolean;
 
-    constructor(untypedUserComponentState: any) {
-        if (untypedUserComponentState != null) {
-            this.userId = untypedUserComponentState.userId;
-            this.contentType = untypedUserComponentState.contentType;
-            this.layoutType = untypedUserComponentState.layoutType;
-            this.searchString = untypedUserComponentState.searchString;
-            this.favouriteFilterActive = untypedUserComponentState.favouriteFilterActive;
+    constructor(untypedUserPreferences: any) {
+        if (untypedUserPreferences != null) {
+            this.userId = untypedUserPreferences.userId;
+            this.contentType = untypedUserPreferences.contentType;
+            this.layoutType = untypedUserPreferences.layoutType;
+            this.favouriteFilterActive = untypedUserPreferences.favouriteFilterActive;
         }
     }
 
@@ -23,7 +21,6 @@ export class UserComponentState
            'userId',
            'contentType',
            'layoutType',
-           'searchString',
            'favouriteFilterActive',
         ];
     }
@@ -38,10 +35,6 @@ export class UserComponentState
 
     getLayoutType() {
         return this.layoutType;
-    }
-
-    getSearchString() {
-        return this.searchString;
     }
 
     getFavouriteFilterActive() {
@@ -61,23 +54,18 @@ export class UserComponentState
         this.layoutType = layoutType;
     }
 
-    setSearchString(searchString: string) {
-        this.searchString = searchString;
-    }
-
     setFavouriteFilterActive(favouriteFilterActive: boolean) {
         this.favouriteFilterActive = favouriteFilterActive;
     }
 
 
-    public equals(obj: UserComponentState): boolean {
+    public equals(obj: UserPreferences): boolean {
         if (this === obj) { return true; }
         if (obj == null) { return false; }
 
         if (this.userId !== obj.userId) { return false; }
         if (this.contentType !== obj.contentType) { return false; }
         if (this.layoutType !== obj.layoutType) { return false; }
-        if (this.searchString !== obj.searchString) { return false; }
         if (this.favouriteFilterActive !== obj.favouriteFilterActive) { return false; }
 
         return true;
@@ -89,7 +77,6 @@ export class UserComponentState
            'UserId: ' + this.userId + '\n' +
            'ContentType: ' + this.contentType + '\n' +
            'LayoutType: ' + this.layoutType + '\n' +
-           'SearchString: ' + this.searchString + '\n' +
            'FavouriteFilterActive: ' + this.favouriteFilterActive + '\n';
     }
 }

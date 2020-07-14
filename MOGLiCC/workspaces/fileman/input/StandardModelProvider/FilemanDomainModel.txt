@@ -316,7 +316,7 @@ class <<DomainPath>>.FavouriteSetting
     metainfo Mandatory true
     metainfo withFindAllMethod true
 
-class <<DomainPath>>.UserComponentState
+class <<DomainPath>>.UserPreferences
   metainfo implements java.io.Serializable
   metainfo generateStandardJavaDoc true
   metainfo swaggerDoc "Data for user component state"
@@ -344,12 +344,6 @@ class <<DomainPath>>.UserComponentState
     metainfo dbType varchar
     metainfo JavaType String
     metainfo ExampleData layout_type_list
-    metainfo Mandatory true
-
-  attribute searchString
-    metainfo dbType varchar
-    metainfo JavaType String
-    metainfo ExampleData file.txt
     metainfo Mandatory true
     
   attribute favouriteFilterActive

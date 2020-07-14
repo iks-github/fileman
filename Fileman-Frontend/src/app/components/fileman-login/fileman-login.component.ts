@@ -20,7 +20,8 @@ import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.
 import { FilemanConstants } from 'src/app/common/fileman-constants';
 import { LoginResponse } from 'src/app/common/domainobjects/gen/LoginResponse';
 import { LoginRequest } from 'src/app/common/domainobjects/gen/LoginRequest';
-import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
+import { FilemanUserPreferencesService } from 'src/app/services/fileman-user-preferences-service.service';
+import { FilemanSearchService } from 'src/app/services/fileman-search-service.service';
 
 @Component({
   selector: 'fileman-login',
@@ -34,7 +35,8 @@ export class FilemanLoginComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private authService: FilemanAuthserviceService,
-              private userComponentStateService: UserComponentStateService) { }
+              private userPreferencesService: FilemanUserPreferencesService,
+              private searchService: FilemanSearchService) { }
 
   ngOnInit(): void {
   }
@@ -51,7 +53,8 @@ export class FilemanLoginComponent implements OnInit {
                         localStorage.setItem('token', loginResponse.authToken);
                         console.log('Logged in!');
                         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-                        this.userComponentStateService.initializeForUser(this.authService.getCurrentUserId());
+                        this.userPreferencesService.initializeForUser(this.authService.getCurrentUserId());
+                        this.searchService.setSearchString("");
                         this.router.navigate([returnUrl || '/fileman/overview']);
                       } else {
                         formControl.form.setErrors({invalidLogin: true});  // wirft runtime fehler, warum ??

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.iksgmbh.fileman.backend.UserComponentState;
+import com.iksgmbh.fileman.backend.UserPreferences;
 
 import javax.persistence.*;
 import javax.persistence.criteria.*;
@@ -19,22 +19,22 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class UserComponentStateBasicDao
+public class UserPreferencesBasicDao
 {
 	@PersistenceContext
 	protected EntityManager entityManager;
 
-	public List<UserComponentState> findAllUserComponentStates() {
-		CriteriaQuery<UserComponentState> criteria = entityManager.getCriteriaBuilder().createQuery(UserComponentState.class);
-		criteria.select(criteria.from(UserComponentState.class));
+	public List<UserPreferences> findAllUserPreferencess() {
+		CriteriaQuery<UserPreferences> criteria = entityManager.getCriteriaBuilder().createQuery(UserPreferences.class);
+		criteria.select(criteria.from(UserPreferences.class));
 		return entityManager.createQuery(criteria).getResultList();
 	}
 
-	public UserComponentState findByUserId(Integer userId) {
-		return entityManager.find(UserComponentState.class, userId);
+	public UserPreferences findByUserId(Integer userId) {
+		return entityManager.find(UserPreferences.class, userId);
 	}
 
-	public boolean update(UserComponentState entity) {
+	public boolean update(UserPreferences entity) {
 		try {
 			entityManager.merge(entity);
 			return true;
@@ -43,12 +43,12 @@ public class UserComponentStateBasicDao
 		}
 	}
 
-	public UserComponentState create(UserComponentState entity) {
+	public UserPreferences create(UserPreferences entity) {
 		entityManager.persist(entity);
 		return entity;
 	}
 
-	public void delete(UserComponentState entity) {
+	public void delete(UserPreferences entity) {
 		entityManager.remove(entity);
 	}
 }

@@ -17,9 +17,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Content } from 'src/app/common/fileman-constants';
-import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
-import { UserComponentState } from 'src/app/common/domainobjects/gen/UserComponentState';
+import { FilemanUserPreferencesService } from 'src/app/services/fileman-user-preferences-service.service';
+import { UserPreferences } from 'src/app/common/domainobjects/gen/UserPreferences';
 
 @Component({
   selector: 'fileman-overview',
@@ -31,26 +31,26 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
   readonly contentTypeUsers: string = Content.Users;
 
   contentType: string;
-  userComponentStateSubscription: Subscription;
+  userPreferencesSubscription: Subscription;
   currentUserName: string;
 
   constructor(private authService: FilemanAuthserviceService,
-    private userComponentStateService: UserComponentStateService) {}
+    private userPreferencesService: FilemanUserPreferencesService) {}
 
   ngOnInit(): void {
     this.currentUserName = this.authService.getCurrentUserName();
-    this.contentType = this.userComponentStateService.getContentType();
-    this.userComponentStateSubscription =
-      this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
-        (userComponentState: UserComponentState) => {
-          this.contentType = userComponentState.contentType;
+    this.contentType = this.userPreferencesService.getContentType();
+    this.userPreferencesSubscription =
+      this.userPreferencesService.getUserPreferencesChangeNotifier().subscribe(
+        (userPreferences: UserPreferences) => {
+          this.contentType = userPreferences.contentType;
         }
       );
   }
 
   ngOnDestroy() {
-    if (this.userComponentStateSubscription != null) {
-      this.userComponentStateSubscription.unsubscribe();
+    if (this.userPreferencesSubscription != null) {
+      this.userPreferencesSubscription.unsubscribe();
     }
   }
 }

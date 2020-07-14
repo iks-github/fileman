@@ -25,11 +25,13 @@ import { FavouriteSetting } from 'src/app/common/domainobjects/gen/FavouriteSett
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { Utils } from 'src/app/common/Utils';
 import { Layout, UserRole } from 'src/app/common/fileman-constants';
-import { UserComponentStateService } from 'src/app/services/fileman-user-component-state-service.service';
 import { User } from 'src/app/common/domainobjects/gen/User';
 import { UserService } from 'src/app/services/fileman-user-service.service';
 import { FilemanAvatarService } from 'src/app/services/fileman-avatar-service.service';
-import { UserComponentState } from 'src/app/common/domainobjects/gen/UserComponentState';
+import { FilemanUserPreferencesService } from 'src/app/services/fileman-user-preferences-service.service';
+import { UserPreferences } from 'src/app/common/domainobjects/gen/UserPreferences';
+import { FilemanSearchService } from 'src/app/services/fileman-search-service.service';
+import { FilemanReloadService } from 'src/app/services/fileman-reload-service.service';
 
 @Component({
   selector: 'fileman-user-overview',
@@ -41,8 +43,10 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   readonly layoutTypeTable: string = Layout.Table;
   readonly layoutTypeTiles: string = Layout.Tiles;
 
-  userComponentState: UserComponentState;
-  userComponentStateSubscription: Subscription;
+  userPreferences: UserPreferences;
+  userPreferencesSubscription: Subscription;
+  searchString: string;
+  searchStringSubscription: Subscription;
   reloadRequestSubscription: Subscription;
   userDataChangedSubscription: Subscription;
   responseData;
@@ -60,21 +64,27 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
               private authService: FilemanAuthserviceService,
               private userService: UserService,
               private favouriteSettingService: FilemanFavouriteSettingsService,
-              private userComponentStateService: UserComponentStateService,
-              private avatarService: FilemanAvatarService) {
+              private avatarService: FilemanAvatarService,
+              private userPreferencesService: FilemanUserPreferencesService,
+              private searchService: FilemanSearchService,
+              private reloadService: FilemanReloadService) {
                   console.log('########### overview constr');
               }
 
   ngOnInit(): void {
     console.log('### file overview init')
     this.currentUserName = this.authService.getCurrentUserName();
-    this.userComponentState = this.userComponentStateService.getUserComponentState();
-    this.userComponentStateSubscription =
-      this.userComponentStateService.getUserComponentStateChangeNotifier().subscribe(
-        (userComponentState: UserComponentState) => {
-          this.userComponentState = userComponentState;
-          this.searchFor(this.userComponentState.searchString);
+    this.userPreferences = this.userPreferencesService.getUserPreferences();
+    this.userPreferencesSubscription =
+      this.userPreferencesService.getUserPreferencesChangeNotifier().subscribe(
+        (userPreferences: UserPreferences) => {
+          this.userPreferences = userPreferences;
         }
+      );
+    this.searchString = this.searchService.getSearchString();
+    this.searchStringSubscription =
+      this.searchService.getSearchStringChangeNotifier().subscribe(
+        (searchString: string) => this.searchFor(searchString)
       );
     this.userService.getAllUsers()
         .subscribe(responseData => {this.extractUsers(responseData)});
@@ -89,7 +99,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
                                 });
     this.fileMetaAttributeNames = FileMetaData.getAttributeNames();
     this.reloadRequestSubscription =
-      this.userComponentStateService.getReloadRequestNotifier().subscribe(
+      this.reloadService.getReloadRequestNotifier().subscribe(
         () => this.reload()
       );
     this.userDataChangedSubscription =
@@ -118,7 +128,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
     });
     this.viewedUsers = Utils.sortList(users);
     this.avatarService.preparePreviews(users);
-    this.searchFor(this.userComponentState.searchString);
+    this.searchFor(this.searchString);
   }
 
   trackFiles(index, file) {
@@ -168,12 +178,12 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   }
 
   searchFor(searchString: string) {
-    this.userComponentState.searchString = searchString;
+    this.searchString = searchString;
     const userList = [];
 
     this.allUsersMap.forEach(user => {
       if (user.getName().indexOf(searchString) !== -1) {
-        if (this.userComponentState.favouriteFilterActive) {
+        if (this.userPreferences.favouriteFilterActive) {
           if (this.isFileFavourite(user.getName())) {
             userList.push(user);
           }
@@ -215,7 +225,8 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userComponentStateSubscription.unsubscribe();
+    this.userPreferencesSubscription.unsubscribe();
+    this.searchStringSubscription.unsubscribe();
     this.reloadRequestSubscription.unsubscribe();
     this.userDataChangedSubscription.unsubscribe();
   }

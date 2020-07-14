@@ -23,10 +23,10 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
  */
 @ApiModel(description = "Data for user component state")
 @Entity
-@Table(name="USER_COMPONENT_STATE")
-public class UserComponentState implements Serializable
+@Table(name="USER_PREFERENCES")
+public class UserPreferences implements Serializable
 {
-	private static final long serialVersionUID = 1592923615313L;
+	private static final long serialVersionUID = 1594711742146L;
 
 	// ===============  instance fields  ===============
 
@@ -43,11 +43,6 @@ public class UserComponentState implements Serializable
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="LAYOUT_TYPE", columnDefinition="varchar")
 	private String layoutType;
-
-    @NotNull(message="Value of mandatory attribute 'searchString' is not present.")
-    @ApiModelProperty(notes = "Mandatory.")
-    @Column(name="SEARCH_STRING", columnDefinition="varchar")
-	private String searchString;
 
     @NotNull(message="Value of mandatory attribute 'favouriteFilterActive' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
@@ -72,11 +67,6 @@ public class UserComponentState implements Serializable
 		this.layoutType = layoutType;
 	}
 
-	public void setSearchString(final String searchString)
-	{
-		this.searchString = searchString;
-	}
-
 	public void setFavouriteFilterActive(final Boolean favouriteFilterActive)
 	{
 		this.favouriteFilterActive = favouriteFilterActive;
@@ -99,11 +89,6 @@ public class UserComponentState implements Serializable
 		return layoutType;
 	}
 
-	public String getSearchString()
-	{
-		return searchString;
-	}
-
 	public Boolean getFavouriteFilterActive()
 	{
 		return favouriteFilterActive;
@@ -114,11 +99,10 @@ public class UserComponentState implements Serializable
 	@Override
 	public String toString()
 	{
-		return "UserComponentState ["
+		return "UserPreferences ["
 				+ "userId = " + userId + ", "
 				+ "contentType = " + contentType + ", "
 				+ "layoutType = " + layoutType + ", "
-				+ "searchString = " + searchString + ", "
 				+ "favouriteFilterActive = " + favouriteFilterActive + ""
 				+ "]";
 	}
@@ -132,7 +116,7 @@ public class UserComponentState implements Serializable
 		if (getClass() != obj.getClass())
 			return false;
 
-		final UserComponentState other = (UserComponentState) obj;
+		final UserPreferences other = (UserPreferences) obj;
 
 		if (userId == null)
 		{
@@ -161,15 +145,6 @@ public class UserComponentState implements Serializable
 			if (! layoutType.equals(other.layoutType))
 				   return false;
 		}
-		if (searchString == null)
-		{
-			if (other.searchString != null)
-				return false;
-		} else
-		{
-			if (! searchString.equals(other.searchString))
-				   return false;
-		}
 		if (favouriteFilterActive == null)
 		{
 			if (other.favouriteFilterActive != null)
@@ -190,35 +165,29 @@ public class UserComponentState implements Serializable
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		result = prime * result + ((contentType == null) ? 0 : contentType.hashCode());
 		result = prime * result + ((layoutType == null) ? 0 : layoutType.hashCode());
-		result = prime * result + ((searchString == null) ? 0 : searchString.hashCode());
 		result = prime * result + ((favouriteFilterActive == null) ? 0 : favouriteFilterActive.hashCode());
 
 		return result;
 	}
 
 
-	public void merge(UserComponentState otherUserComponentState)
+	public void merge(UserPreferences otherUserPreferences)
 	{
-        if (otherUserComponentState.getUserId() != null) {
-            this.setUserId(otherUserComponentState.getUserId());
+        if (otherUserPreferences.getUserId() != null) {
+            this.setUserId(otherUserPreferences.getUserId());
        }
-        if (otherUserComponentState.getContentType() != null) {
-            if(! otherUserComponentState.getContentType().isEmpty()) {
-           	 this.setContentType(otherUserComponentState.getContentType());
+        if (otherUserPreferences.getContentType() != null) {
+            if(! otherUserPreferences.getContentType().isEmpty()) {
+           	 this.setContentType(otherUserPreferences.getContentType());
             }
        }
-        if (otherUserComponentState.getLayoutType() != null) {
-            if(! otherUserComponentState.getLayoutType().isEmpty()) {
-           	 this.setLayoutType(otherUserComponentState.getLayoutType());
+        if (otherUserPreferences.getLayoutType() != null) {
+            if(! otherUserPreferences.getLayoutType().isEmpty()) {
+           	 this.setLayoutType(otherUserPreferences.getLayoutType());
             }
        }
-        if (otherUserComponentState.getSearchString() != null) {
-            if(! otherUserComponentState.getSearchString().isEmpty()) {
-           	 this.setSearchString(otherUserComponentState.getSearchString());
-            }
-       }
-        if (otherUserComponentState.getFavouriteFilterActive() != null) {
-            this.setFavouriteFilterActive(otherUserComponentState.getFavouriteFilterActive());
+        if (otherUserPreferences.getFavouriteFilterActive() != null) {
+            this.setFavouriteFilterActive(otherUserPreferences.getFavouriteFilterActive());
        }
 	}
 }

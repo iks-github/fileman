@@ -23,7 +23,7 @@ export class FilemanUserPreferencesService {
   constructor(private httpClient: HttpClient,
               propertiesService: FilemanPropertiesLoaderService,
               private authService: FilemanAuthserviceService) {
-    this.url = propertiesService.getProperty('serverurl') + '/userPreferences';
+    this.url = propertiesService.getProperty('serverurl') + '/userPreferencess';
     this.userPreferences = new UserPreferences({
       contentType: this.defaultContentType,
       layoutType: this.defaultLayoutType

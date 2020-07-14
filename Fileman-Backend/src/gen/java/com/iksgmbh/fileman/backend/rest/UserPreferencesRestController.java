@@ -26,12 +26,12 @@ public class UserPreferencesRestController
 	@Autowired
 	private UserPreferencesDao userPreferencesDao;
 
-	@GetMapping("/userPreferences")
+	@GetMapping("/userPreferencess")
 	public List<UserPreferences> findAllUserPreferencess() {
 		return userPreferencesDao.findAllUserPreferencess();
 	}
 
-	@GetMapping("/userPreferences/{userId}")
+	@GetMapping("/userPreferencess/{userId}")
     public UserPreferences findUserPreferencesByUserId(@PathVariable Integer userId) {
 		UserPreferences userPreferences = userPreferencesDao.findByUserId(userId);
 		if (userPreferences == null) {
@@ -40,13 +40,13 @@ public class UserPreferencesRestController
 		return userPreferences;
    }
 
-	@PostMapping("/userPreferences")
+	@PostMapping("/userPreferencess")
 	public Integer createUserPreferences(@Valid @RequestBody UserPreferences userPreferences)
 	{
 		return userPreferencesDao.create(userPreferences).getUserId();
     }
 
-	@PutMapping("/userPreferences")
+	@PutMapping("/userPreferencess")
 	public void updateUserPreferences(@Valid @RequestBody UserPreferences userPreferences)
 	{
 		boolean ok = userPreferencesDao.update(userPreferences);
@@ -55,7 +55,7 @@ public class UserPreferencesRestController
 		}
 	}
 
-	@DeleteMapping("/userPreferences/{userId}")
+	@DeleteMapping("/userPreferencess/{userId}")
 	public ResponseEntity<?> deleteUserPreferences(@PathVariable Integer userId) {
 		UserPreferences userPreferences = userPreferencesDao.findByUserId(userId);
 		if (userPreferences == null) {

@@ -323,7 +323,7 @@ class <<DomainPath>>.UserPreferences
   metainfo JavaDocLine "Data for user component state"
   metainfo BackendController true
   metainfo FrontendService true
-  metainfo FrontendServiceName user-component-state
+  metainfo FrontendServiceName user-preferences
   metainfo extraFindEndpoint User
   metainfo dbEntity true
 

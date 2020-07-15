@@ -70,19 +70,18 @@ describe('FilemanToolbarComponent', () => {
       iconStrings.push(debugElement.nativeElement.innerText);
     }
 
-    expect(iconStrings.length).toEqual(9);
+    expect(iconStrings.length).toEqual(8);
     expect(iconStrings).toContain(Icon.List);
     expect(iconStrings).toContain(Icon.Table);
     expect(iconStrings).toContain(Icon.Tiles);
     expect(iconStrings).toContain(Icon.New);
     expect(iconStrings).toContain(Icon.Reload);
-    expect(iconStrings).toContain(Icon.Search);
     expect(iconStrings).toContain(Icon.FavouriteFilterInactive);
-    expect(iconStrings).toContain(Icon.Settings);
+    expect(iconStrings).toContain(Icon.Database);
     expect(iconStrings).toContain(Icon.Logout);
   });
 
-  it('should have all icons but settings as non-admin', () => {
+  it('should have all icons but database as non-admin', () => {
     component.isAdmin = false;
     fixture.detectChanges();
 
@@ -93,15 +92,13 @@ describe('FilemanToolbarComponent', () => {
       iconStrings.push(debugElement.nativeElement.innerText);
     }
 
-    expect(iconStrings.length).toEqual(8);
+    expect(iconStrings.length).toEqual(7);
     expect(iconStrings).toContain(Icon.List);
     expect(iconStrings).toContain(Icon.Table);
     expect(iconStrings).toContain(Icon.Tiles);
     expect(iconStrings).toContain(Icon.New);
     expect(iconStrings).toContain(Icon.Reload);
-    expect(iconStrings).toContain(Icon.Search);
     expect(iconStrings).toContain(Icon.FavouriteFilterInactive);
-    expect(iconStrings).not.toContain(Icon.Settings);
     expect(iconStrings).toContain(Icon.Logout);
   });
 });

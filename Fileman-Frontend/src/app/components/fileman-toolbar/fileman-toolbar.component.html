@@ -45,12 +45,6 @@
 
     <span class="separator">|</span>
 
-    <!--
-    <mat-icon data-toggle="tooltip"
-          title="Type text to search for file(s)"
-          style="color: gray; background: lavender;"
-          >{{iconSearch}}</mat-icon>
-    -->
     Search:
     <input type="text" #searchString
            [ngModel]="getSearchString()"
@@ -71,12 +65,6 @@
     <span *ngIf="isAdmin">
         <span class="separator">|</span>
         Display:
-        <!--
-        <mat-icon data-toggle="tooltip"
-                  title="Select content of overview"
-                  style="color: gray; background: lightyellow;"
-                  >{{iconSettings}}</mat-icon>
-        -->
         <select
           id="contentTypeSelect"
           #contentTypeSelect
@@ -94,7 +82,7 @@
                   title="Login to Database"
                   style="color: gray; background: lightyellow;"
                   (click)="openDbLink()"
-                  >storage</mat-icon>
+                  >{{iconDatabase}}</mat-icon>
     </span>
 
     <span class="spacer"></span>

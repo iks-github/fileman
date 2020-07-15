@@ -41,8 +41,7 @@ export class FilemanToolbarComponent implements OnInit {
   readonly iconTiles: string = Icon.Tiles;
   readonly iconNew: string = Icon.New;
   readonly iconReload: string = Icon.Reload;
-  readonly iconSearch: string = Icon.Search;
-  readonly iconSettings: string = Icon.Settings;
+  readonly iconDatabase: string = Icon.Database;
   readonly iconLogout: string = Icon.Logout;
 
   readOnly: boolean;

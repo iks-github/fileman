@@ -9,22 +9,23 @@
           [ngStyle]="{
           'color': readOnly ? 'azure' : 'lightgoldenrodyellow',
           'backgroundColor': readOnly ? 'lightgray' : 'blue'}"
+          style="margin-left: 2px;"
           >{{iconNew}}</mat-icon>
 
     <mat-icon data-toggle="tooltip" title="Reload from server"
               (click)="onReloadClick()"
-              style="margin-left: 5px;"
+              style="margin-left: 5px; margin-right: 2px;"
               >{{iconReload}}</mat-icon>
 
     <span class="separator">|</span>
 
     Layout:
-    &nbsp;
     <mat-icon data-toggle="tooltip" title="Change to List Layout"
               (click)="onLayoutClick(layoutTypeList)"
               [ngStyle]="{
               'color': userPreferences.layoutType === layoutTypeList ? '#777777' : 'lightgoldenrodyellow',
               'backgroundColor': userPreferences.layoutType === layoutTypeList ? 'lightgray' : 'blue'}"
+              style="margin-left: 10px;"
               >{{iconList}}</mat-icon>
     <mat-icon data-toggle="tooltip" title="Change to Table Layout"
               (click)="onLayoutClick(layoutTypeTable)"
@@ -40,7 +41,7 @@
               [ngStyle]="{
               'color': userPreferences.layoutType === layoutTypeTiles ? '#777777' : 'lightgoldenrodyellow',
               'backgroundColor': userPreferences.layoutType === layoutTypeTiles ? 'lightgray' : 'blue'}"
-              style="margin-left: 5px;"
+              style="margin-left: 5px; margin-right: 2px;"
               >{{iconTiles}}</mat-icon>
 
     <span class="separator">|</span>
@@ -50,7 +51,7 @@
            [ngModel]="getSearchString()"
            (keyup)="startSearch(searchString.value)"
            [ngStyle]="{'max-width.px': 200}"
-           style="background: lavender; margin-left: 5px;">
+           style="background: lavender; margin-left: 10px;">
 
     <mat-icon *ngIf="showFavouriteIcon"
               data-toggle="tooltip"
@@ -59,36 +60,36 @@
               [ngStyle]="{
               'color': 'blue',
               'backgroundColor': 'lavender'}"
-              style="margin-left: 5px;"
+              style="margin-left: 10px;"
               >{{favouriteFilterIcon}}</mat-icon>
 
-    <span *ngIf="isAdmin">
-        <span class="separator">|</span>
-        Display:
-        <select
-          id="contentTypeSelect"
-          #contentTypeSelect
-          style="background: lightyellow; margin-left: 5px;"
-          (change)="onContentTypeChange(contentTypeSelect.value)">
-            <option
-              [value]="contentTypeFiles"
-              [selected]="userPreferences.contentType === contentTypeFiles">Files</option>
-            <option
-              [value]="contentTypeUsers"
-              [selected]="userPreferences.contentType === contentTypeUsers">Users</option>
-        </select>
-        &nbsp;
-        <mat-icon data-toggle="tooltip"
-                  title="Login to Database"
-                  style="color: gray; background: lightyellow;"
-                  (click)="openDbLink()"
-                  >{{iconDatabase}}</mat-icon>
-    </span>
+    <span *ngIf="isAdmin" class="separator" style="margin-left: 12px;">|</span>
+    <span *ngIf="isAdmin">Display:</span>
+    <select *ngIf="isAdmin"
+      id="contentTypeSelect"
+      #contentTypeSelect
+      style="background: lightyellow; margin-left: 10px;"
+      (change)="onContentTypeChange(contentTypeSelect.value)">
+        <option
+          [value]="contentTypeFiles"
+          [selected]="userPreferences.contentType === contentTypeFiles">Files</option>
+        <option
+          [value]="contentTypeUsers"
+          [selected]="userPreferences.contentType === contentTypeUsers">Users</option>
+    </select>
+    &nbsp;
+    <mat-icon *ngIf="isAdmin"
+              data-toggle="tooltip"
+              title="Login to Database"
+              style="color: gray; background: lightyellow; margin-left: 5px;"
+              (click)="openDbLink()"
+              >{{iconDatabase}}</mat-icon>
 
     <span class="spacer"></span>
 
     <mat-icon data-toggle="tooltip" title="Logout"
             (click)="onLogout()"
+            style="margin-left: 10px;"
             >{{iconLogout}}</mat-icon>
 
     <span style="margin-left: 5px;">

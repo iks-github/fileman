@@ -40,8 +40,9 @@ public class FileContentData implements Serializable, Cloneable
 
     @NotNull(message="Value of mandatory attribute 'content' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-    @Column(name="CONTENT", columnDefinition="varchar")
-	private String content;
+    @Column(name="CONTENT", columnDefinition="blob")
+    @Lob
+    private byte[] content;
 
     @NotNull(message="Value of mandatory attribute 'size' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
@@ -69,7 +70,7 @@ public class FileContentData implements Serializable, Cloneable
 		this.name = name;
 	}
 
-	public void setContent(final String content)
+	public void setContent(final byte[] content)
 	{
 		this.content = content;
 	}
@@ -101,7 +102,7 @@ public class FileContentData implements Serializable, Cloneable
 		return name;
 	}
 
-	public String getContent()
+	public byte[] getContent()
 	{
 		return content;
 	}
@@ -231,7 +232,7 @@ public class FileContentData implements Serializable, Cloneable
 
 		if (this.uuid != null) clone.uuid = new Long(this.uuid);
 		if (this.name != null) clone.name = new String(name);
-		if (this.content != null) clone.content = new String(content);
+		if (this.content != null) clone.content = content.clone();
 		if (this.size != null) clone.size = new Long(this.size);
 		if (this.creator != null) clone.creator = new String(creator);
 		if (this.creationDate != null) clone.creationDate = (java.util.Date)this.creationDate.clone();  // probably, here is need of manual adaptation
@@ -250,7 +251,7 @@ public class FileContentData implements Serializable, Cloneable
             }
        }
         if (otherFileContentData.getContent() != null) {
-            if(! otherFileContentData.getContent().isEmpty()) {
+            if(otherFileContentData.getContent().length != 0) {
            	 this.setContent(otherFileContentData.getContent());
             }
        }

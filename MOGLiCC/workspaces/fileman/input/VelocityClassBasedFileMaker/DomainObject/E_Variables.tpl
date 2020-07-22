@@ -99,7 +99,9 @@
 				#set( $uniqueSetting = ", unique=false")
 			#end
 			'    @Column(name="${dbName}"${nullableSetting}${uniqueSetting}, columnDefinition="${dbType}")
-
+            #if ( $dbType == "blob" || $dbType == "clob" )
+            '    @Lob
+            #end
 			#if ( $attributeDescriptor.doesHaveMetaInfo("id", "true") )
 				'    @Id
 				#if ( $attributeDescriptor.doesHaveMetaInfo("generatedValue", "true") )

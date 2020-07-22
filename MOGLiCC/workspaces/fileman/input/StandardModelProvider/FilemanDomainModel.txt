@@ -86,8 +86,8 @@ class <<DomainPath>>.FileContentData
     metainfo withFindAllMethod true
 
   attribute content
-    metainfo dbType varchar
-    metainfo JavaType String
+    metainfo dbType blob
+    metainfo JavaType byte[]
     metainfo Mandatory true
     metainfo ExampleData 10101
 
@@ -231,7 +231,7 @@ class <<DomainPath>>.User
     metainfo guiType PasswordField
 
    attribute avatar
-    metainfo dbType varchar
+    metainfo dbType clob
     metainfo JavaType String
     metainfo guiType FileSelector
  

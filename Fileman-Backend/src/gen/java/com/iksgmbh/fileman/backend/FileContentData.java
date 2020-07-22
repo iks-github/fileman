@@ -3,6 +3,7 @@ package com.iksgmbh.fileman.backend;
 import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.validation.constraints.*;
@@ -23,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_CONTENT_DATA")
 public class FileContentData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1593425043106L;
+	private static final long serialVersionUID = 1595420738899L;
 
 	// ===============  instance fields  ===============
 
@@ -42,7 +43,7 @@ public class FileContentData implements Serializable, Cloneable
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="CONTENT", columnDefinition="blob")
     @Lob
-    private byte[] content;
+	private byte[] content;
 
     @NotNull(message="Value of mandatory attribute 'size' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
@@ -130,7 +131,7 @@ public class FileContentData implements Serializable, Cloneable
 		return "FileContentData ["
 				+ "uuid = " + uuid + ", "
 				+ "name = " + name + ", "
-				+ "content = " + content + ", "
+				+ "content = " + Arrays.toString(content) + ", "
 				+ "size = " + size + ", "
 				+ "creator = " + creator + ", "
 				+ "creationDate = " + creationDate + ""
@@ -166,15 +167,8 @@ public class FileContentData implements Serializable, Cloneable
 			if (! name.equals(other.name))
 				   return false;
 		}
-		if (content == null)
-		{
-			if (other.content != null)
-				return false;
-		} else
-		{
-			if (! content.equals(other.content))
-				   return false;
-		}
+		if (!Arrays.equals(content, other.content))
+			return false;
 		if (size == null)
 		{
 			if (other.size != null)
@@ -212,7 +206,7 @@ public class FileContentData implements Serializable, Cloneable
 
 		result = prime * result + ((uuid == null) ? 0 : uuid.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + Arrays.hashCode(content);
 		result = prime * result + ((size == null) ? 0 : size.hashCode());
 		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
@@ -232,7 +226,11 @@ public class FileContentData implements Serializable, Cloneable
 
 		if (this.uuid != null) clone.uuid = new Long(this.uuid);
 		if (this.name != null) clone.name = new String(name);
-		if (this.content != null) clone.content = content.clone();
+
+		if ( this.content != null )
+		{
+			clone.content = content.clone();
+		}
 		if (this.size != null) clone.size = new Long(this.size);
 		if (this.creator != null) clone.creator = new String(creator);
 		if (this.creationDate != null) clone.creationDate = (java.util.Date)this.creationDate.clone();  // probably, here is need of manual adaptation
@@ -251,9 +249,7 @@ public class FileContentData implements Serializable, Cloneable
             }
        }
         if (otherFileContentData.getContent() != null) {
-            if(otherFileContentData.getContent().length != 0) {
-           	 this.setContent(otherFileContentData.getContent());
-            }
+            this.setContent(otherFileContentData.getContent());
        }
         if (otherFileContentData.getSize() != null) {
             this.setSize(otherFileContentData.getSize());

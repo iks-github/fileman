@@ -15,8 +15,8 @@
  */
 package com.iksgmbh.fileman.backend.rest;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -88,13 +88,12 @@ public class FileRestController
 	}
 
 	@GetMapping("/files/{fileName}")
-	public ResponseEntity<byte[]> getFileContent(@PathVariable String fileName)
+	public ResponseEntity<byte[]> getFileContent(@PathVariable String fileName) throws SQLException
 	{
 		FileMetaData result = metaDataDao.findByName(fileName);
 		if (result == null) return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
 		FileContentData fileContentData = contentDataDao.findByUuid(result.getActiveUUID());
-		String toReturn = fileContentData.getContent();
-		return ResponseEntity.ok(Base64.getDecoder().decode(toReturn));
+		return ResponseEntity.ok(fileContentData.getContent());
 	}
 	
 	@GetMapping("/files/{fileName}/history")

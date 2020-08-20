@@ -56,7 +56,8 @@ public class User implements Serializable
     @Transient
 	private String passwordRepetition;
 
-    @Column(name="AVATAR", columnDefinition="varchar")
+    @Column(name="AVATAR", columnDefinition="clob")
+    @Lob
 	private String avatar;
 
 

@@ -3,6 +3,8 @@ In many software systems the need exists to access files that are of general imp
 
 *Fileman* consists of two subsystems: a Java-Spring-Boot backend and an Angular9 frontend. The frontend allows conveniently to view, to search, to add, to remove and to change hosted files.
 
+[Have a closer look...](https://github.com/iks-github/Fileman/wiki)
+
 * * *
 
 Technical Requirements:

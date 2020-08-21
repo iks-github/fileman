@@ -9,7 +9,7 @@ In many software systems the need exists to access files that are of general imp
 
 Technical Requirements:
 
-- Java 9 
+- Java 8
 - Angular 9
 
 * * *

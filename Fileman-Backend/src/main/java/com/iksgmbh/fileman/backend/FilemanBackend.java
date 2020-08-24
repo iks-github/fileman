@@ -25,16 +25,4 @@ public class FilemanBackend {
     public static void main(String[] args) {
         SpringApplication.run(FilemanBackend.class, args);
     }
-
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurer() {
-//        	@Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/**").allowedOrigins("*");
-//                registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH");
-//            }
-//        	
-//        };
-//    }
 }

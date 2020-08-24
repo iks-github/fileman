@@ -1,0 +1,80 @@
+﻿#########################################################################################################
+# This model file illustrates the usage of the model definition DSL of the StandardModelProvider plugin.
+#
+# A model for the StandardModelProvider is constructed out of classes, attributes and metainfos. 
+# The MOGLiCC meta model consists of the three hierarchy levels model, class and attribute. 
+# A model file must contain exactly one model. The name of a class (for a java class it should also contain 
+# the qualified path) must be unique within the model. The name of an attribute must be unique for its class.
+#
+# Each element (model, class or attribute) is defined by its name - the only concretely predefined data value. 
+# The data of each element in each hierarchy level can be enriched by MetaInfo elements in any number. 
+# A MetaInfo element consists of a non-unique name and a value.
+#
+# For repreatedly used values (such as paths to domain objects) variables can be defined. A variable consists 
+# of a key-value-pair. The key can be used as placeholder: <<variableKey>>. When the model file is parsed all 
+# placeholders are replaced by its variable value. Variables can be defined anywhere in the model file, e.g. 
+# at the end of the model file. Variables values may contain placeholders of other variables, that are 
+# mentioned above in the model file. If needed upper and lower case conversion is possible:
+#
+# variable v1 "One Two Three"
+# variable v2 toUPPERCase: <<v1>>  # this results in "ONE TWO THREE"
+# variable v3 toLowerCase: <<v1>>  # this results in "one two three"
+#
+# Information which plugin uses which MetaInfo is presented in a statistics file
+# that is written into the plugin output directory of the StandardModelProvider plugin.
+#
+# The SpringBootBackendAngularFrontModel provides data for the MOGLiCC JavaBean templates. Model data and templates are
+# used to create the MOGLiCC JavaBean artefacts. These are NOT designed for manual modification.
+# In case you want to have same modified, change the templates, the model data or both, and
+# recreate them by autogeneration.
+#
+#########################################################################################################
+
+
+variable DomainPath com.iksgmbh.oho.backend
+variable alphanumericCharset "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZA 01234567890 <>&-.,;!?=()/üöäÜÖÄß"
+variable pathToSources C:/dev/source/DemoCodeGithub/OHOCamelWebService
+
+model SpringBootBackendAngularFrontModel
+  metainfo backendGenDir <<pathToSources>>/OHO-Backend/backend/src/gen/java
+  metainfo backendSrcDir <<pathToSources>>/OHO-Backend/backend/src/main/java
+  metainfo frontendSrcDir <<pathToSources>>/OHO-Frontend/src/app
+  metainfo projectName OHOCamelService
+  metainfo dateTimeFormat "dd.MM.yyyy HH:mm:ss:SSS"
+  metainfo namespace <<DomainPath>>
+  metainfo rootPath oho
+
+
+class <<DomainPath>>.HoroscopeRequestData
+  metainfo implements java.io.Serializable
+  metainfo implements Cloneable
+  metainfo withDaoAndSql false
+  metainfo withController false
+  metainfo swaggerDoc "Complete data on a hosted file"
+  metainfo JavaDocLine "Complete data on a hosted file"
+  metainfo frontendDataClass true
+  metainfo frontendServiceName horoscope-request
+  metainfo frontendComponentName horoscope-request
+
+  attribute name
+    metainfo SqlType varchar
+    metainfo JavaType String
+    metainfo guiType TextField
+    metainfo Mandatory true
+    metainfo ExampleData Bob
+  
+  attribute gender
+    metainfo SqlType varchar
+    metainfo JavaType String
+    metainfo guiType Selectbox:m,w,d
+    metainfo Mandatory true
+    metainfo ExampleData m
+	metainfo defaultValue d
+	
+  attribute birthday
+    metainfo SqlType varchar
+    metainfo JavaType String
+    metainfo guiType TextField
+    metainfo Mandatory true
+    metainfo ExampleData 10.10.2001
+

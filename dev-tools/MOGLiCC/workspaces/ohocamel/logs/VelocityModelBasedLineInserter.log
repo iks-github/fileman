@@ -1,0 +1,34 @@
+0 MetaInfoValidators found.
+Doing my job...
+Model 'SpringBootBackendAngularFrontModel' retrieved from StandardModelProvider
+-
+Creating code for artefact FrontendInputPage...
+Starting velocity engine for artefact 'FrontendInputPage and with 'MainTemplate_FrontendHtmlTable.tpl'...
+Creating file: C:\dev\source\DemoCodeGithub\OHOCamelWebService\OHO-Frontend\src\app\components\horoscope-request\horoscope-request-component.html
+Generated content merged with content of
+C:\dev\source\DemoCodeGithub\OHOCamelWebService\OHO-Frontend\src\app\components\horoscope-request\horoscope-request-component.html
+Generated Content replaced in
+C:\dev\source\DemoCodeGithub\OHOCamelWebService\OHO-Frontend\src\app\components\horoscope-request\horoscope-request-component.html
+Generated content for artefact 'FrontendInputPage' inserted into C:/dev/source/DemoCodeGithub/OHOCamelWebService/OHO-Frontend/src/app/components/horoscope-request/horoscope-request-component.html
+Doing my job...
+-
+Creating code for artefact FrontendValidationErrors...
+Starting velocity engine for artefact 'FrontendValidationErrors and with 'Template_FrontendValidationErrors.tpl'...
+Creating file: C:\dev\source\DemoCodeGithub\OHOCamelWebService\OHO-Frontend\src\app\components\horoscope-request\horoscope-request-component.html
+Generated content merged with content of
+C:\dev\source\DemoCodeGithub\OHOCamelWebService\OHO-Frontend\src\app\components\horoscope-request\horoscope-request-component.html
+Generated Content replaced in
+C:\dev\source\DemoCodeGithub\OHOCamelWebService\OHO-Frontend\src\app\components\horoscope-request\horoscope-request-component.html
+Generated content for artefact 'FrontendValidationErrors' inserted into C:/dev/source/DemoCodeGithub/OHOCamelWebService/OHO-Frontend/src/app/components/horoscope-request/horoscope-request-component.html
+Doing my job...
+-
+Creating code for artefact Template_FrontendFormControl...
+Starting velocity engine for artefact 'Template_FrontendFormControl and with 'MainTemplate_FrontendFormControl.tpl'...
+Creating file: C:\dev\source\DemoCodeGithub\OHOCamelWebService\OHO-Frontend\src\app\components\horoscope-request\horoscope-request-component.ts
+Generated content merged with content of
+C:\dev\source\DemoCodeGithub\OHOCamelWebService\OHO-Frontend\src\app\components\horoscope-request\horoscope-request-component.ts
+Generated Content replaced in
+C:\dev\source\DemoCodeGithub\OHOCamelWebService\OHO-Frontend\src\app\components\horoscope-request\horoscope-request-component.ts
+Generated content for artefact 'Template_FrontendFormControl' inserted into C:/dev/source/DemoCodeGithub/OHOCamelWebService/OHO-Frontend/src/app/components/horoscope-request/horoscope-request-component.ts
+Doing my job...
+Done!

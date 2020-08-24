@@ -1,0 +1,15 @@
+Doing my job...
+Property file '_model.properties' found.
+Property file '_model.properties' read.
+Model file found!
+Model file has been read!
+Brace symbol used: "
+Model file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\workspaces\fileman\input\StandardModelProvider\FilemanDomainModel.txt
+10 classes read from model file.
+Collecting MetaInfoValidators from vendors:
+Found MetaInfoValidatorVendor 'VelocityModelBasedLineInserter' providing 0 MetaInfoValidators to model 'SpringBootBackendAngularFrontModel'.
+Found MetaInfoValidatorVendor 'VelocityClassBasedFileMaker' providing 0 MetaInfoValidators to model 'SpringBootBackendAngularFrontModel'.
+Found MetaInfoValidatorVendor 'VelocityModelBasedTreeBuilder' providing 0 MetaInfoValidators to model 'SpringBootBackendAngularFrontModel'.
+Model is valid corresponding the MetaInfoValidators!
+Model Statistics file created.
+Done!

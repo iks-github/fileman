@@ -1,0 +1,31 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+    <h2>
+        <fileman-logo></fileman-logo>
+        <span *ngIf="newMode">Details of new User</span>
+        <span *ngIf="! newMode">Edit User Details</span>
+    </h2>
+
+    <div class="form-group" formGroupName="inputFieldControl">
+
+        <!-- The table section below is generated: Do not modify manually! -->
+        <!-- The table section above is generated: Do not modify manually! -->
+
+        <div class="form-group alert alert-danger" *ngIf="detailsForm.invalid && detailsForm.touched">
+            Validation errors:
+
+            <!-- The error sections below are generated: Do not modify manually! -->
+            <!-- The error sections above are generated: Do not modify manually! -->
+
+        </div>
+
+        <button *ngIf="!readOnly"
+                [disabled]=" ! detailsForm.touched || detailsForm.invalid"
+                class="button btn btn-primary"
+                type="submit"
+                data-toggle="tooltip" title="{{getToolTip()}}"
+        >Save</button>
+        &nbsp;
+        <button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
+    </div>
+</form>

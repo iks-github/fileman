@@ -1,0 +1,369 @@
+﻿#########################################################################################################
+# This model file illustrates the usage of the model definition DSL of the StandardModelProvider plugin.
+#
+# A model for the StandardModelProvider is constructed out of classes, attributes and metainfos. 
+# The MOGLiCC meta model consists of the three hierarchy levels model, class and attribute. 
+# A model file must contain exactly one model. The name of a class (for a java class it should also contain 
+# the qualified path) must be unique within the model. The name of an attribute must be unique for its class.
+#
+# Each element (model, class or attribute) is defined by its name - the only concretely predefined data value. 
+# The data of each element in each hierarchy level can be enriched by MetaInfo elements in any number. 
+# A MetaInfo element consists of a non-unique name and a value.
+#
+# For repreatedly used values (such as paths to domain objects) variables can be defined. A variable consists 
+# of a key-value-pair. The key can be used as placeholder: <<variableKey>>. When the model file is parsed all 
+# placeholders are replaced by its variable value. Variables can be defined anywhere in the model file, e.g. 
+# at the end of the model file. Variables values may contain placeholders of other variables, that are 
+# mentioned above in the model file. If needed upper and lower case conversion is possible:
+#
+# variable v1 "One Two Three"
+# variable v2 toUPPERCase: <<v1>>  # this results in "ONE TWO THREE"
+# variable v3 toLowerCase: <<v1>>  # this results in "one two three"
+#
+# Information which plugin uses which MetaInfo is presented in a statistics file
+# that is written into the plugin output directory of the StandardModelProvider plugin.
+#
+# The SpringBootBackendAngularFrontModel provides data for the MOGLiCC JavaBean templates. Model data and templates are
+# used to create the MOGLiCC JavaBean artefacts. These are NOT designed for manual modification.
+# In case you want to have same modified, change the templates, the model data or both, and
+# recreate them by autogeneration.
+#
+#########################################################################################################
+
+
+variable DomainPath com.iksgmbh.fileman.backend
+variable alphanumericCharset "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZA 01234567890 <>&-.,;!?=()/üöäÜÖÄß"
+
+
+model SpringBootBackendAngularFrontModel
+  metainfo backendGenDir <applicationRootDir>/../../Fileman-Backend/src/gen/java
+  metainfo backendSrcDir <applicationRootDir>/../../Fileman-Backend/src/main/java
+  metainfo frontendSrcDir <applicationRootDir>/../../Fileman-Frontend/src/app
+  metainfo projectName Fileman
+  metainfo dateTimeFormat "dd.MM.yyyy HH:mm:ss:SSS"
+  metainfo namespace <<DomainPath>>
+  metainfo newDomainObject user  # use lower case !
+
+
+class <<DomainPath>>.FileData
+  metainfo implements java.io.Serializable
+  metainfo implements Cloneable
+  metainfo swaggerDoc "Complete data on a hosted file"
+  metainfo JavaDocLine "Complete data on a hosted file"
+  metainfo frontendClass true
+
+  attribute metaData
+    metainfo JavaType FileMetaData
+    metainfo Mandatory true
+
+  attribute contentData
+    metainfo JavaType FileContentData
+    metainfo Mandatory true
+
+class <<DomainPath>>.FileContentData
+  metainfo implements java.io.Serializable
+  metainfo implements Cloneable
+  metainfo swaggerDoc "Content of hosted file"
+  metainfo JavaDocLine "Content of hosted file"
+  metainfo frontendClass true
+  metainfo dbEntity true
+
+  attribute uuid
+    metainfo dbType bigint
+    metainfo JavaType Long
+    metainfo ExampleData 0
+    metainfo unique true
+    metainfo id true
+    metainfo generatedValue true
+  
+  attribute name
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData logo.png
+    metainfo MinLength 3
+    metainfo MaxLength 128
+    metainfo withFindAllMethod true
+
+  attribute content
+    metainfo dbType blob
+    metainfo JavaType byte[]
+    metainfo Mandatory true
+    metainfo ExampleData 10101
+
+  attribute size
+    metainfo dbType bigint
+    metainfo JavaType Long
+    metainfo Mandatory false
+    metainfo ExampleData 30000
+
+  attribute creator
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData Hans Mustermann
+
+  attribute creationDate
+    metainfo dbType datetime
+    metainfo JavaType java.util.Date
+    metainfo ExampleData "10.10.2020 13:55:59"
+
+class <<DomainPath>>.FileMetaData  
+  metainfo implements java.io.Serializable
+  metainfo implements Cloneable
+  metainfo generateStandardJavaDoc true
+  metainfo swaggerDoc "Meta Data of a hosted file"
+  metainfo JavaDocLine "Meta Data of a hosted file"
+  metainfo frontendClass true
+  metainfo dbEntity true
+  
+  attribute name
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData logo.png
+    metainfo MinLength 3
+    metainfo MaxLength 128
+    metainfo unique true
+    metainfo id true
+    metainfo guiType TextField
+    metainfo allowSpace false
+
+  attribute description
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo ExampleData "A logo image"
+    metainfo MaxLength 1024
+    metainfo guiType TextArea
+
+  attribute activeUUID
+    metainfo dbType bigint
+    metainfo JavaType Long
+    metainfo ExampleData 123456
+
+  attribute "immediately Active"
+    metainfo JavaType Boolean
+    metainfo guiType Checkbox
+    metainfo defaultValue true
+    metainfo ExampleData true
+    metainfo hideFromDB true
+    
+  attribute techType
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo ExampleData pdf
+    metainfo MaxLength 16
+
+  attribute techVersion
+    metainfo dbType number
+    metainfo JavaType Integer
+    metainfo ExampleData 1
+
+  attribute creator
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData Hans Mustermann
+
+  attribute creationDate
+    metainfo dbType datetime
+    metainfo JavaType java.util.Date
+    metainfo ExampleData "10.10.2020 13:55:59"
+
+  attribute size
+    metainfo dbType bigint
+    metainfo JavaType Integer
+    metainfo ExampleData 1234
+
+class <<DomainPath>>.User
+  metainfo implements java.io.Serializable
+  metainfo generateStandardJavaDoc true
+  metainfo swaggerDoc "Data of a Fileman user"
+  metainfo JavaDocLine "Data of a Fileman user"
+  metainfo BackendController true
+  metainfo FrontendService true
+  metainfo CrossFieldValidation true
+  metainfo dbEntity true
+
+  attribute id
+    metainfo dbType int
+    metainfo JavaType Integer
+    metainfo ExampleData 1
+    metainfo unique true
+    metainfo id true
+    metainfo generatedValue true
+    
+  attribute name
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "ich"
+    metainfo MinLength 2
+    metainfo MaxLength 64
+    metainfo unique true
+    metainfo guiType TextField
+
+  attribute role
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData Admin
+    metainfo guiType Selectbox:Reader,Writer,Admin
+
+  attribute password
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo ExampleData "123"
+    metainfo MinLength 1
+    metainfo MaxLength 60
+    metainfo hideFromClientOverview true
+    metainfo requiredForNewInstance true
+    metainfo preventUpdateWithEmptyValue true
+    metainfo guiType PasswordField
+
+  attribute passwordRepetition
+    metainfo JavaType String
+    metainfo ExampleData "123"
+    metainfo MinLength 1
+    metainfo MaxLength 60
+    metainfo hideFromClientOverview true
+    metainfo hideFromDB true
+    metainfo guiType PasswordField
+
+   attribute avatar
+    metainfo dbType clob # clob (instead of blob) as we are using the String
+                         # format on client side to determine the file type
+    metainfo JavaType String
+    metainfo guiType FileSelector
+ 
+ class <<DomainPath>>.ExceptionMetaData
+  metainfo implements java.io.Serializable
+
+  attribute timestamp
+    metainfo JavaType Long
+    metainfo Mandatory true
+    metainfo ExampleData 11234823442
+
+  attribute message
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "Resource not found"
+
+  attribute details
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "User 1 not found"
+    
+class <<DomainPath>>.LoginRequest
+  metainfo frontendClass true
+
+  attribute userId
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "Pete"
+    metainfo MinLength 2
+    metainfo MaxLength 64
+
+  attribute userPw
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "pw"
+    # metainfo MinLength 3
+    metainfo MaxLength 32
+
+  attribute filemanVersion
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData 1.1
+
+class <<DomainPath>>.LoginResponse
+  metainfo frontendClass true
+
+  attribute errorMessage
+    metainfo JavaType String
+
+  attribute authToken
+    metainfo JavaType String
+        
+  attribute ok
+    metainfo JavaType Boolean
+    
+class <<DomainPath>>.FavouriteSetting
+  metainfo implements java.io.Serializable
+  metainfo generateStandardJavaDoc true
+  metainfo swaggerDoc "Data for favourite filter"
+  metainfo JavaDocLine "Data for favourite filter"
+  metainfo extraFindEndpoint User 
+  metainfo frontendClass true
+  metainfo dbEntity true
+
+  attribute id
+    metainfo dbType int
+    metainfo JavaType Integer
+    metainfo ExampleData 1
+    metainfo unique true
+    metainfo id true
+    metainfo generatedValue true
+    
+  attribute username
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo withFindAllMethod true
+
+  attribute filename
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo withFindAllMethod true
+
+class <<DomainPath>>.UserPreferences
+  metainfo implements java.io.Serializable
+  metainfo generateStandardJavaDoc true
+  metainfo swaggerDoc "Data for user component state"
+  metainfo JavaDocLine "Data for user component state"
+  metainfo BackendController true
+  metainfo FrontendService true
+  metainfo FrontendServiceName user-preferences
+  metainfo extraFindEndpoint User
+  metainfo dbEntity true
+
+  attribute userId
+    metainfo dbType int
+    metainfo JavaType Integer
+    metainfo ExampleData 1
+    metainfo unique true
+    metainfo id true
+    
+  attribute contentType
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo ExampleData content_type_files
+    metainfo Mandatory true
+    
+  attribute layoutType
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo ExampleData layout_type_list
+    metainfo Mandatory true
+    
+  attribute favouriteFilterActive
+    metainfo dbType boolean
+    metainfo JavaType Boolean
+    metainfo ExampleData true
+    metainfo Mandatory true
+    
+class <<DomainPath>>.DbSchema
+  metainfo dbEntity true
+    
+  attribute creationDate
+    metainfo dbType datetime
+    metainfo JavaType java.util.Date
+    metainfo Mandatory true
+    metainfo id true
+    
+  attribute sql
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo Mandatory true
+    

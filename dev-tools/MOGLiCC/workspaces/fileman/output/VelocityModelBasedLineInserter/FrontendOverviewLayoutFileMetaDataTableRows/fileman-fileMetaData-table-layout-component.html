@@ -1,0 +1,10 @@
+
+        <td [ngStyle]="{'font-weight': isFileFavourite(file.name) ? 'bold' : ''}">{{file.name}} {{favouriteAsterix(file)}}</td>
+        <td>{{file.description}}</td>
+        <td>{{file.activeUUID}}</td>
+        <td>{{file.immediatelyActive}}</td>
+        <td>{{file.techType}}</td>
+        <td>{{file.techVersion}}</td>
+        <td>{{file.creator}}</td>
+        <td>&#8203;{{formatCreationDate(file.creationDate)}}</td>
+        <td>{{file.size}}</td>

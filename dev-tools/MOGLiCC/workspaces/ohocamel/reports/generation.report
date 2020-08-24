@@ -1,0 +1,59 @@
+**************************   G E N E R A T O R   R E P O R T   *******************************
+
+All 3 generator plugins executed successfully.
+Model used is 'SpringBootBackendAngularFrontModel'.
+A total of 9 generation events for 9 output artefact(s) have been performed.
+
+----------------------------------------------------------------------------------------------
+
+VelocityClassBasedFileMaker: 
+
+Following 3 artefact(s) are configured to skip generation:
+HoroscopeRequestDataRestController.java
+HoroscopeRequestDataDao.java
+HoroscopeRequestDataDaoImpl.java
+
+   Report for input artefact 'Controller':
+
+   Report for input artefact 'Dao':
+
+   Report for input artefact 'DaoImplDraft':
+
+   Report for input artefact 'FrontendComponentCSS':
+      horoscope-request-component.css did already exist and was NOT overwritten in C:/dev/source/DemoCodeGithub/OHOCamelWebService/OHO-Frontend/src/app/components/horoscope-request
+
+   Report for input artefact 'FrontendComponentClass':
+      horoscope-request-component.ts did already exist and was NOT overwritten in C:/dev/source/DemoCodeGithub/OHOCamelWebService/OHO-Frontend/src/app/components/horoscope-request
+
+   Report for input artefact 'FrontendComponentHtml':
+      horoscope-request-component.html did already exist and was NOT overwritten in C:/dev/source/DemoCodeGithub/OHOCamelWebService/OHO-Frontend/src/app/components/horoscope-request
+
+   Report for input artefact 'FrontendDataClass':
+      HoroscopeRequestData.ts was created in C:/dev/source/DemoCodeGithub/OHOCamelWebService/OHO-Frontend/src/app/common/domainobjects/gen
+
+   Report for input artefact 'FrontendService':
+      horoscope-request-service.ts did already exist and was NOT overwritten in C:/dev/source/DemoCodeGithub/OHOCamelWebService/OHO-Frontend/src/app/services
+
+   Report for input artefact 'MOGLiJavaBeanRest':
+      HoroscopeRequestData.java was created in C:/dev/source/DemoCodeGithub/OHOCamelWebService/OHO-Backend/backend/src/gen/java/com/iksgmbh/oho/backend
+
+----------------------------------------------------------------------------------------------
+
+VelocityModelBasedLineInserter: 
+
+Report for input artefact 'FrontendInputPage':
+      27 line(s) inserted by a replace-instruction into horoscope-request-component.html in directory C:/dev/source/DemoCodeGithub/OHOCamelWebService/OHO-Frontend/src/app/components/horoscope-request
+
+   Report for input artefact 'FrontendValidationErrors':
+      9 line(s) inserted by a replace-instruction into horoscope-request-component.html in directory C:/dev/source/DemoCodeGithub/OHOCamelWebService/OHO-Frontend/src/app/components/horoscope-request
+
+   Report for input artefact 'Template_FrontendFormControl':
+      34 line(s) inserted by a replace-instruction into horoscope-request-component.ts in directory C:/dev/source/DemoCodeGithub/OHOCamelWebService/OHO-Frontend/src/app/components/horoscope-request
+
+----------------------------------------------------------------------------------------------
+
+VelocityModelBasedTreeBuilder: 
+
+No input artefact found. Nothing to do.
+
+**************************************  E N D  ***********************************************

@@ -1,0 +1,134 @@
+0 MetaInfoValidators found.
+Doing my job...
+Model 'SpringBootBackendAngularFrontModel' retrieved from StandardModelProvider
+-
+Creating code for artefact Frontend-app-module-declaration...
+Starting velocity engine for artefact 'Frontend-app-module-declaration and with 'Main_AppModuleDeclarations.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\app.module.ts
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\app.module.ts
+Generated Content inserted above 'FilemetadataListLayout, FilemetadataTableLayout, FilemetadataTilesLayout' in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\app.module.ts
+Generated content for artefact 'Frontend-app-module-declaration' inserted into ..\\..\\Fileman-Frontend\\src\app/app.module.ts
+Doing my job...
+-
+Creating code for artefact Frontend-app-module-imports...
+Starting velocity engine for artefact 'Frontend-app-module-imports and with 'Main_AppModuleImports.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\app.module.ts
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\app.module.ts
+Generated Content inserted above '@NgModule({' in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\app.module.ts
+Generated content for artefact 'Frontend-app-module-imports' inserted into ..\\..\\Fileman-Frontend\\src\app/app.module.ts
+Doing my job...
+-
+Creating code for artefact Frontend-app-module-provider...
+Starting velocity engine for artefact 'Frontend-app-module-provider and with 'Main_AppModuleProvider.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\app.module.ts
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\app.module.ts
+Generated Content inserted above 'FilemanMetadataService,' in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\app.module.ts
+Generated content for artefact 'Frontend-app-module-provider' inserted into ..\\..\\Fileman-Frontend\\src\app/app.module.ts
+Doing my job...
+-
+Creating code for artefact FrontendDetailsFormControlFilemetadata...
+Starting velocity engine for artefact 'FrontendDetailsFormControlFilemetadata and with 'Filemetadata_FrontendFormControl.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-fileMetaData-details\fileman-fileMetaData-details.component.ts
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-fileMetaData-details\fileman-fileMetaData-details.component.ts
+Generated Content replaced in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-fileMetaData-details\fileman-fileMetaData-details.component.ts
+Generated content for artefact 'FrontendDetailsFormControlFilemetadata' inserted into ..\\..\\Fileman-Frontend\\src\app\components\details\fileman-fileMetaData-details/fileman-fileMetaData-details.component.ts
+Doing my job...
+-
+Creating code for artefact FrontendDetailsFormControlUser...
+Starting velocity engine for artefact 'FrontendDetailsFormControlUser and with 'User_FrontendFormControl.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-user-details\fileman-user-details.component.ts
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-user-details\fileman-user-details.component.ts
+Generated Content replaced in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-user-details\fileman-user-details.component.ts
+Generated content for artefact 'FrontendDetailsFormControlUser' inserted into ..\\..\\Fileman-Frontend\\src\app\components\details\fileman-user-details/fileman-user-details.component.ts
+Doing my job...
+-
+Creating code for artefact FrontendDetailsHtmlValidationErrorsFileMetaData...
+Starting velocity engine for artefact 'FrontendDetailsHtmlValidationErrorsFileMetaData and with 'Filemetadata_FrontendDetailsHtmlValidationErrors.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-fileMetaData-details\fileman-fileMetaData-details.component.html
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-fileMetaData-details\fileman-fileMetaData-details.component.html
+Generated Content replaced in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-fileMetaData-details\fileman-fileMetaData-details.component.html
+Generated content for artefact 'FrontendDetailsHtmlValidationErrorsFileMetaData' inserted into ..\\..\\Fileman-Frontend\\src\app\components\details\fileman-fileMetaData-details/fileman-fileMetaData-details.component.html
+Doing my job...
+-
+Creating code for artefact FrontendDetailsHtmlValidationErrorsUser...
+Starting velocity engine for artefact 'FrontendDetailsHtmlValidationErrorsUser and with 'User_FrontendDetailsHtmlValidationErrors.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-user-details\fileman-user-details.component.html
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-user-details\fileman-user-details.component.html
+Generated Content replaced in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-user-details\fileman-user-details.component.html
+Generated content for artefact 'FrontendDetailsHtmlValidationErrorsUser' inserted into ..\\..\\Fileman-Frontend\\src\app\components\details\fileman-user-details/fileman-user-details.component.html
+Doing my job...
+-
+Creating code for artefact FrontendDetailsTableFilemetadata...
+Starting velocity engine for artefact 'FrontendDetailsTableFilemetadata and with 'Filemetadata_FrontendHtmlTable.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-fileMetaData-details\fileman-fileMetaData-details.component.html
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-fileMetaData-details\fileman-fileMetaData-details.component.html
+Generated Content replaced in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-fileMetaData-details\fileman-fileMetaData-details.component.html
+Generated content for artefact 'FrontendDetailsTableFilemetadata' inserted into ..\\..\\Fileman-Frontend\\src\app\components\details\fileman-fileMetaData-details/fileman-fileMetaData-details.component.html
+Doing my job...
+-
+Creating code for artefact FrontendDetailsTableUser...
+Starting velocity engine for artefact 'FrontendDetailsTableUser and with 'User_FrontendHtmlTable.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-user-details\fileman-user-details.component.html
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-user-details\fileman-user-details.component.html
+Generated Content replaced in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\details\fileman-user-details\fileman-user-details.component.html
+Generated content for artefact 'FrontendDetailsTableUser' inserted into ..\\..\\Fileman-Frontend\\src\app\components\details\fileman-user-details/fileman-user-details.component.html
+Doing my job...
+-
+Creating code for artefact FrontendOverviewLayoutFileMetaDataTableHeaders...
+Starting velocity engine for artefact 'FrontendOverviewLayoutFileMetaDataTableHeaders and with 'Filemetadata_FrontendHtmlTableHeaders.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\layout\fileMetaData\table-layout\fileman-fileMetaData-table-layout-component.html
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\layout\fileMetaData\table-layout\fileman-fileMetaData-table-layout-component.html
+Generated Content replaced in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\layout\fileMetaData\table-layout\fileman-fileMetaData-table-layout-component.html
+Generated content for artefact 'FrontendOverviewLayoutFileMetaDataTableHeaders' inserted into ..\\..\\Fileman-Frontend\\src\app\components\layout\fileMetaData\table-layout/fileman-fileMetaData-table-layout-component.html
+Doing my job...
+-
+Creating code for artefact FrontendOverviewLayoutFileMetaDataTableRows...
+Starting velocity engine for artefact 'FrontendOverviewLayoutFileMetaDataTableRows and with 'Filemetadata_FrontendHtmlTableRows.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\layout\fileMetaData\table-layout\fileman-fileMetaData-table-layout-component.html
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\layout\fileMetaData\table-layout\fileman-fileMetaData-table-layout-component.html
+Generated Content replaced in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\layout\fileMetaData\table-layout\fileman-fileMetaData-table-layout-component.html
+Generated content for artefact 'FrontendOverviewLayoutFileMetaDataTableRows' inserted into ..\\..\\Fileman-Frontend\\src\app\components\layout\fileMetaData\table-layout/fileman-fileMetaData-table-layout-component.html
+Doing my job...
+-
+Creating code for artefact FrontendOverviewLayoutUserTableHeaders...
+Starting velocity engine for artefact 'FrontendOverviewLayoutUserTableHeaders and with 'User_FrontendHtmlTableHeaders.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\layout\user\table-layout\fileman-user-table-layout-component.html
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\layout\user\table-layout\fileman-user-table-layout-component.html
+Generated Content replaced in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\layout\user\table-layout\fileman-user-table-layout-component.html
+Generated content for artefact 'FrontendOverviewLayoutUserTableHeaders' inserted into ..\\..\\Fileman-Frontend\\src\app\components\layout\user\table-layout/fileman-user-table-layout-component.html
+Doing my job...
+-
+Creating code for artefact FrontendOverviewLayoutUserTableRows...
+Starting velocity engine for artefact 'FrontendOverviewLayoutUserTableRows and with 'User_FrontendHtmlTableRows.tpl'...
+Creating file: C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\layout\user\table-layout\fileman-user-table-layout-component.html
+Generated content merged with content of
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\layout\user\table-layout\fileman-user-table-layout-component.html
+Generated Content replaced in
+C:\dev\source\FilemanGithub\dev-tools\MOGLiCC\..\..\Fileman-Frontend\src\app\components\layout\user\table-layout\fileman-user-table-layout-component.html
+Generated content for artefact 'FrontendOverviewLayoutUserTableRows' inserted into ..\\..\\Fileman-Frontend\\src\app\components\layout\user\table-layout/fileman-user-table-layout-component.html
+Doing my job...
+Done!

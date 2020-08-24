@@ -1,0 +1,44 @@
+***************************   P R O V I D E R   R E P O R T   ********************************
+
+All 3 provider plugins executed successfully.
+
+----------------------------------------------------------------------------------------------
+
+Report for ExcelStandardModelProvider:
+
+not used for code generation
+
+----------------------------------------------------------------------------------------------
+
+Report for StandardModelProvider:
+
+Model SpringBootBackendAngularFrontModel with 1 classes has been called 2 times.
+
+Classes in model:
+com.iksgmbh.oho.backend.HoroscopeRequestData
+
+Plugins called for the model:
+VelocityClassBasedFileMaker
+VelocityModelBasedLineInserter
+
+----------------------------------------------------------------------------------------------
+
+Report for VelocityEngineProvider:
+
+3 time(s) called in full generation model based mode: 
+from VelocityModelBasedLineInserter on main template 'FrontendInputPage' on template 'MainTemplate_FrontendHtmlTable.tpl'
+from VelocityModelBasedLineInserter on main template 'FrontendValidationErrors' on template 'Template_FrontendValidationErrors.tpl'
+from VelocityModelBasedLineInserter on main template 'Template_FrontendFormControl' on template 'MainTemplate_FrontendFormControl.tpl'
+
+9 time(s) called in full generation class based mode: 
+from VelocityClassBasedFileMaker for artefact 'Controller' on main template 'ControllerMainTemplate.tpl'
+from VelocityClassBasedFileMaker for artefact 'Dao' on main template 'DaoMainTemplate.tpl'
+from VelocityClassBasedFileMaker for artefact 'DaoImplDraft' on main template 'DaoImplMainTemplate.tpl'
+from VelocityClassBasedFileMaker for artefact 'FrontendComponentCSS' on main template 'CssMainTemplate.tpl'
+from VelocityClassBasedFileMaker for artefact 'FrontendComponentClass' on main template 'TsMainTemplate.tpl'
+from VelocityClassBasedFileMaker for artefact 'FrontendComponentHtml' on main template 'HtmlMainTemplate.tpl'
+from VelocityClassBasedFileMaker for artefact 'FrontendDataClass' on main template 'MainTemplate_FrontendDataClass.tpl'
+from VelocityClassBasedFileMaker for artefact 'FrontendService' on main template 'FrontendServiceMain.tpl'
+from VelocityClassBasedFileMaker for artefact 'MOGLiJavaBeanRest' on main template 'A_MainTemplate.tpl'
+
+**************************************  E N D  ***********************************************

@@ -1,0 +1,49 @@
+        <table class="form-group" formGroupName="detailsForm">
+            <tr>
+                <td>
+                    <label for="name">Name</label>
+                    <br>
+                    <input id="name" type="text" class="form-Control" formControlName="nameControl"/>
+                </td>
+				 <td class="space"></td>
+                <td>
+                    <label for="role">Role</label>
+                    <br>
+                    <select id="role" class="form-Control" formControlName="roleControl" (change)="roleC.markAsTouched()">
+                    	<option [value]="'Reader'">Reader</option>
+                    	<option [value]="'Writer'">Writer</option>
+                    	<option [value]="'Admin'">Admin</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>&nbsp;</tr>
+
+            <tr>
+                <td>
+                    <label for="password">Password</label>
+                    <br>
+                    <input id="password" type="password" class="form-Control" formControlName="passwordControl"/>
+                </td>
+				 <td class="space"></td>
+                <td>
+                    <label for="passwordRepetition">PasswordRepetition</label>
+                    <br>
+                    <input id="passwordRepetition" type="password" class="form-Control" formControlName="passwordRepetitionControl"/>
+                </td>
+            </tr>
+
+            <tr>&nbsp;</tr>
+
+            <tr>
+                <td>
+                    <label for="avatar">Avatar</label>
+                    <br>
+                    <input id="fileContentSource" class="form-Control" type="file"
+                    formControlName="avatarControl"
+                    (change)="onAvatarChange($event)"
+                    [style.border]="getBorder()"
+                    (focus)="setFocusOnFileSelector(true)" (blur)="setFocusOnFileSelector(false)"/>
+                </td>
+            </tr>
+        </table>

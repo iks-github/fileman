@@ -1,0 +1,207 @@
+**************************   G E N E R A T O R   R E P O R T   *******************************
+
+All 3 generator plugins executed successfully.
+Model used is 'SpringBootBackendAngularFrontModel'.
+A total of 87 generation events for 43 output artefact(s) have been performed.
+
+----------------------------------------------------------------------------------------------
+
+VelocityClassBasedFileMaker: 
+
+Following 32 artefact(s) are configured to skip generation:
+FileDataBasicDao.java
+ExceptionMetaDataBasicDao.java
+LoginRequestBasicDao.java
+LoginResponseBasicDao.java
+FileDataDao.java
+ExceptionMetaDataDao.java
+LoginRequestDao.java
+LoginResponseDao.java
+FileData.ts
+FileContentData.ts
+FileMetaData.ts
+ExceptionMetaData.ts
+LoginRequest.ts
+LoginResponse.ts
+FavouriteSetting.ts
+DbSchema.ts
+fileman-fileData-service.service.ts
+fileman-fileContentData-service.service.ts
+fileman-fileMetaData-service.service.ts
+fileman-exceptionMetaData-service.service.ts
+fileman-loginRequest-service.service.ts
+fileman-loginResponse-service.service.ts
+fileman-favouriteSetting-service.service.ts
+fileman-dbSchema-service.service.ts
+FileDataRestController.java
+FileContentDataRestController.java
+FileMetaDataRestController.java
+ExceptionMetaDataRestController.java
+LoginRequestRestController.java
+LoginResponseRestController.java
+FavouriteSettingRestController.java
+DbSchemaRestController.java
+
+   Report for input artefact 'DaoBasic':
+      FileContentDataBasicDao.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend/dao
+      FileMetaDataBasicDao.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend/dao
+      UserBasicDao.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend/dao
+      FavouriteSettingBasicDao.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend/dao
+      UserPreferencesBasicDao.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend/dao
+      DbSchemaBasicDao.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend/dao
+
+   Report for input artefact 'DaoDraft':
+      FileContentDataDao.java did already exist and was NOT overwritten in <applicationRootDir>/../../Fileman-Backend/src/main/java/com/iksgmbh/fileman/backend/dao
+      FileMetaDataDao.java did already exist and was NOT overwritten in <applicationRootDir>/../../Fileman-Backend/src/main/java/com/iksgmbh/fileman/backend/dao
+      UserDao.java did already exist and was NOT overwritten in <applicationRootDir>/../../Fileman-Backend/src/main/java/com/iksgmbh/fileman/backend/dao
+      FavouriteSettingDao.java did already exist and was NOT overwritten in <applicationRootDir>/../../Fileman-Backend/src/main/java/com/iksgmbh/fileman/backend/dao
+      UserPreferencesDao.java did already exist and was NOT overwritten in <applicationRootDir>/../../Fileman-Backend/src/main/java/com/iksgmbh/fileman/backend/dao
+      DbSchemaDao.java did already exist and was NOT overwritten in <applicationRootDir>/../../Fileman-Backend/src/main/java/com/iksgmbh/fileman/backend/dao
+
+   Report for input artefact 'DomainObject':
+      FileData.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend
+      FileContentData.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend
+      FileMetaData.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend
+      User.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend
+      ExceptionMetaData.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend
+      LoginRequest.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend
+      LoginResponse.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend
+      FavouriteSetting.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend
+      UserPreferences.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend
+      DbSchema.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend
+
+   Report for input artefact 'FrontendClass':
+      User.ts was created in <applicationRootDir>/../../Fileman-Frontend/src/app/common/domainobjects/gen
+      UserPreferences.ts was created in <applicationRootDir>/../../Fileman-Frontend/src/app/common/domainobjects/gen
+
+   Report for input artefact 'FrontendService':
+      fileman-user-service.service.ts did already exist and was NOT overwritten in <applicationRootDir>/../../Fileman-Frontend/src/app/services
+      fileman-user-preferences-service.service.ts did already exist and was NOT overwritten in <applicationRootDir>/../../Fileman-Frontend/src/app/services
+
+   Report for input artefact 'RestController':
+      UserRestController.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend/rest
+      UserPreferencesRestController.java was created in <applicationRootDir>/../../Fileman-Backend/src/gen/java/com/iksgmbh/fileman/backend/rest
+
+----------------------------------------------------------------------------------------------
+
+VelocityModelBasedLineInserter: 
+
+Report for input artefact 'Frontend-app-module-declaration':
+      1 line(s) inserted by a above-instruction into app.module.ts in directory ..\\..\\Fileman-Frontend\\src\app
+
+   Report for input artefact 'Frontend-app-module-imports':
+      4 line(s) inserted by a above-instruction into app.module.ts in directory ..\\..\\Fileman-Frontend\\src\app
+
+   Report for input artefact 'Frontend-app-module-provider':
+      1 line(s) inserted by a above-instruction into app.module.ts in directory ..\\..\\Fileman-Frontend\\src\app
+
+   Report for input artefact 'FrontendDetailsFormControlFilemetadata':
+      36 line(s) inserted by a replace-instruction into fileman-fileMetaData-details.component.ts in directory ..\\..\\Fileman-Frontend\\src\app\components\details\fileman-fileMetaData-details
+
+   Report for input artefact 'FrontendDetailsFormControlUser':
+      54 line(s) inserted by a replace-instruction into fileman-user-details.component.ts in directory ..\\..\\Fileman-Frontend\\src\app\components\details\fileman-user-details
+
+   Report for input artefact 'FrontendDetailsHtmlValidationErrorsFileMetaData':
+      12 line(s) inserted by a replace-instruction into fileman-fileMetaData-details.component.html in directory ..\\..\\Fileman-Frontend\\src\app\components\details\fileman-fileMetaData-details
+
+   Report for input artefact 'FrontendDetailsHtmlValidationErrorsUser':
+      18 line(s) inserted by a replace-instruction into fileman-user-details.component.html in directory ..\\..\\Fileman-Frontend\\src\app\components\details\fileman-user-details
+
+   Report for input artefact 'FrontendDetailsTableFilemetadata':
+      23 line(s) inserted by a replace-instruction into fileman-fileMetaData-details.component.html in directory ..\\..\\Fileman-Frontend\\src\app\components\details\fileman-fileMetaData-details
+
+   Report for input artefact 'FrontendDetailsTableUser':
+      45 line(s) inserted by a replace-instruction into fileman-user-details.component.html in directory ..\\..\\Fileman-Frontend\\src\app\components\details\fileman-user-details
+
+   Report for input artefact 'FrontendOverviewLayoutFileMetaDataTableHeaders':
+      36 line(s) inserted by a replace-instruction into fileman-fileMetaData-table-layout-component.html in directory ..\\..\\Fileman-Frontend\\src\app\components\layout\fileMetaData\table-layout
+
+   Report for input artefact 'FrontendOverviewLayoutFileMetaDataTableRows':
+      9 line(s) inserted by a replace-instruction into fileman-fileMetaData-table-layout-component.html in directory ..\\..\\Fileman-Frontend\\src\app\components\layout\fileMetaData\table-layout
+
+   Report for input artefact 'FrontendOverviewLayoutUserTableHeaders':
+      16 line(s) inserted by a replace-instruction into fileman-user-table-layout-component.html in directory ..\\..\\Fileman-Frontend\\src\app\components\layout\user\table-layout
+
+   Report for input artefact 'FrontendOverviewLayoutUserTableRows':
+      3 line(s) inserted by a replace-instruction into fileman-user-table-layout-component.html in directory ..\\..\\Fileman-Frontend\\src\app\components\layout\user\table-layout
+
+----------------------------------------------------------------------------------------------
+
+VelocityModelBasedTreeBuilder: 
+
+Report for input artefact 'detailComponent':
+
+   Target directory already exists and must not be created newly. Therefore, tree artefact is generated only in output directory!   Tree artefact generated in: workspaces\fileman\output\VelocityModelBasedTreeBuilder\detailComponent
+   0 folders have been created.
+   3 files have been created.
+   6 file modifications were performed.
+
+
+   Created files: 
+      \component.css
+      \component.html
+      \component.ts
+
+   Performed replacements:
+      Placeholder '<<type>>' replaced by 'user' in file 'component.ts'
+      Placeholder '<<Type>>' replaced by 'User' in file 'component.ts'
+      Placeholder '<<Type>>' replaced by 'User' in file 'component.html'
+
+   Performed file renamings:
+      File 'component.ts' renamed to 'fileman-user-details.component.ts' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\detailComponent'
+      File 'component.html' renamed to 'fileman-user-details.component.html' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\detailComponent'
+      File 'component.css' renamed to 'fileman-user-details.component.css' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\detailComponent'
+
+   Report for input artefact 'layoutComponents':
+
+   Target directory already exists and must not be created newly. Therefore, tree artefact is generated only in output directory!   Tree artefact generated in: workspaces\fileman\output\VelocityModelBasedTreeBuilder\layoutComponents
+   3 folders have been created.
+   13 files have been created.
+   30 file modifications were performed.
+
+   Created subdirectories: 
+      \list-layout
+      \table-layout
+      \tiles-layout
+
+   Created files: 
+      \layout-commons.ts
+      \list-layout\list-layout-component.css
+      \list-layout\list-layout-component.html
+      \list-layout\list-layout-component.ts
+      \table-layout\table-layout-component.css
+      \table-layout\table-layout-component.html
+      \table-layout\table-layout-component.ts
+      \tiles-layout\tiles-layout-component.css
+      \tiles-layout\tiles-layout-component.html
+      \tiles-layout\tiles-layout-component.ts
+
+   Performed replacements:
+      Placeholder '<<type>>' replaced by 'user' in file 'list-layout-component.ts'
+      Placeholder '<<type>>' replaced by 'user' in file 'table-layout-component.ts'
+      Placeholder '<<type>>' replaced by 'user' in file 'tiles-layout-component.ts'
+      Placeholder '<<Type>>' replaced by 'User' in file 'list-layout-component.ts'
+      Placeholder '<<Type>>' replaced by 'User' in file 'table-layout-component.ts'
+      Placeholder '<<Type>>' replaced by 'User' in file 'tiles-layout-component.ts'
+      Placeholder '<<type>>' replaced by 'user' in file 'list-layout-component.html'
+      Placeholder '<<type>>' replaced by 'user' in file 'table-layout-component.html'
+      Placeholder '<<type>>' replaced by 'user' in file 'tiles-layout-component.html'
+      Placeholder '<<Type>>' replaced by 'User' in file 'list-layout-component.html'
+      Placeholder '<<Type>>' replaced by 'User' in file 'table-layout-component.html'
+      Placeholder '<<Type>>' replaced by 'User' in file 'tiles-layout-component.html'
+      Placeholder '<<Type>>' replaced by 'User' in file 'layout-commons.ts'
+      Placeholder '<<type>>' replaced by 'user' in file 'layout-commons.ts'
+
+   Performed file renamings:
+      File 'table-layout-component.ts' renamed to 'fileman-user-table-layout-component.ts' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\layoutComponents\table-layout'
+      File 'table-layout-component.html' renamed to 'fileman-user-table-layout-component.html' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\layoutComponents\table-layout'
+      File 'table-layout-component.css' renamed to 'fileman-user-table-layout-component.css' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\layoutComponents\table-layout'
+      File 'list-layout-component.ts' renamed to 'fileman-user-list-layout-component.ts' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\layoutComponents\list-layout'
+      File 'list-layout-component.html' renamed to 'fileman-user-list-layout-component.html' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\layoutComponents\list-layout'
+      File 'list-layout-component.css' renamed to 'fileman-user-list-layout-component.css' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\layoutComponents\list-layout'
+      File 'tiles-layout-component.ts' renamed to 'fileman-user-tiles-layout-component.ts' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\layoutComponents\tiles-layout'
+      File 'tiles-layout-component.html' renamed to 'fileman-user-tiles-layout-component.html' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\layoutComponents\tiles-layout'
+      File 'tiles-layout-component.css' renamed to 'fileman-user-tiles-layout-component.css' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\layoutComponents\tiles-layout'
+      File 'layout-commons.ts' renamed to 'layout-user-commons.ts' in directory 'workspaces\fileman\output\VelocityModelBasedTreeBuilder\layoutComponents'
+
+**************************************  E N D  ***********************************************

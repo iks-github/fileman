@@ -1,0 +1,29 @@
+        <table class="form-group">
+            <tr>
+                <td>
+                    <label for="name">Name</label>
+                    <br>
+                    <input id="name" type="text" class="form-Control" formControlName="nameControl"/>
+                </td>
+				 <td class="space"></td>
+                <td>
+                    <label for="gender">Gender</label>
+                    <br>
+                    <select id="gender" class="form-Control" formControlName="genderControl">
+                    	<option [value]="'m'">m</option>
+                    	<option [value]="'w'">w</option>
+                    	<option [value]="'d'">d</option>
+					 </select>
+                </td>
+            </tr>
+
+            <tr>&nbsp;</tr>
+
+            <tr>
+                <td>
+                    <label for="birthday">Birthday</label>
+					 <br>
+                    <input id="birthday" type="text" class="form-Control" formControlName="birthdayControl"/>
+                </td>
+            </tr>
+        </table>

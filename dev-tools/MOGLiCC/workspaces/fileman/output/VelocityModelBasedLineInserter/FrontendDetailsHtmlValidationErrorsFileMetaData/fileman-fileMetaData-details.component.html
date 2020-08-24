@@ -1,0 +1,12 @@
+            <div *ngIf="nameC.errors?.required && nameC.touched">
+               The field <i>Name</i> is required.
+            </div>
+            <div *ngIf="nameC.errors?.minlength && nameC.touched">
+               Minimum length of field <i>Name</i> is {{nameC.errors.minlength.requiredLength}}.
+            </div>
+            <div *ngIf="nameC.errors?.doesNotContainSpace">
+               No spaces are allowed in field <i>Name</i>!
+            </div>
+            <div *ngIf="nameC.errors?.isNotUnique">
+               The value for field <i>Name</i> must be unique! <i>{{nameC.value}}</i> is not unique.
+            </div>

@@ -1,0 +1,121 @@
+Nothing to do in initDefaultInputData!
+-----
+Setting velocity engine data:
+ 'VelocityEngineDataImpl [artefactType=Controller, templateDir=workspaces\ohocamel\input\VelocityClassBasedFileMaker\Controller, templateFileName=ControllerMainTemplate.tpl, model=BuildUpModel [name=SpringBootBackendAngularFrontModel, classNumber=1, metaInfoList=backendGenDir, backendSrcDir, frontendSrcDir, projectName, dateTimeFormat, namespace, rootPath], generatorPluginId=VelocityClassBasedFileMaker]'...
+startEngineEachClassIntoSeparateTargetFiles called
+-
+Engine started from VelocityClassBasedFileMaker
+MainTemplate: C:\dev\source\FilemanGithub\MOGLiCC\workspaces\ohocamel\input\VelocityClassBasedFileMaker\Controller/ControllerMainTemplate.tpl
+Model SpringBootBackendAngularFrontModel received from VelocityClassBasedFileMaker
+GeneratorResultData created for merging class 'HoroscopeRequestData' with template 'ControllerMainTemplate.tpl'
+-----
+-----
+Setting velocity engine data:
+ 'VelocityEngineDataImpl [artefactType=Dao, templateDir=workspaces\ohocamel\input\VelocityClassBasedFileMaker\Dao, templateFileName=DaoMainTemplate.tpl, model=BuildUpModel [name=SpringBootBackendAngularFrontModel, classNumber=1, metaInfoList=backendGenDir, backendSrcDir, frontendSrcDir, projectName, dateTimeFormat, namespace, rootPath], generatorPluginId=VelocityClassBasedFileMaker]'...
+startEngineEachClassIntoSeparateTargetFiles called
+-
+Engine started from VelocityClassBasedFileMaker
+MainTemplate: C:\dev\source\FilemanGithub\MOGLiCC\workspaces\ohocamel\input\VelocityClassBasedFileMaker\Dao/DaoMainTemplate.tpl
+Model SpringBootBackendAngularFrontModel received from VelocityClassBasedFileMaker
+GeneratorResultData created for merging class 'HoroscopeRequestData' with template 'DaoMainTemplate.tpl'
+-----
+-----
+Setting velocity engine data:
+ 'VelocityEngineDataImpl [artefactType=DaoImplDraft, templateDir=workspaces\ohocamel\input\VelocityClassBasedFileMaker\DaoImplDraft, templateFileName=DaoImplMainTemplate.tpl, model=BuildUpModel [name=SpringBootBackendAngularFrontModel, classNumber=1, metaInfoList=backendGenDir, backendSrcDir, frontendSrcDir, projectName, dateTimeFormat, namespace, rootPath], generatorPluginId=VelocityClassBasedFileMaker]'...
+startEngineEachClassIntoSeparateTargetFiles called
+-
+Engine started from VelocityClassBasedFileMaker
+MainTemplate: C:\dev\source\FilemanGithub\MOGLiCC\workspaces\ohocamel\input\VelocityClassBasedFileMaker\DaoImplDraft/DaoImplMainTemplate.tpl
+Model SpringBootBackendAngularFrontModel received from VelocityClassBasedFileMaker
+GeneratorResultData created for merging class 'HoroscopeRequestData' with template 'DaoImplMainTemplate.tpl'
+-----
+-----
+Setting velocity engine data:
+ 'VelocityEngineDataImpl [artefactType=FrontendComponentCSS, templateDir=workspaces\ohocamel\input\VelocityClassBasedFileMaker\FrontendComponentCSS, templateFileName=CssMainTemplate.tpl, model=BuildUpModel [name=SpringBootBackendAngularFrontModel, classNumber=1, metaInfoList=backendGenDir, backendSrcDir, frontendSrcDir, projectName, dateTimeFormat, namespace, rootPath], generatorPluginId=VelocityClassBasedFileMaker]'...
+startEngineEachClassIntoSeparateTargetFiles called
+-
+Engine started from VelocityClassBasedFileMaker
+MainTemplate: C:\dev\source\FilemanGithub\MOGLiCC\workspaces\ohocamel\input\VelocityClassBasedFileMaker\FrontendComponentCSS/CssMainTemplate.tpl
+Model SpringBootBackendAngularFrontModel received from VelocityClassBasedFileMaker
+GeneratorResultData created for merging class 'HoroscopeRequestData' with template 'CssMainTemplate.tpl'
+-----
+-----
+Setting velocity engine data:
+ 'VelocityEngineDataImpl [artefactType=FrontendComponentClass, templateDir=workspaces\ohocamel\input\VelocityClassBasedFileMaker\FrontendComponentClass, templateFileName=TsMainTemplate.tpl, model=BuildUpModel [name=SpringBootBackendAngularFrontModel, classNumber=1, metaInfoList=backendGenDir, backendSrcDir, frontendSrcDir, projectName, dateTimeFormat, namespace, rootPath], generatorPluginId=VelocityClassBasedFileMaker]'...
+startEngineEachClassIntoSeparateTargetFiles called
+-
+Engine started from VelocityClassBasedFileMaker
+MainTemplate: C:\dev\source\FilemanGithub\MOGLiCC\workspaces\ohocamel\input\VelocityClassBasedFileMaker\FrontendComponentClass/TsMainTemplate.tpl
+Model SpringBootBackendAngularFrontModel received from VelocityClassBasedFileMaker
+GeneratorResultData created for merging class 'HoroscopeRequestData' with template 'TsMainTemplate.tpl'
+-----
+-----
+Setting velocity engine data:
+ 'VelocityEngineDataImpl [artefactType=FrontendComponentHtml, templateDir=workspaces\ohocamel\input\VelocityClassBasedFileMaker\FrontendComponentHtml, templateFileName=HtmlMainTemplate.tpl, model=BuildUpModel [name=SpringBootBackendAngularFrontModel, classNumber=1, metaInfoList=backendGenDir, backendSrcDir, frontendSrcDir, projectName, dateTimeFormat, namespace, rootPath], generatorPluginId=VelocityClassBasedFileMaker]'...
+startEngineEachClassIntoSeparateTargetFiles called
+-
+Engine started from VelocityClassBasedFileMaker
+MainTemplate: C:\dev\source\FilemanGithub\MOGLiCC\workspaces\ohocamel\input\VelocityClassBasedFileMaker\FrontendComponentHtml/HtmlMainTemplate.tpl
+Model SpringBootBackendAngularFrontModel received from VelocityClassBasedFileMaker
+GeneratorResultData created for merging class 'HoroscopeRequestData' with template 'HtmlMainTemplate.tpl'
+-----
+-----
+Setting velocity engine data:
+ 'VelocityEngineDataImpl [artefactType=FrontendDataClass, templateDir=workspaces\ohocamel\input\VelocityClassBasedFileMaker\FrontendDataClass, templateFileName=MainTemplate_FrontendDataClass.tpl, model=BuildUpModel [name=SpringBootBackendAngularFrontModel, classNumber=1, metaInfoList=backendGenDir, backendSrcDir, frontendSrcDir, projectName, dateTimeFormat, namespace, rootPath], generatorPluginId=VelocityClassBasedFileMaker]'...
+startEngineEachClassIntoSeparateTargetFiles called
+-
+Engine started from VelocityClassBasedFileMaker
+MainTemplate: C:\dev\source\FilemanGithub\MOGLiCC\workspaces\ohocamel\input\VelocityClassBasedFileMaker\FrontendDataClass/MainTemplate_FrontendDataClass.tpl
+Model SpringBootBackendAngularFrontModel received from VelocityClassBasedFileMaker
+GeneratorResultData created for merging class 'HoroscopeRequestData' with template 'MainTemplate_FrontendDataClass.tpl'
+-----
+-----
+Setting velocity engine data:
+ 'VelocityEngineDataImpl [artefactType=FrontendService, templateDir=workspaces\ohocamel\input\VelocityClassBasedFileMaker\FrontendService, templateFileName=FrontendServiceMain.tpl, model=BuildUpModel [name=SpringBootBackendAngularFrontModel, classNumber=1, metaInfoList=backendGenDir, backendSrcDir, frontendSrcDir, projectName, dateTimeFormat, namespace, rootPath], generatorPluginId=VelocityClassBasedFileMaker]'...
+startEngineEachClassIntoSeparateTargetFiles called
+-
+Engine started from VelocityClassBasedFileMaker
+MainTemplate: C:\dev\source\FilemanGithub\MOGLiCC\workspaces\ohocamel\input\VelocityClassBasedFileMaker\FrontendService/FrontendServiceMain.tpl
+Model SpringBootBackendAngularFrontModel received from VelocityClassBasedFileMaker
+GeneratorResultData created for merging class 'HoroscopeRequestData' with template 'FrontendServiceMain.tpl'
+-----
+-----
+Setting velocity engine data:
+ 'VelocityEngineDataImpl [artefactType=MOGLiJavaBeanRest, templateDir=workspaces\ohocamel\input\VelocityClassBasedFileMaker\MOGLiJavaBeanRest, templateFileName=A_MainTemplate.tpl, model=BuildUpModel [name=SpringBootBackendAngularFrontModel, classNumber=1, metaInfoList=backendGenDir, backendSrcDir, frontendSrcDir, projectName, dateTimeFormat, namespace, rootPath], generatorPluginId=VelocityClassBasedFileMaker]'...
+startEngineEachClassIntoSeparateTargetFiles called
+-
+Engine started from VelocityClassBasedFileMaker
+MainTemplate: C:\dev\source\FilemanGithub\MOGLiCC\workspaces\ohocamel\input\VelocityClassBasedFileMaker\MOGLiJavaBeanRest/A_MainTemplate.tpl
+Model SpringBootBackendAngularFrontModel received from VelocityClassBasedFileMaker
+GeneratorResultData created for merging class 'HoroscopeRequestData' with template 'A_MainTemplate.tpl'
+-----
+-----
+Setting velocity engine data:
+ 'VelocityEngineDataImpl [artefactType=FrontendInputPage, templateDir=workspaces\ohocamel\input\VelocityModelBasedLineInserter\FrontendInputPage, templateFileName=MainTemplate_FrontendHtmlTable.tpl, model=BuildUpModel [name=SpringBootBackendAngularFrontModel, classNumber=1, metaInfoList=backendGenDir, backendSrcDir, frontendSrcDir, projectName, dateTimeFormat, namespace, rootPath], generatorPluginId=VelocityModelBasedLineInserter]'...
+startEngineAllClassesIntoSingleTargetFile called
+-
+Engine started from VelocityModelBasedLineInserter
+MainTemplate: C:\dev\source\FilemanGithub\MOGLiCC\workspaces\ohocamel\input\VelocityModelBasedLineInserter\FrontendInputPage/MainTemplate_FrontendHtmlTable.tpl
+Model SpringBootBackendAngularFrontModel received from VelocityModelBasedLineInserter
+GeneratorResultData created for model merged with template 'MainTemplate_FrontendHtmlTable.tpl'
+-----
+-----
+Setting velocity engine data:
+ 'VelocityEngineDataImpl [artefactType=FrontendValidationErrors, templateDir=workspaces\ohocamel\input\VelocityModelBasedLineInserter\FrontendValidationErrors, templateFileName=Template_FrontendValidationErrors.tpl, model=BuildUpModel [name=SpringBootBackendAngularFrontModel, classNumber=1, metaInfoList=backendGenDir, backendSrcDir, frontendSrcDir, projectName, dateTimeFormat, namespace, rootPath], generatorPluginId=VelocityModelBasedLineInserter]'...
+startEngineAllClassesIntoSingleTargetFile called
+-
+Engine started from VelocityModelBasedLineInserter
+MainTemplate: C:\dev\source\FilemanGithub\MOGLiCC\workspaces\ohocamel\input\VelocityModelBasedLineInserter\FrontendValidationErrors/Template_FrontendValidationErrors.tpl
+Model SpringBootBackendAngularFrontModel received from VelocityModelBasedLineInserter
+GeneratorResultData created for model merged with template 'Template_FrontendValidationErrors.tpl'
+-----
+-----
+Setting velocity engine data:
+ 'VelocityEngineDataImpl [artefactType=Template_FrontendFormControl, templateDir=workspaces\ohocamel\input\VelocityModelBasedLineInserter\Template_FrontendFormControl, templateFileName=MainTemplate_FrontendFormControl.tpl, model=BuildUpModel [name=SpringBootBackendAngularFrontModel, classNumber=1, metaInfoList=backendGenDir, backendSrcDir, frontendSrcDir, projectName, dateTimeFormat, namespace, rootPath], generatorPluginId=VelocityModelBasedLineInserter]'...
+startEngineAllClassesIntoSingleTargetFile called
+-
+Engine started from VelocityModelBasedLineInserter
+MainTemplate: C:\dev\source\FilemanGithub\MOGLiCC\workspaces\ohocamel\input\VelocityModelBasedLineInserter\Template_FrontendFormControl/MainTemplate_FrontendFormControl.tpl
+Model SpringBootBackendAngularFrontModel received from VelocityModelBasedLineInserter
+GeneratorResultData created for model merged with template 'MainTemplate_FrontendFormControl.tpl'
+-----

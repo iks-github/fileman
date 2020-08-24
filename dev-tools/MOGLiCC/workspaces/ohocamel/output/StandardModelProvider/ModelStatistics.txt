@@ -1,0 +1,38 @@
+Model Name: SpringBootBackendAngularFrontModel
+Number of class descriptions in model file: 1
+Number of vendor plugins defining MetaInfoValidators: 0
+
+WARNING:
+For following MetaInfos defined in 'OhoCamelDomainModel.txt' no validation rule exists:
+'backendGenDir' in ModelLevel
+'backendSrcDir' in ModelLevel
+'frontendSrcDir' in ModelLevel
+'projectName' in ModelLevel
+'dateTimeFormat' in ModelLevel
+'namespace' in ModelLevel
+'rootPath' in ModelLevel
+'implements' in ClassLevel
+'implements' in ClassLevel
+'withDaoAndSql' in ClassLevel
+'withController' in ClassLevel
+'swaggerDoc' in ClassLevel
+'JavaDocLine' in ClassLevel
+'frontendDataClass' in ClassLevel
+'frontendServiceName' in ClassLevel
+'frontendComponentName' in ClassLevel
+'SqlType' in AttributeLevel
+'JavaType' in AttributeLevel
+'guiType' in AttributeLevel
+'Mandatory' in AttributeLevel
+'ExampleData' in AttributeLevel
+'SqlType' in AttributeLevel
+'JavaType' in AttributeLevel
+'guiType' in AttributeLevel
+'Mandatory' in AttributeLevel
+'ExampleData' in AttributeLevel
+'defaultValue' in AttributeLevel
+'SqlType' in AttributeLevel
+'JavaType' in AttributeLevel
+'guiType' in AttributeLevel
+'Mandatory' in AttributeLevel
+'ExampleData' in AttributeLevel

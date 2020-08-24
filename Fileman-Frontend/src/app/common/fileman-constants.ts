@@ -56,7 +56,7 @@ export const FilemanTooltipOptions: TooltipOptions = {
 
 export class FilemanConstants
 {
-  static VERSION = '1.0.0';
+  static VERSION = '1.1.0';
 
   public static getRestCallHeaderOptions() {
     const headers = new HttpHeaders({

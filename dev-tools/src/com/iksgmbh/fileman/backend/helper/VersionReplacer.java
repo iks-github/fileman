@@ -30,8 +30,10 @@ import java.util.List;
 */
 public class VersionReplacer
 {
-	private static final String VERSION_TO_SET = "1.0.0";
+	private static final String VERSION_TO_SET = "1.1.0";
+	private static final boolean isSnapshot = true;
 
+	private static final String SNAPSHOT = "SNAPSHOT";
 	private static final String PATH_TO_POM_FILE = "../Fileman-Backend/pom.xml";
 	private static final String PATH_TO_JAVA_FILE = "../Fileman-Backend/src/main/java/com/iksgmbh/fileman/backend/FilemanBackend.java";
 	private static final String PATH_TO_TS_FILE = "../Fileman-Frontend/src/app/common/fileman-constants.ts";
@@ -157,11 +159,13 @@ public class VersionReplacer
             throw new RuntimeException("Not found: " + pomFile.getAbsolutePath(), e);
         }
 
+        String versionString = versionToSet;
+        if (isSnapshot) versionString = versionString + "-" + SNAPSHOT;
 		final List<String> newContent = new ArrayList<String>();
 		boolean firstOccurrence = true;
 		for (String line : fileContent) {
 			if (firstOccurrence && line.startsWith(MAVEN_VERSION_SECTION_START)) {
-				newContent.add(MAVEN_VERSION_SECTION_START + versionToSet + MAVEN_VERSION_SECTION_END);
+				newContent.add(MAVEN_VERSION_SECTION_START + versionString + MAVEN_VERSION_SECTION_END);
 				firstOccurrence = false;
 			} else {
 				newContent.add(line);

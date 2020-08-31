@@ -29,7 +29,7 @@ import com.iksgmbh.fileman.backend.FileMetaData;
 import com.iksgmbh.fileman.backend.dao.FileMetaDataDao;
 
 @RestController
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = "http://localhost:4200")
 public class MetaDataRestController
 {
 	@Autowired

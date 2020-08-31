@@ -36,7 +36,7 @@ import com.iksgmbh.fileman.backend.dao.UserDao;
 import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
 @RestController
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = "http://localhost:4200")
 public class LoginRestController {
 	
 	private static final String AUTH_FAIL_MESSAGE = "User ID or password is wrong!";

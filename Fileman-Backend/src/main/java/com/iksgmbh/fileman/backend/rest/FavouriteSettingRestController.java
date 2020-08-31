@@ -34,7 +34,7 @@ import com.iksgmbh.fileman.backend.dao.FavouriteSettingDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 
 @RestController
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = "http://localhost:4200")
 public class FavouriteSettingRestController
 {
     @Autowired

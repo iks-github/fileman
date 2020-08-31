@@ -20,7 +20,7 @@ import com.iksgmbh.fileman.backend.dao.UserDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 
 @RestController
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserRestController
 {
 	@Autowired

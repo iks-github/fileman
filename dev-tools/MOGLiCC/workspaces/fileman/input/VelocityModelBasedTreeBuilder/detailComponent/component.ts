@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { <<Type>> } from 'src/app/common/domainobjects/gen/<<Type>>';
-import { FilemanLoginService } from 'src/app/services/fileman-login.service';
+import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { <<Type>>Service } from 'src/app/services/fileman-<<type>>-service.service';
 
 @Component({
@@ -37,14 +37,14 @@ export class <<Type>>DetailsComponent implements OnInit {
   toEdit: <<Type>>;
 
   constructor(private router: Router,
-              private loginService: FilemanLoginService,
+              private authService: FilemanAuthserviceService,
               private <<type>>Service: <<Type>>Service) {
       this.form = this.createFormGroup();
-      this.currentlyLoggedInUser = loginService.getCurrentUserName();
+      this.currentlyLoggedInUser = authService.getCurrentUserName();
   }
 
   ngOnInit(): void {
-    this.readOnly = this.loginService.getCurrentUserRole() === 'Reader';
+    this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
     this.newMode = this.router.url.endsWith('new');
     if ( ! this.newMode ) {
       const index = this.router.url.lastIndexOf('/') + 1;

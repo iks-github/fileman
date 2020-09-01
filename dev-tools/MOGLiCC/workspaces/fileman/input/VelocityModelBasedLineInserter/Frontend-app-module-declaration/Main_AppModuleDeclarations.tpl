@@ -8,4 +8,6 @@
 @InsertAbove FilemetadataListLayout, FilemetadataTableLayout, FilemetadataTilesLayout
 @SkipGeneration $skip
 
+'    ${NewDomainObject}DetailsComponent,
+'    Fileman${NewDomainObject}OverviewComponent,
 '    ${NewDomainObject}ListLayout, ${NewDomainObject}TableLayout, ${NewDomainObject}TilesLayout,

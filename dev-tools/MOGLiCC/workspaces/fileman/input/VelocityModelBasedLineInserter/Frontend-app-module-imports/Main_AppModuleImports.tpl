@@ -8,10 +8,11 @@
 @InsertAbove @NgModule({
 @SkipGeneration $skip
 
+import { ${NewDomainObject}DetailsComponent } from './components/details/fileman-${newDomainObject}-details/fileman-${newDomainObject}-details.component';
+import { Fileman${NewDomainObject}OverviewComponent } from './components/fileman-overview/${newDomainObject}s/fileman-${newDomainObject}-overview.component';
 import { ${NewDomainObject}ListLayout } from './components/layout/${newDomainObject}/list-layout/fileman-${newDomainObject}-list-layout-component';
 import { ${NewDomainObject}TableLayout } from './components/layout/${newDomainObject}/table-layout/fileman-${newDomainObject}-table-layout-component';
 import { ${NewDomainObject}TilesLayout } from './components/layout/${newDomainObject}/tiles-layout/fileman-${newDomainObject}-tiles-layout-component';
-
 
 #foreach($classDescriptor in $model.classDescriptorList)
 

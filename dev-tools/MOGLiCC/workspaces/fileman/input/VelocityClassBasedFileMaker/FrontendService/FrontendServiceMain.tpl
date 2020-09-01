@@ -27,8 +27,9 @@
 #end
 
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { ${classDescriptor.simpleName} } from '../common/domainobjects/gen/${classDescriptor.simpleName}';
 import { FilemanConstants } from '../common/fileman-constants';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
@@ -42,6 +43,7 @@ export class ${classDescriptor.simpleName}Service {
 #set( $classname = $classDescriptor.simpleName.toLowerCase() )
 
 '  url;
+'  private ${className}DataChangedNotifier: Subject<void> = new Subject<void>();
 '
 '  constructor(private httpClient: HttpClient,
 '              propertiesService: FilemanPropertiesLoaderService) {
@@ -69,7 +71,7 @@ export class ${classDescriptor.simpleName}Service {
 '    return this.httpClient.post(uri, JSON.stringify(${className}), FilemanConstants.getRestCallHeaderOptions())
 '                          .pipe(catchError((error: HttpErrorResponse) => {
 '                            throw error; }
-'                          ));
+'                          ), tap(() => this.${className}DataChangedNotifier.next()));
 '  }
 '
 '  update(${className}: ${classDescriptor.simpleName}) {
@@ -78,7 +80,7 @@ export class ${classDescriptor.simpleName}Service {
 '                          .pipe(catchError((error: HttpErrorResponse) => {
 '                            console.log(error);
 '                            throw error; }
-'                          ));
+'                          ), tap(() => this.${className}DataChangedNotifier.next()));
 '  }
 '
 '  delete(${className}: ${classDescriptor.simpleName}) {
@@ -89,4 +91,7 @@ export class ${classDescriptor.simpleName}Service {
 '                          ));
 '  }
 '
+'  get${classDescriptor.simpleName}DataChangedNotifier(): Subject<void> {
+'    return this.${className}DataChangedNotifier;
+'  }
 }

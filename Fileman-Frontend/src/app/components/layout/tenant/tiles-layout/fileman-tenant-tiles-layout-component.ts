@@ -31,7 +31,7 @@ export class TenantTilesLayout extends LayoutTenantCommons {
   }
 
   getDetailsTooltip(tenant: Tenant): string {
-    return this.getUserHtmlTooltip(tenant);
+    return this.getTenantHtmlTooltip(tenant);
   }
 
   hasImagePreview(id: string): boolean {

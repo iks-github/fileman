@@ -25,6 +25,6 @@ import { <<Type>> } from 'src/app/common/domainobjects/gen/<<Type>>';
 })
 export class <<Type>>ListLayout extends Layout<<Type>>Commons {
   getDetailsTooltip(<<type>>: <<Type>>): string {
-    return this.getUserHtmlTooltip(<<type>>);
+    return this.get<<Type>>HtmlTooltip(<<type>>);
   }
 }

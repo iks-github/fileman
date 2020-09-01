@@ -23,7 +23,7 @@ export class LayoutTenantCommons extends LayoutCommons {
   @Input() readOnly;
   @Output() tenantEdited: EventEmitter<Tenant> = new EventEmitter<Tenant>();
   @Output() tenantDeleted: EventEmitter<Tenant> = new EventEmitter<Tenant>();
-	
+
   edit(tenant: Tenant) {
     this.tenantEdited.emit(tenant);
   }
@@ -35,7 +35,6 @@ export class LayoutTenantCommons extends LayoutCommons {
   getTenantHtmlTooltip(tenant: Tenant): string {
     return '<div class="inner-html-enclosing-div"><h4>Details:</h4>' +
       '<hr>' +
-      this.buildHtmlTooltipContentRow('Name', tenant.name) +
-      this.buildHtmlTooltipContentRow('Role', tenant.role)+'</div>'
+      this.buildHtmlTooltipContentRow('Name', tenant.name)+'</div>'
   }
 }

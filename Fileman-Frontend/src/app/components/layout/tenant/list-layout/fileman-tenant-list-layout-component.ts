@@ -25,6 +25,6 @@ import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
 })
 export class TenantListLayout extends LayoutTenantCommons {
   getDetailsTooltip(tenant: Tenant): string {
-    return this.getUserHtmlTooltip(tenant);
+    return this.getTenantHtmlTooltip(tenant);
   }
 }

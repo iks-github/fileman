@@ -31,7 +31,7 @@ export class <<Type>>TilesLayout extends Layout<<Type>>Commons {
   }
 
   getDetailsTooltip(<<type>>: <<Type>>): string {
-    return this.getUserHtmlTooltip(<<type>>);
+    return this.get<<Type>>HtmlTooltip(<<type>>);
   }
 
   hasImagePreview(id: string): boolean {

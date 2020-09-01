@@ -76,6 +76,9 @@
         <option
           [value]="contentTypeUsers"
           [selected]="userPreferences.contentType === contentTypeUsers">Users</option>
+        <option
+          [value]="contentTypeTenants"
+          [selected]="userPreferences.contentType === contentTypeTenants">Tenants</option>
     </select>
     &nbsp;
     <mat-icon *ngIf="isAdmin"

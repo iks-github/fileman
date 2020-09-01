@@ -29,6 +29,7 @@ import { UserPreferences } from 'src/app/common/domainobjects/gen/UserPreference
 export class FilemanOverviewComponent implements OnInit, OnDestroy {
   readonly contentTypeFiles: string = Content.Files;
   readonly contentTypeUsers: string = Content.Users;
+  readonly contentTypeTenants: string = Content.Tenants;
 
   contentType: string;
   userPreferencesSubscription: Subscription;

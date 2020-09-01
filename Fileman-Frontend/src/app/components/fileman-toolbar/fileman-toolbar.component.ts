@@ -33,6 +33,7 @@ import { FilemanReloadService } from 'src/app/services/fileman-reload-service.se
 export class FilemanToolbarComponent implements OnInit {
   readonly contentTypeFiles: string = Content.Files;
   readonly contentTypeUsers: string = Content.Users;
+  readonly contentTypeTenants: string = Content.Tenants;
   readonly layoutTypeList: string = Layout.List;
   readonly layoutTypeTable: string = Layout.Table;
   readonly layoutTypeTiles: string = Layout.Tiles;
@@ -99,6 +100,8 @@ export class FilemanToolbarComponent implements OnInit {
         this.router.navigate(['/fileman/files/new']);
       } else if (this.userPreferences.contentType === this.contentTypeUsers) {
         this.router.navigate(['/fileman/users/new']);
+      } else if (this.userPreferences.contentType === this.contentTypeTenants) {
+        this.router.navigate(['/fileman/tenants/new']);
       }
     }
   }

@@ -18,6 +18,10 @@
             <fileman-sorticon [sortField]="'role'" (sortEventHandler)="sort($event)"></fileman-sorticon>
         </td>
         <td>
+            Tenant
+            <fileman-sorticon [sortField]="'tenant'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
             Avatar
             <fileman-sorticon [sortField]="'avatar'" (sortEventHandler)="sort($event)"></fileman-sorticon>
         </td>
@@ -50,6 +54,7 @@
         <td>{{user.id}}</td>
         <td>{{user.name}}</td>
         <td>{{user.role}}</td>
+        <td>{{user.tenant}}</td>
 
         <!-- The row-td-sections above is generated: Do not modify manually! -->
         <td>

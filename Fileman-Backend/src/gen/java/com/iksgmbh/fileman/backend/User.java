@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="USER")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1598955985673L;
+	private static final long serialVersionUID = 1598973593128L;
 
 	// ===============  instance fields  ===============
 
@@ -43,6 +43,11 @@ public class User implements Serializable
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="ROLE", columnDefinition="varchar")
 	private String role;
+
+    @NotNull(message="Value of mandatory attribute 'tenant' is not present.")
+    @ApiModelProperty(notes = "Mandatory.")
+    @Column(name="TENANT", columnDefinition="int")
+	private Integer tenant;
 
     @Size(min=1, max=60, message="Value of attribute 'password' is out of valid range (1-60)")
     @ApiModelProperty(notes = "Valid length ranges from 1 to 60.")
@@ -78,6 +83,11 @@ public class User implements Serializable
 		this.role = role;
 	}
 
+	public void setTenant(final Integer tenant)
+	{
+		this.tenant = tenant;
+	}
+
 	public void setPassword(final String password)
 	{
 		this.password = password;
@@ -110,6 +120,11 @@ public class User implements Serializable
 		return role;
 	}
 
+	public Integer getTenant()
+	{
+		return tenant;
+	}
+
 	public String getPassword()
 	{
 		return password;
@@ -134,6 +149,7 @@ public class User implements Serializable
 				+ "id = " + id + ", "
 				+ "name = " + name + ", "
 				+ "role = " + role + ", "
+				+ "tenant = " + tenant + ", "
 				+ "password = " + password + ", "
 				+ "passwordRepetition = " + passwordRepetition + ", "
 				+ "avatar = " + avatar + ""
@@ -178,6 +194,15 @@ public class User implements Serializable
 			if (! role.equals(other.role))
 				   return false;
 		}
+		if (tenant == null)
+		{
+			if (other.tenant != null)
+				return false;
+		} else
+		{
+			if (! tenant.equals(other.tenant))
+				   return false;
+		}
 		if (password == null)
 		{
 			if (other.password != null)
@@ -216,6 +241,7 @@ public class User implements Serializable
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((tenant == null) ? 0 : tenant.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((passwordRepetition == null) ? 0 : passwordRepetition.hashCode());
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
@@ -238,6 +264,9 @@ public class User implements Serializable
             if(! otherUser.getRole().isEmpty()) {
            	 this.setRole(otherUser.getRole());
             }
+       }
+        if (otherUser.getTenant() != null) {
+            this.setTenant(otherUser.getTenant());
        }
         if (otherUser.getPassword() != null) {
             if(! otherUser.getPassword().isEmpty()) {

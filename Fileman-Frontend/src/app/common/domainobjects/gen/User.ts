@@ -4,6 +4,7 @@ export class User
     id: number;
     name: string;
     role: string;
+    tenant: number;
     password: string;
     passwordRepetition: string;
     avatar: string;
@@ -13,6 +14,7 @@ export class User
             this.id = untypedUser.id;
             this.name = untypedUser.name;
             this.role = untypedUser.role;
+            this.tenant = untypedUser.tenant;
             this.password = untypedUser.password;
             this.passwordRepetition = untypedUser.passwordRepetition;
             this.avatar = untypedUser.avatar;
@@ -25,6 +27,7 @@ export class User
            'id',
            'name',
            'role',
+           'tenant',
            'password',
            'passwordRepetition',
            'avatar',
@@ -41,6 +44,10 @@ export class User
 
     getRole() {
         return this.role;
+    }
+
+    getTenant() {
+        return this.tenant;
     }
 
     getPassword() {
@@ -68,6 +75,10 @@ export class User
         this.role = role;
     }
 
+    setTenant(tenant: number) {
+        this.tenant = tenant;
+    }
+
     setPassword(password: string) {
         this.password = password;
     }
@@ -88,6 +99,7 @@ export class User
         if (this.id !== obj.id) { return false; }
         if (this.name !== obj.name) { return false; }
         if (this.role !== obj.role) { return false; }
+        if (this.tenant !== obj.tenant) { return false; }
         if (this.password !== obj.password) { return false; }
         if (this.passwordRepetition !== obj.passwordRepetition) { return false; }
         if (this.avatar !== obj.avatar) { return false; }
@@ -101,6 +113,7 @@ export class User
            'Id: ' + this.id + '\n' +
            'Name: ' + this.name + '\n' +
            'Role: ' + this.role + '\n' +
+           'Tenant: ' + this.tenant + '\n' +
            'Password: ' + this.password + '\n' +
            'PasswordRepetition: ' + this.passwordRepetition + '\n' +
            'Avatar: ' + this.avatar + '\n';

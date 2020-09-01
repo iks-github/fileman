@@ -211,6 +211,13 @@ class <<DomainPath>>.User
     metainfo ExampleData Admin
     metainfo guiType Selectbox:Reader,Writer,Admin
 
+  attribute tenant
+    metainfo dbType int
+    metainfo JavaType Integer
+    metainfo Mandatory true
+    metainfo ExampleData 1
+    metainfo guiType Selectbox
+
   attribute password
     metainfo dbType varchar
     metainfo JavaType String

@@ -32,21 +32,29 @@
 
             <tr>
                 <td>
-                    <label for="password">Password</label>
+                    <label for="tenant">Tenant</label>
                     <br>
-                    <input id="password" type="password" class="form-Control" formControlName="passwordControl"/>
+                    <select id="tenant" class="form-Control" formControlName="tenantControl" (change)="tenantC.markAsTouched()">
+                      <option *ngFor="let tenant of tenants" [value]="tenant.id">{{tenant.name}}</option>
+                    </select>
                 </td>
 				 <td class="space"></td>
                 <td>
-                    <label for="passwordRepetition">PasswordRepetition</label>
+                    <label for="password">Password</label>
                     <br>
-                    <input id="passwordRepetition" type="password" class="form-Control" formControlName="passwordRepetitionControl"/>
+                    <input id="password" type="password" class="form-Control" formControlName="passwordControl"/>
                 </td>
             </tr>
 
             <tr>&nbsp;</tr>
 
             <tr>
+                <td>
+                    <label for="passwordRepetition">PasswordRepetition</label>
+                    <br>
+                    <input id="passwordRepetition" type="password" class="form-Control" formControlName="passwordRepetitionControl"/>
+                </td>
+				 <td class="space"></td>
                 <td>
                     <label for="avatar">Avatar</label>
                     <br>
@@ -57,6 +65,9 @@
                     (focus)="setFocusOnFileSelector(true)" (blur)="setFocusOnFileSelector(false)"/>
                 </td>
             </tr>
+
+            <tr>&nbsp;</tr>
+
         </table>
         <!-- The table section above is generated: Do not modify manually! -->
 
@@ -87,6 +98,9 @@
             </div>
             <div *ngIf="roleC.errors?.required && roleC.touched">
                The field <i>Role</i> is required.
+            </div>
+            <div *ngIf="tenantC.errors?.required && tenantC.touched">
+               The field <i>Tenant</i> is required.
             </div>
             <div *ngIf="passwordC.errors?.minlength && passwordC.touched">
                Minimum length of field <i>Password</i> is {{passwordC.errors.minlength.requiredLength}}.

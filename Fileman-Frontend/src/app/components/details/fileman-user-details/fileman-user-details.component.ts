@@ -19,9 +19,12 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/common/domainobjects/gen/User';
+import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { UserService } from 'src/app/services/fileman-user-service.service';
+import { TenantService } from 'src/app/services/fileman-tenant-service.service';
 import { FilemanAvatarService } from 'src/app/services/fileman-avatar-service.service';
+import { Utils } from 'src/app/common/Utils';
 
 @Component({
   selector: 'fileman-user-details',
@@ -41,10 +44,12 @@ export class UserDetailsComponent implements OnInit {
   detailsForm: FormGroup;
   newMode: boolean;
   toEdit: User;
+  tenants = [] as Tenant[];
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
               private userService: UserService,
+              private tenantService: TenantService,
               private avatarService: FilemanAvatarService) {
       this.form = this.createFormGroup();
       this.reader = new FileReader();
@@ -71,6 +76,17 @@ export class UserDetailsComponent implements OnInit {
         }
       });
     }
+    this.tenantService.getAllTenants()
+        .subscribe(responseData => {this.extractTenants(responseData)});
+  }
+
+  extractTenants(responseData) {
+    const tenants = [] as Tenant[];
+    responseData.forEach(element => {
+      const dataset = new Tenant(element);
+      tenants.push(dataset);
+    });
+    this.tenants = Utils.sortList(tenants);
   }
 
   getBorder() {
@@ -245,6 +261,9 @@ export class UserDetailsComponent implements OnInit {
         roleControl: new FormControl('', [
                 Validators.required,
               ]),
+        tenantControl: new FormControl('', [
+                Validators.required,
+              ]),
         passwordControl: new FormControl('', [
                 Validators.minLength(1),
                 Validators.maxLength(60),
@@ -267,6 +286,10 @@ export class UserDetailsComponent implements OnInit {
     return this.form.get('inputFieldControl.detailsForm.roleControl');
   }
 
+  get tenantC() {
+    return this.form.get('inputFieldControl.detailsForm.tenantControl');
+  }
+
   get passwordC() {
     return this.form.get('inputFieldControl.detailsForm.passwordControl');
   }
@@ -284,6 +307,7 @@ export class UserDetailsComponent implements OnInit {
 
     user.setName(this.nameC.value);
     user.setRole(this.roleC.value);
+    user.setTenant(this.tenantC.value);
     user.setPassword(this.passwordC.value);
     user.setPasswordRepetition(this.passwordRepetitionC.value);
     user.setAvatar(this.avatarC.value);
@@ -294,6 +318,7 @@ export class UserDetailsComponent implements OnInit {
   private setDataToControls(user: User) {
     this.nameC.setValue(user.getName());
     this.roleC.setValue(user.getRole());
+    this.tenantC.setValue(user.getTenant());
     this.passwordC.setValue(user.getPassword());
     this.passwordRepetitionC.setValue(user.getPasswordRepetition());
   }

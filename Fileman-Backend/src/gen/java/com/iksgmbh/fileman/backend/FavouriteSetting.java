@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FAVOURITE_SETTING")
 public class FavouriteSetting implements Serializable
 {
-	private static final long serialVersionUID = 1592489392543L;
+	private static final long serialVersionUID = 1598955985838L;
 
 	// ===============  instance fields  ===============
 

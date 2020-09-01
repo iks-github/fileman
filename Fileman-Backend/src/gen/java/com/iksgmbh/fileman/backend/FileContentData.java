@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_CONTENT_DATA")
 public class FileContentData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1595420738899L;
+	private static final long serialVersionUID = 1598955985531L;
 
 	// ===============  instance fields  ===============
 

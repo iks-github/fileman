@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="USER")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1593159387566L;
+	private static final long serialVersionUID = 1598955985673L;
 
 	// ===============  instance fields  ===============
 

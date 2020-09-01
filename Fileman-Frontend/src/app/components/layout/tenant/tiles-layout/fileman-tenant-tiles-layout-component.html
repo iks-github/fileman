@@ -1,0 +1,35 @@
+<div class="tiles-grid">
+  <div *ngFor="let tenant of viewedTenants; let i = index"
+       class="tiles-item">
+    <td width="40">
+      <span *ngIf="! readOnly">
+          <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(tenant)">edit</mat-icon>
+      </span>
+      <br>
+      <span *ngIf="! readOnly">
+          <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(tenant)">delete</mat-icon>
+      </span>
+    </td>
+    <td>
+      <span tooltip="{{getDetailsTooltip(tenant)}}">
+          {{i+1}}. {{tenant.name}}
+          <div>
+            <img class="image-preview" *ngIf="hasImagePreview(tenant.name)" [src]="getImagePreview(tenant.name)">
+            <span class="text-preview" *ngIf="hasTextPreview(tenant.name)">{{ getTextPreview(tenant.name) }}</span>
+            <ngx-doc-viewer
+              class="docx-preview"
+              *ngIf="hasDocxPreview(tenant.name)"
+              [url]="getDocxPreview(tenant.name)"
+              viewer="mammoth">
+            </ngx-doc-viewer>
+            <pdf-viewer class="pdf-preview" *ngIf="hasPdfPreview(tenant.name)"
+              [src]="getPdfPreview(tenant.name)"
+              [render-text]="true"
+              [show-all]="false"
+              [original-size]="false">
+            </pdf-viewer>
+          </div>
+      </span>
+    </td>
+  </div>
+</div>

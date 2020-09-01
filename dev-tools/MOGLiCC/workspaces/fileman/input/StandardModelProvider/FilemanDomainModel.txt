@@ -42,7 +42,7 @@ model SpringBootBackendAngularFrontModel
   metainfo projectName Fileman
   metainfo dateTimeFormat "dd.MM.yyyy HH:mm:ss:SSS"
   metainfo namespace <<DomainPath>>
-  metainfo newDomainObject user  # use lower case !
+  metainfo newDomainObject tenant  # use lower case !
 
 
 class <<DomainPath>>.FileData
@@ -236,7 +236,34 @@ class <<DomainPath>>.User
                          # format on client side to determine the file type
     metainfo JavaType String
     metainfo guiType FileSelector
- 
+
+class <<DomainPath>>.Tenant
+  metainfo implements java.io.Serializable
+  metainfo generateStandardJavaDoc true
+  metainfo swaggerDoc "Data of a Fileman tenant"
+  metainfo JavaDocLine "Data of a Fileman tenant"
+  metainfo BackendController true
+  metainfo FrontendService true
+  metainfo dbEntity true
+
+  attribute id
+    metainfo dbType int
+    metainfo JavaType Integer
+    metainfo ExampleData 1
+    metainfo unique true
+    metainfo id true
+    metainfo generatedValue true
+    
+  attribute name
+    metainfo dbType varchar
+    metainfo JavaType String
+    metainfo Mandatory true
+    metainfo ExampleData "ich"
+    metainfo MinLength 2
+    metainfo MaxLength 64
+    metainfo unique true
+    metainfo guiType TextField
+
  class <<DomainPath>>.ExceptionMetaData
   metainfo implements java.io.Serializable
 

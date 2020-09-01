@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_META_DATA")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1593425043184L;
+	private static final long serialVersionUID = 1598955985597L;
 
 	// ===============  instance fields  ===============
 

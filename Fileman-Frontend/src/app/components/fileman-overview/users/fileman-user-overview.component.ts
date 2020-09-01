@@ -20,8 +20,6 @@ import { Subscription } from 'rxjs';
 import { FilemanError } from 'src/app/common/errors/fileman-error';
 import { FilemanNotfoundError } from 'src/app/common/errors/fileman-not-found-error';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
-import { FilemanFavouriteSettingsService } from 'src/app/services/fileman-favourite-settings-service.service';
-import { FavouriteSetting } from 'src/app/common/domainobjects/gen/FavouriteSetting';
 import { Utils } from 'src/app/common/Utils';
 import { Layout, UserRole } from 'src/app/common/fileman-constants';
 import { User } from 'src/app/common/domainobjects/gen/User';
@@ -52,14 +50,11 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   allUsersMap = new Map<string, User>();
   viewedUsers = [] as User[];
   readOnly: boolean;
-  favouriteSettingsResponse;
-  favouriteSettings = new Map<string, FavouriteSetting>();
   currentUserName;
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
               private userService: UserService,
-              private favouriteSettingService: FilemanFavouriteSettingsService,
               private avatarService: FilemanAvatarService,
               private userPreferencesService: FilemanUserPreferencesService,
               private searchService: FilemanSearchService,
@@ -86,14 +81,6 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
     this.userService.getAllUsers()
         .subscribe(responseData => {this.extractUsers(responseData)});
     this.readOnly = this.authService.getCurrentUserRole() === UserRole.Reader;
-    this.favouriteSettingService.getAllFavouriteSettings(this.currentUserName)
-                                .subscribe(favouriteSettingsResponse => {
-                                    this.favouriteSettingsResponse = favouriteSettingsResponse;
-                                    this.favouriteSettingsResponse.forEach(setting => {
-                                      const favouriteSetting = new FavouriteSetting(setting);
-                                      this.favouriteSettings.set(favouriteSetting.getFilename(), favouriteSetting);
-                                    })
-                                });
     this.reloadRequestSubscription =
       this.reloadService.getReloadRequestNotifier().subscribe(
         () => this.reload()
@@ -104,8 +91,8 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
       );
   }
 
-  isUsernameUnique(username: string) {
-    return this.allUsersMap.has(username);
+  isUserNameUnique(userName: string) {
+    return this.allUsersMap.has(userName);
   }
 
   reload() {

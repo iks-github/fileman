@@ -67,7 +67,10 @@ export class <<Type>>DetailsComponent implements OnInit {
   }
 
   save() {
-    const toSave = this.form.value as <<Type>>;
+    const toSave = new <<Type>>({
+      id: this.toEdit != null ? this.toEdit.getId() : null,
+      name: this.nameC.value.trim()
+    });
     console.log('Saving ');
     console.log(toSave);
 

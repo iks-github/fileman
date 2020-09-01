@@ -111,6 +111,7 @@ import { TenantService } from './services/fileman-tenant-service.service';
       {path: 'fileman/details/users/:username', component: UserDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: 'fileman/files/new', component: FilemetadataDetailsComponent, canActivate: [AuthGuard, WriterAuthGuard]},
       {path: 'fileman/users/new', component: UserDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'fileman/tenants/new', component: TenantDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: 'fileman/problem', component: FilemanProblemPageComponent},
       {path: 'fileman/**', component: FilemanProblemPageComponent}
     ])

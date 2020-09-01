@@ -67,7 +67,10 @@ export class TenantDetailsComponent implements OnInit {
   }
 
   save() {
-    const toSave = this.form.value as Tenant;
+    const toSave = new Tenant({
+      id: this.toEdit != null ? this.toEdit.getId() : null,
+      name: this.nameC.value.trim()
+    });
     console.log('Saving ');
     console.log(toSave);
 

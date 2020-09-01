@@ -63,6 +63,8 @@ import { UserTableLayout } from './components/layout/user/table-layout/fileman-u
 import { UserTilesLayout } from './components/layout/user/tiles-layout/fileman-user-tiles-layout-component';
 import { UserService } from './services/fileman-user-service.service';
 
+import { TenantDetailsComponent } from './components/details/fileman-tenant-details/fileman-tenant-details.component';
+import { FilemanTenantOverviewComponent } from './components/fileman-overview/tenants/fileman-tenant-overview.component';
 import { TenantListLayout } from './components/layout/tenant/list-layout/fileman-tenant-list-layout-component';
 import { TenantTableLayout } from './components/layout/tenant/table-layout/fileman-tenant-table-layout-component';
 import { TenantTilesLayout } from './components/layout/tenant/tiles-layout/fileman-tenant-tiles-layout-component';
@@ -86,6 +88,8 @@ import { TenantService } from './services/fileman-tenant-service.service';
     FilemanLogoComponent,
     FilemanHistoryViewComponent,
     UserListLayout, UserTableLayout, UserTilesLayout,
+    TenantDetailsComponent,
+    FilemanTenantOverviewComponent,
     TenantListLayout, TenantTableLayout, TenantTilesLayout,
     FilemetadataListLayout, FilemetadataTableLayout, FilemetadataTilesLayout
   ],

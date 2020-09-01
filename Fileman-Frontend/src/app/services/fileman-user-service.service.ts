@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-
 import { User } from '../common/domainobjects/gen/User';
 import { FilemanConstants } from '../common/fileman-constants';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';

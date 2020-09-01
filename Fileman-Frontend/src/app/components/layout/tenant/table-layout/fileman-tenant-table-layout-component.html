@@ -4,6 +4,16 @@
         <td></td>
         
         <!-- The header-td-sections below is generated: Do not modify manually! -->
+
+        <td>
+            Id
+            <fileman-sorticon [sortField]="'id'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
+            Name
+            <fileman-sorticon [sortField]="'name'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+
         <!-- The header-td-sections above is generated: Do not modify manually! -->
 
       </tr>
@@ -28,6 +38,10 @@
         </td>
 
         <!-- The row-td-sections below is generated: Do not modify manually! -->
+
+        <td>{{tenant.id}}</td>
+        <td>{{tenant.name}}</td>
+
         <!-- The row-td-sections above is generated: Do not modify manually! -->
 
       </tr>

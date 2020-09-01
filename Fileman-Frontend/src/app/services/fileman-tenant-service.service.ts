@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { Tenant } from '../common/domainobjects/gen/Tenant';
 import { FilemanConstants } from '../common/fileman-constants';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
@@ -10,6 +11,7 @@ import { FilemanPropertiesLoaderService } from './fileman-properties-loader.serv
 })
 export class TenantService {
   url;
+  private tenantDataChangedNotifier: Subject<void> = new Subject<void>();
 
   constructor(private httpClient: HttpClient,
               propertiesService: FilemanPropertiesLoaderService) {
@@ -37,7 +39,7 @@ export class TenantService {
     return this.httpClient.post(uri, JSON.stringify(tenant), FilemanConstants.getRestCallHeaderOptions())
                           .pipe(catchError((error: HttpErrorResponse) => {
                             throw error; }
-                          ));
+                          ), tap(() => this.tenantDataChangedNotifier.next()));
   }
 
   update(tenant: Tenant) {
@@ -46,7 +48,7 @@ export class TenantService {
                           .pipe(catchError((error: HttpErrorResponse) => {
                             console.log(error);
                             throw error; }
-                          ));
+                          ), tap(() => this.tenantDataChangedNotifier.next()));
   }
 
   delete(tenant: Tenant) {
@@ -57,4 +59,7 @@ export class TenantService {
                           ));
   }
 
+  getTenantDataChangedNotifier(): Subject<void> {
+    return this.tenantDataChangedNotifier;
+  }
 }

@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
-import { FilemanLoginService } from 'src/app/services/fileman-login.service';
+import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { TenantService } from 'src/app/services/fileman-tenant-service.service';
 
 @Component({
@@ -37,14 +37,14 @@ export class TenantDetailsComponent implements OnInit {
   toEdit: Tenant;
 
   constructor(private router: Router,
-              private loginService: FilemanLoginService,
+              private authService: FilemanAuthserviceService,
               private tenantService: TenantService) {
       this.form = this.createFormGroup();
-      this.currentlyLoggedInUser = loginService.getCurrentUserName();
+      this.currentlyLoggedInUser = authService.getCurrentUserName();
   }
 
   ngOnInit(): void {
-    this.readOnly = this.loginService.getCurrentUserRole() === 'Reader';
+    this.readOnly = this.authService.getCurrentUserRole() === 'Reader';
     this.newMode = this.router.url.endsWith('new');
     if ( ! this.newMode ) {
       const index = this.router.url.lastIndexOf('/') + 1;
@@ -120,5 +120,31 @@ export class TenantDetailsComponent implements OnInit {
   }
 
   // The form control block below is generated - do not modify manually!
+  createDetailsFormGroup() {
+    return new FormGroup({
+        nameControl: new FormControl('', [
+                Validators.required,
+                Validators.minLength(2),
+                Validators.maxLength(64),
+              ],
+              this.isNotUnique.bind(this)),
+    });
+  }
+
+  get nameC() {
+    return this.form.get('inputFieldControl.detailsForm.nameControl');
+  }
+
+  private getTenant() {
+    const tenant = new Tenant(null);
+
+    tenant.setName(this.nameC.value);
+
+    return tenant;
+  }
+
+  private setDataToControls(tenant: Tenant) {
+    this.nameC.setValue(tenant.getName());
+  }
   // The form control block above is generated - do not modify manually!
 }

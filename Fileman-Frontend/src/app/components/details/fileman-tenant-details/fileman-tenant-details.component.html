@@ -9,12 +9,30 @@
     <div class="form-group" formGroupName="inputFieldControl">
 
         <!-- The table section below is generated: Do not modify manually! -->
+        <table class="form-group" formGroupName="detailsForm">
+            <tr>
+                <td>
+                    <label for="name">Name</label>
+                    <br>
+                    <input id="name" type="text" class="form-Control" formControlName="nameControl"/>
+                </td>
+            </tr>
+        </table>
         <!-- The table section above is generated: Do not modify manually! -->
 
         <div class="form-group alert alert-danger" *ngIf="detailsForm.invalid && detailsForm.touched">
             Validation errors:
 
             <!-- The error sections below are generated: Do not modify manually! -->
+            <div *ngIf="nameC.errors?.required && nameC.touched">
+               The field <i>Name</i> is required.
+            </div>
+            <div *ngIf="nameC.errors?.minlength && nameC.touched">
+               Minimum length of field <i>Name</i> is {{nameC.errors.minlength.requiredLength}}.
+            </div>
+            <div *ngIf="nameC.errors?.isNotUnique">
+               The value for field <i>Name</i> must be unique! <i>{{nameC.value}}</i> is not unique.
+            </div>
             <!-- The error sections above are generated: Do not modify manually! -->
 
         </div>

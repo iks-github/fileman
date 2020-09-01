@@ -132,8 +132,16 @@ export class FilemanToolbarComponent implements OnInit {
   }
 
   getAddNewToolTip() {
-    if (this.readOnly) { return 'You have no permission to add new files.'; }
-    return 'Add new file';
+    if (this.userPreferences.contentType === this.contentTypeUsers) {
+      return 'Add new user';
+    } else if (this.userPreferences.contentType === this.contentTypeTenants) {
+      return 'Add new tenant';
+    } else {
+      if (this.readOnly) {
+        return 'You have no permission to add new files.';
+      }
+      return 'Add new file';
+    }
   }
 
   openDbLink() {

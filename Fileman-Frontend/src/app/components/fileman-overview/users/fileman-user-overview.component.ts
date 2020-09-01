@@ -22,7 +22,6 @@ import { FilemanNotfoundError } from 'src/app/common/errors/fileman-not-found-er
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { FilemanFavouriteSettingsService } from 'src/app/services/fileman-favourite-settings-service.service';
 import { FavouriteSetting } from 'src/app/common/domainobjects/gen/FavouriteSetting';
-import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { Utils } from 'src/app/common/Utils';
 import { Layout, UserRole } from 'src/app/common/fileman-constants';
 import { User } from 'src/app/common/domainobjects/gen/User';
@@ -56,9 +55,6 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
   favouriteSettingsResponse;
   favouriteSettings = new Map<string, FavouriteSetting>();
   currentUserName;
-  fileMetaAttributeNames;
-  selectedFile;
-  viewFiles: boolean = true;
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
@@ -72,7 +68,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
               }
 
   ngOnInit(): void {
-    console.log('### file overview init')
+    console.log('### user overview init')
     this.currentUserName = this.authService.getCurrentUserName();
     this.userPreferences = this.userPreferencesService.getUserPreferences();
     this.userPreferencesSubscription =
@@ -98,7 +94,6 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
                                       this.favouriteSettings.set(favouriteSetting.getFilename(), favouriteSetting);
                                     })
                                 });
-    this.fileMetaAttributeNames = FileMetaData.getAttributeNames();
     this.reloadRequestSubscription =
       this.reloadService.getReloadRequestNotifier().subscribe(
         () => this.reload()
@@ -132,50 +127,8 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
     this.searchFor(this.searchString);
   }
 
-  trackFiles(index, file) {
-    return file ? file.uuid : undefined;
-  }
-
   edit(user: User) {
     this.router.navigate(['/fileman/details/users/' + user.getId()]);
-  }
-
-  markFavourite(file: FileMetaData)
-  {
-    if (this.isFileFavourite(file.getName()))
-    {
-      // optimistic update
-      const toDelete = this.favouriteSettings.get(file.getName());
-      this.favouriteSettings.delete(toDelete.getFilename());
-      this.favouriteSettingService.deleteFavouriteSetting(toDelete.getId())
-          .subscribe(() => {},
-                    (error) => {
-                      // remove optimistic update due to error
-                      this.favouriteSettings.set(toDelete.getFilename(), toDelete);
-                      alert('Saving favourite setting failed!');
-                    }
-          );
-    }
-    else
-    {
-      // optimistic update
-      const newSetting = new FavouriteSetting({id: null, username: this.currentUserName, filename: file.getName()});
-      this.favouriteSettings.set(file.getName(), newSetting);
-
-      this.favouriteSettingService.createFavouriteSetting(newSetting)
-          .subscribe((id) => {
-              newSetting.setId(id as number);
-            }, (error) => {
-              // remove optimistic update due to error
-              this.favouriteSettings.delete(file.getName());
-              alert('Saving favourite setting failed!');
-            }
-          );
-    }
-  }
-
-  private isFileFavourite(filename) {
-    return this.favouriteSettings.has(filename);
   }
 
   searchFor(searchString: string) {
@@ -184,13 +137,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
 
     this.allUsersMap.forEach(user => {
       if (user.getName().indexOf(searchString) !== -1) {
-        if (this.userPreferences.favouriteFilterActive) {
-          if (this.isFileFavourite(user.getName())) {
-            userList.push(user);
-          }
-        } else {
-          userList.push(user);
-        }
+        userList.push(user);
       }
     });
 
@@ -209,7 +156,7 @@ export class FilemanUserOverviewComponent implements OnInit, OnDestroy {
         .delete(user)
         .subscribe(
           deletedUser => {
-              console.log('Successfully deleted file: ' + user.getName());
+              console.log('Successfully deleted user: ' + user.getName());
             },
           (error: FilemanError) => {
             this.viewedUsers.splice(index, 0, toDelete);  // roll back optimistic deletion

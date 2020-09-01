@@ -144,10 +144,11 @@ class <<DomainPath>>.FileMetaData
   attribute "immediately Active"
     metainfo JavaType Boolean
     metainfo guiType Checkbox
+    metainfo guiCondition !newFileMode
     metainfo defaultValue true
     metainfo ExampleData true
     metainfo hideFromDB true
-    
+
   attribute techType
     metainfo dbType varchar
     metainfo JavaType String

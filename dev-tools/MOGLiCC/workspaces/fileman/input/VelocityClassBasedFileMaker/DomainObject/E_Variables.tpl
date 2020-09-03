@@ -70,7 +70,10 @@
 	#if ( $attributeDescriptor.doesHaveMetaInfo("hideFromClientOverview", "true") )
 		'    @JsonProperty(access = Access.WRITE_ONLY)
 	#end
-
+	
+	#if ( $attributeDescriptor.doesHaveAnyMetaInfosWithName("dbRelation") )
+		'	@${attributeDescriptor.getMetaInfoValueFor("dbRelation")}
+	#end
 	
 	#if ( $$classDescriptor.doesHaveMetaInfo("dbEntity", "true") )
 
@@ -98,7 +101,11 @@
 			#if ( $attributeDescriptor.doesHaveMetaInfo("unique", "false") )
 				#set( $uniqueSetting = ", unique=false")
 			#end
-			'    @Column(name="${dbName}"${nullableSetting}${uniqueSetting}, columnDefinition="${dbType}")
+			#if ( $attributeDescriptor.doesHaveMetaInfo("isForeignKey", "true") )
+				'    @JoinColumn(name="${dbName}"${nullableSetting}${uniqueSetting}, columnDefinition="${dbType}")
+			#else
+				'    @Column(name="${dbName}"${nullableSetting}${uniqueSetting}, columnDefinition="${dbType}")
+			#end
             #if ( $dbType == "blob" || $dbType == "clob" )
             '    @Lob
             #end

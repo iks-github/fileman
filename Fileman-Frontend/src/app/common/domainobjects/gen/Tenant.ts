@@ -3,11 +3,13 @@ export class Tenant
 {
     id: number;
     name: string;
+    users: list<User>;
 
     constructor(untypedTenant: any) {
         if (untypedTenant != null) {
             this.id = untypedTenant.id;
             this.name = untypedTenant.name;
+            this.users = untypedTenant.users;
         }
     }
 
@@ -16,6 +18,7 @@ export class Tenant
         return [
            'id',
            'name',
+           'users',
         ];
     }
 
@@ -27,6 +30,10 @@ export class Tenant
         return this.name;
     }
 
+    getUsers() {
+        return this.users;
+    }
+
 
     setId(id: number) {
         this.id = id;
@@ -36,6 +43,10 @@ export class Tenant
         this.name = name;
     }
 
+    setUsers(users: list<User>) {
+        this.users = users;
+    }
+
 
     public equals(obj: Tenant): boolean {
         if (this === obj) { return true; }
@@ -43,6 +54,7 @@ export class Tenant
 
         if (this.id !== obj.id) { return false; }
         if (this.name !== obj.name) { return false; }
+        if (this.users !== obj.users) { return false; }
 
         return true;
     }
@@ -51,6 +63,7 @@ export class Tenant
         return 'DETAILS:\n' +
                '------------------------------------------\n' +
            'Id: ' + this.id + '\n' +
-           'Name: ' + this.name + '\n';
+           'Name: ' + this.name + '\n' +
+           'Users: ' + this.users + '\n';
     }
 }

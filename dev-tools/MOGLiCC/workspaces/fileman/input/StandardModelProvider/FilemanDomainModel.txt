@@ -215,8 +215,11 @@ class <<DomainPath>>.User
     metainfo dbType int
     metainfo JavaType Tenant
     metainfo Mandatory true
-    metainfo ExampleData 1
     metainfo guiType Selectbox
+    metainfo guiValueField id
+    metainfo guiDisplayField name
+    metainfo dbRelation ManyToOne
+    metainfo isForeignKey true
 
   attribute password
     metainfo dbType varchar
@@ -260,7 +263,7 @@ class <<DomainPath>>.Tenant
     metainfo unique true
     metainfo id true
     metainfo generatedValue true
-    
+
   attribute name
     metainfo dbType varchar
     metainfo JavaType String
@@ -270,6 +273,12 @@ class <<DomainPath>>.Tenant
     metainfo MaxLength 64
     metainfo unique true
     metainfo guiType TextField
+
+  attribute users
+    metainfo JavaType List<User>
+    metainfo hideFromDB true
+    metainfo hideFromClientOverview true
+    metainfo dbRelation OneToMany(mappedBy="tenant")
 
  class <<DomainPath>>.ExceptionMetaData
   metainfo implements java.io.Serializable

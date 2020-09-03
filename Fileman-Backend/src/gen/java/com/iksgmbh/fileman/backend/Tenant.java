@@ -1,5 +1,6 @@
 package com.iksgmbh.fileman.backend;
 
+import com.iksgmbh.fileman.backend.User;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
@@ -25,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="TENANT")
 public class Tenant implements Serializable
 {
-	private static final long serialVersionUID = 1599125202308L;
+	private static final long serialVersionUID = 1599140629858L;
 
 	// ===============  instance fields  ===============
 
@@ -39,9 +40,10 @@ public class Tenant implements Serializable
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 2 to 64.")
     @Column(name="NAME", unique=true, columnDefinition="varchar")
 	private String name;
-    
-    @OneToMany(mappedBy="tenant")
-    @JsonIgnore
+
+    @JsonProperty(access = Access.WRITE_ONLY)
+	@OneToMany(mappedBy="tenant")
+    @Transient
 	private List<User> users;
 
 
@@ -57,6 +59,11 @@ public class Tenant implements Serializable
 		this.name = name;
 	}
 
+	public void setUsers(final List<User> users)
+	{
+		this.users = users;
+	}
+
 	// ===============  getter methods  ===============
 
 	public Integer getId()
@@ -69,12 +76,9 @@ public class Tenant implements Serializable
 		return name;
 	}
 
-	public List<User> getUsers() {
+	public List<User> getUsers()
+	{
 		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
 	}
 
 	// ===============  additional Javabean methods  ===============
@@ -84,7 +88,8 @@ public class Tenant implements Serializable
 	{
 		return "Tenant ["
 				+ "id = " + id + ", "
-				+ "name = " + name + ""
+				+ "name = " + name + ", "
+				+ "users = " + users + ""
 				+ "]";
 	}
 
@@ -117,6 +122,15 @@ public class Tenant implements Serializable
 			if (! name.equals(other.name))
 				   return false;
 		}
+		if (users == null)
+		{
+			if (other.users != null)
+				return false;
+		} else
+		{
+			if (! users.equals(other.users))
+				   return false;
+		}
 		return true;
 	}
 
@@ -127,6 +141,7 @@ public class Tenant implements Serializable
 
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((users == null) ? 0 : users.hashCode());
 
 		return result;
 	}
@@ -141,6 +156,9 @@ public class Tenant implements Serializable
             if(! otherTenant.getName().isEmpty()) {
            	 this.setName(otherTenant.getName());
             }
+       }
+        if (otherTenant.getUsers() != null) {
+            this.setUsers(otherTenant.getUsers());
        }
 	}
 }

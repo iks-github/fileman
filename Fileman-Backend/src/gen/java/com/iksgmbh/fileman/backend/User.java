@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="USER")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1599125202243L;
+	private static final long serialVersionUID = 1599140629817L;
 
 	// ===============  instance fields  ===============
 
@@ -47,8 +47,8 @@ public class User implements Serializable
 
     @NotNull(message="Value of mandatory attribute 'tenant' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
+	@ManyToOne
     @JoinColumn(name="TENANT", columnDefinition="int")
-    @ManyToOne
 	private Tenant tenant;
 
     @Size(min=1, max=60, message="Value of attribute 'password' is out of valid range (1-60)")

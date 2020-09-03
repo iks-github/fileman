@@ -8,7 +8,11 @@
 		#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeName, " ", "") ) 
 		#set( $AttributeName = $TemplateStringUtility.firstToUpperCase($attributeName) ) 
 	
-'    this.${attributeName}C.setValue(${className}.get${AttributeName}());
+		#if ( $attributeDescriptor.doesHaveAnyMetaInfosWithName("guiValueField"))
+			'    this.${attributeName}C.setValue(${className}.get${AttributeName}().${attributeDescriptor.getMetaInfoValueFor("guiValueField")});
+		#else
+			'    this.${attributeName}C.setValue(${className}.get${AttributeName}());
+		#end
 
 	#end
 #end

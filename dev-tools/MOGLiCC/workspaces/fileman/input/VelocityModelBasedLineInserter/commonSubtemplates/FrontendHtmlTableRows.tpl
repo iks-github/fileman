@@ -9,7 +9,11 @@
 
 	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
 	#if ( ! $attributeDescriptor.doesHaveMetaInfo("hideFromClientOverview", "true") && ! $attributeDescriptor.doesHaveMetaInfo("guiType", "FileSelector"))
-	'        <td>{{${className}.${attributeName}}}</td>
+		#if ($attributeDescriptor.doesHaveAnyMetaInfosWithName("guiDisplayField"))
+			'        <td>{{${className}.${attributeName}.${attributeDescriptor.getMetaInfoValueFor("guiDisplayField")}}}</td>
+		#else
+			'        <td>{{${className}.${attributeName}}}</td>
+		#end
 	#end 
 		
 #end

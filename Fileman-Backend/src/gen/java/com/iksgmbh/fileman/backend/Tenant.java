@@ -24,9 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @ApiModel(description = "Data of a Fileman tenant")
 @Entity
 @Table(name="TENANT")
-public class Tenant implements Serializable
+public class Tenant implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1599140629858L;
+	private static final long serialVersionUID = 1599149481050L;
 
 	// ===============  instance fields  ===============
 
@@ -146,6 +146,29 @@ public class Tenant implements Serializable
 		return result;
 	}
 
+	@Override
+	public Object clone()
+	{
+		final Tenant clone;
+		try {
+			clone = (Tenant) super.clone();
+		} catch (Exception e) {
+			throw new AssertionError("Unexpected error cloning " + this);
+		}
+
+		if (this.id != null) clone.id = new Integer(this.id);
+		if (this.name != null) clone.name = new String(name);
+
+		if ( this.users != null )
+		{
+			final  List<User> listUser = new java.util.ArrayList<User>();
+			for (final User element : users) {
+				listUser.add(element);
+			}
+		}
+
+		return clone;
+	}
 
 	public void merge(Tenant otherTenant)
 	{

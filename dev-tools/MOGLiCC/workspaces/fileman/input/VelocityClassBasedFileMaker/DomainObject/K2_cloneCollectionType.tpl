@@ -4,7 +4,7 @@
 '
 '		if ( this.${attributeName} != null )  
 '		{
-			#if ( $collectionMetaType == "java.util.List")
+			#if ( $collectionMetaType == "java.util.List" || $collectionMetaType == "List")
 
 				#set( $collectionIdentifier = "list" + $collectionElementType )
 

@@ -1,5 +1,6 @@
 package com.iksgmbh.fileman.backend;
 
+import com.iksgmbh.fileman.backend.Tenant;
 import java.io.Serializable;
 import java.lang.Long;
 import java.lang.String;
@@ -24,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_CONTENT_DATA")
 public class FileContentData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1598955985531L;
+	private static final long serialVersionUID = 1599149480813L;
 
 	// ===============  instance fields  ===============
 
@@ -57,6 +58,11 @@ public class FileContentData implements Serializable, Cloneable
 
     @Column(name="CREATION_DATE", columnDefinition="datetime")
 	private Date creationDate;
+
+    @JsonProperty(access = Access.WRITE_ONLY)
+	@ManyToOne
+    @JoinColumn(name="TENANT", columnDefinition="int")
+	private Tenant tenant;
 
 
 	// ===============  setter methods  ===============
@@ -91,6 +97,11 @@ public class FileContentData implements Serializable, Cloneable
 		this.creationDate = creationDate;
 	}
 
+	public void setTenant(final Tenant tenant)
+	{
+		this.tenant = tenant;
+	}
+
 	// ===============  getter methods  ===============
 
 	public Long getUuid()
@@ -123,6 +134,11 @@ public class FileContentData implements Serializable, Cloneable
 		return creationDate;
 	}
 
+	public Tenant getTenant()
+	{
+		return tenant;
+	}
+
 	// ===============  additional Javabean methods  ===============
 
 	@Override
@@ -134,7 +150,8 @@ public class FileContentData implements Serializable, Cloneable
 				+ "content = " + Arrays.toString(content) + ", "
 				+ "size = " + size + ", "
 				+ "creator = " + creator + ", "
-				+ "creationDate = " + creationDate + ""
+				+ "creationDate = " + creationDate + ", "
+				+ "tenant = " + tenant + ""
 				+ "]";
 	}
 
@@ -196,6 +213,15 @@ public class FileContentData implements Serializable, Cloneable
 			if (! creationDate.equals(other.creationDate))
 				   return false;
 		}
+		if (tenant == null)
+		{
+			if (other.tenant != null)
+				return false;
+		} else
+		{
+			if (! tenant.equals(other.tenant))
+				   return false;
+		}
 		return true;
 	}
 
@@ -210,6 +236,7 @@ public class FileContentData implements Serializable, Cloneable
 		result = prime * result + ((size == null) ? 0 : size.hashCode());
 		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
+		result = prime * result + ((tenant == null) ? 0 : tenant.hashCode());
 
 		return result;
 	}
@@ -234,6 +261,7 @@ public class FileContentData implements Serializable, Cloneable
 		if (this.size != null) clone.size = new Long(this.size);
 		if (this.creator != null) clone.creator = new String(creator);
 		if (this.creationDate != null) clone.creationDate = (java.util.Date)this.creationDate.clone();  // probably, here is need of manual adaptation
+		if (this.tenant != null) clone.tenant = (Tenant)this.tenant.clone();  // probably, here is need of manual adaptation
 
 		return clone;
 	}
@@ -261,6 +289,9 @@ public class FileContentData implements Serializable, Cloneable
        }
         if (otherFileContentData.getCreationDate() != null) {
             this.setCreationDate(otherFileContentData.getCreationDate());
+       }
+        if (otherFileContentData.getTenant() != null) {
+            this.setTenant(otherFileContentData.getTenant());
        }
 	}
 }

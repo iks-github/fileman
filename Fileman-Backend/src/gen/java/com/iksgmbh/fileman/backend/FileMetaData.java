@@ -1,5 +1,6 @@
 package com.iksgmbh.fileman.backend;
 
+import com.iksgmbh.fileman.backend.Tenant;
 import java.io.Serializable;
 import java.lang.Boolean;
 import java.lang.Integer;
@@ -27,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_META_DATA")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1598955985597L;
+	private static final long serialVersionUID = 1599149480916L;
 
 	// ===============  instance fields  ===============
 
@@ -67,6 +68,11 @@ public class FileMetaData implements Serializable, Cloneable
 
     @Column(name="SIZE", columnDefinition="bigint")
 	private Integer size;
+
+    @JsonProperty(access = Access.WRITE_ONLY)
+	@ManyToOne
+    @JoinColumn(name="TENANT", columnDefinition="int")
+	private Tenant tenant;
 
 
 	// ===============  setter methods  ===============
@@ -116,6 +122,11 @@ public class FileMetaData implements Serializable, Cloneable
 		this.size = size;
 	}
 
+	public void setTenant(final Tenant tenant)
+	{
+		this.tenant = tenant;
+	}
+
 	// ===============  getter methods  ===============
 
 	public String getName()
@@ -163,6 +174,11 @@ public class FileMetaData implements Serializable, Cloneable
 		return size;
 	}
 
+	public Tenant getTenant()
+	{
+		return tenant;
+	}
+
 	// ===============  additional Javabean methods  ===============
 
 	@Override
@@ -177,7 +193,8 @@ public class FileMetaData implements Serializable, Cloneable
 				+ "techVersion = " + techVersion + ", "
 				+ "creator = " + creator + ", "
 				+ "creationDate = " + creationDate + ", "
-				+ "size = " + size + ""
+				+ "size = " + size + ", "
+				+ "tenant = " + tenant + ""
 				+ "]";
 	}
 
@@ -273,6 +290,15 @@ public class FileMetaData implements Serializable, Cloneable
 			if (! size.equals(other.size))
 				   return false;
 		}
+		if (tenant == null)
+		{
+			if (other.tenant != null)
+				return false;
+		} else
+		{
+			if (! tenant.equals(other.tenant))
+				   return false;
+		}
 		return true;
 	}
 
@@ -290,6 +316,7 @@ public class FileMetaData implements Serializable, Cloneable
 		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((size == null) ? 0 : size.hashCode());
+		result = prime * result + ((tenant == null) ? 0 : tenant.hashCode());
 
 		return result;
 	}
@@ -313,6 +340,7 @@ public class FileMetaData implements Serializable, Cloneable
 		if (this.creator != null) clone.creator = new String(creator);
 		if (this.creationDate != null) clone.creationDate = (java.util.Date)this.creationDate.clone();  // probably, here is need of manual adaptation
 		if (this.size != null) clone.size = new Integer(this.size);
+		if (this.tenant != null) clone.tenant = (Tenant)this.tenant.clone();  // probably, here is need of manual adaptation
 
 		return clone;
 	}
@@ -353,6 +381,9 @@ public class FileMetaData implements Serializable, Cloneable
        }
         if (otherFileMetaData.getSize() != null) {
             this.setSize(otherFileMetaData.getSize());
+       }
+        if (otherFileMetaData.getTenant() != null) {
+            this.setTenant(otherFileMetaData.getTenant());
        }
 	}
 }

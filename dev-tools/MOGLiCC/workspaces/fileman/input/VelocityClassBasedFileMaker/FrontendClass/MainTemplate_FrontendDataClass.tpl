@@ -22,11 +22,13 @@ export class ${classDescriptor.simpleName}
 {
 #foreach ($attributeDescriptor in $attributeDescriptorList)
 	
-	#parse("FrontendType.tpl")
-	#set( $attributeName = $TemplateStringUtility.firstToLowerCase($attributeDescriptor.name) ) 
-	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeName, " ", "") ) 
+	#if ( ! $attributeDescriptor.doesHaveMetaInfo("excludeFromClientDataClass", "true") )
+		#parse("FrontendType.tpl")
+		#set( $attributeName = $TemplateStringUtility.firstToLowerCase($attributeDescriptor.name) ) 
+		#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeName, " ", "") ) 
 	
-	'    $attributeName: $frontendType;
+		'    $attributeName: $frontendType;
+	#end
 
 #end
 
@@ -36,8 +38,10 @@ export class ${classDescriptor.simpleName}
 
 #foreach ($attributeDescriptor in $attributeDescriptorList)
 	
-	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
-	'            this.$attributeName = untyped${classDescriptor.simpleName}.$attributeName;
+	#if ( ! $attributeDescriptor.doesHaveMetaInfo("excludeFromClientDataClass", "true") )
+		#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
+		'            this.$attributeName = untyped${classDescriptor.simpleName}.$attributeName;
+	#end
 
 #end
 

@@ -5,11 +5,12 @@
 '			
 #foreach($attributeDescriptor in $classDescriptor.attributeDescriptorList)
 
-	#set( $attributeName = $TemplateStringUtility.firstToLowerCase($attributeDescriptor.name) )
-	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeName, " ", "") ) 
+	#if ( ! $attributeDescriptor.doesHaveMetaInfo("excludeFromClientDataClass", "true") )
+		#set( $attributeName = $TemplateStringUtility.firstToLowerCase($attributeDescriptor.name) )
+		#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeName, " ", "") ) 
 
-'        if (this.$attributeName !== obj.$attributeName) { return false; }
-
+	'        if (this.$attributeName !== obj.$attributeName) { return false; }
+	#end
 #end
 '	
 '        return true;

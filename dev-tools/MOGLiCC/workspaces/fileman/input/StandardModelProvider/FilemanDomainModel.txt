@@ -278,6 +278,7 @@ class <<DomainPath>>.Tenant
     metainfo JavaType List<User>
     metainfo hideFromDB true
     metainfo hideFromClientOverview true
+    metainfo excludeFromClientDataClass true
     metainfo dbRelation OneToMany(mappedBy="tenant")
 
  class <<DomainPath>>.ExceptionMetaData

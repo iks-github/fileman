@@ -1,5 +1,6 @@
 package com.iksgmbh.fileman.backend;
 
+import com.iksgmbh.fileman.backend.Tenant;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
@@ -24,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="USER")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1598973593128L;
+	private static final long serialVersionUID = 1599125202243L;
 
 	// ===============  instance fields  ===============
 
@@ -46,8 +47,9 @@ public class User implements Serializable
 
     @NotNull(message="Value of mandatory attribute 'tenant' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-    @Column(name="TENANT", columnDefinition="int")
-	private Integer tenant;
+    @JoinColumn(name="TENANT", columnDefinition="int")
+    @ManyToOne
+	private Tenant tenant;
 
     @Size(min=1, max=60, message="Value of attribute 'password' is out of valid range (1-60)")
     @ApiModelProperty(notes = "Valid length ranges from 1 to 60.")
@@ -83,7 +85,7 @@ public class User implements Serializable
 		this.role = role;
 	}
 
-	public void setTenant(final Integer tenant)
+	public void setTenant(final Tenant tenant)
 	{
 		this.tenant = tenant;
 	}
@@ -120,7 +122,7 @@ public class User implements Serializable
 		return role;
 	}
 
-	public Integer getTenant()
+	public Tenant getTenant()
 	{
 		return tenant;
 	}

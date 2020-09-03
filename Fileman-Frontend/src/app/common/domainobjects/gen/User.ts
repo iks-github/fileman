@@ -1,10 +1,11 @@
+import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
 
 export class User
 {
     id: number;
     name: string;
     role: string;
-    tenant: number;
+    tenant: Tenant;
     password: string;
     passwordRepetition: string;
     avatar: string;
@@ -75,7 +76,7 @@ export class User
         this.role = role;
     }
 
-    setTenant(tenant: number) {
+    setTenant(tenant: Tenant) {
         this.tenant = tenant;
     }
 

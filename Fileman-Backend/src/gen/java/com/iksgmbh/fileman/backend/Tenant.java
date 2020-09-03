@@ -3,6 +3,7 @@ package com.iksgmbh.fileman.backend;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 
 import javax.validation.constraints.*;
 import javax.persistence.*;
@@ -24,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="TENANT")
 public class Tenant implements Serializable
 {
-	private static final long serialVersionUID = 1598955985711L;
+	private static final long serialVersionUID = 1599125202308L;
 
 	// ===============  instance fields  ===============
 
@@ -38,6 +39,10 @@ public class Tenant implements Serializable
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 2 to 64.")
     @Column(name="NAME", unique=true, columnDefinition="varchar")
 	private String name;
+    
+    @OneToMany(mappedBy="tenant")
+    @JsonIgnore
+	private List<User> users;
 
 
 	// ===============  setter methods  ===============
@@ -62,6 +67,14 @@ public class Tenant implements Serializable
 	public String getName()
 	{
 		return name;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	// ===============  additional Javabean methods  ===============

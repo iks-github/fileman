@@ -45,6 +45,7 @@ export class UserDetailsComponent implements OnInit {
   newMode: boolean;
   toEdit: User;
   tenants = [] as Tenant[];
+  tenantsMap = new Map<string, Tenant>();
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
@@ -85,6 +86,11 @@ export class UserDetailsComponent implements OnInit {
     responseData.forEach(element => {
       const dataset = new Tenant(element);
       tenants.push(dataset);
+      console.log(dataset.getId());
+      console.log(dataset);
+      // need conversion from number to string, as
+      // TypeScript maps do not work with numberic keys
+      this.tenantsMap.set(''+dataset.getId(), dataset);
     });
     this.tenants = Utils.sortList(tenants);
   }
@@ -113,7 +119,10 @@ export class UserDetailsComponent implements OnInit {
       id: this.toEdit != null ? this.toEdit.getId() : null,
       name: this.nameC.value.trim(),
       role: this.roleC.value,
-      tenant: this.tenantC.value,
+      tenant: new Tenant({
+        id: this.tenantC.value,
+        name: this.tenantsMap.get(this.tenantC.value).getName()
+      }),
       password: this.passwordC.value != null
                   && this.passwordC.value.trim().length > 0 ?
                   this.passwordC.value.trim() : null,
@@ -319,7 +328,7 @@ export class UserDetailsComponent implements OnInit {
   private setDataToControls(user: User) {
     this.nameC.setValue(user.getName());
     this.roleC.setValue(user.getRole());
-    this.tenantC.setValue(user.getTenant());
+    this.tenantC.setValue(user.getTenant().id);
     this.passwordC.setValue(user.getPassword());
     this.passwordRepetitionC.setValue(user.getPasswordRepetition());
   }

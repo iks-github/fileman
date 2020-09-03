@@ -213,7 +213,7 @@ class <<DomainPath>>.User
 
   attribute tenant
     metainfo dbType int
-    metainfo JavaType Integer
+    metainfo JavaType Tenant
     metainfo Mandatory true
     metainfo ExampleData 1
     metainfo guiType Selectbox

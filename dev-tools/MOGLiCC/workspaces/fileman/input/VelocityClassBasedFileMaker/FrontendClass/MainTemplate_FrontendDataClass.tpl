@@ -8,18 +8,10 @@
 @SkipGeneration $notNeeded 
 
 #set( $attributeDescriptorList = $classDescriptor.getAttributeDescriptorList() )
-#set( $isDomainType = false)
 
 #foreach ($attributeDescriptor in $attributeDescriptorList)
 
-	#set( $JavaType = $attributeDescriptor.getMetaInfoValueFor("JavaType"))
-	
-	#set( $classDescriptorList = $model.getClassDescriptorList() )
-	#foreach ($classDescriptor in $classDescriptorList) 
-		#if ($JavaType.equals(${classDescriptor.simpleName}))
-			#set( $isDomainType = true)
-		#end
-	#end
+	#parse("isDomainType.tpl")
 
 	#if( $isDomainType )
 		'import { $JavaType } from 'src/app/common/domainobjects/gen/$JavaType';	

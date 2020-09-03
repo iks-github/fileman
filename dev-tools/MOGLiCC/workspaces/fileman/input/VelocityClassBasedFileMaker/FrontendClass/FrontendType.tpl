@@ -8,7 +8,9 @@
 	#set( $frontendType = "number")	
 #elseif ($javaType.contains("[") && $javaType.contains("]"))
 	#set( $frontendType = "[]")	
-#elseif( $isDomainType )
-	#set( $frontendType = $JavaType)	
+#else
+	#parse("isDomainType.tpl")
+	#if( $isDomainType )
+		#set( $frontendType = $JavaType)
+	#end
 #end
-	

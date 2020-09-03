@@ -113,6 +113,7 @@ export class UserDetailsComponent implements OnInit {
       id: this.toEdit != null ? this.toEdit.getId() : null,
       name: this.nameC.value.trim(),
       role: this.roleC.value,
+      tenant: this.tenantC.value,
       password: this.passwordC.value != null
                   && this.passwordC.value.trim().length > 0 ?
                   this.passwordC.value.trim() : null,

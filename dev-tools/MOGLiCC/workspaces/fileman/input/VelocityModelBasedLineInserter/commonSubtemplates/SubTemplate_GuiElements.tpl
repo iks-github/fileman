@@ -1,10 +1,10 @@
 #set( $guiType = $attribute.getMetaInfoValueFor("guiType") )
-#set( $isSelectBox = $guiType.startsWith("Selectbox:") )
+#set( $isSelectBoxWithFixedOptions = $guiType.startsWith("Selectbox:") )
 #set( $attributeName = $TemplateStringUtility.firstToLowerCase($attribute.name) ) 
 #set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeName, " ", "") ) 
 #set( $AttributeName = $TemplateStringUtility.firstToUpperCase($attributeName) ) 
 
-#if ( $isSelectBox) 
+#if ( $isSelectBoxWithFixedOptions) 
 	#set( $optionString = $TemplateStringUtility.cutLeadingChars($guiType, 10) )
 	#set( $options = $TemplateStringUtility.commaSeparatedStringToStringList($optionString) )
 	#set( $guiType = "Selectbox" )
@@ -26,9 +26,12 @@
 
 '                    <select id="$attributeName" class="form-Control" formControlName="${attributeName}Control" (change)="${attributeName}C.markAsTouched()">
 
-	#foreach ($option in $options)
-'                    	<option [value]="'$option'">$option</option>
-
+	#if ( $isSelectBoxWithFixedOptions)
+		#foreach ($option in $options)
+'                        <option [value]="'$option'">$option</option>
+		#end
+	#else
+'                        <option *ngFor="let ${attributeName} of ${attributeName}s" [value]="${attributeName}.id">{{${attributeName}.name}}</option>
 	#end
 
 '                    </select>

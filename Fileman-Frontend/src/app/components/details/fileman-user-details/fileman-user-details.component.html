@@ -21,9 +21,9 @@
                     <label for="role">Role</label>
                     <br>
                     <select id="role" class="form-Control" formControlName="roleControl" (change)="roleC.markAsTouched()">
-                    	<option [value]="'Reader'">Reader</option>
-                    	<option [value]="'Writer'">Writer</option>
-                    	<option [value]="'Admin'">Admin</option>
+                        <option [value]="'Reader'">Reader</option>
+                        <option [value]="'Writer'">Writer</option>
+                        <option [value]="'Admin'">Admin</option>
                     </select>
                 </td>
             </tr>
@@ -35,7 +35,7 @@
                     <label for="tenant">Tenant</label>
                     <br>
                     <select id="tenant" class="form-Control" formControlName="tenantControl" (change)="tenantC.markAsTouched()">
-                      <option *ngFor="let tenant of tenants" [value]="tenant.id">{{tenant.name}}</option>
+                        <option *ngFor="let tenant of tenants" [value]="tenant.id">{{tenant.name}}</option>
                     </select>
                 </td>
 				 <td class="space"></td>

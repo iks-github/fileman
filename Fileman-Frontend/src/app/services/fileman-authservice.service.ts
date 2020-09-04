@@ -69,4 +69,8 @@ export class FilemanAuthserviceService {
     if (!token) { return null; }
     return new JwtHelperService().decodeToken(token).id;
   }
+
+  getToken(): string {
+    return localStorage.getItem('token');
+  }
 }

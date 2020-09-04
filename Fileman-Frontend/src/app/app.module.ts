@@ -19,6 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing/';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { FormatDateDirective } from './directives/format-date.directive';
 import { OutsideClickListenerDirective } from './directives/outside-click-listener.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,6 +29,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { TooltipModule, TooltipOptions } from 'ng2-tooltip-directive';
 import { AppComponent } from './app.component';
 import { MydatePipe } from './directives/mydate.pipe';
+import { FilemanAuthInterceptor } from './common/fileman-auth-interceptor'
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -122,7 +125,8 @@ import { TenantService } from './services/fileman-tenant-service.service';
     UserService,
     TenantService,
     FilemanMetadataService, FilemanFavouriteSettingsService, FilemanFileService,
-    {provide: ErrorHandler, useClass: FilemanErrorHandler}
+    {provide: ErrorHandler, useClass: FilemanErrorHandler},
+    {provide: HTTP_INTERCEPTORS, useClass: FilemanAuthInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

@@ -19,7 +19,7 @@ import { catchError } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { FilemanConstants } from '../common/fileman-constants';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { LoginRequest } from '../common/domainobjects/gen/LoginRequest';
 import { LoginResponse } from '../common/domainobjects/gen/LoginResponse';
 
@@ -27,6 +27,7 @@ import { LoginResponse } from '../common/domainobjects/gen/LoginResponse';
   providedIn: 'root'
 })
 export class FilemanAuthserviceService {
+  private logoutNotifier: Subject<void> = new Subject<void>();
 
   constructor(private httpClient: HttpClient,
               private propertiesService: FilemanPropertiesLoaderService) { }
@@ -43,6 +44,7 @@ export class FilemanAuthserviceService {
   logout() {
     console.log('Logged out.');
     localStorage.removeItem('token');
+    this.logoutNotifier.next();
   }
 
   isLoggedIn() {
@@ -72,5 +74,9 @@ export class FilemanAuthserviceService {
 
   getToken(): string {
     return localStorage.getItem('token');
+  }
+
+  getLogoutNotifier(): Subject<void> {
+    return this.logoutNotifier;
   }
 }

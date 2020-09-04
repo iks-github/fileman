@@ -16,11 +16,13 @@
  */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, Subscription } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
 import { FileMetaData } from '../common/domainobjects/gen/FileMetaData';
-import { Observable } from 'rxjs';
 import { FilemanConstants } from '../common/fileman-constants';
+import { FilemanAuthserviceService } from './fileman-authservice.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +31,16 @@ export class FilemanMetadataService {
   private url: string;
   private fileMetaDataCache = new Map<string, FileMetaData>();
   private forceReloadFromServer = false;
+  private logoutSubscription: Subscription;
 
   constructor(private httpClient: HttpClient,
-              private propertiesService: FilemanPropertiesLoaderService) {
+              private authService: FilemanAuthserviceService,
+              propertiesService: FilemanPropertiesLoaderService) {
     this.url = propertiesService.getProperty('serverurl')  + '/fileMetaDatas';
+    this.logoutSubscription =
+    this.authService.getLogoutNotifier().subscribe(
+      () => { this.forceReloadFromServer = true }
+    );
   }
 
   reloadOverviewData(): Observable<FileMetaData[]> {

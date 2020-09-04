@@ -28,7 +28,6 @@ public class FileMetaDataBasicDao
 	protected EntityManager entityManager;
 
 	public List<FileMetaData> findAllFileMetaDatas(Tenant tenant) {
-	    System.out.println("TEENANT: "+tenant);
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 	    CriteriaQuery<FileMetaData> criteria = criteriaBuilder.createQuery(FileMetaData.class);
 	    Root<FileMetaData> fileMetaData = criteria.from(FileMetaData.class);

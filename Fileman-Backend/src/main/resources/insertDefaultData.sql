@@ -9,7 +9,7 @@ insert into FILE_META_DATA (name, description, active_U_U_I_D, tech_type, tech_v
 insert into FILE_META_DATA (name, description, active_U_U_I_D, tech_type, tech_version, creator, creation_date, size, tenant) values ('OhoMainScript.groovy', 'Main logic of the OHO service.', 3, 'groovy', 1, 'Salomon', CURRENT_TIMESTAMP, 4321, 1)
 insert into FILE_META_DATA (name, description, active_U_U_I_D, tech_type, tech_version, creator, creation_date, size, tenant) values ('OhoCoreScript.groovy', 'Core logic of the OHO service which is embedded in the OhoMainScript.', 4, 'groovy', 1, 'Salomon', CURRENT_TIMESTAMP, 4321, 1)
 
-insert into FILE_CONTENT_DATA (name, content, size, creator, creation_date, tenant) values ('readme.txt', FILE_READ('./src/main/resources/initial-files/readme.txt'), 123, 'Salomon', CURRENT_TIMESTAMP, 1)
-insert into FILE_CONTENT_DATA (name, content, size, creator, creation_date, tenant) values ('logo.jpg', FILE_READ('./src/main/resources/initial-files/logo.jpg'), 123, 'Salomon', CURRENT_TIMESTAMP, 1)
-insert into FILE_CONTENT_DATA (name, content, size, creator, creation_date, tenant) values ('OhoMainScript.groovy', FILE_READ('./src/main/resources/initial-files/OhoMainScript.groovy'), 123, 'Salomon', CURRENT_TIMESTAMP, 1)
-insert into FILE_CONTENT_DATA (name, content, size, creator, creation_date, tenant) values ('OhoCoreScript.groovy', FILE_READ('./src/main/resources/initial-files/OhoCoreScript.groovy'), 123, 'Salomon', CURRENT_TIMESTAMP, 1)
+insert into FILE_CONTENT_DATA (name, content, size, creator, creation_date) values ('readme.txt', FILE_READ('./src/main/resources/initial-files/readme.txt'), 123, 'Salomon', CURRENT_TIMESTAMP)
+insert into FILE_CONTENT_DATA (name, content, size, creator, creation_date) values ('logo.jpg', FILE_READ('./src/main/resources/initial-files/logo.jpg'), 123, 'Salomon', CURRENT_TIMESTAMP)
+insert into FILE_CONTENT_DATA (name, content, size, creator, creation_date) values ('OhoMainScript.groovy', FILE_READ('./src/main/resources/initial-files/OhoMainScript.groovy'), 123, 'Salomon', CURRENT_TIMESTAMP)
+insert into FILE_CONTENT_DATA (name, content, size, creator, creation_date) values ('OhoCoreScript.groovy', FILE_READ('./src/main/resources/initial-files/OhoCoreScript.groovy'), 123, 'Salomon', CURRENT_TIMESTAMP)

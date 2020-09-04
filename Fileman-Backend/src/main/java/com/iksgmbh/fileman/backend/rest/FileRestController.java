@@ -69,7 +69,6 @@ public class FileRestController
 		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
 		User user = userDao.findById(userId);
 		
-		fileData.getContentData().setTenant(user.getTenant());
 		fileData.getContentData().setCreationDate(new Date());
 		FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
 		if (fileData.getMetaData().getImmediatelyActive() != null && fileData.getMetaData().getImmediatelyActive()) {
@@ -132,6 +131,5 @@ public class FileRestController
 		
 		favouriteSettingDao.findAllForFilename(fileName)
                            .forEach(favouriteSettingDao::delete);
-		
 	}
 }

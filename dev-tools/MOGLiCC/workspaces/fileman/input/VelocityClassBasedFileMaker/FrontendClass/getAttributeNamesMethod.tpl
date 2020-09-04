@@ -4,11 +4,9 @@
 
 #foreach($attributeDescriptor in $classDescriptor.attributeDescriptorList)
 
-	#if ( ! $attributeDescriptor.doesHaveMetaInfo("excludeFromClientDataClass", "true") )
-		#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
-	
-		'           '$attributeName', 
-	#end
+	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
+
+	'           '$attributeName', 
 #end
 
 '        ];

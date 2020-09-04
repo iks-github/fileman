@@ -284,13 +284,6 @@ class <<DomainPath>>.Tenant
     metainfo unique true
     metainfo guiType TextField
 
-  attribute users
-    metainfo JavaType List<User>
-    metainfo hideFromDB true
-    metainfo hideFromClientOverview true
-    metainfo excludeFromClientDataClass true
-    metainfo dbRelation OneToMany(mappedBy="tenant")
-
  class <<DomainPath>>.ExceptionMetaData
   metainfo implements java.io.Serializable
 

@@ -34,15 +34,6 @@ public class TenantBasicDao
 		return entityManager.find(Tenant.class, id);
 	}
 
-	public boolean update(Tenant entity) {
-		try {
-			entityManager.merge(entity);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
 	public Tenant findByName(String name)
 	{
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -52,6 +43,15 @@ public class TenantBasicDao
 		return entityManager.createQuery(criteria).getSingleResult();
 	}
 
+
+	public boolean update(Tenant entity) {
+		try {
+			entityManager.merge(entity);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public Tenant create(Tenant entity) {
 		entityManager.persist(entity);

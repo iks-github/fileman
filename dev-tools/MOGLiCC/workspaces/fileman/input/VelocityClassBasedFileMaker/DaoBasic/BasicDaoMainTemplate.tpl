@@ -96,20 +96,18 @@ public class ${ClassName}BasicDao
 		'		return entityManager.find(${ClassName}.class, ${attributeDescriptor.name});
 		'	}
 		'
-		
-		
-		'	public boolean update(${ClassName} entity) {
-		'		try {
-		'			entityManager.merge(entity);
-		'			return true;
-		'		} catch (Exception e) {
-		'			return false;
-		'		}
-		'	}
-		'
 	#end
+#end
 
-#end	
+'	public boolean update(${ClassName} entity) {
+'		try {
+'			entityManager.merge(entity);
+'			return true;
+'		} catch (Exception e) {
+'			return false;
+'		}
+'	}
+'
 	
 '	public ${ClassName} create(${ClassName} entity) {
 '		entityManager.persist(entity);

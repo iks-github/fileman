@@ -53,13 +53,17 @@ public class MetaDataRestController
 	}
 
 	@PutMapping("/fileMetaDatas/{filename}/uuid/{uuid}")
-	public ResponseEntity<?> setActive(@PathVariable String filename, 
-			                           @PathVariable Long uuid) 
-	{
-		FileMetaData metaData = metaDataDao.findByName(filename);
+	public ResponseEntity<?> setActive(@RequestHeader("Authorization") String authHeader,
+									   @PathVariable String filename,
+			                           @PathVariable Long uuid) {
+		
+		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
+		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
+		User user = userDao.findById(userId);
+		
+		FileMetaData metaData = metaDataDao.findByNameAndTenant(filename, user.getTenant());
 		metaData.setActiveUUID(uuid);
 		metaDataDao.update(metaData);
 		return ResponseEntity.ok().build();
-	}	
-	
+	}
 }

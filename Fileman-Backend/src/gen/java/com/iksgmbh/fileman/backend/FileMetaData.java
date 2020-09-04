@@ -28,14 +28,14 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_META_DATA")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1599207767089L;
+	private static final long serialVersionUID = 1599230432131L;
 
 	// ===============  instance fields  ===============
 
     @NotNull(message="Value of mandatory attribute 'name' is not present.")
     @Size(min=3, max=128, message="Value of attribute 'name' is out of valid range (3-128)")
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 3 to 128.")
-    @Column(name="NAME", unique=true, columnDefinition="varchar")
+    @Column(name="NAME", columnDefinition="varchar")
     @Id
 	private String name;
 
@@ -74,6 +74,7 @@ public class FileMetaData implements Serializable, Cloneable
     @JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
     @JoinColumn(name="TENANT", columnDefinition="int")
+    @Id
 	private Tenant tenant;
 
 

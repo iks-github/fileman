@@ -34,15 +34,6 @@ public class FileContentDataBasicDao
 		return entityManager.find(FileContentData.class, uuid);
 	}
 
-	public boolean update(FileContentData entity) {
-		try {
-			entityManager.merge(entity);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
 	public List<FileContentData> findAllForName(String toSearch) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<FileContentData> criteria = criteriaBuilder.createQuery(FileContentData.class);
@@ -51,6 +42,15 @@ public class FileContentDataBasicDao
         return entityManager.createQuery(criteria).getResultList();
 	}
 
+
+	public boolean update(FileContentData entity) {
+		try {
+			entityManager.merge(entity);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public FileContentData create(FileContentData entity) {
 		entityManager.persist(entity);

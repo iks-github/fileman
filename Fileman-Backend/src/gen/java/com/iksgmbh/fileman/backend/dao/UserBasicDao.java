@@ -34,15 +34,6 @@ public class UserBasicDao
 		return entityManager.find(User.class, id);
 	}
 
-	public boolean update(User entity) {
-		try {
-			entityManager.merge(entity);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
 	public User findByName(String name)
 	{
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -52,6 +43,15 @@ public class UserBasicDao
 		return entityManager.createQuery(criteria).getSingleResult();
 	}
 
+
+	public boolean update(User entity) {
+		try {
+			entityManager.merge(entity);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public User create(User entity) {
 		entityManager.persist(entity);

@@ -41,7 +41,7 @@
 '                this.requiredForNew${classDescriptor.simpleName}.bind(this),
 		#end
 
-		#if ( $attributeDescriptor.doesHaveMetaInfo("unique", "true"))
+		#if ( $attributeDescriptor.doesHaveMetaInfo("unique", "true") || $attributeDescriptor.doesHaveMetaInfo("unique", "for-client"))
 '              ],		
 '              this.isNotUnique.bind(this)),
 		#else

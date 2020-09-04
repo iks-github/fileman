@@ -34,15 +34,6 @@ public class FileMetaDataBasicDao
 		return entityManager.find(FileMetaData.class, name);
 	}
 
-	public boolean update(FileMetaData entity) {
-		try {
-			entityManager.merge(entity);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
 	public List<FileMetaData> findAllForTenant(Tenant toSearch) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<FileMetaData> criteria = criteriaBuilder.createQuery(FileMetaData.class);
@@ -51,6 +42,19 @@ public class FileMetaDataBasicDao
         return entityManager.createQuery(criteria).getResultList();
 	}
 
+
+	public FileMetaData findByTenant(Tenant tenant) {
+		return entityManager.find(FileMetaData.class, tenant);
+	}
+
+	public boolean update(FileMetaData entity) {
+		try {
+			entityManager.merge(entity);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public FileMetaData create(FileMetaData entity) {
 		entityManager.persist(entity);

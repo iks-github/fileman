@@ -34,15 +34,6 @@ public class FavouriteSettingBasicDao
 		return entityManager.find(FavouriteSetting.class, id);
 	}
 
-	public boolean update(FavouriteSetting entity) {
-		try {
-			entityManager.merge(entity);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
 	public List<FavouriteSetting> findAllForUsername(String toSearch) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<FavouriteSetting> criteria = criteriaBuilder.createQuery(FavouriteSetting.class);
@@ -60,6 +51,15 @@ public class FavouriteSettingBasicDao
         return entityManager.createQuery(criteria).getResultList();
 	}
 
+
+	public boolean update(FavouriteSetting entity) {
+		try {
+			entityManager.merge(entity);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public FavouriteSetting create(FavouriteSetting entity) {
 		entityManager.persist(entity);

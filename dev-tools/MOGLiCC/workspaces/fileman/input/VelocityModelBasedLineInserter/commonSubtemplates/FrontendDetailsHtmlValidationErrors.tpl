@@ -28,14 +28,12 @@
 '            </div>	
 		#end
 			
-		#if ( $attributeDescriptor.doesHaveMetaInfo( "unique", "true") )
+		#if ( $attributeDescriptor.doesHaveMetaInfo( "unique", "true") || $attributeDescriptor.doesHaveMetaInfo( "unique", "for-client"))
 '            <div *ngIf="${attributeName}C.errors?.isNotUnique">
 '               The value for field <i>${AttributeName}</i> must be unique! <i>{{${attributeName}C.value}}</i> is not unique.
 '            </div>
 		#end
-	
-	
-	
+
 	#end
 	
 #end

@@ -116,7 +116,7 @@ class <<DomainPath>>.FileMetaData
   metainfo JavaDocLine "Meta Data of a hosted file"
   metainfo frontendClass true
   metainfo dbEntity true
-  
+
   attribute name
     metainfo dbType varchar
     metainfo JavaType String
@@ -124,7 +124,7 @@ class <<DomainPath>>.FileMetaData
     metainfo ExampleData logo.png
     metainfo MinLength 3
     metainfo MaxLength 128
-    metainfo unique true
+    metainfo unique for-client
     metainfo id true
     metainfo guiType TextField
     metainfo allowSpace false
@@ -180,6 +180,7 @@ class <<DomainPath>>.FileMetaData
     metainfo dbType int
     metainfo JavaType Tenant
     metainfo Mandatory true
+    metainfo id true
     metainfo dbRelation ManyToOne
     metainfo isForeignKey true
     metainfo hideFromClientOverview true

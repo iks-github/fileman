@@ -49,7 +49,7 @@ public class MetaDataRestController
 		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
 		User user = userDao.findById(userId);
 		
-		return metaDataDao.findAllFileMetaDatas(user.getTenant());
+		return metaDataDao.findAllForTenant(user.getTenant());
 	}
 
 	@PutMapping("/fileMetaDatas/{filename}/uuid/{uuid}")

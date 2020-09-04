@@ -191,6 +191,7 @@ class <<DomainPath>>.FileMetaData
     metainfo dbRelation ManyToOne
     metainfo isForeignKey true
     metainfo hideFromClientOverview true
+    metainfo withFindAllMethod true
 
 class <<DomainPath>>.User
   metainfo implements java.io.Serializable

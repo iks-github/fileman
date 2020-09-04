@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.iksgmbh.fileman.backend.Tenant;
+import com.iksgmbh.fileman.backend.*;
 
 import javax.persistence.*;
 import javax.persistence.criteria.*;

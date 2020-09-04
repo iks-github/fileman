@@ -16,7 +16,7 @@ import java.util.List;
 '
 import org.springframework.stereotype.Component;
 '
-import ${classDescriptor.package}.${classDescriptor.simpleName};
+import ${classDescriptor.package}.*;
 '
 import javax.persistence.*;
 import javax.persistence.criteria.*;
@@ -77,7 +77,7 @@ public class ${ClassName}BasicDao
 	#else
 
 		#if ( $attributeDescriptor.doesHaveMetaInfo("withFindAllMethod", "true") )
-			'	public List<${ClassName}> findAllFor${AttributeName}(String toSearch) {
+			'	public List<${ClassName}> findAllFor${AttributeName}($JavaType toSearch) {
 			'        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 			'        CriteriaQuery<${ClassName}> criteria = criteriaBuilder.createQuery(${ClassName}.class);
 			'        Root<${ClassName}> ${className} = criteria.from(${ClassName}.class);

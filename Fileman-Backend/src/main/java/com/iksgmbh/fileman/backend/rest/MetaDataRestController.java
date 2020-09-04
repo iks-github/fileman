@@ -23,22 +23,34 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.FileMetaData;
+import com.iksgmbh.fileman.backend.User;
 import com.iksgmbh.fileman.backend.dao.FileMetaDataDao;
+import com.iksgmbh.fileman.backend.dao.UserDao;
+import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class MetaDataRestController
 {
 	@Autowired
-	private FileMetaDataDao metaDataDao; 
+	private FileMetaDataDao metaDataDao;
+
+	@Autowired
+	private UserDao userDao;
 
 	@GetMapping("/fileMetaDatas")
-	public List<FileMetaData> findAllFileMetaDatas() {
-		return metaDataDao.findAllFileMetaDatas();
-	}	
+	public List<FileMetaData> findAllFileMetaDatas(@RequestHeader("Authorization") String authHeader) {
+		
+		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
+		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
+		User user = userDao.findById(userId);
+		
+		return metaDataDao.findAllFileMetaDatas(user.getTenant());
+	}
 
 	@PutMapping("/fileMetaDatas/{filename}/uuid/{uuid}")
 	public ResponseEntity<?> setActive(@PathVariable String filename, 

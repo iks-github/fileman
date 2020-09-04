@@ -2,15 +2,18 @@ package com.iksgmbh.fileman.backend.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Component;
-
-import com.iksgmbh.fileman.backend.FileMetaData;
-
-import javax.persistence.*;
-import javax.persistence.criteria.*;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.iksgmbh.fileman.backend.FileMetaData;
+import com.iksgmbh.fileman.backend.Tenant;
 
 @Component
 /**
@@ -24,10 +27,13 @@ public class FileMetaDataBasicDao
 	@PersistenceContext
 	protected EntityManager entityManager;
 
-	public List<FileMetaData> findAllFileMetaDatas() {
-		CriteriaQuery<FileMetaData> criteria = entityManager.getCriteriaBuilder().createQuery(FileMetaData.class);
-		criteria.select(criteria.from(FileMetaData.class));
-		return entityManager.createQuery(criteria).getResultList();
+	public List<FileMetaData> findAllFileMetaDatas(Tenant tenant) {
+	    System.out.println("TEENANT: "+tenant);
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+	    CriteriaQuery<FileMetaData> criteria = criteriaBuilder.createQuery(FileMetaData.class);
+	    Root<FileMetaData> fileMetaData = criteria.from(FileMetaData.class);
+	    criteria.where(criteriaBuilder.equal(fileMetaData.get("tenant"), tenant));
+	    return entityManager.createQuery(criteria).getResultList();
 	}
 
 	public FileMetaData findByName(String name) {

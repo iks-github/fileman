@@ -71,6 +71,7 @@ public class FileRestController {
 		User user = userDao.findById(userId);
 		
 		fileData.getContentData().setCreationDate(new Date());
+		fileData.getContentData().setTenant(user.getTenant());
 		FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
 		if (fileData.getMetaData().getImmediatelyActive() != null && fileData.getMetaData().getImmediatelyActive()) {
 			fileData.getMetaData().setActiveUUID(newContentVersion.getUuid());
@@ -97,6 +98,7 @@ public class FileRestController {
 		if (withContentChange) 
 		{
 			fileData.getContentData().setCreationDate(new Date());
+			fileData.getContentData().setTenant(user.getTenant());
 			FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
 			if (fileData.getMetaData().getImmediatelyActive() != null && fileData.getMetaData().getImmediatelyActive()) {
 				fileData.getMetaData().setActiveUUID(newContentVersion.getUuid());
@@ -121,9 +123,14 @@ public class FileRestController {
 	}
 
 	@GetMapping("/files/{fileName}/history")
-	public List<FileContentData> getHistory(@PathVariable String fileName) {
+	public List<FileContentData> getHistory(@RequestHeader("Authorization") String authHeader,
+			@PathVariable String fileName) {
 		
-		List<FileContentData> matches = contentDataDao.findAllForName(fileName);
+		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
+		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
+		User user = userDao.findById(userId);
+		
+		List<FileContentData> matches = contentDataDao.findAllForNameAndTenant(fileName, user.getTenant());
 		List<FileContentData> toReturn = new ArrayList<>();
 		matches.forEach(fileContentData -> toReturn.add(0, (FileContentData) fileContentData.clone()));
 		toReturn.forEach(fileContentData -> fileContentData.setContent(null));

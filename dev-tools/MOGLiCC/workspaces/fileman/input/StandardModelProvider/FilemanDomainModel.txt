@@ -107,6 +107,14 @@ class <<DomainPath>>.FileContentData
     metainfo dbType datetime
     metainfo JavaType java.util.Date
     metainfo ExampleData "10.10.2020 13:55:59"
+    
+  attribute tenant
+    metainfo dbType int
+    metainfo JavaType Tenant
+    metainfo Mandatory true
+    metainfo dbRelation ManyToOne
+    metainfo isForeignKey true
+    metainfo hideFromClientOverview true
 
 class <<DomainPath>>.FileMetaData  
   metainfo implements java.io.Serializable

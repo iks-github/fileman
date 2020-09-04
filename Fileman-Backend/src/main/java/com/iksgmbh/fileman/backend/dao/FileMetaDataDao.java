@@ -62,11 +62,11 @@ public class FileMetaDataDao extends FileMetaDataBasicDao
 	public FileMetaData findByNameAndTenant(String name, Tenant tenant) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<FileMetaData> criteria = criteriaBuilder.createQuery(FileMetaData.class);
-		Root<FileMetaData> root = criteria.from(FileMetaData.class);
-		criteria.select(root).where(
+		Root<FileMetaData> fileMetaData = criteria.from(FileMetaData.class);
+		criteria.select(fileMetaData).where(
 				criteriaBuilder.and(
-						criteriaBuilder.equal(root.get("name"), name),
-						criteriaBuilder.equal(root.get("tenant"), tenant)));
+						criteriaBuilder.equal(fileMetaData.get("name"), name),
+						criteriaBuilder.equal(fileMetaData.get("tenant"), tenant)));
 		return entityManager.createQuery(criteria).getSingleResult();
 	}	
 }

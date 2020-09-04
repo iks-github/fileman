@@ -148,7 +148,7 @@ public class FileRestController {
 		FileMetaData metaData = metaDataDao.findByNameAndTenant(fileName, user.getTenant());
 		metaDataDao.delete(metaData);
 		
-		contentDataDao.findAllForName(fileName)
+		contentDataDao.findAllForNameAndTenant(fileName, user.getTenant())
 		              .forEach(contentDataDao::delete);
 		
 		favouriteSettingDao.findAllForFilename(fileName)

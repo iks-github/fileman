@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_CONTENT_DATA")
 public class FileContentData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1599149480813L;
+	private static final long serialVersionUID = 1599207767002L;
 
 	// ===============  instance fields  ===============
 
@@ -59,6 +59,8 @@ public class FileContentData implements Serializable, Cloneable
     @Column(name="CREATION_DATE", columnDefinition="datetime")
 	private Date creationDate;
 
+    @NotNull(message="Value of mandatory attribute 'tenant' is not present.")
+    @ApiModelProperty(notes = "Mandatory.")
     @JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
     @JoinColumn(name="TENANT", columnDefinition="int")

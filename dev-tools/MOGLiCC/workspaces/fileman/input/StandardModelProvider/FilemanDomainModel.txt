@@ -111,6 +111,7 @@ class <<DomainPath>>.FileContentData
   attribute tenant
     metainfo dbType int
     metainfo JavaType Tenant
+    metainfo Mandatory true
     metainfo dbRelation ManyToOne
     metainfo isForeignKey true
     metainfo hideFromClientOverview true
@@ -186,6 +187,7 @@ class <<DomainPath>>.FileMetaData
   attribute tenant
     metainfo dbType int
     metainfo JavaType Tenant
+    metainfo Mandatory true
     metainfo dbRelation ManyToOne
     metainfo isForeignKey true
     metainfo hideFromClientOverview true

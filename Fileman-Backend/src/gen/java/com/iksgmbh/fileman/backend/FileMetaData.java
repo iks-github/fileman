@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_META_DATA")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1599149480916L;
+	private static final long serialVersionUID = 1599207767089L;
 
 	// ===============  instance fields  ===============
 
@@ -69,6 +69,8 @@ public class FileMetaData implements Serializable, Cloneable
     @Column(name="SIZE", columnDefinition="bigint")
 	private Integer size;
 
+    @NotNull(message="Value of mandatory attribute 'tenant' is not present.")
+    @ApiModelProperty(notes = "Mandatory.")
     @JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
     @JoinColumn(name="TENANT", columnDefinition="int")

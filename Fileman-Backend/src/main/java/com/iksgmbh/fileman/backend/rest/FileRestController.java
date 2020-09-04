@@ -32,35 +32,49 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.FileContentData;
 import com.iksgmbh.fileman.backend.FileData;
 import com.iksgmbh.fileman.backend.FileMetaData;
+import com.iksgmbh.fileman.backend.User;
 import com.iksgmbh.fileman.backend.dao.FavouriteSettingDao;
 import com.iksgmbh.fileman.backend.dao.FileContentDataDao;
 import com.iksgmbh.fileman.backend.dao.FileMetaDataDao;
+import com.iksgmbh.fileman.backend.dao.UserDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
+import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class FileRestController
 {
 	@Autowired
-	private FileMetaDataDao metaDataDao; 
+	private FileMetaDataDao metaDataDao;
 
 	@Autowired
-	private FileContentDataDao contentDataDao; 
+	private FileContentDataDao contentDataDao;
 
 	@Autowired
-	private FavouriteSettingDao favouriteSettingDao; 
+	private FavouriteSettingDao favouriteSettingDao;
+	
+	@Autowired
+	private UserDao userDao;
 
 	@PostMapping("/files")
-	public void createFileData(@Valid @RequestBody FileData fileData) {
+	public void createFileData(@RequestHeader("Authorization") String authHeader, @Valid @RequestBody FileData fileData) {
+		
+		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
+		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
+		User user = userDao.findById(userId);
+		
+		fileData.getContentData().setTenant(user.getTenant());
 		fileData.getContentData().setCreationDate(new Date());
 		FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
 		if (fileData.getMetaData().getImmediatelyActive() != null && fileData.getMetaData().getImmediatelyActive()) {
 			fileData.getMetaData().setActiveUUID(newContentVersion.getUuid());
+			fileData.getMetaData().setTenant(user.getTenant());
 		}
 		fileData.getMetaData().setCreationDate(new Date());
 		metaDataDao.create(fileData.getMetaData());

@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Injectable, OnInit, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, Subscription } from 'rxjs';
+import { Observable} from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
@@ -27,7 +27,7 @@ import { FilemanAuthserviceService } from './fileman-authservice.service';
 @Injectable({
   providedIn: 'root'
 })
-export class FilemanMetadataService implements OnInit, OnDestroy {
+export class FilemanMetadataService {
   private url: string;
   private fileMetaDataCache = new Map<string, FileMetaData>();
   private forceReloadFromServer = false;

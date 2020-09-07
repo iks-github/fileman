@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.User;
 import com.iksgmbh.fileman.backend.dao.UserDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
+import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -31,8 +33,12 @@ public class UserRestController
 		return userDao.findAllUsers();
 	}
 
-	@GetMapping("/users/{id}")
-    public User findUserById(@PathVariable Integer id) {
+    @GetMapping("/users/{id}")
+    public User findUserById(@RequestHeader("Authorization") String authHeader,
+            @PathVariable Integer id) {
+
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		User user = userDao.findById(id);
 		if (user == null) {
 			throw new ResourceNotFoundException("User '" + id +"' + not found.");
@@ -41,14 +47,20 @@ public class UserRestController
    }
 
 	@PostMapping("/users")
-	public Integer createUser(@Valid @RequestBody User user)
-	{
+	public Integer createUser(@RequestHeader("Authorization") String authHeader,
+            @Valid @RequestBody User user) {
+
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		return userDao.create(user).getId();
     }
 
 	@PutMapping("/users")
-	public void updateUser(@Valid @RequestBody User user)
-	{
+	public void updateUser(@RequestHeader("Authorization") String authHeader,
+            @Valid @RequestBody User user) {
+
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		boolean ok = userDao.update(user);
 		if (! ok) {
 			throw new ResourceNotFoundException("User '" + user.getId() +"' + not found for update.");
@@ -56,7 +68,11 @@ public class UserRestController
 	}
 
 	@DeleteMapping("/users/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+	public ResponseEntity<?> deleteUser(@RequestHeader("Authorization") String authHeader,
+            @PathVariable Integer id) {
+
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		User user = userDao.findById(id);
 		if (user == null) {
 			throw new ResourceNotFoundException("User '" + id +"' + not found.");

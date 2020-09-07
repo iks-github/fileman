@@ -65,11 +65,11 @@ public class FileRestController {
 	@PostMapping("/files")
 	public void createFileData(@RequestHeader("Authorization") String authHeader,
 			@Valid @RequestBody FileData fileData) {
-		
-		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
-		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
+        
+		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		Integer userId = JwtTokenUtil.getUserIdFromToken(token);
 		User user = userDao.findById(userId);
-		
+    	
 		fileData.getContentData().setCreationDate(new Date());
 		fileData.getContentData().setTenant(user.getTenant());
 		FileContentData newContentVersion = contentDataDao.create(fileData.getContentData());
@@ -84,11 +84,11 @@ public class FileRestController {
 	@PutMapping("/files/{fileName}")
 	public void updateFileData(@RequestHeader("Authorization") String authHeader,
 			@PathVariable String fileName, @RequestBody FileData fileData) {
-		
-		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
-		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
-		User user = userDao.findById(userId);
-		
+        
+    	String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+    	Integer userId = JwtTokenUtil.getUserIdFromToken(token);
+    	User user = userDao.findById(userId);
+    	
 		FileMetaData toUpdate = metaDataDao.findByNameAndTenant(fileName, user.getTenant());
 		if (toUpdate == null) {
 			throw new ResourceNotFoundException("File '" + fileName +"' + not found.");
@@ -111,11 +111,11 @@ public class FileRestController {
 	@GetMapping("/files/{fileName}")
 	public ResponseEntity<byte[]> getFileContent(@RequestHeader("Authorization") String authHeader,
 			@PathVariable String fileName) throws SQLException {
-		
-		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
-		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
-		User user = userDao.findById(userId);
-		
+        
+    	String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+    	Integer userId = JwtTokenUtil.getUserIdFromToken(token);
+    	User user = userDao.findById(userId);
+    	
 		FileMetaData result = metaDataDao.findByNameAndTenant(fileName, user.getTenant());
 		if (result == null) return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
 		FileContentData fileContentData = contentDataDao.findByUuid(result.getActiveUUID());
@@ -125,11 +125,11 @@ public class FileRestController {
 	@GetMapping("/files/{fileName}/history")
 	public List<FileContentData> getHistory(@RequestHeader("Authorization") String authHeader,
 			@PathVariable String fileName) {
-		
-		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
-		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
-		User user = userDao.findById(userId);
-		
+        
+    	String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+    	Integer userId = JwtTokenUtil.getUserIdFromToken(token);
+    	User user = userDao.findById(userId);
+    	
 		List<FileContentData> matches = contentDataDao.findAllForNameAndTenant(fileName, user.getTenant());
 		List<FileContentData> toReturn = new ArrayList<>();
 		matches.forEach(fileContentData -> toReturn.add(0, (FileContentData) fileContentData.clone()));
@@ -140,11 +140,11 @@ public class FileRestController {
 	@DeleteMapping("/files/{fileName}")
 	public void deleteFileData(@RequestHeader("Authorization") String authHeader,
 			@PathVariable String fileName) {
-		
-		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
-		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
-		User user = userDao.findById(userId);
-		
+        
+    	String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+    	Integer userId = JwtTokenUtil.getUserIdFromToken(token);
+    	User user = userDao.findById(userId);
+    	
 		FileMetaData metaData = metaDataDao.findByNameAndTenant(fileName, user.getTenant());
 		metaDataDao.delete(metaData);
 		

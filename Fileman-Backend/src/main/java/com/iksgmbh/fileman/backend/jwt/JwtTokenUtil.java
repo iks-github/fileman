@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import com.iksgmbh.fileman.backend.User;
+import com.iksgmbh.fileman.backend.exception.AuthorizationException;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -41,7 +42,7 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	//retrieve user ID from jwt token
-	public static Integer getUserIDFromToken(String token) {
+	public static Integer getUserIdFromToken(String token) {
 		return Integer.valueOf(""+getAllClaimsFromToken(token).get("id"));
 	}
 
@@ -78,13 +79,18 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	//validate token
-	public Boolean validateToken(String token, User user) {
+	public static Boolean validateToken(String token, User user) {
 		final String username = getUsernameFromToken(token);
 		return (username.equals(user.getName()) && !isTokenExpired(token));
 	}
 
-	public static String extractTokenFromAuthHeader(String authHeader) {
+	public static String validateTokenFromAuthHeader(String authHeader) {
 		String token = authHeader.replace("Bearer ", "");
+		
+		if (isTokenExpired(token)) {
+			throw new AuthorizationException("Token expired");
+		}
+		
 		return token;
 	}
 

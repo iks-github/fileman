@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 '
 #set( $ClassName = ${classDescriptor.simpleName} ) 
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ${classDescriptor.package}.$ClassName;
 import ${classDescriptor.package}.dao.${ClassName}Dao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
+import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 '
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -65,8 +67,12 @@ public class ${ClassName}RestController
 	
 	#if ( $attributeDescriptor.doesHaveMetaInfo("id", "true") )
 
-		'	@GetMapping("/${className}s/{${attributeDescriptor.name}}")
-		'    public ${ClassName} find${ClassName}By${AttributeName}(@PathVariable $javaType $attributeDescriptor.name) {
+		'    @GetMapping("/${className}s/{${attributeDescriptor.name}}")
+		'    public ${ClassName} find${ClassName}By${AttributeName}(@RequestHeader("Authorization") String authHeader,
+		'            @PathVariable $javaType $attributeDescriptor.name) {
+		'		
+		'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		'		
 		'		${ClassName} ${className} = ${className}Dao.findBy${AttributeName}($attributeDescriptor.name);
 		'		if (${className} == null) {
 		'			throw new ResourceNotFoundException("${ClassName} '" + $attributeDescriptor.name +"' + not found.");
@@ -80,7 +86,11 @@ public class ${ClassName}RestController
 		#if ( $attributeDescriptor.doesHaveMetaInfo("withFindAllMethod", "true") )
 		
 			'   @GetMapping("/favouriteSettings/${attributeDescriptor.name}/{${attributeDescriptor.name}}")
-			'   public List<${ClassName}> findAll${ClassName}By${AttributeName}(@PathVariable $javaType ${attributeDescriptor.name}) {
+			'   public List<${ClassName}> findAll${ClassName}By${AttributeName}(@RequestHeader("Authorization") String authHeader,
+		    '            @PathVariable $javaType ${attributeDescriptor.name}) {
+			'		
+			'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+			'		
 			'		List<${ClassName}> ${className}List = ${className}Dao.findAllFor${AttributeName}(${attributeDescriptor.name});
 			'		if (${className}List == null) {
 			'			throw new ResourceNotFoundException("${ClassName} '" + ${attributeDescriptor.name} +"' + not found.");
@@ -97,14 +107,20 @@ public class ${ClassName}RestController
 #end
 
 '	@PostMapping("/${className}s")
-'	public $IdJavaType create${ClassName}(@Valid @RequestBody ${ClassName} ${className}) 
-'	{
+'	public $IdJavaType create${ClassName}(@RequestHeader("Authorization") String authHeader,
+'            @Valid @RequestBody ${ClassName} ${className}) {
+'		
+'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+'		
 '		return ${className}Dao.create(${className}).get${IdAttributeName}();
 '    }
 '
 '	@PutMapping("/${className}s")
-'	public void update${ClassName}(@Valid @RequestBody ${ClassName} ${className}) 
-'	{
+'	public void update${ClassName}(@RequestHeader("Authorization") String authHeader,
+'            @Valid @RequestBody ${ClassName} ${className}) {
+'		
+'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+'		
 '		boolean ok = ${className}Dao.update(${className});
 '		if (! ok) {
 '			throw new ResourceNotFoundException("${ClassName} '" + ${className}.get${IdAttributeName}() +"' + not found for update.");
@@ -112,7 +128,11 @@ public class ${ClassName}RestController
 '	}
 '	
 '	@DeleteMapping("/${className}s/{$idAttributeName}")
-'	public ResponseEntity<?> delete${ClassName}(@PathVariable $IdJavaType $idAttributeName) {
+'	public ResponseEntity<?> delete${ClassName}(@RequestHeader("Authorization") String authHeader,
+'            @PathVariable $IdJavaType $idAttributeName) {
+'		
+'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+'		
 '		${ClassName} ${className} = ${className}Dao.findBy${IdAttributeName}($idAttributeName);
 '		if (${className} == null) {
 '			throw new ResourceNotFoundException("${ClassName} '" + $idAttributeName +"' + not found.");

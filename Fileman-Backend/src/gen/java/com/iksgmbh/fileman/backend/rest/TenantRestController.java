@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.Tenant;
 import com.iksgmbh.fileman.backend.dao.TenantDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
+import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -31,8 +33,12 @@ public class TenantRestController
 		return tenantDao.findAllTenants();
 	}
 
-	@GetMapping("/tenants/{id}")
-    public Tenant findTenantById(@PathVariable Integer id) {
+    @GetMapping("/tenants/{id}")
+    public Tenant findTenantById(@RequestHeader("Authorization") String authHeader,
+            @PathVariable Integer id) {
+
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		Tenant tenant = tenantDao.findById(id);
 		if (tenant == null) {
 			throw new ResourceNotFoundException("Tenant '" + id +"' + not found.");
@@ -41,14 +47,20 @@ public class TenantRestController
    }
 
 	@PostMapping("/tenants")
-	public Integer createTenant(@Valid @RequestBody Tenant tenant)
-	{
+	public Integer createTenant(@RequestHeader("Authorization") String authHeader,
+            @Valid @RequestBody Tenant tenant) {
+
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		return tenantDao.create(tenant).getId();
     }
 
 	@PutMapping("/tenants")
-	public void updateTenant(@Valid @RequestBody Tenant tenant)
-	{
+	public void updateTenant(@RequestHeader("Authorization") String authHeader,
+            @Valid @RequestBody Tenant tenant) {
+
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		boolean ok = tenantDao.update(tenant);
 		if (! ok) {
 			throw new ResourceNotFoundException("Tenant '" + tenant.getId() +"' + not found for update.");
@@ -56,7 +68,11 @@ public class TenantRestController
 	}
 
 	@DeleteMapping("/tenants/{id}")
-	public ResponseEntity<?> deleteTenant(@PathVariable Integer id) {
+	public ResponseEntity<?> deleteTenant(@RequestHeader("Authorization") String authHeader,
+            @PathVariable Integer id) {
+
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		Tenant tenant = tenantDao.findById(id);
 		if (tenant == null) {
 			throw new ResourceNotFoundException("Tenant '" + id +"' + not found.");

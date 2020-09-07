@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.UserPreferences;
 import com.iksgmbh.fileman.backend.dao.UserPreferencesDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
+import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -31,8 +33,12 @@ public class UserPreferencesRestController
 		return userPreferencesDao.findAllUserPreferencess();
 	}
 
-	@GetMapping("/userPreferencess/{userId}")
-    public UserPreferences findUserPreferencesByUserId(@PathVariable Integer userId) {
+    @GetMapping("/userPreferencess/{userId}")
+    public UserPreferences findUserPreferencesByUserId(@RequestHeader("Authorization") String authHeader,
+            @PathVariable Integer userId) {
+
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		UserPreferences userPreferences = userPreferencesDao.findByUserId(userId);
 		if (userPreferences == null) {
 			throw new ResourceNotFoundException("UserPreferences '" + userId +"' + not found.");
@@ -41,14 +47,20 @@ public class UserPreferencesRestController
    }
 
 	@PostMapping("/userPreferencess")
-	public Integer createUserPreferences(@Valid @RequestBody UserPreferences userPreferences)
-	{
+	public Integer createUserPreferences(@RequestHeader("Authorization") String authHeader,
+            @Valid @RequestBody UserPreferences userPreferences) {
+
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		return userPreferencesDao.create(userPreferences).getUserId();
     }
 
 	@PutMapping("/userPreferencess")
-	public void updateUserPreferences(@Valid @RequestBody UserPreferences userPreferences)
-	{
+	public void updateUserPreferences(@RequestHeader("Authorization") String authHeader,
+            @Valid @RequestBody UserPreferences userPreferences) {
+
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		boolean ok = userPreferencesDao.update(userPreferences);
 		if (! ok) {
 			throw new ResourceNotFoundException("UserPreferences '" + userPreferences.getUserId() +"' + not found for update.");
@@ -56,7 +68,11 @@ public class UserPreferencesRestController
 	}
 
 	@DeleteMapping("/userPreferencess/{userId}")
-	public ResponseEntity<?> deleteUserPreferences(@PathVariable Integer userId) {
+	public ResponseEntity<?> deleteUserPreferences(@RequestHeader("Authorization") String authHeader,
+            @PathVariable Integer userId) {
+
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		UserPreferences userPreferences = userPreferencesDao.findByUserId(userId);
 		if (userPreferences == null) {
 			throw new ResourceNotFoundException("UserPreferences '" + userId +"' + not found.");

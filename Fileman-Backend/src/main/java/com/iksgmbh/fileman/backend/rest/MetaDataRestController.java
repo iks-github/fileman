@@ -44,11 +44,12 @@ public class MetaDataRestController
 
 	@GetMapping("/fileMetaDatas")
 	public List<FileMetaData> findAllFileMetaDatas(@RequestHeader("Authorization") String authHeader) {
-		
-		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
-		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
+        
+		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		Integer userId = JwtTokenUtil.getUserIdFromToken(token);
 		User user = userDao.findById(userId);
-		
+		System.out.println("USEREE: "+user);
+    	
 		return metaDataDao.findAllForTenant(user.getTenant());
 	}
 
@@ -57,8 +58,8 @@ public class MetaDataRestController
 									   @PathVariable String filename,
 			                           @PathVariable Long uuid) {
 		
-		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
-		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
+		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		Integer userId = JwtTokenUtil.getUserIdFromToken(token);
 		User user = userDao.findById(userId);
 		
 		FileMetaData metaData = metaDataDao.findByNameAndTenant(filename, user.getTenant());

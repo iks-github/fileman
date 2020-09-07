@@ -43,13 +43,17 @@ public class FavouriteSettingRestController
 {
     @Autowired
     private FavouriteSettingDao favouriteSettingDao;
-    
+
 	@Autowired
 	private UserDao userDao;
 
     @GetMapping("/favouriteSettings/username/{username}")
-    public List<FavouriteSetting> findAllFavouriteSettingByUsername(@PathVariable String username) {
-        List<FavouriteSetting> favouriteSettingList = favouriteSettingDao.findAllForUsername(username);
+    public List<FavouriteSetting> findAllFavouriteSettingByUsername(@RequestHeader("Authorization") String authHeader,
+    		@PathVariable String username) {
+        
+    	JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+    	
+    	List<FavouriteSetting> favouriteSettingList = favouriteSettingDao.findAllForUsername(username);
         if (favouriteSettingList == null) {
             throw new ResourceNotFoundException("FavouriteSetting '" + username +"' + not found.");
         }
@@ -60,9 +64,9 @@ public class FavouriteSettingRestController
     public List<FavouriteSetting> findAllFavouriteSettingByFilename(@RequestHeader("Authorization") String authHeader,
     		@PathVariable String filename) {
         
-		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
-		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
-		User user = userDao.findById(userId);
+    	String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+    	Integer userId = JwtTokenUtil.getUserIdFromToken(token);
+    	User user = userDao.findById(userId);
     	
     	List<FavouriteSetting> favouriteSettingList = favouriteSettingDao.findAllForFilenameAndTenant(filename, user.getTenant());
         if (favouriteSettingList == null) {
@@ -75,9 +79,9 @@ public class FavouriteSettingRestController
 	public Integer createFavouriteSetting(@RequestHeader("Authorization") String authHeader,
 			@Valid @RequestBody FavouriteSetting favouriteSetting) {
 		
-		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
-		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
-		User user = userDao.findById(userId);
+    	String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+    	Integer userId = JwtTokenUtil.getUserIdFromToken(token);
+    	User user = userDao.findById(userId);
 		
 		favouriteSetting.setTenant(user.getTenant());
 		
@@ -85,7 +89,11 @@ public class FavouriteSettingRestController
     }
 
 	@DeleteMapping("/favouriteSettings/{id}")
-	public ResponseEntity<?> deleteFavouriteSetting(@PathVariable Integer id) {
+	public ResponseEntity<?> deleteFavouriteSetting(@RequestHeader("Authorization") String authHeader,
+			@PathVariable Integer id) {
+		
+    	JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		
 		FavouriteSetting favouriteSetting = favouriteSettingDao.findById(id);
 		if (favouriteSetting == null) {
 			throw new ResourceNotFoundException("FavouriteSetting '" + id +"' + not found.");

@@ -57,6 +57,17 @@ public class FilemanBackendExceptionHandler extends ResponseEntityExceptionHandl
 		return new ResponseEntity<Object>(exceptionMetaData, HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<Object> handleAuthorizationException(AuthorizationException ex, 
+			                                                      WebRequest request) 
+	{
+		ExceptionMetaData exceptionMetaData = new ExceptionMetaData();
+		exceptionMetaData.setTimestamp(new Date().getTime());
+		exceptionMetaData.setMessage(ex.getMessage());
+		exceptionMetaData.setDetails(request.getDescription(false));
+		return new ResponseEntity<Object>(exceptionMetaData, HttpStatus.UNAUTHORIZED);
+	}
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(
 			MethodArgumentNotValidException ex,

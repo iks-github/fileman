@@ -31,19 +31,16 @@ export class FilemanMetadataService implements OnInit, OnDestroy {
   private url: string;
   private fileMetaDataCache = new Map<string, FileMetaData>();
   private forceReloadFromServer = false;
-  private logoutSubscription: Subscription;
 
   constructor(private httpClient: HttpClient,
               private authService: FilemanAuthserviceService,
               propertiesService: FilemanPropertiesLoaderService) {
     this.url = propertiesService.getProperty('serverurl')  + '/fileMetaDatas';
-  }
-
-  ngOnInit(): void {
-    this.logoutSubscription =
-      this.authService.getLogoutNotifier().subscribe(
-        () => { this.forceReloadFromServer = true }
-      );
+    this.authService.getLogoutNotifier().subscribe(
+      () => {
+        this.forceReloadFromServer = true
+      }
+    );
   }
 
   reloadOverviewData(): Observable<FileMetaData[]> {
@@ -106,9 +103,5 @@ export class FilemanMetadataService implements OnInit, OnDestroy {
         }), tap(() => {
           this.fileMetaDataCache.get(filename).setActiveUUID(uuid);
         }));
-  }
-
-  ngOnDestroy() {
-    this.logoutSubscription.unsubscribe();
   }
 }

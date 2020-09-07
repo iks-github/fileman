@@ -16,7 +16,6 @@
 package com.iksgmbh.fileman.backend.dao;
 
 import org.springframework.stereotype.Component;
-import com.iksgmbh.fileman.backend.Tenant;
 
 /**
  * Created as draft by MOGLiCC.
@@ -24,5 +23,5 @@ import com.iksgmbh.fileman.backend.Tenant;
  *
 **/
 @Component
-public class TenantDao extends TenantBasicDao
-{}
+public class TenantDao extends TenantBasicDao {
+}

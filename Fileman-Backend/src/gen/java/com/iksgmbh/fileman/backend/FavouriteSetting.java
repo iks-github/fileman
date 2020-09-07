@@ -1,5 +1,6 @@
 package com.iksgmbh.fileman.backend;
 
+import com.iksgmbh.fileman.backend.Tenant;
 import com.iksgmbh.fileman.backend.User;
 import java.io.Serializable;
 import java.lang.Integer;
@@ -25,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FAVOURITE_SETTING")
 public class FavouriteSetting implements Serializable
 {
-	private static final long serialVersionUID = 1598955985838L;
+	private static final long serialVersionUID = 1599464316832L;
 
 	// ===============  instance fields  ===============
 
@@ -43,6 +44,11 @@ public class FavouriteSetting implements Serializable
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="FILENAME", columnDefinition="varchar")
 	private String filename;
+
+    @JsonProperty(access = Access.WRITE_ONLY)
+	@ManyToOne
+    @JoinColumn(name="TENANT", columnDefinition="int")
+	private Tenant tenant;
 
 
 	// ===============  setter methods  ===============
@@ -62,6 +68,11 @@ public class FavouriteSetting implements Serializable
 		this.filename = filename;
 	}
 
+	public void setTenant(final Tenant tenant)
+	{
+		this.tenant = tenant;
+	}
+
 	// ===============  getter methods  ===============
 
 	public Integer getId()
@@ -79,6 +90,11 @@ public class FavouriteSetting implements Serializable
 		return filename;
 	}
 
+	public Tenant getTenant()
+	{
+		return tenant;
+	}
+
 	// ===============  additional Javabean methods  ===============
 
 	@Override
@@ -87,7 +103,8 @@ public class FavouriteSetting implements Serializable
 		return "FavouriteSetting ["
 				+ "id = " + id + ", "
 				+ "username = " + username + ", "
-				+ "filename = " + filename + ""
+				+ "filename = " + filename + ", "
+				+ "tenant = " + tenant + ""
 				+ "]";
 	}
 
@@ -129,6 +146,15 @@ public class FavouriteSetting implements Serializable
 			if (! filename.equals(other.filename))
 				   return false;
 		}
+		if (tenant == null)
+		{
+			if (other.tenant != null)
+				return false;
+		} else
+		{
+			if (! tenant.equals(other.tenant))
+				   return false;
+		}
 		return true;
 	}
 
@@ -140,6 +166,7 @@ public class FavouriteSetting implements Serializable
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		result = prime * result + ((filename == null) ? 0 : filename.hashCode());
+		result = prime * result + ((tenant == null) ? 0 : tenant.hashCode());
 
 		return result;
 	}
@@ -159,6 +186,9 @@ public class FavouriteSetting implements Serializable
             if(! otherFavouriteSetting.getFilename().isEmpty()) {
            	 this.setFilename(otherFavouriteSetting.getFilename());
             }
+       }
+        if (otherFavouriteSetting.getTenant() != null) {
+            this.setTenant(otherFavouriteSetting.getTenant());
        }
 	}
 }

@@ -361,7 +361,7 @@ class <<DomainPath>>.FavouriteSetting
     metainfo unique true
     metainfo id true
     metainfo generatedValue true
-    
+
   attribute username
     metainfo dbType varchar
     metainfo JavaType String
@@ -373,6 +373,13 @@ class <<DomainPath>>.FavouriteSetting
     metainfo JavaType String
     metainfo Mandatory true
     metainfo withFindAllMethod true
+
+  attribute tenant
+    metainfo dbType int
+    metainfo JavaType Tenant
+    metainfo dbRelation ManyToOne
+    metainfo isForeignKey true
+    metainfo hideFromClientOverview true
 
 class <<DomainPath>>.UserPreferences
   metainfo implements java.io.Serializable

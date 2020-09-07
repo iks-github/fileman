@@ -27,11 +27,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.FavouriteSetting;
+import com.iksgmbh.fileman.backend.User;
 import com.iksgmbh.fileman.backend.dao.FavouriteSettingDao;
+import com.iksgmbh.fileman.backend.dao.UserDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
+import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -39,6 +43,9 @@ public class FavouriteSettingRestController
 {
     @Autowired
     private FavouriteSettingDao favouriteSettingDao;
+    
+	@Autowired
+	private UserDao userDao;
 
     @GetMapping("/favouriteSettings/username/{username}")
     public List<FavouriteSetting> findAllFavouriteSettingByUsername(@PathVariable String username) {
@@ -59,7 +66,15 @@ public class FavouriteSettingRestController
     }
 
 	@PostMapping("/favouriteSettings")
-	public Integer createFavouriteSetting(@Valid @RequestBody FavouriteSetting favouriteSetting) {
+	public Integer createFavouriteSetting(@RequestHeader("Authorization") String authHeader,
+			@Valid @RequestBody FavouriteSetting favouriteSetting) {
+		
+		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
+		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
+		User user = userDao.findById(userId);
+		
+		favouriteSetting.setTenant(user.getTenant());
+		
 		return favouriteSettingDao.create(favouriteSetting).getId();
     }
 

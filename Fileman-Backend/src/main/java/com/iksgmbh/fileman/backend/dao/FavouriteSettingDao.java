@@ -15,7 +15,16 @@
  */
 package com.iksgmbh.fileman.backend.dao;
 
+import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Component;
+
+import com.iksgmbh.fileman.backend.FavouriteSetting;
+import com.iksgmbh.fileman.backend.Tenant;
 
 /**
  * Created as draft by MOGLiCC.
@@ -23,5 +32,16 @@ import org.springframework.stereotype.Component;
  *
 **/
 @Component
-public class FavouriteSettingDao extends FavouriteSettingBasicDao
-{}
+public class FavouriteSettingDao extends FavouriteSettingBasicDao {
+	
+	public List<FavouriteSetting> findAllForFilenameAndTenant(String filename, Tenant tenant) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<FavouriteSetting> criteria = criteriaBuilder.createQuery(FavouriteSetting.class);
+		Root<FavouriteSetting> fileContentData = criteria.from(FavouriteSetting.class);
+		criteria.select(fileContentData).where(
+				criteriaBuilder.and(
+						criteriaBuilder.equal(fileContentData.get("filename"), filename),
+						criteriaBuilder.equal(fileContentData.get("tenant"), tenant)));
+        return entityManager.createQuery(criteria).getResultList();
+	}	
+}

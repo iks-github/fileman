@@ -24,7 +24,6 @@ export class FilemanHistoryViewComponent implements OnInit {
 
   constructor(private fileService: FilemanFileService,
               private filesMetaDataService: FilemanMetadataService,
-              private metadataService: FilemanMetadataService,
               private previewService: FilemanPreviewService,
               private authService: FilemanAuthserviceService,
               private router: Router,
@@ -48,7 +47,7 @@ export class FilemanHistoryViewComponent implements OnInit {
 
   isActive(filename: string, uuid: number) {
     const metadata = this.filesMetaDataService.getFileFromCache(filename);
-    if (metadata != null  && metadata.activeUUID === uuid) {
+    if (metadata != null && metadata.activeUUID === uuid) {
       if (this.selectedUUID == null) {this.selectedUUID = uuid};
       return 'checked';
     }
@@ -57,7 +56,6 @@ export class FilemanHistoryViewComponent implements OnInit {
 
   save() {
     this.filesMetaDataService.setActive(this.selectedFile, this.selectedUUID).subscribe(() => {
-      this.metadataService.markDataAsOutdated();
       this.previewService.preparePreview(this.selectedFile);
     });
 

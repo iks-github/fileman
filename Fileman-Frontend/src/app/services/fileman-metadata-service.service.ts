@@ -103,6 +103,8 @@ export class FilemanMetadataService implements OnInit, OnDestroy {
     return this.httpClient.put(uri, null, FilemanConstants.getRestCallHeaderOptions())
         .pipe(catchError((error: HttpErrorResponse) => {
           throw error;
+        }), tap(() => {
+          this.fileMetaDataCache.get(filename).setActiveUUID(uuid);
         }));
   }
 

@@ -43,7 +43,6 @@ public class TenantBasicDao
 		return entityManager.createQuery(criteria).getSingleResult();
 	}
 
-
 	public boolean update(Tenant entity) {
 		try {
 			entityManager.merge(entity);

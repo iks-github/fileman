@@ -43,7 +43,6 @@ public class UserBasicDao
 		return entityManager.createQuery(criteria).getSingleResult();
 	}
 
-
 	public boolean update(User entity) {
 		try {
 			entityManager.merge(entity);

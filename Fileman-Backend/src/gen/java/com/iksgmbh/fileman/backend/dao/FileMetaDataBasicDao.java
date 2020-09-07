@@ -42,7 +42,6 @@ public class FileMetaDataBasicDao
         return entityManager.createQuery(criteria).getResultList();
 	}
 
-
 	public FileMetaData findByTenant(Tenant tenant) {
 		return entityManager.find(FileMetaData.class, tenant);
 	}

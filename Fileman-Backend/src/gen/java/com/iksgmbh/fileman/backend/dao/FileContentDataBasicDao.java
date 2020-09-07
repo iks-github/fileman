@@ -34,14 +34,16 @@ public class FileContentDataBasicDao
 		return entityManager.find(FileContentData.class, uuid);
 	}
 
-	public List<FileContentData> findAllForName(String toSearch) {
+	public List<FileContentData> findAllForNameAndTenant(String name, Tenant tenant) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<FileContentData> criteria = criteriaBuilder.createQuery(FileContentData.class);
         Root<FileContentData> fileContentData = criteria.from(FileContentData.class);
-        criteria.where(criteriaBuilder.equal(fileContentData.get("name"), toSearch));
+        criteria.select(fileContentData).where(
+                criteriaBuilder.and(
+                        criteriaBuilder.equal(fileContentData.get("name"), name),
+                        criteriaBuilder.equal(fileContentData.get("tenant"), tenant)));
         return entityManager.createQuery(criteria).getResultList();
-	}
-
+}
 
 	public boolean update(FileContentData entity) {
 		try {

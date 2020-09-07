@@ -17,16 +17,8 @@ package com.iksgmbh.fileman.backend.dao;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
-import java.util.List;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Component;
-
-import com.iksgmbh.fileman.backend.FileContentData;
-import com.iksgmbh.fileman.backend.Tenant;
 
 /**
  * Created as draft by MOGLiCC.
@@ -46,16 +38,5 @@ public class FileContentDataDao extends FileContentDataBasicDao
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}
-	}
-	
-	public List<FileContentData> findAllForNameAndTenant(String name, Tenant tenant) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<FileContentData> criteria = criteriaBuilder.createQuery(FileContentData.class);
-		Root<FileContentData> fileContentData = criteria.from(FileContentData.class);
-		criteria.select(fileContentData).where(
-				criteriaBuilder.and(
-						criteriaBuilder.equal(fileContentData.get("name"), name),
-						criteriaBuilder.equal(fileContentData.get("tenant"), tenant)));
-        return entityManager.createQuery(criteria).getResultList();
 	}
 }

@@ -42,15 +42,16 @@ public class FavouriteSettingBasicDao
         return entityManager.createQuery(criteria).getResultList();
 	}
 
-
-	public List<FavouriteSetting> findAllForFilename(String toSearch) {
+	public List<FavouriteSetting> findAllForFilenameAndTenant(String filename, Tenant tenant) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<FavouriteSetting> criteria = criteriaBuilder.createQuery(FavouriteSetting.class);
         Root<FavouriteSetting> favouriteSetting = criteria.from(FavouriteSetting.class);
-        criteria.where(criteriaBuilder.equal(favouriteSetting.get("filename"), toSearch));
+        criteria.select(favouriteSetting).where(
+                criteriaBuilder.and(
+                        criteriaBuilder.equal(favouriteSetting.get("filename"), filename),
+                        criteriaBuilder.equal(favouriteSetting.get("tenant"), tenant)));
         return entityManager.createQuery(criteria).getResultList();
-	}
-
+}
 
 	public boolean update(FavouriteSetting entity) {
 		try {

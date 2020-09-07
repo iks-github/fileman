@@ -73,7 +73,6 @@ public class ${ClassName}BasicDao
 		'		return entityManager.createQuery(criteria).getSingleResult();
 		'	}
 		'
-		'		
 	#else
 
 		#if ( $attributeDescriptor.doesHaveMetaInfo("withFindAllMethod", "true") )
@@ -85,6 +84,21 @@ public class ${ClassName}BasicDao
 			'        return entityManager.createQuery(criteria).getResultList();
 			'	}
 			'
+		#end
+		
+		#if ( $attributeDescriptor.doesHaveAnyMetaInfosWithName("withFindAllMethodForAttribute") )
+			#set( $otherAttributeName = $attributeDescriptor.getMetaInfoValueFor("withFindAllMethodForAttribute"))
+			#set( $OtherAttributeName = $TemplateStringUtility.firstToUpperCase($otherAttributeName))
+			'	public List<${ClassName}> findAllFor${AttributeName}And${OtherAttributeName}($JavaType ${attributeDescriptor.name}, $OtherAttributeName $otherAttributeName) {
+			'        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+			'        CriteriaQuery<${ClassName}> criteria = criteriaBuilder.createQuery(${ClassName}.class);
+			'        Root<${ClassName}> ${className} = criteria.from(${ClassName}.class);
+			'        criteria.select(${className}).where(
+			'                criteriaBuilder.and(
+			'                        criteriaBuilder.equal(${className}.get("${attributeDescriptor.name}"), ${attributeDescriptor.name}),
+			'                        criteriaBuilder.equal(${className}.get("$otherAttributeName"), $otherAttributeName)));
+			'        return entityManager.createQuery(criteria).getResultList();
+	}
 			'
 		#end
 	#end

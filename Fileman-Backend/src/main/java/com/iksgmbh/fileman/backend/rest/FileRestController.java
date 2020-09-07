@@ -151,7 +151,7 @@ public class FileRestController {
 		contentDataDao.findAllForNameAndTenant(fileName, user.getTenant())
 		              .forEach(contentDataDao::delete);
 		
-		favouriteSettingDao.findAllForFilename(fileName)
+		favouriteSettingDao.findAllForFilenameAndTenant(fileName, user.getTenant())
                            .forEach(favouriteSettingDao::delete);
 	}
 }

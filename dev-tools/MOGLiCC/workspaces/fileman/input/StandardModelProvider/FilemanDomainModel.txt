@@ -83,7 +83,7 @@ class <<DomainPath>>.FileContentData
     metainfo ExampleData logo.png
     metainfo MinLength 3
     metainfo MaxLength 128
-    metainfo withFindAllMethod true
+    metainfo withFindAllMethodForAttribute tenant
 
   attribute content
     metainfo dbType blob
@@ -372,7 +372,7 @@ class <<DomainPath>>.FavouriteSetting
     metainfo dbType varchar
     metainfo JavaType String
     metainfo Mandatory true
-    metainfo withFindAllMethod true
+    metainfo withFindAllMethodForAttribute tenant
 
   attribute tenant
     metainfo dbType int

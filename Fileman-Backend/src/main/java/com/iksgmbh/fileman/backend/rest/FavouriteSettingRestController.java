@@ -57,8 +57,14 @@ public class FavouriteSettingRestController
    }
 
     @GetMapping("/favouriteSettings/filename/{filename}")
-    public List<FavouriteSetting> findAllFavouriteSettingByFilename(@PathVariable String filename) {
-        List<FavouriteSetting> favouriteSettingList = favouriteSettingDao.findAllForFilename(filename);
+    public List<FavouriteSetting> findAllFavouriteSettingByFilename(@RequestHeader("Authorization") String authHeader,
+    		@PathVariable String filename) {
+        
+		String token = JwtTokenUtil.extractTokenFromAuthHeader(authHeader);
+		Integer userId = JwtTokenUtil.getUserIDFromToken(token);
+		User user = userDao.findById(userId);
+    	
+    	List<FavouriteSetting> favouriteSettingList = favouriteSettingDao.findAllForFilenameAndTenant(filename, user.getTenant());
         if (favouriteSettingList == null) {
             throw new ResourceNotFoundException("FavouriteSetting '" + filename +"' + not found.");
         }

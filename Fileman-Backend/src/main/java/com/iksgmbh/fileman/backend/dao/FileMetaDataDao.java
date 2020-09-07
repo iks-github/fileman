@@ -15,14 +15,9 @@
  */
 package com.iksgmbh.fileman.backend.dao;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
 import org.springframework.stereotype.Component;
 
 import com.iksgmbh.fileman.backend.FileMetaData;
-import com.iksgmbh.fileman.backend.Tenant;
 
 /**
  * Created as draft by MOGLiCC.
@@ -30,8 +25,7 @@ import com.iksgmbh.fileman.backend.Tenant;
  *
 **/
 @Component
-public class FileMetaDataDao extends FileMetaDataBasicDao
-{
+public class FileMetaDataDao extends FileMetaDataBasicDao {
 
 	@Override
 	public FileMetaData create(FileMetaData fileMetaData) 
@@ -58,15 +52,4 @@ public class FileMetaDataDao extends FileMetaDataBasicDao
 			fileMetaData.setTechType(fileExtension);
 		}
 	}
-	
-	public FileMetaData findByNameAndTenant(String name, Tenant tenant) {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<FileMetaData> criteria = criteriaBuilder.createQuery(FileMetaData.class);
-		Root<FileMetaData> fileMetaData = criteria.from(FileMetaData.class);
-		criteria.select(fileMetaData).where(
-				criteriaBuilder.and(
-						criteriaBuilder.equal(fileMetaData.get("name"), name),
-						criteriaBuilder.equal(fileMetaData.get("tenant"), tenant)));
-		return entityManager.createQuery(criteria).getSingleResult();
-	}	
 }

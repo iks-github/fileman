@@ -101,10 +101,25 @@ public class ${ClassName}BasicDao
 	}
 			'
 		#end
+		
+		#if ( $attributeDescriptor.doesHaveAnyMetaInfosWithName("withFindMethodForAttribute") )
+			#set( $otherAttributeName = $attributeDescriptor.getMetaInfoValueFor("withFindMethodForAttribute"))
+			#set( $OtherAttributeName = $TemplateStringUtility.firstToUpperCase($otherAttributeName))
+			'	public ${ClassName} findBy${AttributeName}And${OtherAttributeName}($JavaType ${attributeDescriptor.name}, $OtherAttributeName $otherAttributeName) {
+			'        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+			'        CriteriaQuery<${ClassName}> criteria = criteriaBuilder.createQuery(${ClassName}.class);
+			'        Root<${ClassName}> ${className} = criteria.from(${ClassName}.class);
+			'        criteria.select(${className}).where(
+			'                criteriaBuilder.and(
+			'                        criteriaBuilder.equal(${className}.get("${attributeDescriptor.name}"), ${attributeDescriptor.name}),
+			'                        criteriaBuilder.equal(${className}.get("$otherAttributeName"), $otherAttributeName)));
+			'        return entityManager.createQuery(criteria).getSingleResult();
+	}
+			'
+		#end
 	#end
 	
-	#if ( $attributeDescriptor.doesHaveMetaInfo("id", "true") )
-	
+	#if ( $attributeDescriptor.doesHaveMetaInfo("id", "true") && ! $attributeDescriptor.doesHaveMetaInfo("omitGeneralFindMethod", "true"))
 		
 		'	public ${ClassName} findBy${AttributeName}($JavaType ${attributeDescriptor.name}) { 
 		'		return entityManager.find(${ClassName}.class, ${attributeDescriptor.name});

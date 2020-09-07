@@ -134,6 +134,8 @@ class <<DomainPath>>.FileMetaData
     metainfo MaxLength 128
     metainfo unique for-client
     metainfo id true
+    metainfo omitGeneralFindMethod true
+    metainfo withFindMethodForAttribute tenant
     metainfo guiType TextField
     metainfo allowSpace false
 
@@ -189,6 +191,7 @@ class <<DomainPath>>.FileMetaData
     metainfo JavaType Tenant
     metainfo Mandatory true
     metainfo id true
+    metainfo omitGeneralFindMethod true
     metainfo dbRelation ManyToOne
     metainfo isForeignKey true
     metainfo hideFromClientOverview true

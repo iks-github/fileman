@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -27,7 +27,7 @@ import { FilemanAuthserviceService } from './fileman-authservice.service';
 @Injectable({
   providedIn: 'root'
 })
-export class FilemanMetadataService {
+export class FilemanMetadataService implements OnInit, OnDestroy {
   private url: string;
   private fileMetaDataCache = new Map<string, FileMetaData>();
   private forceReloadFromServer = false;
@@ -37,10 +37,13 @@ export class FilemanMetadataService {
               private authService: FilemanAuthserviceService,
               propertiesService: FilemanPropertiesLoaderService) {
     this.url = propertiesService.getProperty('serverurl')  + '/fileMetaDatas';
+  }
+
+  ngOnInit(): void {
     this.logoutSubscription =
-    this.authService.getLogoutNotifier().subscribe(
-      () => { this.forceReloadFromServer = true }
-    );
+      this.authService.getLogoutNotifier().subscribe(
+        () => { this.forceReloadFromServer = true }
+      );
   }
 
   reloadOverviewData(): Observable<FileMetaData[]> {
@@ -101,5 +104,9 @@ export class FilemanMetadataService {
         .pipe(catchError((error: HttpErrorResponse) => {
           throw error;
         }));
+  }
+
+  ngOnDestroy() {
+    this.logoutSubscription.unsubscribe();
   }
 }

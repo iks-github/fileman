@@ -205,7 +205,7 @@ class <<DomainPath>>.FileGroup
   metainfo JavaDocLine "Data of a Fileman file group"
   metainfo BackendController true
   metainfo FrontendService true
-  metainfo FrontendServiceName file-group
+  metainfo FrontendServiceName filegroup
   metainfo dbEntity true
 
   attribute id

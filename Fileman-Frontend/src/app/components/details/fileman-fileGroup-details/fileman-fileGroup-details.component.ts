@@ -20,7 +20,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FileGroup } from 'src/app/common/domainobjects/gen/FileGroup';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
-import { FileGroupService } from 'src/app/services/fileman-file-group-service.service';
+import { FileGroupService } from 'src/app/services/fileman-filegroup-service.service';
 
 @Component({
   selector: 'fileman-fileGroup-details',

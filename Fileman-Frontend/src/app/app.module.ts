@@ -78,7 +78,7 @@ import { FilemanFileGroupOverviewComponent } from './components/fileman-overview
 import { FileGroupListLayout } from './components/layout/fileGroup/list-layout/fileman-fileGroup-list-layout-component';
 import { FileGroupTableLayout } from './components/layout/fileGroup/table-layout/fileman-fileGroup-table-layout-component';
 import { FileGroupTilesLayout } from './components/layout/fileGroup/tiles-layout/fileman-fileGroup-tiles-layout-component';
-import { FileGroupService } from './services/fileman-file-group-service.service';
+import { FileGroupService } from './services/fileman-filegroup-service.service';
 
 @NgModule({
   declarations: [

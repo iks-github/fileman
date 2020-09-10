@@ -23,7 +23,7 @@ import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.
 import { Utils } from 'src/app/common/Utils';
 import { Layout, UserRole } from 'src/app/common/fileman-constants';
 import { FileGroup } from 'src/app/common/domainobjects/gen/FileGroup';
-import { FileGroupService } from 'src/app/services/fileman-fileGroup-service.service';
+import { FileGroupService } from 'src/app/services/fileman-filegroup-service.service';
 import { FilemanUserPreferencesService } from 'src/app/services/fileman-user-preferences-service.service';
 import { UserPreferences } from 'src/app/common/domainobjects/gen/UserPreferences';
 import { FilemanSearchService } from 'src/app/services/fileman-search-service.service';

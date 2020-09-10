@@ -23,7 +23,7 @@ export class LayoutFileGroupCommons extends LayoutCommons {
   @Input() readOnly;
   @Output() fileGroupEdited: EventEmitter<FileGroup> = new EventEmitter<FileGroup>();
   @Output() fileGroupDeleted: EventEmitter<FileGroup> = new EventEmitter<FileGroup>();
-	
+
   edit(fileGroup: FileGroup) {
     this.fileGroupEdited.emit(fileGroup);
   }
@@ -35,7 +35,6 @@ export class LayoutFileGroupCommons extends LayoutCommons {
   getFileGroupHtmlTooltip(fileGroup: FileGroup): string {
     return '<div class="inner-html-enclosing-div"><h4>Details:</h4>' +
       '<hr>' +
-      this.buildHtmlTooltipContentRow('Name', fileGroup.name) +
-      this.buildHtmlTooltipContentRow('Role', fileGroup.role)+'</div>'
+      this.buildHtmlTooltipContentRow('Name', fileGroup.name)+'</div>'
   }
 }

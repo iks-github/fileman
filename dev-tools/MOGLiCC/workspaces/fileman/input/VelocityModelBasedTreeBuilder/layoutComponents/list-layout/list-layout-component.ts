@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Layout<<Type>>Commons } from '../layout-<<type>>-commons';
 import { <<Type>> } from 'src/app/common/domainobjects/gen/<<Type>>';

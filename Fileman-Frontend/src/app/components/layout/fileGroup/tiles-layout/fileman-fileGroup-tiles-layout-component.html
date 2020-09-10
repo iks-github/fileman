@@ -1,0 +1,35 @@
+<div class="tiles-grid">
+  <div *ngFor="let fileGroup of viewedFileGroups; let i = index"
+       class="tiles-item">
+    <td width="40">
+      <span *ngIf="! readOnly">
+          <mat-icon  data-toggle="tooltip" title="Edit" (click)="edit(fileGroup)">edit</mat-icon>
+      </span>
+      <br>
+      <span *ngIf="! readOnly">
+          <mat-icon *ngIf="! readOnly" data-toggle="tooltip" title="Delete" (click)="delete(fileGroup)">delete</mat-icon>
+      </span>
+    </td>
+    <td>
+      <span tooltip="{{getDetailsTooltip(fileGroup)}}">
+          {{i+1}}. {{fileGroup.name}}
+          <div>
+            <img class="image-preview" *ngIf="hasImagePreview(fileGroup.name)" [src]="getImagePreview(fileGroup.name)">
+            <span class="text-preview" *ngIf="hasTextPreview(fileGroup.name)">{{ getTextPreview(fileGroup.name) }}</span>
+            <ngx-doc-viewer
+              class="docx-preview"
+              *ngIf="hasDocxPreview(fileGroup.name)"
+              [url]="getDocxPreview(fileGroup.name)"
+              viewer="mammoth">
+            </ngx-doc-viewer>
+            <pdf-viewer class="pdf-preview" *ngIf="hasPdfPreview(fileGroup.name)"
+              [src]="getPdfPreview(fileGroup.name)"
+              [render-text]="true"
+              [show-all]="false"
+              [original-size]="false">
+            </pdf-viewer>
+          </div>
+      </span>
+    </td>
+  </div>
+</div>

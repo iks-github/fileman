@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_GROUP")
 public class FileGroup implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1599723725889L;
+	private static final long serialVersionUID = 1599725898772L;
 
 	// ===============  instance fields  ===============
 

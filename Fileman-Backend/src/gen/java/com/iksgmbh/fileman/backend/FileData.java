@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @ApiModel(description = "Complete data on a hosted file")
 public class FileData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1598955985466L;
+	private static final long serialVersionUID = 1599725898563L;
 
 	// ===============  instance fields  ===============
 

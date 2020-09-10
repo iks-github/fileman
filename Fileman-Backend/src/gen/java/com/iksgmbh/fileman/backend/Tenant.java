@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="TENANT")
 public class Tenant implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1599223620173L;
+	private static final long serialVersionUID = 1599725898866L;
 
 	// ===============  instance fields  ===============
 

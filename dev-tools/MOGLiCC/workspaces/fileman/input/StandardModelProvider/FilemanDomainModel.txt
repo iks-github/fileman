@@ -42,7 +42,7 @@ model SpringBootBackendAngularFrontModel
   metainfo projectName Fileman
   metainfo dateTimeFormat "dd.MM.yyyy HH:mm:ss:SSS"
   metainfo namespace <<DomainPath>>
-  metainfo newDomainObject fileGroup  # use lower case !
+  metainfo newDomainObject tenant  # use lower case !
 
 
 class <<DomainPath>>.FileData

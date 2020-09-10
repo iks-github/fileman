@@ -73,12 +73,12 @@ import { TenantTableLayout } from './components/layout/tenant/table-layout/filem
 import { TenantTilesLayout } from './components/layout/tenant/tiles-layout/fileman-tenant-tiles-layout-component';
 import { TenantService } from './services/fileman-tenant-service.service';
 
-import { FileGroupDetailsComponent } from './components/details/fileman-fileGroup-details/fileman-fileGroup-details.component';
+import { FileGroupDetailsComponent } from './components/details/fileman-filegroup-details/fileman-filegroup-details.component';
 import { FilemanFileGroupOverviewComponent } from './components/fileman-overview/fileGroups/fileman-fileGroup-overview.component';
 import { FileGroupListLayout } from './components/layout/fileGroup/list-layout/fileman-fileGroup-list-layout-component';
 import { FileGroupTableLayout } from './components/layout/fileGroup/table-layout/fileman-fileGroup-table-layout-component';
 import { FileGroupTilesLayout } from './components/layout/fileGroup/tiles-layout/fileman-fileGroup-tiles-layout-component';
-import { FileGroupService } from './services/fileman-fileGroup-service.service';
+import { FileGroupService } from './services/fileman-file-group-service.service';
 
 @NgModule({
   declarations: [

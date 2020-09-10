@@ -20,7 +20,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FileGroup } from 'src/app/common/domainobjects/gen/FileGroup';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
-import { FileGroupService } from 'src/app/services/fileman-fileGroup-service.service';
+import { FileGroupService } from 'src/app/services/fileman-file-group-service.service';
 
 @Component({
   selector: 'fileman-fileGroup-details',
@@ -123,5 +123,31 @@ export class FileGroupDetailsComponent implements OnInit {
   }
 
   // The form control block below is generated - do not modify manually!
+  createDetailsFormGroup() {
+    return new FormGroup({
+        nameControl: new FormControl('', [
+                Validators.required,
+                Validators.minLength(2),
+                Validators.maxLength(64),
+              ],
+              this.isNotUnique.bind(this)),
+    });
+  }
+
+  get nameC() {
+    return this.form.get('inputFieldControl.detailsForm.nameControl');
+  }
+
+  private getFileGroup() {
+    const fileGroup = new FileGroup(null);
+
+    fileGroup.setName(this.nameC.value);
+
+    return fileGroup;
+  }
+
+  private setDataToControls(fileGroup: FileGroup) {
+    this.nameC.setValue(fileGroup.getName());
+  }
   // The form control block above is generated - do not modify manually!
 }

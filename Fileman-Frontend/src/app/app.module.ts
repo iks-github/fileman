@@ -123,6 +123,7 @@ import { FileGroupService } from './services/fileman-filegroup-service.service';
       {path: 'fileman/details/files/:filename', component: FilemetadataDetailsComponent, canActivate: [AuthGuard, WriterAuthGuard]},
       {path: 'fileman/details/users/:username', component: UserDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: 'fileman/details/tenants/:tenant', component: TenantDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
+      {path: 'fileman/details/file-groups/:file-group', component: FileGroupDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: 'fileman/files/new', component: FilemetadataDetailsComponent, canActivate: [AuthGuard, WriterAuthGuard]},
       {path: 'fileman/users/new', component: UserDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},
       {path: 'fileman/tenants/new', component: TenantDetailsComponent, canActivate: [AuthGuard, AdminAuthGuard]},

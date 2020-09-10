@@ -23,9 +23,9 @@ import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.
 import { FileGroupService } from 'src/app/services/fileman-filegroup-service.service';
 
 @Component({
-  selector: 'fileman-fileGroup-details',
-  templateUrl: './fileman-fileGroup-details.component.html',
-  styleUrls: ['./fileman-fileGroup-details.component.css']
+  selector: 'fileman-filegroup-details',
+  templateUrl: './fileman-filegroup-details.component.html',
+  styleUrls: ['./fileman-filegroup-details.component.css']
 })
 export class FileGroupDetailsComponent implements OnInit {
 
@@ -52,7 +52,7 @@ export class FileGroupDetailsComponent implements OnInit {
       this.fileGroupService.getFileGroup(id).subscribe(fileGroup => {
         this.toEdit = new FileGroup(fileGroup);
         if (this.toEdit == null) {
-          alert('No data available for fileGroup "' + id + '"!');
+          alert('No data available for file group "' + id + '"!');
           this.backToOverview();  // no data to edit available - happens for page reload - reason unclear
         } else {
           this.setDataToControls(this.toEdit);
@@ -77,12 +77,12 @@ export class FileGroupDetailsComponent implements OnInit {
     if (this.newMode) {
       this.fileGroupService.create(toSave)
           .subscribe(() => {}, error => {
-            alert('Error saving new fileGroup with name "' + toSave.getName() + '"!');
+            alert('Error saving new file group with name "' + toSave.getName() + '"!');
           });
     } else {
       this.fileGroupService.update(toSave)
           .subscribe(() => {}, error => {
-            alert('Error updating fileGroup with ID "' + toSave.getId() + '"!');
+            alert('Error updating file group with ID "' + toSave.getId() + '"!');
           });
     }
 

@@ -61,7 +61,7 @@ export class FilemanFileGroupOverviewComponent implements OnInit, OnDestroy {
               }
 
   ngOnInit(): void {
-    console.log('### fileGroup overview init')
+    console.log('### file group overview init')
     this.currentUserName = this.authService.getCurrentUserName();
     this.userPreferences = this.userPreferencesService.getUserPreferences();
     this.userPreferencesSubscription =
@@ -112,7 +112,7 @@ export class FilemanFileGroupOverviewComponent implements OnInit, OnDestroy {
   }
 
   edit(fileGroup: FileGroup) {
-    this.router.navigate(['/fileman/details/fileGroups/' + fileGroup.getId()]);
+    this.router.navigate(['/fileman/details/file-groups/' + fileGroup.getId()]);
   }
 
   searchFor(searchString: string) {
@@ -140,7 +140,7 @@ export class FilemanFileGroupOverviewComponent implements OnInit, OnDestroy {
         .delete(fileGroup)
         .subscribe(
           deletedFileGroup => {
-              console.log('Successfully deleted fileGroup: ' + fileGroup.getName());
+              console.log('Successfully deleted file group: ' + fileGroup.getName());
             },
           (error: FilemanError) => {
             this.viewedFileGroups.splice(index, 0, toDelete);  // roll back optimistic deletion
@@ -148,7 +148,7 @@ export class FilemanFileGroupOverviewComponent implements OnInit, OnDestroy {
 
             if (error instanceof FilemanNotfoundError) {
               // TODO this.form.setErrors(error.cause);
-              alert('FileGroup does not (more?) exist.')
+              alert('File group does not (more?) exist.')
             } else {
               throw error;
             }

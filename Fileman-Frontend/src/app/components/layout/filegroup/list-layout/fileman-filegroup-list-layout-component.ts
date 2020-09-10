@@ -19,9 +19,9 @@ import { LayoutFileGroupCommons } from '../layout-fileGroup-commons';
 import { FileGroup } from 'src/app/common/domainobjects/gen/FileGroup';
 
 @Component({
-  selector: 'fileman-fileGroup-list-layout',
-  templateUrl: './fileman-fileGroup-list-layout-component.html',
-  styleUrls: ['./fileman-fileGroup-list-layout-component.css']
+  selector: 'fileman-filegroup-list-layout',
+  templateUrl: './fileman-filegroup-list-layout-component.html',
+  styleUrls: ['./fileman-filegroup-list-layout-component.css']
 })
 export class FileGroupListLayout extends LayoutFileGroupCommons {
   getDetailsTooltip(fileGroup: FileGroup): string {

@@ -34,6 +34,7 @@ export class FilemanToolbarComponent implements OnInit {
   readonly contentTypeFiles: string = Content.Files;
   readonly contentTypeUsers: string = Content.Users;
   readonly contentTypeTenants: string = Content.Tenants;
+  readonly contentTypeFileGroups: string = Content.FileGroups;
   readonly layoutTypeList: string = Layout.List;
   readonly layoutTypeTable: string = Layout.Table;
   readonly layoutTypeTiles: string = Layout.Tiles;
@@ -102,6 +103,8 @@ export class FilemanToolbarComponent implements OnInit {
         this.router.navigate(['/fileman/users/new']);
       } else if (this.userPreferences.contentType === this.contentTypeTenants) {
         this.router.navigate(['/fileman/tenants/new']);
+      } else if (this.userPreferences.contentType === this.contentTypeFileGroups) {
+        this.router.navigate(['/fileman/file-groups/new']);
       }
     }
   }
@@ -136,6 +139,8 @@ export class FilemanToolbarComponent implements OnInit {
       return 'Add new user';
     } else if (this.userPreferences.contentType === this.contentTypeTenants) {
       return 'Add new tenant';
+    } else if (this.userPreferences.contentType === this.contentTypeFileGroups) {
+      return 'Add new file group';
     } else {
       if (this.readOnly) {
         return 'You have no permission to add new files.';

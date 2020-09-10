@@ -30,9 +30,9 @@ import { FilemanSearchService } from 'src/app/services/fileman-search-service.se
 import { FilemanReloadService } from 'src/app/services/fileman-reload-service.service';
 
 @Component({
-  selector: 'fileman-fileGroup-overview',
-  templateUrl: './fileman-fileGroup-overview.component.html',
-  styleUrls: ['./fileman-fileGroup-overview.component.css']
+  selector: 'fileman-filegroup-overview',
+  templateUrl: './fileman-filegroup-overview.component.html',
+  styleUrls: ['./fileman-filegroup-overview.component.css']
 })
 export class FilemanFileGroupOverviewComponent implements OnInit, OnDestroy {
   readonly layoutTypeList: string = Layout.List;

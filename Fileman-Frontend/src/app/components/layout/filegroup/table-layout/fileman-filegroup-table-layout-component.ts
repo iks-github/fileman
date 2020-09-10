@@ -20,9 +20,9 @@ import { SortType } from 'src/app/common/fileman-constants';
 import { LayoutFileGroupCommons } from '../layout-fileGroup-commons';
 
 @Component({
-  selector: 'fileman-fileGroup-table-layout',
-  templateUrl: './fileman-fileGroup-table-layout-component.html',
-  styleUrls: ['./fileman-fileGroup-table-layout-component.css']
+  selector: 'fileman-filegroup-table-layout',
+  templateUrl: './fileman-filegroup-table-layout-component.html',
+  styleUrls: ['./fileman-filegroup-table-layout-component.css']
 })
 export class FileGroupTableLayout extends LayoutFileGroupCommons {
   openPullDowns: Array<MatSelect> = new Array<MatSelect>();

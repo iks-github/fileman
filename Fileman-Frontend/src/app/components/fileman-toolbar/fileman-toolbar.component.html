@@ -79,6 +79,9 @@
         <option
           [value]="contentTypeTenants"
           [selected]="userPreferences.contentType === contentTypeTenants">Tenants</option>
+        <option
+          [value]="contentTypeFileGroups"
+          [selected]="userPreferences.contentType === contentTypeFileGroups">File Groups</option>
     </select>
     &nbsp;
     <mat-icon *ngIf="isAdmin"

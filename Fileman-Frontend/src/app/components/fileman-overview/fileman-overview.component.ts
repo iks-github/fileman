@@ -30,6 +30,7 @@ export class FilemanOverviewComponent implements OnInit, OnDestroy {
   readonly contentTypeFiles: string = Content.Files;
   readonly contentTypeUsers: string = Content.Users;
   readonly contentTypeTenants: string = Content.Tenants;
+  readonly contentTypeFileGroups: string = Content.FileGroups;
 
   contentType: string;
   userPreferencesSubscription: Subscription;

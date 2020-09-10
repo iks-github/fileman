@@ -21,9 +21,9 @@ import { PreviewType } from 'src/app/common/fileman-constants';
 import { FileGroup } from 'src/app/common/domainobjects/gen/FileGroup';
 
 @Component({
-  selector: 'fileman-fileGroup-tiles-layout',
-  templateUrl: './fileman-fileGroup-tiles-layout-component.html',
-  styleUrls: ['./fileman-fileGroup-tiles-layout-component.css']
+  selector: 'fileman-filegroup-tiles-layout',
+  templateUrl: './fileman-filegroup-tiles-layout-component.html',
+  styleUrls: ['./fileman-filegroup-tiles-layout-component.css']
 })
 export class FileGroupTilesLayout extends LayoutFileGroupCommons {
   constructor(private previewService: FilemanPreviewService) {

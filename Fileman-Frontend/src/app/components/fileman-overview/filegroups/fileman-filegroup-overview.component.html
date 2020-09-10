@@ -10,27 +10,27 @@
 
 <div [ngSwitch]="userPreferences.layoutType">
     <div *ngSwitchCase="layoutTypeList">
-        <fileman-fileGroup-list-layout
+        <fileman-filegroup-list-layout
           [viewedFileGroups]="viewedFileGroups"
           [readOnly]="readOnly"
           (fileGroupEdited)="edit($event)"
           (fileGroupDeleted)="delete($event)">
-        </fileman-fileGroup-list-layout>
+        </fileman-filegroup-list-layout>
     </div>
     <div *ngSwitchCase="layoutTypeTable">
-      <fileman-fileGroup-table-layout
+      <fileman-filegroup-table-layout
         [viewedFileGroups]="viewedFileGroups"
         [readOnly]="readOnly"
         (fileGroupEdited)="edit($event)"
         (fileGroupDeleted)="delete($event)">
-      </fileman-fileGroup-table-layout>
+      </fileman-filegroup-table-layout>
     </div>
     <div *ngSwitchCase="layoutTypeTiles">
-        <fileman-fileGroup-tiles-layout
+        <fileman-filegroup-tiles-layout
           [viewedFileGroups]="viewedFileGroups"
           [readOnly]="readOnly"
           (fileGroupEdited)="edit($event)"
           (fileGroupDeleted)="delete($event)">
-        </fileman-fileGroup-tiles-layout>
+        </fileman-filegroup-tiles-layout>
     </div>
 </div>

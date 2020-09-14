@@ -359,6 +359,10 @@ class <<DomainPath>>.LoginRequest
     metainfo ExampleData "pw"
     # metainfo MinLength 3
     metainfo MaxLength 32
+    
+  attribute tenant
+    metainfo JavaType Integer
+    metainfo ExampleData 1
 
   attribute filemanVersion
     metainfo JavaType String

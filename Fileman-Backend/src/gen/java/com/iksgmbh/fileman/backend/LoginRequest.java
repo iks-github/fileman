@@ -1,5 +1,6 @@
 package com.iksgmbh.fileman.backend;
 
+import java.lang.Integer;
 import java.lang.String;
 
 import javax.validation.constraints.*;
@@ -27,6 +28,8 @@ public class LoginRequest
     @ApiModelProperty(notes = "Mandatory. Valid maximum length is 32.")
 	private String userPw;
 
+	private Integer tenant;
+
     @NotNull(message="Value of mandatory attribute 'filemanVersion' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
 	private String filemanVersion;
@@ -42,6 +45,11 @@ public class LoginRequest
 	public void setUserPw(final String userPw)
 	{
 		this.userPw = userPw;
+	}
+
+	public void setTenant(final Integer tenant)
+	{
+		this.tenant = tenant;
 	}
 
 	public void setFilemanVersion(final String filemanVersion)
@@ -61,6 +69,11 @@ public class LoginRequest
 		return userPw;
 	}
 
+	public Integer getTenant()
+	{
+		return tenant;
+	}
+
 	public String getFilemanVersion()
 	{
 		return filemanVersion;
@@ -74,6 +87,7 @@ public class LoginRequest
 		return "LoginRequest ["
 				+ "userId = " + userId + ", "
 				+ "userPw = " + userPw + ", "
+				+ "tenant = " + tenant + ", "
 				+ "filemanVersion = " + filemanVersion + ""
 				+ "]";
 	}
@@ -107,6 +121,15 @@ public class LoginRequest
 			if (! userPw.equals(other.userPw))
 				   return false;
 		}
+		if (tenant == null)
+		{
+			if (other.tenant != null)
+				return false;
+		} else
+		{
+			if (! tenant.equals(other.tenant))
+				   return false;
+		}
 		if (filemanVersion == null)
 		{
 			if (other.filemanVersion != null)
@@ -126,6 +149,7 @@ public class LoginRequest
 
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		result = prime * result + ((userPw == null) ? 0 : userPw.hashCode());
+		result = prime * result + ((tenant == null) ? 0 : tenant.hashCode());
 		result = prime * result + ((filemanVersion == null) ? 0 : filemanVersion.hashCode());
 
 		return result;
@@ -143,6 +167,9 @@ public class LoginRequest
             if(! otherLoginRequest.getUserPw().isEmpty()) {
            	 this.setUserPw(otherLoginRequest.getUserPw());
             }
+       }
+        if (otherLoginRequest.getTenant() != null) {
+            this.setTenant(otherLoginRequest.getTenant());
        }
         if (otherLoginRequest.getFilemanVersion() != null) {
             if(! otherLoginRequest.getFilemanVersion().isEmpty()) {

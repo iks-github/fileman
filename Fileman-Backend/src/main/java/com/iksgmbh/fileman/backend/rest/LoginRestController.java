@@ -39,7 +39,7 @@ import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 @CrossOrigin(origins = "http://localhost:4200")
 public class LoginRestController {
 	
-	private static final String AUTH_FAIL_MESSAGE = "User ID or password is wrong!";
+	private static final String AUTH_FAIL_MESSAGE = "Wrong user ID, password, or tenant!";
 	
 	@Autowired
 	private Environment env;
@@ -87,6 +87,12 @@ public class LoginRestController {
 			loginResponse.setErrorMessage(AUTH_FAIL_MESSAGE);
 			loginResponse.setOk(false);
 			return ResponseEntity.ok(loginResponse);		
+		}
+		
+		if (!user.getTenants().stream().anyMatch(n -> n.getId() == loginRequest.getTenant())) {
+			loginResponse.setErrorMessage(AUTH_FAIL_MESSAGE);
+			loginResponse.setOk(false);
+			return ResponseEntity.ok(loginResponse);	
 		}
 
 		final String token = JwtTokenUtil.generateToken(user, loginRequest.getTenant());

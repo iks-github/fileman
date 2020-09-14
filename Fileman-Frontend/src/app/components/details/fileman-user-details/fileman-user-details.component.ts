@@ -47,7 +47,7 @@ export class UserDetailsComponent implements OnInit {
   tenants = [] as Tenant[];
   tenantsMap = new Map<string, Tenant>();
 
-  tenantMultiselectDropdownSettings = {
+  tenantsMultiselectDropdownSettings = {
     singleSelection: false,
     idField: 'id',
     textField: 'name',

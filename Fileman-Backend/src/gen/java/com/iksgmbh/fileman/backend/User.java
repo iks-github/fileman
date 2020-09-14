@@ -4,7 +4,6 @@ import com.iksgmbh.fileman.backend.Tenant;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.*;
@@ -27,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="USER")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1599725898807L;
+	private static final long serialVersionUID = 1600096299973L;
 
 	// ===============  instance fields  ===============
 
@@ -47,15 +46,13 @@ public class User implements Serializable
     @Column(name="ROLE", columnDefinition="varchar")
 	private String role;
 
-    @NotNull(message="Value of mandatory attribute 'tenant' is not present.")
+    @NotNull(message="Value of mandatory attribute 'tenants' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-    @ManyToMany
-    @JoinTable(name = "user_tenant", 
-            joinColumns = { @JoinColumn(name = "fk_user") }, 
-            inverseJoinColumns = { @JoinColumn(name = "fk_tenant") })
-    private Set<Tenant> tenants = new HashSet<Tenant>();
+	@ManyToMany
+    @JoinTable(name="user_tenant", joinColumns = { @JoinColumn(name = "fk_user") }, inverseJoinColumns = { @JoinColumn(name = "fk_tenant") })
+	private Set<Tenant> tenants;
 
-	@Size(min=1, max=60, message="Value of attribute 'password' is out of valid range (1-60)")
+    @Size(min=1, max=60, message="Value of attribute 'password' is out of valid range (1-60)")
     @ApiModelProperty(notes = "Valid length ranges from 1 to 60.")
     @JsonProperty(access = Access.WRITE_ONLY)
     @Column(name="PASSWORD", columnDefinition="varchar")
@@ -89,7 +86,8 @@ public class User implements Serializable
 		this.role = role;
 	}
 
-	public void setTenants(Set<Tenant> tenants) {
+	public void setTenants(final Set<Tenant> tenants)
+	{
 		this.tenants = tenants;
 	}
 
@@ -125,7 +123,8 @@ public class User implements Serializable
 		return role;
 	}
 
-    public Set<Tenant> getTenants() {
+	public Set<Tenant> getTenants()
+	{
 		return tenants;
 	}
 
@@ -161,20 +160,6 @@ public class User implements Serializable
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((passwordRepetition == null) ? 0 : passwordRepetition.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((tenants == null) ? 0 : tenants.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -182,44 +167,91 @@ public class User implements Serializable
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
-		if (avatar == null) {
-			if (other.avatar != null)
-				return false;
-		} else if (!avatar.equals(other.avatar))
-			return false;
-		if (id == null) {
+
+		final User other = (User) obj;
+
+		if (id == null)
+		{
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (name == null) {
+		} else
+		{
+			if (! id.equals(other.id))
+				   return false;
+		}
+		if (name == null)
+		{
 			if (other.name != null)
 				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (passwordRepetition == null) {
-			if (other.passwordRepetition != null)
-				return false;
-		} else if (!passwordRepetition.equals(other.passwordRepetition))
-			return false;
-		if (role == null) {
+		} else
+		{
+			if (! name.equals(other.name))
+				   return false;
+		}
+		if (role == null)
+		{
 			if (other.role != null)
 				return false;
-		} else if (!role.equals(other.role))
-			return false;
-		if (tenants == null) {
+		} else
+		{
+			if (! role.equals(other.role))
+				   return false;
+		}
+		if (tenants == null)
+		{
 			if (other.tenants != null)
 				return false;
-		} else if (!tenants.equals(other.tenants))
-			return false;
+		} else
+		{
+			if (! tenants.equals(other.tenants))
+				   return false;
+		}
+		if (password == null)
+		{
+			if (other.password != null)
+				return false;
+		} else
+		{
+			if (! password.equals(other.password))
+				   return false;
+		}
+		if (passwordRepetition == null)
+		{
+			if (other.passwordRepetition != null)
+				return false;
+		} else
+		{
+			if (! passwordRepetition.equals(other.passwordRepetition))
+				   return false;
+		}
+		if (avatar == null)
+		{
+			if (other.avatar != null)
+				return false;
+		} else
+		{
+			if (! avatar.equals(other.avatar))
+				   return false;
+		}
 		return true;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((tenants == null) ? 0 : tenants.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((passwordRepetition == null) ? 0 : passwordRepetition.hashCode());
+		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
+
+		return result;
+	}
+
 
 	public void merge(User otherUser)
 	{

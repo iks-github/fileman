@@ -48,6 +48,19 @@
 	'                    [style.border]="getBorder()"
 	'                    (focus)="setFocusOnFileSelector(true)" (blur)="setFocusOnFileSelector(false)"/>
 
+#elseif ( $guiType.equals("MultiSelectBox"))
+
+	'                    <ng-multiselect-dropdown
+	'                      id="${attributeName}"
+	'                      class="form-Control"
+	'                      formControlName="${attributeName}Control"
+	'                      [placeholder]="'Please select'"
+	'                      [data]="${attributeName}"
+	'                      (onSelect)="${attributeName}C.markAsTouched()"
+	'                      (onDeSelect)="${attributeName}C.markAsTouched()"
+	'                      [settings]="${attributeName}MultiselectDropdownSettings">
+	'                    </ng-multiselect-dropdown>
+
 #else
 
 	Type of GUI Field "$guiType" is not yet supported in the MOGLiCC template "SubTemplate_GuiElements.tpl".	

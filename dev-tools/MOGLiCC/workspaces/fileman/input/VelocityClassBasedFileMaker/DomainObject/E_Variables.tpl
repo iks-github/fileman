@@ -42,6 +42,7 @@
 	#set( $maxLength = $attributeDescriptor.getMetaInfoValueFor("MaxLength") )
 	#set( $mandatory = $attributeDescriptor.getMetaInfoValueFor("Mandatory") )
 	#set( $swaggerDoc = "" )
+	#set( $joinTable = "" )
 
 	#if(! $mandatory.contains("NOT FOUND") )
 		#set( $swaggerDoc = $swaggerDoc + "Mandatory. " )
@@ -63,6 +64,10 @@
 		#end
 	#end
 	
+	#if ( $attributeDescriptor.doesHaveAnyMetaInfosWithName("joinTable") )
+		#set( $joinTable = ${attributeDescriptor.getMetaInfoValueFor("joinTable")})
+	#end
+	
 	#if( ! $swaggerDoc.equals("") )
 		'    @ApiModelProperty(notes = "$TemplateStringUtility.cutSuffix(${swaggerDoc}, " ")")
 	#end
@@ -80,7 +85,7 @@
 		#if ( $attributeDescriptor.doesHaveMetaInfo("hideFromDB", "true") )
 			'    @Transient
 		#else
-			#set( $className = $classDescriptor.simpleName)
+			#set( $className = $TemplateStringUtility.firstToLowerCase($classDescriptor.simpleName))
 			#set( $dbName = $TemplateStringUtility.toDBTableName($attributeName) )
 	        #set( $dbType = $attributeDescriptor.getMetaInfoValueFor("dbType") )
 
@@ -101,10 +106,14 @@
 			#if ( $attributeDescriptor.doesHaveMetaInfo("unique", "false") )
 				#set( $uniqueSetting = ", unique=false")
 			#end
-			#if ( $attributeDescriptor.doesHaveMetaInfo("isForeignKey", "true") )
-				'    @JoinColumn(name="${dbName}"${nullableSetting}${uniqueSetting}, columnDefinition="${dbType}")
+			#if( ! $joinTable.equals("") )
+				'    @JoinTable(name="${className}_${joinTable}", joinColumns = { @JoinColumn(name = "fk_${className}") }, inverseJoinColumns = { @JoinColumn(name = "fk_${joinTable}") })
 			#else
-				'    @Column(name="${dbName}"${nullableSetting}${uniqueSetting}, columnDefinition="${dbType}")
+			    #if ( $attributeDescriptor.doesHaveMetaInfo("isForeignKey", "true") )
+				    '    @JoinColumn(name="${dbName}"${nullableSetting}${uniqueSetting}, columnDefinition="${dbType}")
+			    #else
+				    '    @Column(name="${dbName}"${nullableSetting}${uniqueSetting}, columnDefinition="${dbType}")
+			    #end
 			#end
             #if ( $dbType == "blob" || $dbType == "clob" )
             '    @Lob

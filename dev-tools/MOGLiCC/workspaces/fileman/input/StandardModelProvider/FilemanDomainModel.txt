@@ -263,12 +263,11 @@ class <<DomainPath>>.User
 
   attribute tenants
     metainfo dbType int
-    metainfo JavaType Set<Tenant>
+    metainfo JavaType java.util.Set<Tenant>
     metainfo Mandatory true
-    metainfo guiType Selectbox
-    metainfo guiValueField id
-    metainfo guiDisplayField name
+    metainfo guiType MultiSelectBox
     metainfo dbRelation ManyToMany
+    metainfo joinTable tenant
 
   attribute password
     metainfo dbType varchar

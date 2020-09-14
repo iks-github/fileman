@@ -1,4 +1,4 @@
-import { Tenant } from './Tenant';
+import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
 
 export class User
 {

@@ -32,11 +32,19 @@
 
             <tr>
                 <td>
-                    <label for="tenant">Tenant</label>
+                    <label for="tenants">Tenants</label>
                     <br>
-                    <select id="tenant" class="form-Control" formControlName="tenantControl" (change)="tenantC.markAsTouched()">
-                        <option *ngFor="let tenant of tenants" [value]="tenant.id">{{tenant.name}}</option>
-                    </select>
+                    <ng-multiselect-dropdown
+                      id="tenants"
+                      class="form-Control"
+                      formControlName="tenantsControl"
+                      [placeholder]="'Please select'"
+                      [data]="tenants"
+                      (onSelect)="tenantsC.markAsTouched()"
+                      (onDeSelect)="tenantsC.markAsTouched()"
+                      [settings]="tenantMultiselectDropdownSettings"
+                  >
+                  </ng-multiselect-dropdown>
                 </td>
 				 <td class="space"></td>
                 <td>
@@ -99,8 +107,8 @@
             <div *ngIf="roleC.errors?.required && roleC.touched">
                The field <i>Role</i> is required.
             </div>
-            <div *ngIf="tenantC.errors?.required && tenantC.touched">
-               The field <i>Tenant</i> is required.
+            <div *ngIf="tenantsC.errors?.required && tenantsC.touched">
+               The field <i>Tenants</i> is required.
             </div>
             <div *ngIf="passwordC.errors?.minlength && passwordC.touched">
                Minimum length of field <i>Password</i> is {{passwordC.errors.minlength.requiredLength}}.

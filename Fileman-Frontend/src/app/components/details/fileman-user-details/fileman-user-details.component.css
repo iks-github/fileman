@@ -29,3 +29,7 @@ td {
   max-width: 150px;
   max-height: 200px;
 }
+
+::ng-deep .multiselect-dropdown .dropdown-btn {
+  background-color: white;
+}

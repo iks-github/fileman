@@ -261,15 +261,14 @@ class <<DomainPath>>.User
     metainfo ExampleData Admin
     metainfo guiType Selectbox:Reader,Writer,Admin
 
-  attribute tenant
+  attribute tenants
     metainfo dbType int
-    metainfo JavaType Tenant
+    metainfo JavaType Set<Tenant>
     metainfo Mandatory true
     metainfo guiType Selectbox
     metainfo guiValueField id
     metainfo guiDisplayField name
-    metainfo dbRelation ManyToOne
-    metainfo isForeignKey true
+    metainfo dbRelation ManyToMany
 
   attribute password
     metainfo dbType varchar

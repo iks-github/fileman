@@ -47,6 +47,25 @@ export class UserDetailsComponent implements OnInit {
   tenants = [] as Tenant[];
   tenantsMap = new Map<string, Tenant>();
 
+  tenantMultiselectDropdownSettings = {
+    singleSelection: false,
+    idField: 'id',
+    textField: 'name',
+    enableCheckAll: true,
+    selectAllText: 'Select all',
+    unSelectAllText: 'Unselect all',
+    allowSearchFilter: true,
+    limitSelection: -1,
+    clearSearchFilter: true,
+    maxHeight: 197,
+    itemsShowLimit: 3,
+    searchPlaceholderText: 'Search',
+    noDataAvailablePlaceholderText: 'No data available',
+    closeDropDownOnSelection: false,
+    showSelectedItemsAtTop: false,
+    defaultOpen: false
+  }
+
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
               private userService: UserService,
@@ -119,10 +138,7 @@ export class UserDetailsComponent implements OnInit {
       id: this.toEdit != null ? this.toEdit.getId() : null,
       name: this.nameC.value.trim(),
       role: this.roleC.value,
-      tenant: new Tenant({
-        id: this.tenantC.value,
-        name: this.tenantsMap.get(this.tenantC.value).getName()
-      }),
+      tenants: this.tenantsC.value,
       password: this.passwordC.value != null
                   && this.passwordC.value.trim().length > 0 ?
                   this.passwordC.value.trim() : null,
@@ -271,7 +287,7 @@ export class UserDetailsComponent implements OnInit {
         roleControl: new FormControl('', [
                 Validators.required,
               ]),
-        tenantControl: new FormControl('', [
+        tenantsControl: new FormControl('', [
                 Validators.required,
               ]),
         passwordControl: new FormControl('', [
@@ -296,8 +312,8 @@ export class UserDetailsComponent implements OnInit {
     return this.form.get('inputFieldControl.detailsForm.roleControl');
   }
 
-  get tenantC() {
-    return this.form.get('inputFieldControl.detailsForm.tenantControl');
+  get tenantsC() {
+    return this.form.get('inputFieldControl.detailsForm.tenantsControl');
   }
 
   get passwordC() {
@@ -317,7 +333,7 @@ export class UserDetailsComponent implements OnInit {
 
     user.setName(this.nameC.value);
     user.setRole(this.roleC.value);
-    user.setTenant(this.tenantC.value);
+    user.setTenants(this.tenantsC.value);
     user.setPassword(this.passwordC.value);
     user.setPasswordRepetition(this.passwordRepetitionC.value);
     user.setAvatar(this.avatarC.value);
@@ -328,7 +344,7 @@ export class UserDetailsComponent implements OnInit {
   private setDataToControls(user: User) {
     this.nameC.setValue(user.getName());
     this.roleC.setValue(user.getRole());
-    this.tenantC.setValue(user.getTenant().id);
+    this.tenantsC.setValue(user.getTenants());
     this.passwordC.setValue(user.getPassword());
     this.passwordRepetitionC.setValue(user.getPasswordRepetition());
   }

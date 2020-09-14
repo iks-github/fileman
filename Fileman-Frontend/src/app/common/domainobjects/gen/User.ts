@@ -1,11 +1,11 @@
-import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
+import { Tenant } from './Tenant';
 
 export class User
 {
     id: number;
     name: string;
     role: string;
-    tenant: Tenant;
+    tenants: Set<Tenant>;
     password: string;
     passwordRepetition: string;
     avatar: string;
@@ -15,7 +15,7 @@ export class User
             this.id = untypedUser.id;
             this.name = untypedUser.name;
             this.role = untypedUser.role;
-            this.tenant = untypedUser.tenant;
+            this.tenants = untypedUser.tenants;
             this.password = untypedUser.password;
             this.passwordRepetition = untypedUser.passwordRepetition;
             this.avatar = untypedUser.avatar;
@@ -28,7 +28,7 @@ export class User
            'id',
            'name',
            'role',
-           'tenant',
+           'tenants',
            'password',
            'passwordRepetition',
            'avatar',
@@ -47,8 +47,8 @@ export class User
         return this.role;
     }
 
-    getTenant() {
-        return this.tenant;
+    getTenants() {
+        return this.tenants;
     }
 
     getPassword() {
@@ -76,8 +76,8 @@ export class User
         this.role = role;
     }
 
-    setTenant(tenant: Tenant) {
-        this.tenant = tenant;
+    setTenants(tenants: Set<Tenant>) {
+        this.tenants = tenants;
     }
 
     setPassword(password: string) {
@@ -100,7 +100,7 @@ export class User
         if (this.id !== obj.id) { return false; }
         if (this.name !== obj.name) { return false; }
         if (this.role !== obj.role) { return false; }
-        if (this.tenant !== obj.tenant) { return false; }
+        if (this.tenants !== obj.tenants) { return false; }
         if (this.password !== obj.password) { return false; }
         if (this.passwordRepetition !== obj.passwordRepetition) { return false; }
         if (this.avatar !== obj.avatar) { return false; }
@@ -114,7 +114,7 @@ export class User
            'Id: ' + this.id + '\n' +
            'Name: ' + this.name + '\n' +
            'Role: ' + this.role + '\n' +
-           'Tenant: ' + this.tenant + '\n' +
+           'Tenants: ' + this.tenants + '\n' +
            'Password: ' + this.password + '\n' +
            'PasswordRepetition: ' + this.passwordRepetition + '\n' +
            'Avatar: ' + this.avatar + '\n';

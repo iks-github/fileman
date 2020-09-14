@@ -41,8 +41,7 @@ export class LayoutUserCommons extends LayoutCommons {
     return '<div class="inner-html-enclosing-div"><b>Details:</b>' +
       '<hr>' +
       this.buildHtmlTooltipContentRow('Name', user.name) +
-      this.buildHtmlTooltipContentRow('Role', user.role) +
-      this.buildHtmlTooltipContentRow('Tenant', user.tenant.name) + '</div>'
+      this.buildHtmlTooltipContentRow('Role', user.role) + '</div>'
   }
 
   hasAvatar(userName: string): boolean {

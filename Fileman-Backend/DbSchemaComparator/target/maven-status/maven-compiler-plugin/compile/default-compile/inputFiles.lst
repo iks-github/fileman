@@ -1,0 +1,12 @@
+C:\dev\source\FilemanGithub\Fileman-Backend\DbSchemaComparator\src\main\java\de\iksgmbh\dbschemacomp\domain\Name.java
+C:\dev\source\FilemanGithub\Fileman-Backend\DbSchemaComparator\src\main\java\de\iksgmbh\dbschemacomp\domain\ColumnMetaData.java
+C:\dev\source\FilemanGithub\Fileman-Backend\DbSchemaComparator\src\main\java\de\iksgmbh\dbschemacomp\helper\MigrationScriptGenerator.java
+C:\dev\source\FilemanGithub\Fileman-Backend\DbSchemaComparator\src\main\java\de\iksgmbh\dbschemacomp\domain\SchemaMetaData.java
+C:\dev\source\FilemanGithub\Fileman-Backend\DbSchemaComparator\src\main\java\de\iksgmbh\dbschemacomp\domain\SqlConstants.java
+C:\dev\source\FilemanGithub\Fileman-Backend\DbSchemaComparator\src\main\java\de\iksgmbh\dbschemacomp\domain\TableMetaData.java
+C:\dev\source\FilemanGithub\Fileman-Backend\DbSchemaComparator\src\main\java\de\iksgmbh\dbschemacomp\domain\ColumnDiff.java
+C:\dev\source\FilemanGithub\Fileman-Backend\DbSchemaComparator\src\main\java\de\iksgmbh\dbschemacomp\domain\TableDiff.java
+C:\dev\source\FilemanGithub\Fileman-Backend\DbSchemaComparator\src\main\java\de\iksgmbh\dbschemacomp\domain\SchemaDiff.java
+C:\dev\source\FilemanGithub\Fileman-Backend\DbSchemaComparator\src\main\java\de\iksgmbh\dbschemacomp\domain\Type.java
+C:\dev\source\FilemanGithub\Fileman-Backend\DbSchemaComparator\src\main\java\de\iksgmbh\dbschemacomp\helper\SchemaParser.java
+C:\dev\source\FilemanGithub\Fileman-Backend\DbSchemaComparator\src\main\java\de\iksgmbh\dbschemacomp\helper\SchemaComparer.java

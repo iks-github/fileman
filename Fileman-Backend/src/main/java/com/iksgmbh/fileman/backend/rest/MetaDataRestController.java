@@ -27,9 +27,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.FileMetaData;
-import com.iksgmbh.fileman.backend.User;
+import com.iksgmbh.fileman.backend.Tenant;
 import com.iksgmbh.fileman.backend.dao.FileMetaDataDao;
-import com.iksgmbh.fileman.backend.dao.UserDao;
+import com.iksgmbh.fileman.backend.dao.TenantDao;
 import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
 @RestController
@@ -40,17 +40,16 @@ public class MetaDataRestController
 	private FileMetaDataDao metaDataDao;
 
 	@Autowired
-	private UserDao userDao;
+	private TenantDao tenantDao;
 
 	@GetMapping("/fileMetaDatas")
 	public List<FileMetaData> findAllFileMetaDatas(@RequestHeader("Authorization") String authHeader) {
         
-		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
-		Integer userId = JwtTokenUtil.getUserIdFromToken(token);
-		User user = userDao.findById(userId);
-		System.out.println("USEREE: "+user);
+    	String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+    	Integer tenantId = JwtTokenUtil.getTenantIdFromToken(token);
+    	Tenant tenant = tenantDao.findById(tenantId);
     	
-		return metaDataDao.findAllForTenant(user.getTenant());
+		return metaDataDao.findAllForTenant(tenant);
 	}
 
 	@PutMapping("/fileMetaDatas/{filename}/uuid/{uuid}")
@@ -58,11 +57,11 @@ public class MetaDataRestController
 									   @PathVariable String filename,
 			                           @PathVariable Long uuid) {
 		
-		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
-		Integer userId = JwtTokenUtil.getUserIdFromToken(token);
-		User user = userDao.findById(userId);
+    	String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+    	Integer tenantId = JwtTokenUtil.getTenantIdFromToken(token);
+    	Tenant tenant = tenantDao.findById(tenantId);
 		
-		FileMetaData metaData = metaDataDao.findByNameAndTenant(filename, user.getTenant());
+		FileMetaData metaData = metaDataDao.findByNameAndTenant(filename, tenant);
 		metaData.setActiveUUID(uuid);
 		metaDataDao.update(metaData);
 		return ResponseEntity.ok().build();

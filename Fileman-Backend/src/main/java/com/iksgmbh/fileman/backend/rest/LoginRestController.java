@@ -89,7 +89,7 @@ public class LoginRestController {
 			return ResponseEntity.ok(loginResponse);		
 		}
 
-		final String token = JwtTokenUtil.generateToken(user);
+		final String token = JwtTokenUtil.generateToken(user, loginRequest.getTenant());
 
 		loginResponse.setAuthToken(token);
 		loginResponse.setOk(true);

@@ -1,5 +1,6 @@
 package com.iksgmbh.fileman.backend;
 
+import com.iksgmbh.fileman.backend.Tenant;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
@@ -24,20 +25,25 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_GROUP")
 public class FileGroup implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1599725898772L;
+	private static final long serialVersionUID = 1600193156748L;
 
 	// ===============  instance fields  ===============
 
     @Column(name="ID", unique=true, columnDefinition="int")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    private Integer id;
 
     @NotNull(message="Value of mandatory attribute 'name' is not present.")
     @Size(min=2, max=64, message="Value of attribute 'name' is out of valid range (2-64)")
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 2 to 64.")
     @Column(name="NAME", unique=true, columnDefinition="varchar")
-	private String name;
+    private String name;
+
+    @JsonProperty(access = Access.WRITE_ONLY)
+    @ManyToOne
+    @JoinColumn(name="TENANT", columnDefinition="int")
+    private Tenant tenant;
 
 
 	// ===============  setter methods  ===============
@@ -52,6 +58,11 @@ public class FileGroup implements Serializable, Cloneable
 		this.name = name;
 	}
 
+	public void setTenant(final Tenant tenant)
+	{
+		this.tenant = tenant;
+	}
+
 	// ===============  getter methods  ===============
 
 	public Integer getId()
@@ -64,6 +75,11 @@ public class FileGroup implements Serializable, Cloneable
 		return name;
 	}
 
+	public Tenant getTenant()
+	{
+		return tenant;
+	}
+
 	// ===============  additional Javabean methods  ===============
 
 	@Override
@@ -71,7 +87,8 @@ public class FileGroup implements Serializable, Cloneable
 	{
 		return "FileGroup ["
 				+ "id = " + id + ", "
-				+ "name = " + name + ""
+				+ "name = " + name + ", "
+				+ "tenant = " + tenant + ""
 				+ "]";
 	}
 
@@ -104,6 +121,15 @@ public class FileGroup implements Serializable, Cloneable
 			if (! name.equals(other.name))
 				   return false;
 		}
+		if (tenant == null)
+		{
+			if (other.tenant != null)
+				return false;
+		} else
+		{
+			if (! tenant.equals(other.tenant))
+				   return false;
+		}
 		return true;
 	}
 
@@ -114,6 +140,7 @@ public class FileGroup implements Serializable, Cloneable
 
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((tenant == null) ? 0 : tenant.hashCode());
 
 		return result;
 	}
@@ -130,6 +157,7 @@ public class FileGroup implements Serializable, Cloneable
 
 		if (this.id != null) clone.id = new Integer(this.id);
 		if (this.name != null) clone.name = new String(name);
+		if (this.tenant != null) clone.tenant = (Tenant)this.tenant.clone();  // probably, here is need of manual adaptation
 
 		return clone;
 	}
@@ -143,6 +171,9 @@ public class FileGroup implements Serializable, Cloneable
             if(! otherFileGroup.getName().isEmpty()) {
            	 this.setName(otherFileGroup.getName());
             }
+       }
+        if (otherFileGroup.getTenant() != null) {
+            this.setTenant(otherFileGroup.getTenant());
        }
 	}
 }

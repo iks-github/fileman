@@ -20,17 +20,17 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @ApiModel(description = "Complete data on a hosted file")
 public class FileData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1599725898563L;
+	private static final long serialVersionUID = 1600193156557L;
 
 	// ===============  instance fields  ===============
 
     @NotNull(message="Value of mandatory attribute 'metaData' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-	private FileMetaData metaData;
+    private FileMetaData metaData;
 
     @NotNull(message="Value of mandatory attribute 'contentData' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-	private FileContentData contentData;
+    private FileContentData contentData;
 
 
 	// ===============  setter methods  ===============

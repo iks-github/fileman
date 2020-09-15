@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.FileGroup;
 import com.iksgmbh.fileman.backend.dao.FileGroupDao;
+import com.iksgmbh.fileman.backend.Tenant;
+import com.iksgmbh.fileman.backend.dao.TenantDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
@@ -28,6 +30,9 @@ public class FileGroupRestController
 	@Autowired
 	private FileGroupDao fileGroupDao;
 
+	@Autowired
+	private TenantDao tenantDao;
+
 	@GetMapping("/fileGroups")
 	public List<FileGroup> findAllFileGroups() {
 		return fileGroupDao.findAllFileGroups();
@@ -37,9 +42,11 @@ public class FileGroupRestController
     public FileGroup findFileGroupById(@RequestHeader("Authorization") String authHeader,
             @PathVariable Integer id) {
 
-		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		Integer tenantId = JwtTokenUtil.getTenantIdFromToken(token);
+		Tenant tenant = tenantDao.findById(tenantId);
 
-		FileGroup fileGroup = fileGroupDao.findById(id);
+		FileGroup fileGroup = fileGroupDao.findByIdAndTenant(id, tenant);
 		if (fileGroup == null) {
 			throw new ResourceNotFoundException("FileGroup '" + id +"' + not found.");
 		}
@@ -50,8 +57,11 @@ public class FileGroupRestController
 	public Integer createFileGroup(@RequestHeader("Authorization") String authHeader,
             @Valid @RequestBody FileGroup fileGroup) {
 
-		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		Integer tenantId = JwtTokenUtil.getTenantIdFromToken(token);
+		Tenant tenant = tenantDao.findById(tenantId);
 
+		fileGroup.setTenant(tenant);
 		return fileGroupDao.create(fileGroup).getId();
     }
 
@@ -59,9 +69,16 @@ public class FileGroupRestController
 	public void updateFileGroup(@RequestHeader("Authorization") String authHeader,
             @Valid @RequestBody FileGroup fileGroup) {
 
-		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		Integer tenantId = JwtTokenUtil.getTenantIdFromToken(token);
+		Tenant tenant = tenantDao.findById(tenantId);
 
-		boolean ok = fileGroupDao.update(fileGroup);
+		FileGroup toUpdate = fileGroupDao.findByIdAndTenant(fileGroup.getId(), tenant);
+		if (toUpdate == null) {
+			throw new ResourceNotFoundException("FileGroup '" + fileGroup +"' + not found.");
+		}
+		toUpdate.merge(fileGroup);
+		boolean ok = fileGroupDao.update(toUpdate);
 		if (! ok) {
 			throw new ResourceNotFoundException("FileGroup '" + fileGroup.getId() +"' + not found for update.");
 		}
@@ -71,9 +88,11 @@ public class FileGroupRestController
 	public ResponseEntity<?> deleteFileGroup(@RequestHeader("Authorization") String authHeader,
             @PathVariable Integer id) {
 
-		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		Integer tenantId = JwtTokenUtil.getTenantIdFromToken(token);
+		Tenant tenant = tenantDao.findById(tenantId);
 
-		FileGroup fileGroup = fileGroupDao.findById(id);
+		FileGroup fileGroup = fileGroupDao.findByIdAndTenant(id, tenant);
 		if (fileGroup == null) {
 			throw new ResourceNotFoundException("FileGroup '" + id +"' + not found.");
 		}

@@ -30,61 +30,61 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_META_DATA")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1600175697990L;
+	private static final long serialVersionUID = 1600193156671L;
 
 	// ===============  instance fields  ===============
 
     @Column(name="ID", unique=true, columnDefinition="int")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    private Integer id;
 
     @NotNull(message="Value of mandatory attribute 'name' is not present.")
     @Size(min=3, max=128, message="Value of attribute 'name' is out of valid range (3-128)")
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 3 to 128.")
     @Column(name="NAME", columnDefinition="varchar")
-	private String name;
+    private String name;
 
     @Size(max=1024, message="Value of attribute 'description' is larger than valid maximum (1024).")
     @ApiModelProperty(notes = "Valid maximum length is 1024.")
     @Column(name="DESCRIPTION", columnDefinition="varchar")
-	private String description;
+    private String description;
 
     @Column(name="ACTIVE_U_U_I_D", columnDefinition="bigint")
-	private Long activeUUID;
+    private Long activeUUID;
 
     @Transient
-	private Boolean immediatelyActive;
+    private Boolean immediatelyActive;
 
-	@ManyToMany
+    @ManyToMany
     @JoinTable(name="fileMetaData_fileGroup", joinColumns = { @JoinColumn(name = "fk_fileMetaData") }, inverseJoinColumns = { @JoinColumn(name = "fk_fileGroup") })
-	private Set<FileGroup> fileGroups;
+    private Set<FileGroup> fileGroups;
 
     @Size(max=16, message="Value of attribute 'techType' is larger than valid maximum (16).")
     @ApiModelProperty(notes = "Valid maximum length is 16.")
     @Column(name="TECH_TYPE", columnDefinition="varchar")
-	private String techType;
+    private String techType;
 
     @Column(name="TECH_VERSION", columnDefinition="number")
-	private Integer techVersion;
+    private Integer techVersion;
 
     @NotNull(message="Value of mandatory attribute 'creator' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="CREATOR", columnDefinition="varchar")
-	private String creator;
+    private String creator;
 
     @Column(name="CREATION_DATE", columnDefinition="datetime")
-	private Date creationDate;
+    private Date creationDate;
 
     @Column(name="SIZE", columnDefinition="bigint")
-	private Integer size;
+    private Integer size;
 
     @NotNull(message="Value of mandatory attribute 'tenant' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @JsonProperty(access = Access.WRITE_ONLY)
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name="TENANT", columnDefinition="int")
-	private Tenant tenant;
+    private Tenant tenant;
 
 
 	// ===============  setter methods  ===============

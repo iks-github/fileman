@@ -26,47 +26,47 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="USER")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1600096299973L;
+	private static final long serialVersionUID = 1600193156788L;
 
 	// ===============  instance fields  ===============
 
     @Column(name="ID", unique=true, columnDefinition="int")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    private Integer id;
 
     @NotNull(message="Value of mandatory attribute 'name' is not present.")
     @Size(min=2, max=64, message="Value of attribute 'name' is out of valid range (2-64)")
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 2 to 64.")
     @Column(name="NAME", unique=true, columnDefinition="varchar")
-	private String name;
+    private String name;
 
     @NotNull(message="Value of mandatory attribute 'role' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="ROLE", columnDefinition="varchar")
-	private String role;
+    private String role;
 
     @NotNull(message="Value of mandatory attribute 'tenants' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-	@ManyToMany
+    @ManyToMany
     @JoinTable(name="user_tenant", joinColumns = { @JoinColumn(name = "fk_user") }, inverseJoinColumns = { @JoinColumn(name = "fk_tenant") })
-	private Set<Tenant> tenants;
+    private Set<Tenant> tenants;
 
     @Size(min=1, max=60, message="Value of attribute 'password' is out of valid range (1-60)")
     @ApiModelProperty(notes = "Valid length ranges from 1 to 60.")
     @JsonProperty(access = Access.WRITE_ONLY)
     @Column(name="PASSWORD", columnDefinition="varchar")
-	private String password;
+    private String password;
 
     @Size(min=1, max=60, message="Value of attribute 'passwordRepetition' is out of valid range (1-60)")
     @ApiModelProperty(notes = "Valid length ranges from 1 to 60.")
     @JsonProperty(access = Access.WRITE_ONLY)
     @Transient
-	private String passwordRepetition;
+    private String passwordRepetition;
 
     @Column(name="AVATAR", columnDefinition="clob")
     @Lob
-	private String avatar;
+    private String avatar;
 
 
 	// ===============  setter methods  ===============

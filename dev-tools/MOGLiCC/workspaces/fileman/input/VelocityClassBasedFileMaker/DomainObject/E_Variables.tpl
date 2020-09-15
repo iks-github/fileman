@@ -77,7 +77,7 @@
 	#end
 	
 	#if ( $attributeDescriptor.doesHaveAnyMetaInfosWithName("dbRelation") )
-		'	@${attributeDescriptor.getMetaInfoValueFor("dbRelation")}
+		'    @${attributeDescriptor.getMetaInfoValueFor("dbRelation")}
 	#end
 	
 	#if ( $$classDescriptor.doesHaveMetaInfo("dbEntity", "true") )
@@ -128,7 +128,7 @@
 	#end
 
 		
-	'	private $javaType $attributeName;
+	'    private $javaType $attributeName;
 	'
 
 #end

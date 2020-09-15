@@ -17,21 +17,21 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
  */
 public class ExceptionMetaData implements Serializable
 {
-	private static final long serialVersionUID = 1599725898906L;
+	private static final long serialVersionUID = 1600193156882L;
 
 	// ===============  instance fields  ===============
 
     @NotNull(message="Value of mandatory attribute 'timestamp' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-	private Long timestamp;
+    private Long timestamp;
 
     @NotNull(message="Value of mandatory attribute 'message' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-	private String message;
+    private String message;
 
     @NotNull(message="Value of mandatory attribute 'details' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-	private String details;
+    private String details;
 
 
 	// ===============  setter methods  ===============

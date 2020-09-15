@@ -24,12 +24,12 @@ public class DbSchema
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="CREATION_DATE", columnDefinition="datetime")
     @Id
-	private Date creationDate;
+    private Date creationDate;
 
     @NotNull(message="Value of mandatory attribute 'sql' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="SQL", columnDefinition="varchar")
-	private String sql;
+    private String sql;
 
 
 	// ===============  setter methods  ===============

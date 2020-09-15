@@ -98,7 +98,7 @@ public class ${ClassName}BasicDao
 			'                        criteriaBuilder.equal(${className}.get("${attributeDescriptor.name}"), ${attributeDescriptor.name}),
 			'                        criteriaBuilder.equal(${className}.get("$otherAttributeName"), $otherAttributeName)));
 			'        return entityManager.createQuery(criteria).getResultList();
-	}
+			'	}
 			'
 		#end
 		
@@ -114,7 +114,7 @@ public class ${ClassName}BasicDao
 			'                        criteriaBuilder.equal(${className}.get("${attributeDescriptor.name}"), ${attributeDescriptor.name}),
 			'                        criteriaBuilder.equal(${className}.get("$otherAttributeName"), $otherAttributeName)));
 			'        return entityManager.createQuery(criteria).getSingleResult();
-	}
+			'	}
 			'
 		#end
 	#end

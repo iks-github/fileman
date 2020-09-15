@@ -43,7 +43,7 @@ public class FileMetaDataBasicDao
                         criteriaBuilder.equal(fileMetaData.get("name"), name),
                         criteriaBuilder.equal(fileMetaData.get("tenant"), tenant)));
         return entityManager.createQuery(criteria).getSingleResult();
-}
+	}
 
 	public List<FileMetaData> findAllForTenant(Tenant toSearch) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

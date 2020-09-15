@@ -54,7 +54,7 @@
 	'                      id="${attributeName}"
 	'                      class="form-Control"
 	'                      formControlName="${attributeName}Control"
-	'                      [placeholder]="'Please select'"
+	'                      [placeholder]="'Click to select'"
 	'                      [data]="${attributeName}"
 	'                      (onSelect)="${attributeName}C.markAsTouched()"
 	'                      (onSelectAll)="${attributeName}C.markAsTouched()"

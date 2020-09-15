@@ -56,6 +56,25 @@ export const FilemanTooltipOptions: TooltipOptions = {
   'tooltip-class': 'global-tooltip-style'
 }
 
+export const MultiselectDropdownSettings = {
+  singleSelection: false,
+  idField: 'id',
+  textField: 'name',
+  enableCheckAll: true,
+  selectAllText: 'Select all',
+  unSelectAllText: 'Unselect all',
+  allowSearchFilter: true,
+  limitSelection: -1,
+  clearSearchFilter: true,
+  maxHeight: 197,
+  itemsShowLimit: 3,
+  searchPlaceholderText: 'Search',
+  noDataAvailablePlaceholderText: 'No data available',
+  closeDropDownOnSelection: false,
+  showSelectedItemsAtTop: false,
+  defaultOpen: false
+}
+
 export class FilemanConstants
 {
   static VERSION = '1.1.0';

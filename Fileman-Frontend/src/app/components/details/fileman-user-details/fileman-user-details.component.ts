@@ -18,6 +18,7 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors} 
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
 import { User } from 'src/app/common/domainobjects/gen/User';
 import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
@@ -25,6 +26,7 @@ import { UserService } from 'src/app/services/fileman-user-service.service';
 import { TenantService } from 'src/app/services/fileman-tenant-service.service';
 import { FilemanAvatarService } from 'src/app/services/fileman-avatar-service.service';
 import { Utils } from 'src/app/common/Utils';
+import { MultiselectDropdownSettings } from 'src/app/common/fileman-constants';
 
 @Component({
   selector: 'fileman-user-details',
@@ -45,25 +47,7 @@ export class UserDetailsComponent implements OnInit {
   newMode: boolean;
   toEdit: User;
   tenants = [] as Tenant[];
-
-  tenantsMultiselectDropdownSettings = {
-    singleSelection: false,
-    idField: 'id',
-    textField: 'name',
-    enableCheckAll: true,
-    selectAllText: 'Select all',
-    unSelectAllText: 'Unselect all',
-    allowSearchFilter: true,
-    limitSelection: -1,
-    clearSearchFilter: true,
-    maxHeight: 197,
-    itemsShowLimit: 3,
-    searchPlaceholderText: 'Search',
-    noDataAvailablePlaceholderText: 'No data available',
-    closeDropDownOnSelection: false,
-    showSelectedItemsAtTop: false,
-    defaultOpen: false
-  }
+  tenantsMultiselectDropdownSettings = MultiselectDropdownSettings;
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,

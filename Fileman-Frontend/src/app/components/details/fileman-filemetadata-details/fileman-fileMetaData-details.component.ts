@@ -29,7 +29,7 @@ import { FilemanMetadataService } from 'src/app/services/fileman-metadata-servic
 import { FileGroupService } from 'src/app/services/fileman-filegroup-service.service';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 import { Utils } from 'src/app/common/Utils';
-import { UserRole } from 'src/app/common/fileman-constants';
+import { UserRole, MultiselectDropdownSettings } from 'src/app/common/fileman-constants';
 
 @Component({
   selector: 'fileman-file-details',
@@ -51,25 +51,7 @@ export class FilemetadataDetailsComponent implements OnInit {
   techTypeMismatch = false;
   toEdit: FileMetaData;
   fileGroups = [] as FileGroup[];
-
-  fileGroupsMultiselectDropdownSettings = {
-    singleSelection: false,
-    idField: 'id',
-    textField: 'name',
-    enableCheckAll: true,
-    selectAllText: 'Select all',
-    unSelectAllText: 'Unselect all',
-    allowSearchFilter: true,
-    limitSelection: -1,
-    clearSearchFilter: true,
-    maxHeight: 197,
-    itemsShowLimit: 3,
-    searchPlaceholderText: 'Search',
-    noDataAvailablePlaceholderText: 'No data available',
-    closeDropDownOnSelection: false,
-    showSelectedItemsAtTop: false,
-    defaultOpen: false
-  }
+  fileGroupsMultiselectDropdownSettings = MultiselectDropdownSettings;
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,

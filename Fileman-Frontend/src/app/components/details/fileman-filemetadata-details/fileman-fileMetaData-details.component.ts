@@ -16,15 +16,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { FileData } from 'src/app/common/domainobjects/gen/FileData';
+import { FileGroup } from 'src/app/common/domainobjects/gen/FileGroup';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { FileContentData } from 'src/app/common/domainobjects/gen/FileContentData';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
+import { FileGroupService } from 'src/app/services/fileman-filegroup-service.service';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { Utils } from 'src/app/common/Utils';
 import { UserRole } from 'src/app/common/fileman-constants';
 
@@ -47,11 +50,32 @@ export class FilemetadataDetailsComponent implements OnInit {
   newFileMode: boolean;
   techTypeMismatch = false;
   toEdit: FileMetaData;
+  fileGroups = [] as FileGroup[];
+
+  fileGroupsMultiselectDropdownSettings = {
+    singleSelection: false,
+    idField: 'id',
+    textField: 'name',
+    enableCheckAll: true,
+    selectAllText: 'Select all',
+    unSelectAllText: 'Unselect all',
+    allowSearchFilter: true,
+    limitSelection: -1,
+    clearSearchFilter: true,
+    maxHeight: 197,
+    itemsShowLimit: 3,
+    searchPlaceholderText: 'Search',
+    noDataAvailablePlaceholderText: 'No data available',
+    closeDropDownOnSelection: false,
+    showSelectedItemsAtTop: false,
+    defaultOpen: false
+  }
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
               private fileService: FilemanFileService,
               private metadataService: FilemanMetadataService,
+              private fileGroupService: FileGroupService,
               private previewService: FilemanPreviewService) {
       this.form = this.createFormGroup();
       this.reader = new FileReader();
@@ -75,6 +99,17 @@ export class FilemetadataDetailsComponent implements OnInit {
     } else {
       this.nameC.enable();
     }
+    this.fileGroupService.getAllFileGroups()
+        .subscribe(responseData => {this.extractFileGroups(responseData)});
+  }
+
+  extractFileGroups(responseData) {
+    const fileGroups = [] as FileGroup[];
+    responseData.forEach(element => {
+      const dataset = new FileGroup(element);
+      fileGroups.push(dataset);
+    });
+    this.fileGroups = Utils.sortList(fileGroups);
   }
 
   getBorder() {
@@ -230,6 +265,8 @@ export class FilemetadataDetailsComponent implements OnInit {
               ]),
         immediatelyActiveControl: new FormControl('true', [
               ]),
+        fileGroupsControl: new FormControl('', [
+              ]),
     });
   }
 
@@ -245,12 +282,17 @@ export class FilemetadataDetailsComponent implements OnInit {
     return this.form.get('inputFieldControl.detailsForm.immediatelyActiveControl');
   }
 
+  get fileGroupsC() {
+    return this.form.get('inputFieldControl.detailsForm.fileGroupsControl');
+  }
+
   private getFileMetaData() {
     const fileMetaData = new FileMetaData(null);
 
     fileMetaData.setName(this.nameC.value);
     fileMetaData.setDescription(this.descriptionC.value);
     fileMetaData.setImmediatelyActive(this.immediatelyActiveC.value);
+    fileMetaData.setFileGroups(this.fileGroupsC.value);
 
     return fileMetaData;
   }
@@ -259,6 +301,7 @@ export class FilemetadataDetailsComponent implements OnInit {
     this.nameC.setValue(fileMetaData.getName());
     this.descriptionC.setValue(fileMetaData.getDescription());
     this.immediatelyActiveC.setValue(fileMetaData.getImmediatelyActive());
+    this.fileGroupsC.setValue(fileMetaData.getFileGroups());
   }
   // The form control block above is generated - do not modify manually!
 

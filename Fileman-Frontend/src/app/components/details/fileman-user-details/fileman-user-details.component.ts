@@ -45,7 +45,6 @@ export class UserDetailsComponent implements OnInit {
   newMode: boolean;
   toEdit: User;
   tenants = [] as Tenant[];
-  tenantsMap = new Map<string, Tenant>();
 
   tenantsMultiselectDropdownSettings = {
     singleSelection: false,
@@ -105,11 +104,6 @@ export class UserDetailsComponent implements OnInit {
     responseData.forEach(element => {
       const dataset = new Tenant(element);
       tenants.push(dataset);
-      console.log(dataset.getId());
-      console.log(dataset);
-      // need conversion from number to string, as
-      // TypeScript maps do not work with numberic keys
-      this.tenantsMap.set(''+dataset.getId(), dataset);
     });
     this.tenants = Utils.sortList(tenants);
   }

@@ -16,7 +16,7 @@
                     <br>
                     <input id="name" type="text" class="form-Control" formControlName="nameControl"/>
                 </td>
-				 <td class="space"></td>
+                <td class="space"></td>
                 <td>
                     <label for="role">Role</label>
                     <br>
@@ -41,11 +41,13 @@
                       [placeholder]="'Please select'"
                       [data]="tenants"
                       (onSelect)="tenantsC.markAsTouched()"
+                      (onSelectAll)="tenantsC.markAsTouched()"
                       (onDeSelect)="tenantsC.markAsTouched()"
+                      (onDeSelectAll)="tenantsC.markAsTouched()"
                       [settings]="tenantsMultiselectDropdownSettings">
                     </ng-multiselect-dropdown>
                 </td>
-				 <td class="space"></td>
+                <td class="space"></td>
                 <td>
                     <label for="password">Password</label>
                     <br>
@@ -61,7 +63,7 @@
                     <br>
                     <input id="passwordRepetition" type="password" class="form-Control" formControlName="passwordRepetitionControl"/>
                 </td>
-				 <td class="space"></td>
+                <td class="space"></td>
                 <td>
                     <label for="avatar">Avatar</label>
                     <br>

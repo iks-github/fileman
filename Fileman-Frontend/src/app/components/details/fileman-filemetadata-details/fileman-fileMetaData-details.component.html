@@ -29,7 +29,7 @@
                     <br>
                     <input id="name" type="text" class="form-Control" formControlName="nameControl"/>
                 </td>
-				 <td class="space"></td>
+                <td class="space"></td>
                 <td>
                     <label for="description">Description</label>
                     <br>
@@ -39,13 +39,33 @@
 
             <tr>&nbsp;</tr>
 
-            <tr *ngIf="!newFileMode">
-                <td>
+            <tr>
+            	 <td *ngIf="!newFileMode">
                     <label for="immediately Active">Immediately Active</label>
                     <br>
                     <input id="immediatelyActive" type="checkbox" class="form-Control" formControlName="immediatelyActiveControl"/>
                 </td>
+            	 <td *ngIf="!newFileMode" class="space"></td>
+                <td>
+                    <label for="fileGroups">FileGroups</label>
+                    <br>
+                    <ng-multiselect-dropdown
+                      id="fileGroups"
+                      class="form-Control"
+                      formControlName="fileGroupsControl"
+                      [placeholder]="'Please select'"
+                      [data]="fileGroups"
+                      (onSelect)="fileGroupsC.markAsTouched()"
+                      (onSelectAll)="fileGroupsC.markAsTouched()"
+                      (onDeSelect)="fileGroupsC.markAsTouched()"
+                      (onDeSelectAll)="fileGroupsC.markAsTouched()"
+                      [settings]="fileGroupsMultiselectDropdownSettings">
+                    </ng-multiselect-dropdown>
+                </td>
             </tr>
+
+            <tr>&nbsp;</tr>
+
         </table>
         <!-- The table section above is generated: Do not modify manually! -->
 

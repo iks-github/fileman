@@ -125,6 +125,14 @@ class <<DomainPath>>.FileMetaData
   metainfo frontendClass true
   metainfo dbEntity true
 
+  attribute id
+    metainfo dbType int
+    metainfo JavaType Integer
+    metainfo ExampleData 1
+    metainfo unique true
+    metainfo id true
+    metainfo generatedValue true
+
   attribute name
     metainfo dbType varchar
     metainfo JavaType String
@@ -133,7 +141,6 @@ class <<DomainPath>>.FileMetaData
     metainfo MinLength 3
     metainfo MaxLength 128
     metainfo unique for-client
-    metainfo id true
     metainfo omitGeneralFindMethod true
     metainfo withFindMethodForAttribute tenant
     metainfo guiType TextField
@@ -158,6 +165,13 @@ class <<DomainPath>>.FileMetaData
     metainfo defaultValue true
     metainfo ExampleData true
     metainfo hideFromDB true
+    
+  attribute fileGroups
+    metainfo dbType int
+    metainfo JavaType java.util.Set<FileGroup>
+    metainfo guiType MultiSelectBox
+    metainfo dbRelation ManyToMany
+    metainfo joinTable fileGroup
 
   attribute techType
     metainfo dbType varchar
@@ -190,7 +204,6 @@ class <<DomainPath>>.FileMetaData
     metainfo dbType int
     metainfo JavaType Tenant
     metainfo Mandatory true
-    metainfo id true
     metainfo omitGeneralFindMethod true
     metainfo dbRelation ManyToOne
     metainfo isForeignKey true

@@ -57,7 +57,9 @@
 	'                      [placeholder]="'Please select'"
 	'                      [data]="${attributeName}"
 	'                      (onSelect)="${attributeName}C.markAsTouched()"
+	'                      (onSelectAll)="${attributeName}C.markAsTouched()"
 	'                      (onDeSelect)="${attributeName}C.markAsTouched()"
+	'                      (onDeSelectAll)="${attributeName}C.markAsTouched()"
 	'                      [settings]="${attributeName}MultiselectDropdownSettings">
 	'                    </ng-multiselect-dropdown>
 

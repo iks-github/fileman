@@ -1,5 +1,6 @@
 package com.iksgmbh.fileman.backend;
 
+import com.iksgmbh.fileman.backend.FileGroup;
 import com.iksgmbh.fileman.backend.Tenant;
 import java.io.Serializable;
 import java.lang.Boolean;
@@ -7,6 +8,7 @@ import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Date;
+import java.util.Set;
 
 import javax.validation.constraints.*;
 import javax.persistence.*;
@@ -28,15 +30,19 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_META_DATA")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1599725898692L;
+	private static final long serialVersionUID = 1600175697990L;
 
 	// ===============  instance fields  ===============
+
+    @Column(name="ID", unique=true, columnDefinition="int")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
     @NotNull(message="Value of mandatory attribute 'name' is not present.")
     @Size(min=3, max=128, message="Value of attribute 'name' is out of valid range (3-128)")
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 3 to 128.")
     @Column(name="NAME", columnDefinition="varchar")
-    @Id
 	private String name;
 
     @Size(max=1024, message="Value of attribute 'description' is larger than valid maximum (1024).")
@@ -49,6 +55,10 @@ public class FileMetaData implements Serializable, Cloneable
 
     @Transient
 	private Boolean immediatelyActive;
+
+	@ManyToMany
+    @JoinTable(name="fileMetaData_fileGroup", joinColumns = { @JoinColumn(name = "fk_fileMetaData") }, inverseJoinColumns = { @JoinColumn(name = "fk_fileGroup") })
+	private Set<FileGroup> fileGroups;
 
     @Size(max=16, message="Value of attribute 'techType' is larger than valid maximum (16).")
     @ApiModelProperty(notes = "Valid maximum length is 16.")
@@ -74,11 +84,15 @@ public class FileMetaData implements Serializable, Cloneable
     @JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
     @JoinColumn(name="TENANT", columnDefinition="int")
-    @Id
 	private Tenant tenant;
 
 
 	// ===============  setter methods  ===============
+
+	public void setId(final Integer id)
+	{
+		this.id = id;
+	}
 
 	public void setName(final String name)
 	{
@@ -98,6 +112,11 @@ public class FileMetaData implements Serializable, Cloneable
 	public void setImmediatelyActive(final Boolean immediatelyActive)
 	{
 		this.immediatelyActive = immediatelyActive;
+	}
+
+	public void setFileGroups(final Set<FileGroup> fileGroups)
+	{
+		this.fileGroups = fileGroups;
 	}
 
 	public void setTechType(final String techType)
@@ -132,6 +151,11 @@ public class FileMetaData implements Serializable, Cloneable
 
 	// ===============  getter methods  ===============
 
+	public Integer getId()
+	{
+		return id;
+	}
+
 	public String getName()
 	{
 		return name;
@@ -150,6 +174,11 @@ public class FileMetaData implements Serializable, Cloneable
 	public Boolean getImmediatelyActive()
 	{
 		return immediatelyActive;
+	}
+
+	public Set<FileGroup> getFileGroups()
+	{
+		return fileGroups;
 	}
 
 	public String getTechType()
@@ -188,10 +217,12 @@ public class FileMetaData implements Serializable, Cloneable
 	public String toString()
 	{
 		return "FileMetaData ["
+				+ "id = " + id + ", "
 				+ "name = " + name + ", "
 				+ "description = " + description + ", "
 				+ "activeUUID = " + activeUUID + ", "
 				+ "immediatelyActive = " + immediatelyActive + ", "
+				+ "fileGroups = " + fileGroups + ", "
 				+ "techType = " + techType + ", "
 				+ "techVersion = " + techVersion + ", "
 				+ "creator = " + creator + ", "
@@ -212,6 +243,15 @@ public class FileMetaData implements Serializable, Cloneable
 
 		final FileMetaData other = (FileMetaData) obj;
 
+		if (id == null)
+		{
+			if (other.id != null)
+				return false;
+		} else
+		{
+			if (! id.equals(other.id))
+				   return false;
+		}
 		if (name == null)
 		{
 			if (other.name != null)
@@ -246,6 +286,15 @@ public class FileMetaData implements Serializable, Cloneable
 		} else
 		{
 			if (! immediatelyActive.equals(other.immediatelyActive))
+				   return false;
+		}
+		if (fileGroups == null)
+		{
+			if (other.fileGroups != null)
+				return false;
+		} else
+		{
+			if (! fileGroups.equals(other.fileGroups))
 				   return false;
 		}
 		if (techType == null)
@@ -310,10 +359,12 @@ public class FileMetaData implements Serializable, Cloneable
 		final int prime = 31;
 		int result = 1;
 
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((activeUUID == null) ? 0 : activeUUID.hashCode());
 		result = prime * result + ((immediatelyActive == null) ? 0 : immediatelyActive.hashCode());
+		result = prime * result + ((fileGroups == null) ? 0 : fileGroups.hashCode());
 		result = prime * result + ((techType == null) ? 0 : techType.hashCode());
 		result = prime * result + ((techVersion == null) ? 0 : techVersion.hashCode());
 		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
@@ -334,10 +385,19 @@ public class FileMetaData implements Serializable, Cloneable
 			throw new AssertionError("Unexpected error cloning " + this);
 		}
 
+		if (this.id != null) clone.id = new Integer(this.id);
 		if (this.name != null) clone.name = new String(name);
 		if (this.description != null) clone.description = new String(description);
 		if (this.activeUUID != null) clone.activeUUID = new Long(this.activeUUID);
 		if (this.immediatelyActive != null) clone.immediatelyActive = new Boolean(this.immediatelyActive);
+
+		if ( this.fileGroups != null )
+		{
+			final  java.util.Set<FileGroup> listFileGroup = new java.util.HashSet<FileGroup>();
+			for (final FileGroup element : fileGroups) {
+				listFileGroup.add(element);
+			}
+		}
 		if (this.techType != null) clone.techType = new String(techType);
 		if (this.techVersion != null) clone.techVersion = new Integer(this.techVersion);
 		if (this.creator != null) clone.creator = new String(creator);
@@ -350,6 +410,9 @@ public class FileMetaData implements Serializable, Cloneable
 
 	public void merge(FileMetaData otherFileMetaData)
 	{
+        if (otherFileMetaData.getId() != null) {
+            this.setId(otherFileMetaData.getId());
+       }
         if (otherFileMetaData.getName() != null) {
             if(! otherFileMetaData.getName().isEmpty()) {
            	 this.setName(otherFileMetaData.getName());
@@ -365,6 +428,9 @@ public class FileMetaData implements Serializable, Cloneable
        }
         if (otherFileMetaData.getImmediatelyActive() != null) {
             this.setImmediatelyActive(otherFileMetaData.getImmediatelyActive());
+       }
+        if (otherFileMetaData.getFileGroups() != null) {
+            this.setFileGroups(otherFileMetaData.getFileGroups());
        }
         if (otherFileMetaData.getTechType() != null) {
             if(! otherFileMetaData.getTechType().isEmpty()) {

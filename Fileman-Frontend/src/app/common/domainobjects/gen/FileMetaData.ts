@@ -1,3 +1,4 @@
+import { FileGroup } from 'src/app/common/domainobjects/gen/FileGroup';
 
 export class FileMetaData
 {
@@ -5,6 +6,7 @@ export class FileMetaData
     description: string;
     activeUUID: number;
     immediatelyActive: boolean;
+    fileGroups: Set<FileGroup>;
     techType: string;
     techVersion: number;
     creator: string;
@@ -17,6 +19,7 @@ export class FileMetaData
             this.description = untypedFileMetaData.description;
             this.activeUUID = untypedFileMetaData.activeUUID;
             this.immediatelyActive = untypedFileMetaData.immediatelyActive;
+            this.fileGroups = untypedFileMetaData.fileGroups;
             this.techType = untypedFileMetaData.techType;
             this.techVersion = untypedFileMetaData.techVersion;
             this.creator = untypedFileMetaData.creator;
@@ -32,6 +35,7 @@ export class FileMetaData
            'description',
            'activeUUID',
            'immediatelyActive',
+           'fileGroups',
            'techType',
            'techVersion',
            'creator',
@@ -54,6 +58,10 @@ export class FileMetaData
 
     getImmediatelyActive() {
         return this.immediatelyActive;
+    }
+
+    getFileGroups() {
+        return this.fileGroups;
     }
 
     getTechType() {
@@ -93,6 +101,10 @@ export class FileMetaData
         this.immediatelyActive = immediatelyActive;
     }
 
+    setFileGroups(fileGroups: Set<FileGroup>) {
+      this.fileGroups = fileGroups;
+    }
+
     setTechType(techType: string) {
         this.techType = techType;
     }
@@ -122,6 +134,7 @@ export class FileMetaData
         if (this.description !== obj.description) { return false; }
         if (this.activeUUID !== obj.activeUUID) { return false; }
         if (this.immediatelyActive !== obj.immediatelyActive) { return false; }
+        if (this.fileGroups !== obj.fileGroups) { return false; }
         if (this.techType !== obj.techType) { return false; }
         if (this.techVersion !== obj.techVersion) { return false; }
         if (this.creator !== obj.creator) { return false; }
@@ -138,6 +151,7 @@ export class FileMetaData
            'Description: ' + this.description + '\n' +
            'ActiveUUID: ' + this.activeUUID + '\n' +
            'ImmediatelyActive: ' + this.immediatelyActive + '\n' +
+           'FileGroups: ' + this.fileGroups + '\n' +
            'TechType: ' + this.techType + '\n' +
            'TechVersion: ' + this.techVersion + '\n' +
            'Creator: ' + this.creator + '\n' +

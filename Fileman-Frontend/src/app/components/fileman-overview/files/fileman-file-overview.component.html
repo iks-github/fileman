@@ -5,9 +5,9 @@
   [data]="fileGroups"
   [(ngModel)]="selectedFileGroups"
   [settings]="fileGroupsMultiselectDropdownSettings"
-  (onSelect)="searchFor(searchString)"
+  (onSelect)="onFileGroupFilterSelect()"
   (onSelectAll)="onFileGroupFilterSelectAll()"
-  (onDeSelect)="searchFor(searchString)"
+  (onDeSelect)="onFileGroupFilterDeSelect()"
   (onDeSelectAll)="onFileGroupFilterDeSelectAll()">
 </ng-multiselect-dropdown>
 <br>

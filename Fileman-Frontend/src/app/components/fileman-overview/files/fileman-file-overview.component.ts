@@ -95,6 +95,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
       this.searchService.getSearchStringChangeNotifier().subscribe(
         (searchString: string) => this.searchFor(searchString)
       );
+    this.selectedFileGroups = this.searchService.getSelectedFileGroups();
     this.filesMetaDataService.getOverviewData()
         .subscribe(responseData => {this.extractFiles(responseData)});
     this.fileGroupService.getAllFileGroups()
@@ -237,14 +238,26 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     return filterMatches;
   }
 
+  onFileGroupFilterSelect() {
+    this.searchFor(this.searchString);
+    this.searchService.setSelectedFileGroups(this.selectedFileGroups);
+  }
+
   onFileGroupFilterSelectAll() {
     this.selectedFileGroups = this.fileGroups;
     this.searchFor(this.searchString);
+    this.searchService.setSelectedFileGroups(this.selectedFileGroups);
+  }
+
+  onFileGroupFilterDeSelect() {
+    this.searchFor(this.searchString);
+    this.searchService.setSelectedFileGroups(this.selectedFileGroups);
   }
 
   onFileGroupFilterDeSelectAll() {
     this.selectedFileGroups = [];
     this.searchFor(this.searchString);
+    this.searchService.setSelectedFileGroups(this.selectedFileGroups);
   }
 
   showHistory(file: FileMetaData) {

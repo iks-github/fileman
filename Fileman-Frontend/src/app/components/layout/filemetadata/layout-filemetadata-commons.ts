@@ -19,6 +19,8 @@ import { Icon } from 'src/app/common/fileman-constants';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { LayoutCommons } from '../layout-commons';
 import { Utils } from 'src/app/common/Utils';
+import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
+import { FileGroup } from 'src/app/common/domainobjects/gen/FileGroup';
 
 export class LayoutFilemetadataCommons extends LayoutCommons {
   @Input() viewedFiles;
@@ -83,6 +85,8 @@ export class LayoutFilemetadataCommons extends LayoutCommons {
       this.buildHtmlTooltipContentRow('Description', file.description) +
       this.buildHtmlTooltipContentRow('ActiveUUID', ''+file.activeUUID) +
       this.buildHtmlTooltipContentRow('ImmediatelyActive', ''+file.immediatelyActive) +
+      this.buildHtmlTooltipContentRow('File Groups',
+        this.formatFileGroups(file.fileGroups)) +
       this.buildHtmlTooltipContentRow('TechType', file.techType) +
       this.buildHtmlTooltipContentRow('TechVersion', ''+file.techVersion) +
       this.buildHtmlTooltipContentRow('Creator', file.creator) +
@@ -90,5 +94,18 @@ export class LayoutFilemetadataCommons extends LayoutCommons {
         "&#8203;" // empty char to prevent date underlining
         + Utils.getFormattedDateString(file.creationDate)) +
       this.buildHtmlTooltipContentRow('Size', ''+file.size)+'</div>'
+  }
+
+  formatFileGroups(fileGroups: Set<FileGroup>): string {
+    let fileGroupString: string = '';
+
+    fileGroups.forEach((fileGroup: FileGroup) => {
+      if (fileGroupString.length > 0) {
+        fileGroupString += ', ';
+      }
+      fileGroupString += fileGroup.name;
+    });
+
+    return fileGroupString;
   }
 }

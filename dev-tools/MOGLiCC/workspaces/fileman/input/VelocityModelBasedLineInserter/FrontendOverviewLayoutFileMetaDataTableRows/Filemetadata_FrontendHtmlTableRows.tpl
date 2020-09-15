@@ -21,10 +21,12 @@
 		'        <td>&#8203;{{formatCreationDate(file.creationDate)}}</td>
 	#elseif ( ! $attributeDescriptor.doesHaveMetaInfo("hideFromClientOverview", "true"))
 		#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
-		'        <td>{{file.${attributeName}}}</td>
-	
+		#if ( $attributeDescriptor.doesHaveMetaInfo("guiType", "MultiSelectBox"))
+			'        <td>{{format${TemplateStringUtility.firstToUpperCase($attributeName)}(file.${attributeName})}}</td>
+		#else
+			'        <td>{{file.${attributeName}}}</td>
+		#end
 	#end
-		
 #end
 
 '

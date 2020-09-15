@@ -27,12 +27,14 @@ import { FavouriteSetting } from 'src/app/common/domainobjects/gen/FavouriteSett
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { Utils } from 'src/app/common/Utils';
-import { Layout, UserRole } from 'src/app/common/fileman-constants';
+import { Layout, UserRole, MultiselectDropdownSettings } from 'src/app/common/fileman-constants';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 import { FilemanUserPreferencesService } from 'src/app/services/fileman-user-preferences-service.service';
 import { UserPreferences } from 'src/app/common/domainobjects/gen/UserPreferences';
 import { FilemanSearchService } from 'src/app/services/fileman-search-service.service';
 import { FilemanReloadService } from 'src/app/services/fileman-reload-service.service';
+import { FileGroup } from 'src/app/common/domainobjects/gen/FileGroup';
+import { FileGroupService } from 'src/app/services/fileman-filegroup-service.service';
 
 @Component({
   selector: 'fileman-file-overview',
@@ -60,10 +62,14 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   fileMetaAttributeNames;
   selectedFile;
   viewFiles: boolean = true;
+  fileGroups = [] as FileGroup[];
+  selectedFileGroups = [] as FileGroup[];
+  fileGroupsMultiselectDropdownSettings = MultiselectDropdownSettings;
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
               private filesMetaDataService: FilemanMetadataService,
+              private fileGroupService: FileGroupService,
               private favouriteSettingService: FilemanFavouriteSettingsService,
               private fileService: FilemanFileService,
               private previewService: FilemanPreviewService,
@@ -91,6 +97,8 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
       );
     this.filesMetaDataService.getOverviewData()
         .subscribe(responseData => {this.extractFiles(responseData)});
+    this.fileGroupService.getAllFileGroups()
+        .subscribe(responseData => {this.extractFileGroups(responseData)});
     this.readOnly = this.authService.getCurrentUserRole() === UserRole.Reader;
     this.favouriteSettingService.getAllFavouriteSettings(this.currentUserName)
                                 .subscribe(favouriteSettingsResponse => {
@@ -133,6 +141,15 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     this.filesMetaDataService.setFileMetaDataCache(this.allFilesMap);
     this.updateFilePreviews();
     this.searchFor(this.searchString);
+  }
+
+  extractFileGroups(responseData) {
+    const fileGroups = [] as FileGroup[];
+    responseData.forEach(element => {
+      const dataset = new FileGroup(element);
+      fileGroups.push(dataset);
+    });
+    this.fileGroups = Utils.sortList(fileGroups);
   }
 
   trackFiles(index, file) {
@@ -193,18 +210,41 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     const fileList = [];
 
     this.allFilesMap.forEach(file => {
-      if (file.getName().indexOf(searchString) !== -1) {
-        if (this.userPreferences.favouriteFilterActive) {
-          if (this.isFileFavourite(file.getName())) {
-            fileList.push(file);
-          }
-        } else {
-            fileList.push(file);
-        }
+      if (file.getName().indexOf(searchString) !== -1
+          && (!this.userPreferences.favouriteFilterActive || this.isFileFavourite(file.getName()))
+          && this.isFileGroupFilterMatchingForFile(file)) {
+        fileList.push(file);
       }
     });
 
     this.viewedFiles = fileList;
+  }
+
+  private isFileGroupFilterMatchingForFile(file: FileMetaData): boolean {
+    let filterMatches: boolean = true;
+    for (var selectedFileGroup of this.selectedFileGroups) {
+      filterMatches = false;
+      for (var fileGroup of file.getFileGroups()) {
+        if (fileGroup.id == selectedFileGroup.id) {
+          filterMatches = true;
+          break;
+        }
+      }
+      if (!filterMatches) {
+        break;
+      }
+    }
+    return filterMatches;
+  }
+
+  onFileGroupFilterSelectAll() {
+    this.selectedFileGroups = this.fileGroups;
+    this.searchFor(this.searchString);
+  }
+
+  onFileGroupFilterDeSelectAll() {
+    this.selectedFileGroups = [];
+    this.searchFor(this.searchString);
   }
 
   showHistory(file: FileMetaData) {

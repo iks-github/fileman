@@ -1,5 +1,17 @@
 <hr style="background: blue">
 
+<ng-multiselect-dropdown
+  [placeholder]="'Select file groups for filtering'"
+  [data]="fileGroups"
+  [(ngModel)]="selectedFileGroups"
+  [settings]="fileGroupsMultiselectDropdownSettings"
+  (onSelect)="searchFor(searchString)"
+  (onSelectAll)="onFileGroupFilterSelectAll()"
+  (onDeSelect)="searchFor(searchString)"
+  (onDeSelectAll)="onFileGroupFilterDeSelectAll()">
+</ng-multiselect-dropdown>
+<br>
+
 <h5>Hosted Files:</h5>
 <div *ngIf="allFilesMap.size == 0">
     <i>None.</i>

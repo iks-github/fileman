@@ -77,7 +77,7 @@ public class TenantRestController
 		if (tenant == null) {
 			throw new ResourceNotFoundException("Tenant '" + id +"' + not found.");
 		}
-       tenantDao.delete(tenant);
-       return ResponseEntity.ok().build();
+		tenantDao.delete(tenant);
+		return ResponseEntity.ok().build();
 	}
 }

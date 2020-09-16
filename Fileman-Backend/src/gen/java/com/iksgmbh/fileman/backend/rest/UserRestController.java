@@ -77,7 +77,7 @@ public class UserRestController
 		if (user == null) {
 			throw new ResourceNotFoundException("User '" + id +"' + not found.");
 		}
-       userDao.delete(user);
-       return ResponseEntity.ok().build();
+		userDao.delete(user);
+		return ResponseEntity.ok().build();
 	}
 }

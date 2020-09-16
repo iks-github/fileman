@@ -34,8 +34,12 @@ public class FileGroupRestController
 	private TenantDao tenantDao;
 
 	@GetMapping("/fileGroups")
-	public List<FileGroup> findAllFileGroups() {
-		return fileGroupDao.findAllFileGroups();
+	public List<FileGroup> findAllFileGroups(@RequestHeader("Authorization") String authHeader) {
+		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+		Integer tenantId = JwtTokenUtil.getTenantIdFromToken(token);
+		Tenant tenant = tenantDao.findById(tenantId);
+
+		return fileGroupDao.findAllForTenant(tenant);
 	}
 
     @GetMapping("/fileGroups/{id}")
@@ -96,7 +100,7 @@ public class FileGroupRestController
 		if (fileGroup == null) {
 			throw new ResourceNotFoundException("FileGroup '" + id +"' + not found.");
 		}
-       fileGroupDao.delete(fileGroup);
-       return ResponseEntity.ok().build();
+		fileGroupDao.delete(fileGroup);
+		return ResponseEntity.ok().build();
 	}
 }

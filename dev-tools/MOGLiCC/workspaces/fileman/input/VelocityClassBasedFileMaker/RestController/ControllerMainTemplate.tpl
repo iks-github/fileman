@@ -61,8 +61,17 @@ public class ${ClassName}RestController
 #end
 
 '	@GetMapping("/${className}s")
+#if ( ! $dataFromToken.contains("NOT FOUND"))
+'	public List<${ClassName}> findAll${ClassName}s(@RequestHeader("Authorization") String authHeader) {
+'		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+'		Integer ${dataFromToken}Id = JwtTokenUtil.get${DataFromToken}IdFromToken(token);
+'		${DataFromToken} ${dataFromToken} = ${dataFromToken}Dao.findById(${dataFromToken}Id);
+'		
+'		return ${className}Dao.findAllFor${DataFromToken}(${dataFromToken});
+#else
 '	public List<${ClassName}> findAll${ClassName}s() {
 '		return ${className}Dao.findAll${ClassName}s();
+#end
 '	}
 '	
 
@@ -111,23 +120,15 @@ public class ${ClassName}RestController
 		
 	#else
 	
-		#if ( $attributeDescriptor.doesHaveMetaInfo("withFindAllMethod", "true") )
+		#if ( $attributeDescriptor.doesHaveMetaInfo("withFindAllMethod", "true") && $dataFromToken.contains("NOT FOUND"))
 		
 			'   @GetMapping("/favouriteSettings/${attributeDescriptor.name}/{${attributeDescriptor.name}}")
 			'   public List<${ClassName}> findAll${ClassName}By${AttributeName}(@RequestHeader("Authorization") String authHeader,
 		    '            @PathVariable $javaType ${attributeDescriptor.name}) {
 			'		
-			#if ( ! $dataFromToken.contains("NOT FOUND"))
-				'		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
-				'		Integer ${dataFromToken}Id = JwtTokenUtil.get${DataFromToken}IdFromToken(token);
-				'		${DataFromToken} ${dataFromToken} = ${dataFromToken}Dao.findById(${dataFromToken}Id);
-				'		
-				'		List<${ClassName}> ${className}List = ${className}Dao.findAllFor${AttributeName}And${DataFromToken}(${attributeDescriptor.name}, $dataFromToken);
-			#else
-				'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
-				'		
-				'		List<${ClassName}> ${className}List = ${className}Dao.findAllFor${AttributeName}(${attributeDescriptor.name});
-			#end
+			'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+			'		
+			'		List<${ClassName}> ${className}List = ${className}Dao.findAllFor${AttributeName}(${attributeDescriptor.name});
 			'		if (${className}List == null) {
 			'			throw new ResourceNotFoundException("${ClassName} '" + ${attributeDescriptor.name} +"' + not found.");
 			'		}
@@ -203,7 +204,7 @@ public class ${ClassName}RestController
 '		if (${className} == null) {
 '			throw new ResourceNotFoundException("${ClassName} '" + $idAttributeName +"' + not found.");
 '		}
-'       ${className}Dao.delete(${className});
-'       return ResponseEntity.ok().build();
+'		${className}Dao.delete(${className});
+'		return ResponseEntity.ok().build();
 '	}
 }

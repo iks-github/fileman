@@ -77,7 +77,7 @@ public class UserPreferencesRestController
 		if (userPreferences == null) {
 			throw new ResourceNotFoundException("UserPreferences '" + userId +"' + not found.");
 		}
-       userPreferencesDao.delete(userPreferences);
-       return ResponseEntity.ok().build();
+		userPreferencesDao.delete(userPreferences);
+		return ResponseEntity.ok().build();
 	}
 }

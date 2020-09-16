@@ -54,6 +54,14 @@ public class FileGroupBasicDao
 		return entityManager.createQuery(criteria).getSingleResult();
 	}
 
+	public List<FileGroup> findAllForTenant(Tenant toSearch) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<FileGroup> criteria = criteriaBuilder.createQuery(FileGroup.class);
+        Root<FileGroup> fileGroup = criteria.from(FileGroup.class);
+        criteria.where(criteriaBuilder.equal(fileGroup.get("tenant"), toSearch));
+        return entityManager.createQuery(criteria).getResultList();
+	}
+
 	public boolean update(FileGroup entity) {
 		try {
 			entityManager.merge(entity);

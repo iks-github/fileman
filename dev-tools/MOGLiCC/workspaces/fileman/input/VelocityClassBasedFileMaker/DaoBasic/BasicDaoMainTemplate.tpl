@@ -119,7 +119,7 @@ public class ${ClassName}BasicDao
 		#end
 	#end
 	
-	#if ( $attributeDescriptor.doesHaveMetaInfo("id", "true") && ! $attributeDescriptor.doesHaveMetaInfo("omitGeneralFindMethod", "true"))
+	#if ( $attributeDescriptor.doesHaveMetaInfo("id", "true") )
 		
 		'	public ${ClassName} findBy${AttributeName}($JavaType ${attributeDescriptor.name}) { 
 		'		return entityManager.find(${ClassName}.class, ${attributeDescriptor.name});

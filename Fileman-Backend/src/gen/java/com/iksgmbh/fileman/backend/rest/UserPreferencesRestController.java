@@ -29,7 +29,9 @@ public class UserPreferencesRestController
 	private UserPreferencesDao userPreferencesDao;
 
 	@GetMapping("/userPreferencess")
-	public List<UserPreferences> findAllUserPreferencess() {
+	public List<UserPreferences> findAllUserPreferencess(@RequestHeader("Authorization") String authHeader) {
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		return userPreferencesDao.findAllUserPreferencess();
 	}
 

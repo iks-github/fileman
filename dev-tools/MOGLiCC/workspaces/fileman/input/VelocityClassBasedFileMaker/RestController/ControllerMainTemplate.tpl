@@ -61,16 +61,22 @@ public class ${ClassName}RestController
 #end
 
 '	@GetMapping("/${className}s")
-#if ( ! $dataFromToken.contains("NOT FOUND"))
-'	public List<${ClassName}> findAll${ClassName}s(@RequestHeader("Authorization") String authHeader) {
-'		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
-'		Integer ${dataFromToken}Id = JwtTokenUtil.get${DataFromToken}IdFromToken(token);
-'		${DataFromToken} ${dataFromToken} = ${dataFromToken}Dao.findById(${dataFromToken}Id);
-'		
-'		return ${className}Dao.findAllFor${DataFromToken}(${dataFromToken});
-#else
+#if ( $classDescriptor.getMetaInfoValueFor("findAllMethodAccessability").equals("unprotected") )
 '	public List<${ClassName}> findAll${ClassName}s() {
 '		return ${className}Dao.findAll${ClassName}s();
+#else
+	'	public List<${ClassName}> findAll${ClassName}s(@RequestHeader("Authorization") String authHeader) {
+	#if ( ! $dataFromToken.contains("NOT FOUND"))
+	'		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+	'		Integer ${dataFromToken}Id = JwtTokenUtil.get${DataFromToken}IdFromToken(token);
+	'		${DataFromToken} ${dataFromToken} = ${dataFromToken}Dao.findById(${dataFromToken}Id);
+	'		
+	'		return ${className}Dao.findAllFor${DataFromToken}(${dataFromToken});
+	#else
+	'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+	'		
+	'		return ${className}Dao.findAll${ClassName}s();
+	#end
 #end
 '	}
 '	

@@ -327,6 +327,7 @@ class <<DomainPath>>.Tenant
   metainfo BackendController true
   metainfo FrontendService true
   metainfo dbEntity true
+  metainfo findAllMethodAccessability unprotected
 
   attribute id
     metainfo dbType int

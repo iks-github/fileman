@@ -29,7 +29,9 @@ public class UserRestController
 	private UserDao userDao;
 
 	@GetMapping("/users")
-	public List<User> findAllUsers() {
+	public List<User> findAllUsers(@RequestHeader("Authorization") String authHeader) {
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		return userDao.findAllUsers();
 	}
 

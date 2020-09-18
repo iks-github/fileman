@@ -17,7 +17,11 @@
 			#set( $defaultValue = "" )
 		#end	
 
+		#if ( $attributeDescriptor.getMetaInfoValueFor("JavaType").contains("Set<") )
+'        ${attributeName}Control: new FormControl([], [
+		#else
 '        ${attributeName}Control: new FormControl('$defaultValue', [
+		#end
 
 		#if ( $attributeDescriptor.doesHaveMetaInfo("Mandatory", "true"))
 '                Validators.required, 

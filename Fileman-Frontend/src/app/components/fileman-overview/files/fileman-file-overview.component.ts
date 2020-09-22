@@ -264,10 +264,10 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
 
   getButtonClassForNoGrouping() {
     if (this.selectedFileGroups.size == 0) {
-      return "btn btn-info button-group-select";
+      return "btn button-group-select button-no-grouping-selected";
     }
 
-    return "btn btn-outline-info button-group-select";
+    return "btn button-group-select button-no-grouping-deselected";
   }
 
   onButtonPressForNoGrouping() {
@@ -277,10 +277,10 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
 
   getButtonClassForFileGroup(fileGroup: FileGroup) {
     if (this.isFileGroupInSet(fileGroup, this.selectedFileGroups)) {
-      return "btn btn-primary button-group-select";
+      return "btn button-group-select button-group-selected";
     }
 
-    return "btn btn-outline-primary button-group-select";
+    return "btn button-group-select button-group-deselected";
   }
 
   onButtonPressForFileGroup(fileGroup: FileGroup) {

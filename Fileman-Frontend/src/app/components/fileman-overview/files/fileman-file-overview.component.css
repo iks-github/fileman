@@ -4,6 +4,13 @@
     cursor: pointer;
 }
 
+.file-group-box {
+  border: 1px solid lightgrey;
+  padding-top: 5px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
 .button-group-select {
   margin-right: 10px;
   margin-bottom: 10px;
@@ -13,11 +20,28 @@
   pointer-events: none;
   margin-top: 20px;
   margin-bottom: 10px;
+  background-color: blue;
+  color: lavender;
 }
 
-.file-group-box {
-  border: 1px solid lightgrey;
-  padding-top: 5px;
-  padding-left: 10px;
-  margin-bottom: 10px;
+.button-no-grouping-selected {
+  background-color: blue;
+  color: lightgoldenrodyellow;
+}
+
+.button-no-grouping-deselected {
+  background-color: lightgoldenrodyellow;
+  color: blue;
+  border-color: blue;
+}
+
+.button-group-selected {
+  background-color: blue;
+  color: lavender;
+}
+
+.button-group-deselected {
+  background-color: lavender;
+  color: blue;
+  border-color: blue;
 }

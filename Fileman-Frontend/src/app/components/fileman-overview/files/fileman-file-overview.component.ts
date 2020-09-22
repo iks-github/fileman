@@ -63,7 +63,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   selectedFile;
   viewFiles: boolean = true;
   fileGroups = [] as FileGroup[];
-  selectedFileGroups = [] as FileGroup[];
+  selectedFileGroups: Set<FileGroup> = new Set<FileGroup>();
   fileGroupsMultiselectDropdownSettings = MultiselectDropdownSettings;
 
   constructor(private router: Router,
@@ -95,7 +95,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
       this.searchService.getSearchStringChangeNotifier().subscribe(
         (searchString: string) => this.searchFor(searchString)
       );
-    this.selectedFileGroups = this.searchService.getSelectedFileGroups();
+    //this.selectedFileGroups = this.searchService.getSelectedFileGroups();
     this.filesMetaDataService.getOverviewData()
         .subscribe(responseData => {this.extractFiles(responseData)});
     this.fileGroupService.getAllFileGroups()
@@ -239,25 +239,25 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   }
 
   onFileGroupFilterSelect() {
-    this.searchFor(this.searchString);
-    this.searchService.setSelectedFileGroups(this.selectedFileGroups);
+    //this.searchFor(this.searchString);
+    //this.searchService.setSelectedFileGroups(this.selectedFileGroups);
   }
 
   onFileGroupFilterSelectAll() {
-    this.selectedFileGroups = this.fileGroups;
-    this.searchFor(this.searchString);
-    this.searchService.setSelectedFileGroups(this.selectedFileGroups);
+    //this.selectedFileGroups = this.fileGroups;
+    //this.searchFor(this.searchString);
+    //this.searchService.setSelectedFileGroups(this.selectedFileGroups);
   }
 
   onFileGroupFilterDeSelect() {
-    this.searchFor(this.searchString);
-    this.searchService.setSelectedFileGroups(this.selectedFileGroups);
+    //this.searchFor(this.searchString);
+    //this.searchService.setSelectedFileGroups(this.selectedFileGroups);
   }
 
   onFileGroupFilterDeSelectAll() {
-    this.selectedFileGroups = [];
-    this.searchFor(this.searchString);
-    this.searchService.setSelectedFileGroups(this.selectedFileGroups);
+    //this.selectedFileGroups = [];
+    //this.searchFor(this.searchString);
+    //this.searchService.setSelectedFileGroups(this.selectedFileGroups);
   }
 
   showHistory(file: FileMetaData) {
@@ -301,5 +301,33 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     this.searchStringSubscription.unsubscribe();
     this.reloadRequestSubscription.unsubscribe();
     this.fileDataChangedSubscription.unsubscribe();
+  }
+
+  getButtonClassForNoGrouping() {
+    if (this.selectedFileGroups.size == 0) {
+      return "btn btn-info";
+    }
+
+    return "btn btn-outline-info";
+  }
+
+  getButtonClassForGroup(fileGroup: FileGroup) {
+    if (this.selectedFileGroups.has(fileGroup)) {
+      return "btn btn-primary";
+    }
+
+    return "btn btn-outline-primary";
+  }
+
+  onButtonPressForNoGrouping() {
+    this.selectedFileGroups.clear();
+  }
+
+  onButtonPressForGroup(fileGroup: FileGroup) {
+    if (this.selectedFileGroups.has(fileGroup)) {
+      this.selectedFileGroups.delete(fileGroup);
+    } else {
+      this.selectedFileGroups.add(fileGroup);
+    }
   }
 }

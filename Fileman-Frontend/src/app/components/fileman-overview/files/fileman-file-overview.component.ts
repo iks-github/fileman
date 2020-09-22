@@ -27,7 +27,7 @@ import { FavouriteSetting } from 'src/app/common/domainobjects/gen/FavouriteSett
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 import { Utils } from 'src/app/common/Utils';
-import { Layout, UserRole, MultiselectDropdownSettings } from 'src/app/common/fileman-constants';
+import { Layout, UserRole } from 'src/app/common/fileman-constants';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
 import { FilemanUserPreferencesService } from 'src/app/services/fileman-user-preferences-service.service';
 import { UserPreferences } from 'src/app/common/domainobjects/gen/UserPreferences';
@@ -63,8 +63,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   selectedFile;
   viewFiles: boolean = true;
   fileGroups = [] as FileGroup[];
-  selectedFileGroups: Set<FileGroup> = new Set<FileGroup>();
-  fileGroupsMultiselectDropdownSettings = MultiselectDropdownSettings;
+  selectedFileGroups: Set<FileGroup>;
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
@@ -95,7 +94,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
       this.searchService.getSearchStringChangeNotifier().subscribe(
         (searchString: string) => this.searchFor(searchString)
       );
-    //this.selectedFileGroups = this.searchService.getSelectedFileGroups();
+    this.selectedFileGroups = this.searchService.getSelectedFileGroups();
     this.filesMetaDataService.getOverviewData()
         .subscribe(responseData => {this.extractFiles(responseData)});
     this.fileGroupService.getAllFileGroups()
@@ -212,52 +211,12 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
 
     this.allFilesMap.forEach(file => {
       if (file.getName().indexOf(searchString) !== -1
-          && (!this.userPreferences.favouriteFilterActive || this.isFileFavourite(file.getName()))
-          && this.isFileGroupFilterMatchingForFile(file)) {
+          && (!this.userPreferences.favouriteFilterActive || this.isFileFavourite(file.getName()))) {
         fileList.push(file);
       }
     });
 
     this.viewedFiles = fileList;
-  }
-
-  private isFileGroupFilterMatchingForFile(file: FileMetaData): boolean {
-    let filterMatches: boolean = true;
-    for (var selectedFileGroup of this.selectedFileGroups) {
-      filterMatches = false;
-      for (var fileGroup of file.getFileGroups()) {
-        if (fileGroup.id == selectedFileGroup.id) {
-          filterMatches = true;
-          break;
-        }
-      }
-      if (!filterMatches) {
-        break;
-      }
-    }
-    return filterMatches;
-  }
-
-  onFileGroupFilterSelect() {
-    //this.searchFor(this.searchString);
-    //this.searchService.setSelectedFileGroups(this.selectedFileGroups);
-  }
-
-  onFileGroupFilterSelectAll() {
-    //this.selectedFileGroups = this.fileGroups;
-    //this.searchFor(this.searchString);
-    //this.searchService.setSelectedFileGroups(this.selectedFileGroups);
-  }
-
-  onFileGroupFilterDeSelect() {
-    //this.searchFor(this.searchString);
-    //this.searchService.setSelectedFileGroups(this.selectedFileGroups);
-  }
-
-  onFileGroupFilterDeSelectAll() {
-    //this.selectedFileGroups = [];
-    //this.searchFor(this.searchString);
-    //this.searchService.setSelectedFileGroups(this.selectedFileGroups);
   }
 
   showHistory(file: FileMetaData) {
@@ -305,29 +264,46 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
 
   getButtonClassForNoGrouping() {
     if (this.selectedFileGroups.size == 0) {
-      return "btn btn-info";
+      return "btn btn-info button-group-select";
     }
 
-    return "btn btn-outline-info";
-  }
-
-  getButtonClassForGroup(fileGroup: FileGroup) {
-    if (this.selectedFileGroups.has(fileGroup)) {
-      return "btn btn-primary";
-    }
-
-    return "btn btn-outline-primary";
+    return "btn btn-outline-info button-group-select";
   }
 
   onButtonPressForNoGrouping() {
     this.selectedFileGroups.clear();
+    this.searchService.setSelectedFileGroups(this.selectedFileGroups);
   }
 
-  onButtonPressForGroup(fileGroup: FileGroup) {
-    if (this.selectedFileGroups.has(fileGroup)) {
+  getButtonClassForFileGroup(fileGroup: FileGroup) {
+    if (this.isFileGroupInSet(fileGroup, this.selectedFileGroups)) {
+      return "btn btn-primary button-group-select";
+    }
+
+    return "btn btn-outline-primary button-group-select";
+  }
+
+  onButtonPressForFileGroup(fileGroup: FileGroup) {
+    if (this.isFileGroupInSet(fileGroup, this.selectedFileGroups)) {
       this.selectedFileGroups.delete(fileGroup);
     } else {
       this.selectedFileGroups.add(fileGroup);
     }
+    this.searchService.setSelectedFileGroups(this.selectedFileGroups);
+  }
+
+  getViewedFilesForFileGroup(fileGroup: FileGroup): FileMetaData[] {
+    return this.viewedFiles.filter(file => {
+      return this.isFileGroupInSet(fileGroup, file.getFileGroups());
+    });
+  }
+
+  private isFileGroupInSet(fileGroup: FileGroup, fileGroupSet: Set<FileGroup>): boolean {
+    for (let fileGroupItemOfFile of fileGroupSet) {
+      if (fileGroupItemOfFile.id == fileGroup.id) {
+        return true;
+      }
+    }
+    return false;
   }
 }

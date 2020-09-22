@@ -8,12 +8,12 @@ import { FileGroup } from '../common/domainobjects/gen/FileGroup';
 })
 export class FilemanSearchService {
   private searchString: string;
-  private selectedFileGroups: FileGroup[];
+  private selectedFileGroups: Set<FileGroup>;
   private searchStringChangeNotifier: Subject<string>;
 
   constructor() {
     this.searchString = "";
-    this.selectedFileGroups = [];
+    this.selectedFileGroups = new Set<FileGroup>();
     this.searchStringChangeNotifier = new Subject<string>();
   }
 
@@ -21,7 +21,7 @@ export class FilemanSearchService {
     return this.searchString;
   }
 
-  public getSelectedFileGroups(): FileGroup[] {
+  public getSelectedFileGroups(): Set<FileGroup> {
     return this.selectedFileGroups;
   }
 
@@ -30,7 +30,7 @@ export class FilemanSearchService {
     this.searchStringChangeNotifier.next(this.searchString);
   }
 
-  public setSelectedFileGroups(selectedFileGroups: FileGroup[]) {
+  public setSelectedFileGroups(selectedFileGroups: Set<FileGroup>) {
     this.selectedFileGroups = selectedFileGroups;
   }
 

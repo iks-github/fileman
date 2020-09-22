@@ -1,20 +1,11 @@
 <hr style="background: blue">
 
-<!--<ng-multiselect-dropdown
-  [placeholder]="'Select file groups for filtering'"
-  [data]="fileGroups"
-  [(ngModel)]="selectedFileGroups"
-  [settings]="fileGroupsMultiselectDropdownSettings"
-  (onSelect)="onFileGroupFilterSelect()"
-  (onSelectAll)="onFileGroupFilterSelectAll()"
-  (onDeSelect)="onFileGroupFilterDeSelect()"
-  (onDeSelectAll)="onFileGroupFilterDeSelectAll()">
-</ng-multiselect-dropdown>-->
 <div *ngIf="fileGroups.length > 0" class="file-group-box">
   <p>File groups:</p>
   <button type="button" [ngClass]="getButtonClassForNoGrouping()" (click)="onButtonPressForNoGrouping()">No grouping</button>
-  <button *ngFor="let fileGroup of fileGroups" type="button" [ngClass]="getButtonClassForGroup(fileGroup)" (click)="onButtonPressForGroup(fileGroup)">{{fileGroup.name}}</button>
+  <button *ngFor="let fileGroup of fileGroups" type="button" [ngClass]="getButtonClassForFileGroup(fileGroup)" (click)="onButtonPressForFileGroup(fileGroup)">{{fileGroup.name}}</button>
 </div>
+
 <h5>Hosted Files:</h5>
 <div *ngIf="allFilesMap.size == 0">
     <i>None.</i>
@@ -26,6 +17,7 @@
 <div [ngSwitch]="userPreferences.layoutType">
     <div *ngSwitchCase="layoutTypeList">
         <fileman-filemetadata-list-layout
+          *ngIf="selectedFileGroups.size == 0"
           [viewedFiles]="viewedFiles"
           [favouriteSettings]="favouriteSettings"
           [readOnly]="readOnly"
@@ -35,9 +27,28 @@
           (fileHistoryShown)="showHistory($event)"
           (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-filemetadata-list-layout>
+        <div *ngFor="let fileGroup of selectedFileGroups">
+          <button
+            *ngIf="getViewedFilesForFileGroup(fileGroup).length > 0"
+            type="button"
+            class="btn btn-primary disabled button-group-display-tag">
+            {{fileGroup.name}}
+          </button>
+          <fileman-filemetadata-list-layout
+            [viewedFiles]="getViewedFilesForFileGroup(fileGroup)"
+            [favouriteSettings]="favouriteSettings"
+            [readOnly]="readOnly"
+            (fileDownloaded)="download($event)"
+            (fileEdited)="edit($event)"
+            (fileDeleted)="delete($event)"
+            (fileHistoryShown)="showHistory($event)"
+            (fileFavouriteSettingChanged)="markFavourite($event)">
+          </fileman-filemetadata-list-layout>
+        </div>
     </div>
     <div *ngSwitchCase="layoutTypeTable">
         <fileman-filemetadata-table-layout
+          *ngIf="selectedFileGroups.size == 0"
           [viewedFiles]="viewedFiles"
           [favouriteSettings]="favouriteSettings"
           [readOnly]="readOnly"
@@ -47,9 +58,29 @@
           (fileHistoryShown)="showHistory($event)"
           (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-filemetadata-table-layout>
+        <div *ngFor="let fileGroup of selectedFileGroups">
+          <button
+            *ngIf="getViewedFilesForFileGroup(fileGroup).length > 0"
+            type="button"
+            class="btn btn-primary disabled button-group-display-tag">
+            {{fileGroup.name}}
+          </button>
+          <fileman-filemetadata-table-layout
+            *ngIf="getViewedFilesForFileGroup(fileGroup).length > 0"
+            [viewedFiles]="getViewedFilesForFileGroup(fileGroup)"
+            [favouriteSettings]="favouriteSettings"
+            [readOnly]="readOnly"
+            (fileDownloaded)="download($event)"
+            (fileEdited)="edit($event)"
+            (fileDeleted)="delete($event)"
+            (fileHistoryShown)="showHistory($event)"
+            (fileFavouriteSettingChanged)="markFavourite($event)">
+          </fileman-filemetadata-table-layout>
+        </div>
     </div>
     <div *ngSwitchCase="layoutTypeTiles">
         <fileman-filemetadata-tiles-layout
+          *ngIf="selectedFileGroups.size == 0"
           [viewedFiles]="viewedFiles"
           [favouriteSettings]="favouriteSettings"
           [readOnly]="readOnly"
@@ -59,5 +90,23 @@
           (fileHistoryShown)="showHistory($event)"
           (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-filemetadata-tiles-layout>
+        <div *ngFor="let fileGroup of selectedFileGroups">
+          <button
+            *ngIf="getViewedFilesForFileGroup(fileGroup).length > 0"
+            type="button"
+            class="btn btn-primary disabled button-group-display-tag">
+            {{fileGroup.name}}
+          </button>
+          <fileman-filemetadata-tiles-layout
+            [viewedFiles]="getViewedFilesForFileGroup(fileGroup)"
+            [favouriteSettings]="favouriteSettings"
+            [readOnly]="readOnly"
+            (fileDownloaded)="download($event)"
+            (fileEdited)="edit($event)"
+            (fileDeleted)="delete($event)"
+            (fileHistoryShown)="showHistory($event)"
+            (fileFavouriteSettingChanged)="markFavourite($event)">
+          </fileman-filemetadata-tiles-layout>
+        </div>
     </div>
 </div>

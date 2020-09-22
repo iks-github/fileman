@@ -4,8 +4,14 @@
     cursor: pointer;
 }
 
-button {
+.button-group-select {
   margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.button-group-display-tag {
+  pointer-events: none;
+  margin-top: 20px;
   margin-bottom: 10px;
 }
 

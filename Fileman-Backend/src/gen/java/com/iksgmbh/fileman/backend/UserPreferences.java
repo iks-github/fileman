@@ -26,28 +26,28 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="USER_PREFERENCES")
 public class UserPreferences implements Serializable
 {
-	private static final long serialVersionUID = 1599725899069L;
+	private static final long serialVersionUID = 1600193157040L;
 
 	// ===============  instance fields  ===============
 
     @Column(name="USER_ID", unique=true, columnDefinition="int")
     @Id
-	private Integer userId;
+    private Integer userId;
 
     @NotNull(message="Value of mandatory attribute 'contentType' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="CONTENT_TYPE", columnDefinition="varchar")
-	private String contentType;
+    private String contentType;
 
     @NotNull(message="Value of mandatory attribute 'layoutType' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="LAYOUT_TYPE", columnDefinition="varchar")
-	private String layoutType;
+    private String layoutType;
 
     @NotNull(message="Value of mandatory attribute 'favouriteFilterActive' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="FAVOURITE_FILTER_ACTIVE", columnDefinition="boolean")
-	private Boolean favouriteFilterActive;
+    private Boolean favouriteFilterActive;
 
 
 	// ===============  setter methods  ===============

@@ -1,13 +1,16 @@
+import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
 
 export class FileGroup
 {
     id: number;
     name: string;
+    tenant: Tenant;
 
     constructor(untypedFileGroup: any) {
         if (untypedFileGroup != null) {
             this.id = untypedFileGroup.id;
             this.name = untypedFileGroup.name;
+            this.tenant = untypedFileGroup.tenant;
         }
     }
 
@@ -16,6 +19,7 @@ export class FileGroup
         return [
            'id',
            'name',
+           'tenant',
         ];
     }
 
@@ -27,6 +31,10 @@ export class FileGroup
         return this.name;
     }
 
+    getTenant() {
+        return this.tenant;
+    }
+
 
     setId(id: number) {
         this.id = id;
@@ -36,6 +44,10 @@ export class FileGroup
         this.name = name;
     }
 
+    setTenant(tenant: Tenant) {
+        this.tenant = tenant;
+    }
+
 
     public equals(obj: FileGroup): boolean {
         if (this === obj) { return true; }
@@ -43,6 +55,7 @@ export class FileGroup
 
         if (this.id !== obj.id) { return false; }
         if (this.name !== obj.name) { return false; }
+        if (this.tenant !== obj.tenant) { return false; }
 
         return true;
     }
@@ -51,6 +64,7 @@ export class FileGroup
         return 'DETAILS:\n' +
                '------------------------------------------\n' +
            'Id: ' + this.id + '\n' +
-           'Name: ' + this.name + '\n';
+           'Name: ' + this.name + '\n' +
+           'Tenant: ' + this.tenant + '\n';
     }
 }

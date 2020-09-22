@@ -51,7 +51,7 @@ public class FavouriteSettingBasicDao
                         criteriaBuilder.equal(favouriteSetting.get("filename"), filename),
                         criteriaBuilder.equal(favouriteSetting.get("tenant"), tenant)));
         return entityManager.createQuery(criteria).getResultList();
-}
+	}
 
 	public boolean update(FavouriteSetting entity) {
 		try {

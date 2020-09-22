@@ -9,6 +9,12 @@
 				#set( $collectionIdentifier = "list" + $collectionElementType )
 
 				'			final  $collectionMetaType<$collectionElementType> $collectionIdentifier = new java.util.ArrayList<$collectionElementType>();
+				
+			#elseif ( $collectionMetaType == "java.util.Set" || $collectionMetaType == "Set")
+
+				#set( $collectionIdentifier = "list" + $collectionElementType )
+
+				'			final  $collectionMetaType<$collectionElementType> $collectionIdentifier = new java.util.HashSet<$collectionElementType>();
 
 			#else
 

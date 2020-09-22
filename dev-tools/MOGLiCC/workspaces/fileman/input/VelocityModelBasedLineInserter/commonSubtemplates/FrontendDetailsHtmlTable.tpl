@@ -16,8 +16,8 @@
 
 		#if ( ! $row2Attribute.equals("")) 
 '            <tr>
-			#if ( $row2Attribute.doesHaveAnyMetaInfosWithName("guiCondition"))
-'            	 <td *ngIf="${row2Attribute.getMetaInfoValueFor("guiCondition")}">
+			#if ( $row1Attribute.doesHaveAnyMetaInfosWithName("guiCondition"))
+'            	 <td *ngIf="${row1Attribute.getMetaInfoValueFor("guiCondition")}">
 			#else
 '                <td>
 			#end
@@ -27,9 +27,13 @@
 	         		 #set( $attribute = $row1Attribute )
 					 #parse("commonSubtemplates/SubTemplate_GuiElements.tpl")
 '                </td>
-'				 <td class="space"></td>
 			#if ( $row1Attribute.doesHaveAnyMetaInfosWithName("guiCondition"))
-'            	 <td *ngIf="${row1Attribute.getMetaInfoValueFor("guiCondition")}">
+'            	 <td *ngIf="${row1Attribute.getMetaInfoValueFor("guiCondition")}" class="space"></td>
+			#else
+'                <td class="space"></td>
+			#end
+			#if ( $row2Attribute.doesHaveAnyMetaInfosWithName("guiCondition"))
+'            	 <td *ngIf="${row2Attribute.getMetaInfoValueFor("guiCondition")}">
 			#else
 '                <td>
 			#end

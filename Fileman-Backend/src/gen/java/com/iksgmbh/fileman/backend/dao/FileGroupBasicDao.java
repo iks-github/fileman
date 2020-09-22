@@ -30,6 +30,17 @@ public class FileGroupBasicDao
 		return entityManager.createQuery(criteria).getResultList();
 	}
 
+	public FileGroup findByIdAndTenant(Integer id, Tenant tenant) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<FileGroup> criteria = criteriaBuilder.createQuery(FileGroup.class);
+        Root<FileGroup> fileGroup = criteria.from(FileGroup.class);
+        criteria.select(fileGroup).where(
+                criteriaBuilder.and(
+                        criteriaBuilder.equal(fileGroup.get("id"), id),
+                        criteriaBuilder.equal(fileGroup.get("tenant"), tenant)));
+        return entityManager.createQuery(criteria).getSingleResult();
+	}
+
 	public FileGroup findById(Integer id) {
 		return entityManager.find(FileGroup.class, id);
 	}
@@ -41,6 +52,14 @@ public class FileGroupBasicDao
 		Root<FileGroup> root = criteria.from(FileGroup.class);
 		criteria.select(root).where(criteriaBuilder.equal(root.get("name"), name));
 		return entityManager.createQuery(criteria).getSingleResult();
+	}
+
+	public List<FileGroup> findAllForTenant(Tenant toSearch) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<FileGroup> criteria = criteriaBuilder.createQuery(FileGroup.class);
+        Root<FileGroup> fileGroup = criteria.from(FileGroup.class);
+        criteria.where(criteriaBuilder.equal(fileGroup.get("tenant"), toSearch));
+        return entityManager.createQuery(criteria).getResultList();
 	}
 
 	public boolean update(FileGroup entity) {

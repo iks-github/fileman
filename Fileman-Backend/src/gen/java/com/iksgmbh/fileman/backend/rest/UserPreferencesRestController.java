@@ -29,7 +29,9 @@ public class UserPreferencesRestController
 	private UserPreferencesDao userPreferencesDao;
 
 	@GetMapping("/userPreferencess")
-	public List<UserPreferences> findAllUserPreferencess() {
+	public List<UserPreferences> findAllUserPreferencess(@RequestHeader("Authorization") String authHeader) {
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		return userPreferencesDao.findAllUserPreferencess();
 	}
 
@@ -77,7 +79,7 @@ public class UserPreferencesRestController
 		if (userPreferences == null) {
 			throw new ResourceNotFoundException("UserPreferences '" + userId +"' + not found.");
 		}
-       userPreferencesDao.delete(userPreferences);
-       return ResponseEntity.ok().build();
+		userPreferencesDao.delete(userPreferences);
+		return ResponseEntity.ok().build();
 	}
 }

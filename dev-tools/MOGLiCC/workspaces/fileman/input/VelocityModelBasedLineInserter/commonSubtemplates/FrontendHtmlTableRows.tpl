@@ -8,10 +8,10 @@
 #foreach ($attributeDescriptor in $attributeDescriptorList)
 
 	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeDescriptor.name, " ", "") ) 
-	#if ( ! $attributeDescriptor.doesHaveMetaInfo("hideFromClientOverview", "true") && ! $attributeDescriptor.doesHaveMetaInfo("guiType", "FileSelector"))
-		#if ($attributeDescriptor.doesHaveAnyMetaInfosWithName("guiDisplayField"))
-			'        <td>{{${className}.${attributeName}.${attributeDescriptor.getMetaInfoValueFor("guiDisplayField")}}}</td>
-		#else
+	#if ( ! $attributeDescriptor.doesHaveMetaInfo("hideFromClientOverview", "true"))
+		#if ( $attributeDescriptor.doesHaveMetaInfo("guiType", "MultiSelectBox"))
+			'        <td>{{format${TemplateStringUtility.firstToUpperCase($attributeName)}(${className}.${attributeName})}}</td>
+		#elseif ( ! $attributeDescriptor.doesHaveMetaInfo("guiType", "FileSelector"))
 			'        <td>{{${className}.${attributeName}}}</td>
 		#end
 	#end 

@@ -31,9 +31,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.FavouriteSetting;
-import com.iksgmbh.fileman.backend.User;
+import com.iksgmbh.fileman.backend.Tenant;
 import com.iksgmbh.fileman.backend.dao.FavouriteSettingDao;
-import com.iksgmbh.fileman.backend.dao.UserDao;
+import com.iksgmbh.fileman.backend.dao.TenantDao;
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
@@ -45,7 +45,7 @@ public class FavouriteSettingRestController
     private FavouriteSettingDao favouriteSettingDao;
 
 	@Autowired
-	private UserDao userDao;
+	private TenantDao tenantDao;
 
     @GetMapping("/favouriteSettings/username/{username}")
     public List<FavouriteSetting> findAllFavouriteSettingByUsername(@RequestHeader("Authorization") String authHeader,
@@ -65,10 +65,10 @@ public class FavouriteSettingRestController
     		@PathVariable String filename) {
         
     	String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
-    	Integer userId = JwtTokenUtil.getUserIdFromToken(token);
-    	User user = userDao.findById(userId);
+    	Integer tenantId = JwtTokenUtil.getTenantIdFromToken(token);
+    	Tenant tenant = tenantDao.findById(tenantId);
     	
-    	List<FavouriteSetting> favouriteSettingList = favouriteSettingDao.findAllForFilenameAndTenant(filename, user.getTenant());
+    	List<FavouriteSetting> favouriteSettingList = favouriteSettingDao.findAllForFilenameAndTenant(filename, tenant);
         if (favouriteSettingList == null) {
             throw new ResourceNotFoundException("FavouriteSetting '" + filename +"' + not found.");
         }
@@ -80,10 +80,10 @@ public class FavouriteSettingRestController
 			@Valid @RequestBody FavouriteSetting favouriteSetting) {
 		
     	String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
-    	Integer userId = JwtTokenUtil.getUserIdFromToken(token);
-    	User user = userDao.findById(userId);
+    	Integer tenantId = JwtTokenUtil.getTenantIdFromToken(token);
+    	Tenant tenant = tenantDao.findById(tenantId);
 		
-		favouriteSetting.setTenant(user.getTenant());
+		favouriteSetting.setTenant(tenant);
 		
 		return favouriteSettingDao.create(favouriteSetting).getId();
     }

@@ -4,6 +4,7 @@ import com.iksgmbh.fileman.backend.Tenant;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.Set;
 
 import javax.validation.constraints.*;
 import javax.persistence.*;
@@ -25,47 +26,47 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="USER")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1599725898807L;
+	private static final long serialVersionUID = 1600193156788L;
 
 	// ===============  instance fields  ===============
 
     @Column(name="ID", unique=true, columnDefinition="int")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    private Integer id;
 
     @NotNull(message="Value of mandatory attribute 'name' is not present.")
     @Size(min=2, max=64, message="Value of attribute 'name' is out of valid range (2-64)")
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 2 to 64.")
     @Column(name="NAME", unique=true, columnDefinition="varchar")
-	private String name;
+    private String name;
 
     @NotNull(message="Value of mandatory attribute 'role' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="ROLE", columnDefinition="varchar")
-	private String role;
+    private String role;
 
-    @NotNull(message="Value of mandatory attribute 'tenant' is not present.")
+    @NotNull(message="Value of mandatory attribute 'tenants' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
-	@ManyToOne
-    @JoinColumn(name="TENANT", columnDefinition="int")
-	private Tenant tenant;
+    @ManyToMany
+    @JoinTable(name="user_tenant", joinColumns = { @JoinColumn(name = "fk_user") }, inverseJoinColumns = { @JoinColumn(name = "fk_tenant") })
+    private Set<Tenant> tenants;
 
     @Size(min=1, max=60, message="Value of attribute 'password' is out of valid range (1-60)")
     @ApiModelProperty(notes = "Valid length ranges from 1 to 60.")
     @JsonProperty(access = Access.WRITE_ONLY)
     @Column(name="PASSWORD", columnDefinition="varchar")
-	private String password;
+    private String password;
 
     @Size(min=1, max=60, message="Value of attribute 'passwordRepetition' is out of valid range (1-60)")
     @ApiModelProperty(notes = "Valid length ranges from 1 to 60.")
     @JsonProperty(access = Access.WRITE_ONLY)
     @Transient
-	private String passwordRepetition;
+    private String passwordRepetition;
 
     @Column(name="AVATAR", columnDefinition="clob")
     @Lob
-	private String avatar;
+    private String avatar;
 
 
 	// ===============  setter methods  ===============
@@ -85,9 +86,9 @@ public class User implements Serializable
 		this.role = role;
 	}
 
-	public void setTenant(final Tenant tenant)
+	public void setTenants(final Set<Tenant> tenants)
 	{
-		this.tenant = tenant;
+		this.tenants = tenants;
 	}
 
 	public void setPassword(final String password)
@@ -122,9 +123,9 @@ public class User implements Serializable
 		return role;
 	}
 
-	public Tenant getTenant()
+	public Set<Tenant> getTenants()
 	{
-		return tenant;
+		return tenants;
 	}
 
 	public String getPassword()
@@ -151,7 +152,7 @@ public class User implements Serializable
 				+ "id = " + id + ", "
 				+ "name = " + name + ", "
 				+ "role = " + role + ", "
-				+ "tenant = " + tenant + ", "
+				+ "tenants = " + tenants + ", "
 				+ "password = " + password + ", "
 				+ "passwordRepetition = " + passwordRepetition + ", "
 				+ "avatar = " + avatar + ""
@@ -196,13 +197,13 @@ public class User implements Serializable
 			if (! role.equals(other.role))
 				   return false;
 		}
-		if (tenant == null)
+		if (tenants == null)
 		{
-			if (other.tenant != null)
+			if (other.tenants != null)
 				return false;
 		} else
 		{
-			if (! tenant.equals(other.tenant))
+			if (! tenants.equals(other.tenants))
 				   return false;
 		}
 		if (password == null)
@@ -243,7 +244,7 @@ public class User implements Serializable
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((tenant == null) ? 0 : tenant.hashCode());
+		result = prime * result + ((tenants == null) ? 0 : tenants.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((passwordRepetition == null) ? 0 : passwordRepetition.hashCode());
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
@@ -267,8 +268,8 @@ public class User implements Serializable
            	 this.setRole(otherUser.getRole());
             }
        }
-        if (otherUser.getTenant() != null) {
-            this.setTenant(otherUser.getTenant());
+        if (otherUser.getTenants() != null) {
+            this.setTenants(otherUser.getTenants());
        }
         if (otherUser.getPassword() != null) {
             if(! otherUser.getPassword().isEmpty()) {

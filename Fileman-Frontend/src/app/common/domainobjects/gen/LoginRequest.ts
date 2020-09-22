@@ -1,14 +1,17 @@
+import { Tenant } from './Tenant';
 
 export class LoginRequest
 {
     userId: string;
     userPw: string;
+    tenant: Tenant;
     filemanVersion: string;
 
     constructor(untypedLoginRequest: any) {
         if (untypedLoginRequest != null) {
             this.userId = untypedLoginRequest.userId;
             this.userPw = untypedLoginRequest.userPw;
+            this.tenant = untypedLoginRequest.tenant;
             this.filemanVersion = untypedLoginRequest.filemanVersion;
         }
     }
@@ -18,6 +21,7 @@ export class LoginRequest
         return [
            'userId',
            'userPw',
+           'tenant',
            'filemanVersion',
         ];
     }
@@ -28,6 +32,10 @@ export class LoginRequest
 
     getUserPw() {
         return this.userPw;
+    }
+
+    getTenant() {
+      return this.tenant;
     }
 
     getFilemanVersion() {
@@ -43,6 +51,10 @@ export class LoginRequest
         this.userPw = userPw;
     }
 
+    setTenant(tenant: Tenant) {
+      this.tenant = tenant;
+    }
+
     setFilemanVersion(filemanVersion: string) {
         this.filemanVersion = filemanVersion;
     }
@@ -54,6 +66,7 @@ export class LoginRequest
 
         if (this.userId !== obj.userId) { return false; }
         if (this.userPw !== obj.userPw) { return false; }
+        if (this.tenant !== obj.tenant) { return false; }
         if (this.filemanVersion !== obj.filemanVersion) { return false; }
 
         return true;
@@ -64,6 +77,7 @@ export class LoginRequest
                '------------------------------------------\n' +
            'UserId: ' + this.userId + '\n' +
            'UserPw: ' + this.userPw + '\n' +
+           'Tenant: ' + this.tenant + '\n' +
            'FilemanVersion: ' + this.filemanVersion + '\n';
     }
 }

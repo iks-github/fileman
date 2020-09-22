@@ -18,6 +18,7 @@ import { Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/common/domainobjects/gen/User';
 import { LayoutCommons } from '../layout-commons';
 import { FilemanAvatarService } from 'src/app/services/fileman-avatar-service.service';
+import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
 
 export class LayoutUserCommons extends LayoutCommons {
   @Input() viewedUsers;
@@ -42,7 +43,21 @@ export class LayoutUserCommons extends LayoutCommons {
       '<hr>' +
       this.buildHtmlTooltipContentRow('Name', user.name) +
       this.buildHtmlTooltipContentRow('Role', user.role) +
-      this.buildHtmlTooltipContentRow('Tenant', user.tenant.name) + '</div>'
+      this.buildHtmlTooltipContentRow('Tenants',
+          this.formatTenants(user.tenants)) + '</div>';
+  }
+
+  formatTenants(tenants: Set<Tenant>): string {
+    let tenantString: string = '';
+
+    tenants.forEach((tenant: Tenant) => {
+      if (tenantString.length > 0) {
+        tenantString += ', ';
+      }
+      tenantString += tenant.name;
+    });
+
+    return tenantString;
   }
 
   hasAvatar(userName: string): boolean {

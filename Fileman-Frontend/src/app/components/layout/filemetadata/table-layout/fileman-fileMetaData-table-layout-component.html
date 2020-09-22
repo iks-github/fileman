@@ -6,6 +6,10 @@
         <!-- The header-td-sections below is generated: Do not modify manually! -->
 
         <td>
+            Id
+            <fileman-sorticon [sortField]="'id'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
             Name
             <fileman-sorticon [sortField]="'name'" (sortEventHandler)="sort($event)"></fileman-sorticon>
         </td>
@@ -20,6 +24,10 @@
         <td>
             ImmediatelyActive
             <fileman-sorticon [sortField]="'immediatelyActive'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
+            FileGroups
+            <fileman-sorticon [sortField]="'fileGroups'" (sortEventHandler)="sort($event)"></fileman-sorticon>
         </td>
         <td>
             TechType
@@ -76,10 +84,12 @@
 
         <!-- The row-td-sections below is generated: Do not modify manually! -->
 
+        <td>{{file.id}}</td>
         <td [ngStyle]="{'font-weight': isFileFavourite(file.name) ? 'bold' : ''}">{{file.name}} {{favouriteAsterix(file)}}</td>
         <td>{{file.description}}</td>
         <td>{{file.activeUUID}}</td>
         <td>{{file.immediatelyActive}}</td>
+        <td>{{formatFileGroups(file.fileGroups)}}</td>
         <td>{{file.techType}}</td>
         <td>{{file.techVersion}}</td>
         <td>{{file.creator}}</td>

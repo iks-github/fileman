@@ -18,11 +18,11 @@ public class LoginResponse
 {
 	// ===============  instance fields  ===============
 
-	private String errorMessage;
+    private String errorMessage;
 
-	private String authToken;
+    private String authToken;
 
-	private Boolean ok;
+    private Boolean ok;
 
 
 	// ===============  setter methods  ===============

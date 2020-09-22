@@ -4,6 +4,9 @@
 
 #set( $packagePath = $TemplateStringUtility.replaceAllIn(${classDescriptor.package}, ".", "/") + "/rest" ) 
 
+#set( $dataFromToken = $classDescriptor.getMetaInfoValueFor("needsDataFromToken") )
+#set( $DataFromToken = $TemplateStringUtility.firstToUpperCase($dataFromToken) )
+
 @TargetFileName ${classDescriptor.simpleName}RestController.java # Name of output file with extension but without path
 @TargetDir $model.getMetaInfoValueFor("backendGenDir")/$packagePath
 @CreateNew true # creates target dir if not existing and overwrites target file if existing
@@ -33,6 +36,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ${classDescriptor.package}.$ClassName;
 import ${classDescriptor.package}.dao.${ClassName}Dao;
+
+#if ( ! $dataFromToken.contains("NOT FOUND"))
+	import ${classDescriptor.package}.$DataFromToken;
+	import ${classDescriptor.package}.dao.${DataFromToken}Dao;
+#end
+
 import com.iksgmbh.fileman.backend.exception.ResourceNotFoundException;
 import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 '
@@ -44,15 +53,41 @@ public class ${ClassName}RestController
 '	@Autowired
 '	private ${ClassName}Dao ${className}Dao;
 '
+
+#if ( ! $dataFromToken.contains("NOT FOUND"))
+'	@Autowired
+'	private ${DataFromToken}Dao ${dataFromToken}Dao;
+'
+#end
+
 '	@GetMapping("/${className}s")
+#if ( $classDescriptor.getMetaInfoValueFor("findAllMethodAccessability").equals("unprotected") )
 '	public List<${ClassName}> findAll${ClassName}s() {
 '		return ${className}Dao.findAll${ClassName}s();
+#else
+	'	public List<${ClassName}> findAll${ClassName}s(@RequestHeader("Authorization") String authHeader) {
+	#if ( ! $dataFromToken.contains("NOT FOUND"))
+	'		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+	'		Integer ${dataFromToken}Id = JwtTokenUtil.get${DataFromToken}IdFromToken(token);
+	'		${DataFromToken} ${dataFromToken} = ${dataFromToken}Dao.findById(${dataFromToken}Id);
+	'		
+	'		return ${className}Dao.findAllFor${DataFromToken}(${dataFromToken});
+	#else
+	'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+	'		
+	'		return ${className}Dao.findAll${ClassName}s();
+	#end
+#end
 '	}
 '	
 
 #set( $attributeDescriptorList = $classDescriptor.getAttributeDescriptorList() )
-#set( $IdAttributeName = "!!! No Field With MetaInfo id defined !!!" ) 
-#set( $idAttributeName = "!!! No Field With MetaInfo id defined !!!" ) 
+#set( $IdAttributeName = "!!! No Field With MetaInfo id defined !!!" )
+#set( $idAttributeName = "!!! No Field With MetaInfo id defined !!!" )
+
+#if ( ! $classDescriptor.getMetaInfoValueFor("needsDataFromToken").contains("NOT FOUND"))
+	#set( $needsDataFromToken = $classDescriptor.getMetaInfoValueFor("needsDataFromToken") )
+#end
 
 #foreach ($attributeDescriptor in $attributeDescriptorList)
 
@@ -71,9 +106,17 @@ public class ${ClassName}RestController
 		'    public ${ClassName} find${ClassName}By${AttributeName}(@RequestHeader("Authorization") String authHeader,
 		'            @PathVariable $javaType $attributeDescriptor.name) {
 		'		
-		'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
-		'		
-		'		${ClassName} ${className} = ${className}Dao.findBy${AttributeName}($attributeDescriptor.name);
+		#if ( ! $dataFromToken.contains("NOT FOUND"))
+			'		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+			'		Integer ${dataFromToken}Id = JwtTokenUtil.get${DataFromToken}IdFromToken(token);
+			'		${DataFromToken} ${dataFromToken} = ${dataFromToken}Dao.findById(${dataFromToken}Id);
+			'		
+			'		${ClassName} ${className} = ${className}Dao.findBy${AttributeName}And${DataFromToken}(${attributeDescriptor.name}, $dataFromToken);
+		#else
+			'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+			'		
+			'		${ClassName} ${className} = ${className}Dao.findBy${AttributeName}($attributeDescriptor.name);
+		#end
 		'		if (${className} == null) {
 		'			throw new ResourceNotFoundException("${ClassName} '" + $attributeDescriptor.name +"' + not found.");
 		'		}
@@ -83,7 +126,7 @@ public class ${ClassName}RestController
 		
 	#else
 	
-		#if ( $attributeDescriptor.doesHaveMetaInfo("withFindAllMethod", "true") )
+		#if ( $attributeDescriptor.doesHaveMetaInfo("withFindAllMethod", "true") && $dataFromToken.contains("NOT FOUND"))
 		
 			'   @GetMapping("/favouriteSettings/${attributeDescriptor.name}/{${attributeDescriptor.name}}")
 			'   public List<${ClassName}> findAll${ClassName}By${AttributeName}(@RequestHeader("Authorization") String authHeader,
@@ -110,18 +153,40 @@ public class ${ClassName}RestController
 '	public $IdJavaType create${ClassName}(@RequestHeader("Authorization") String authHeader,
 '            @Valid @RequestBody ${ClassName} ${className}) {
 '		
-'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
-'		
-'		return ${className}Dao.create(${className}).get${IdAttributeName}();
+#if ( ! $dataFromToken.contains("NOT FOUND"))
+	'		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+	'		Integer ${dataFromToken}Id = JwtTokenUtil.get${DataFromToken}IdFromToken(token);
+	'		${DataFromToken} ${dataFromToken} = ${dataFromToken}Dao.findById(${dataFromToken}Id);
+	'		
+	'		${className}.set${DataFromToken}($dataFromToken);
+	'		return ${className}Dao.create(${className}).get${IdAttributeName}();
+#else
+	'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+	'		
+	'		return ${className}Dao.create(${className}).get${IdAttributeName}();
+#end
 '    }
 '
 '	@PutMapping("/${className}s")
 '	public void update${ClassName}(@RequestHeader("Authorization") String authHeader,
 '            @Valid @RequestBody ${ClassName} ${className}) {
 '		
-'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
-'		
-'		boolean ok = ${className}Dao.update(${className});
+#if ( ! $dataFromToken.contains("NOT FOUND"))
+	'		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+	'		Integer ${dataFromToken}Id = JwtTokenUtil.get${DataFromToken}IdFromToken(token);
+	'		${DataFromToken} ${dataFromToken} = ${dataFromToken}Dao.findById(${dataFromToken}Id);
+	'		
+	'		${ClassName} toUpdate = ${className}Dao.findBy${IdAttributeName}And${DataFromToken}(${className}.get${IdAttributeName}(), $dataFromToken);
+	'		if (toUpdate == null) {
+	'			throw new ResourceNotFoundException("${ClassName} '" + ${className} +"' + not found.");
+	'		}
+	'		toUpdate.merge(${className});
+	'		boolean ok = ${className}Dao.update(toUpdate);
+#else
+	'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+	'		
+	'		boolean ok = ${className}Dao.update(${className});
+#end
 '		if (! ok) {
 '			throw new ResourceNotFoundException("${ClassName} '" + ${className}.get${IdAttributeName}() +"' + not found for update.");
 '		}
@@ -131,13 +196,21 @@ public class ${ClassName}RestController
 '	public ResponseEntity<?> delete${ClassName}(@RequestHeader("Authorization") String authHeader,
 '            @PathVariable $IdJavaType $idAttributeName) {
 '		
-'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
-'		
-'		${ClassName} ${className} = ${className}Dao.findBy${IdAttributeName}($idAttributeName);
+#if ( ! $dataFromToken.contains("NOT FOUND"))
+	'		String token = JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+	'		Integer ${dataFromToken}Id = JwtTokenUtil.get${DataFromToken}IdFromToken(token);
+	'		${DataFromToken} ${dataFromToken} = ${dataFromToken}Dao.findById(${dataFromToken}Id);
+	'		
+	'		${ClassName} ${className} = ${className}Dao.findBy${IdAttributeName}And${DataFromToken}($idAttributeName, $dataFromToken);
+#else
+	'		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+	'		
+	'		${ClassName} ${className} = ${className}Dao.findBy${IdAttributeName}($idAttributeName);
+#end
 '		if (${className} == null) {
 '			throw new ResourceNotFoundException("${ClassName} '" + $idAttributeName +"' + not found.");
 '		}
-'       ${className}Dao.delete(${className});
-'       return ResponseEntity.ok().build();
+'		${className}Dao.delete(${className});
+'		return ResponseEntity.ok().build();
 '	}
 }

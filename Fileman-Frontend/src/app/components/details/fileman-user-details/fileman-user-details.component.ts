@@ -18,6 +18,7 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors} 
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
 import { User } from 'src/app/common/domainobjects/gen/User';
 import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
@@ -25,6 +26,7 @@ import { UserService } from 'src/app/services/fileman-user-service.service';
 import { TenantService } from 'src/app/services/fileman-tenant-service.service';
 import { FilemanAvatarService } from 'src/app/services/fileman-avatar-service.service';
 import { Utils } from 'src/app/common/Utils';
+import { MultiselectDropdownSettings } from 'src/app/common/fileman-constants';
 
 @Component({
   selector: 'fileman-user-details',
@@ -45,7 +47,7 @@ export class UserDetailsComponent implements OnInit {
   newMode: boolean;
   toEdit: User;
   tenants = [] as Tenant[];
-  tenantsMap = new Map<string, Tenant>();
+  tenantsMultiselectDropdownSettings = MultiselectDropdownSettings;
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
@@ -74,11 +76,16 @@ export class UserDetailsComponent implements OnInit {
             this.avatarFileContent = this.toEdit.getAvatar();
             this.avatarService.prepareAvatar(this.toEdit.getName(), this.toEdit.getAvatar());
           }
+          // for existing users, we need to extract the tenants after setting the
+          // data to the controls, otherwise the current tenant may not be selected
+          this.tenantService.getAllTenants()
+              .subscribe(responseData => {this.extractTenants(responseData)});
         }
       });
+    } else {
+      this.tenantService.getAllTenants()
+          .subscribe(responseData => {this.extractTenants(responseData)});
     }
-    this.tenantService.getAllTenants()
-        .subscribe(responseData => {this.extractTenants(responseData)});
   }
 
   extractTenants(responseData) {
@@ -86,11 +93,6 @@ export class UserDetailsComponent implements OnInit {
     responseData.forEach(element => {
       const dataset = new Tenant(element);
       tenants.push(dataset);
-      console.log(dataset.getId());
-      console.log(dataset);
-      // need conversion from number to string, as
-      // TypeScript maps do not work with numberic keys
-      this.tenantsMap.set(''+dataset.getId(), dataset);
     });
     this.tenants = Utils.sortList(tenants);
   }
@@ -119,10 +121,7 @@ export class UserDetailsComponent implements OnInit {
       id: this.toEdit != null ? this.toEdit.getId() : null,
       name: this.nameC.value.trim(),
       role: this.roleC.value,
-      tenant: new Tenant({
-        id: this.tenantC.value,
-        name: this.tenantsMap.get(this.tenantC.value).getName()
-      }),
+      tenants: this.tenantsC.value,
       password: this.passwordC.value != null
                   && this.passwordC.value.trim().length > 0 ?
                   this.passwordC.value.trim() : null,
@@ -271,7 +270,7 @@ export class UserDetailsComponent implements OnInit {
         roleControl: new FormControl('', [
                 Validators.required,
               ]),
-        tenantControl: new FormControl('', [
+        tenantsControl: new FormControl([], [
                 Validators.required,
               ]),
         passwordControl: new FormControl('', [
@@ -296,8 +295,8 @@ export class UserDetailsComponent implements OnInit {
     return this.form.get('inputFieldControl.detailsForm.roleControl');
   }
 
-  get tenantC() {
-    return this.form.get('inputFieldControl.detailsForm.tenantControl');
+  get tenantsC() {
+    return this.form.get('inputFieldControl.detailsForm.tenantsControl');
   }
 
   get passwordC() {
@@ -317,7 +316,7 @@ export class UserDetailsComponent implements OnInit {
 
     user.setName(this.nameC.value);
     user.setRole(this.roleC.value);
-    user.setTenant(this.tenantC.value);
+    user.setTenants(this.tenantsC.value);
     user.setPassword(this.passwordC.value);
     user.setPasswordRepetition(this.passwordRepetitionC.value);
     user.setAvatar(this.avatarC.value);
@@ -328,7 +327,7 @@ export class UserDetailsComponent implements OnInit {
   private setDataToControls(user: User) {
     this.nameC.setValue(user.getName());
     this.roleC.setValue(user.getRole());
-    this.tenantC.setValue(user.getTenant().id);
+    this.tenantsC.setValue(user.getTenants());
     this.passwordC.setValue(user.getPassword());
     this.passwordRepetitionC.setValue(user.getPasswordRepetition());
   }

@@ -24,20 +24,20 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="TENANT")
 public class Tenant implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1599725898866L;
+	private static final long serialVersionUID = 1600193156842L;
 
 	// ===============  instance fields  ===============
 
     @Column(name="ID", unique=true, columnDefinition="int")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    private Integer id;
 
     @NotNull(message="Value of mandatory attribute 'name' is not present.")
     @Size(min=2, max=64, message="Value of attribute 'name' is out of valid range (2-64)")
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 2 to 64.")
     @Column(name="NAME", unique=true, columnDefinition="varchar")
-	private String name;
+    private String name;
 
 
 	// ===============  setter methods  ===============

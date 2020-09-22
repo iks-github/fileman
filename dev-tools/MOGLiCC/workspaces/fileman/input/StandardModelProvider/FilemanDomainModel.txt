@@ -125,6 +125,14 @@ class <<DomainPath>>.FileMetaData
   metainfo frontendClass true
   metainfo dbEntity true
 
+  attribute id
+    metainfo dbType int
+    metainfo JavaType Integer
+    metainfo ExampleData 1
+    metainfo unique true
+    metainfo id true
+    metainfo generatedValue true
+
   attribute name
     metainfo dbType varchar
     metainfo JavaType String
@@ -133,8 +141,6 @@ class <<DomainPath>>.FileMetaData
     metainfo MinLength 3
     metainfo MaxLength 128
     metainfo unique for-client
-    metainfo id true
-    metainfo omitGeneralFindMethod true
     metainfo withFindMethodForAttribute tenant
     metainfo guiType TextField
     metainfo allowSpace false
@@ -158,6 +164,13 @@ class <<DomainPath>>.FileMetaData
     metainfo defaultValue true
     metainfo ExampleData true
     metainfo hideFromDB true
+    
+  attribute fileGroups
+    metainfo dbType int
+    metainfo JavaType java.util.Set<FileGroup>
+    metainfo guiType MultiSelectBox
+    metainfo dbRelation ManyToMany
+    metainfo joinTable fileGroup
 
   attribute techType
     metainfo dbType varchar
@@ -190,8 +203,6 @@ class <<DomainPath>>.FileMetaData
     metainfo dbType int
     metainfo JavaType Tenant
     metainfo Mandatory true
-    metainfo id true
-    metainfo omitGeneralFindMethod true
     metainfo dbRelation ManyToOne
     metainfo isForeignKey true
     metainfo hideFromClientOverview true
@@ -207,6 +218,7 @@ class <<DomainPath>>.FileGroup
   metainfo FrontendService true
   metainfo FrontendServiceName filegroup
   metainfo dbEntity true
+  metainfo needsDataFromToken tenant
 
   attribute id
     metainfo dbType int
@@ -215,6 +227,7 @@ class <<DomainPath>>.FileGroup
     metainfo unique true
     metainfo id true
     metainfo generatedValue true
+    metainfo withFindMethodForAttribute tenant
 
   attribute name
     metainfo dbType varchar
@@ -225,6 +238,14 @@ class <<DomainPath>>.FileGroup
     metainfo MaxLength 64
     metainfo unique true
     metainfo guiType TextField
+
+  attribute tenant
+    metainfo dbType int
+    metainfo JavaType Tenant
+    metainfo dbRelation ManyToOne
+    metainfo isForeignKey true
+    metainfo hideFromClientOverview true
+    metainfo withFindAllMethod true
 
 class <<DomainPath>>.User
   metainfo implements java.io.Serializable
@@ -261,15 +282,13 @@ class <<DomainPath>>.User
     metainfo ExampleData Admin
     metainfo guiType Selectbox:Reader,Writer,Admin
 
-  attribute tenant
+  attribute tenants
     metainfo dbType int
-    metainfo JavaType Tenant
+    metainfo JavaType java.util.Set<Tenant>
     metainfo Mandatory true
-    metainfo guiType Selectbox
-    metainfo guiValueField id
-    metainfo guiDisplayField name
-    metainfo dbRelation ManyToOne
-    metainfo isForeignKey true
+    metainfo guiType MultiSelectBox
+    metainfo dbRelation ManyToMany
+    metainfo joinTable tenant
 
   attribute password
     metainfo dbType varchar
@@ -306,6 +325,7 @@ class <<DomainPath>>.Tenant
   metainfo BackendController true
   metainfo FrontendService true
   metainfo dbEntity true
+  metainfo findAllMethodAccessability unprotected
 
   attribute id
     metainfo dbType int
@@ -359,6 +379,10 @@ class <<DomainPath>>.LoginRequest
     metainfo ExampleData "pw"
     # metainfo MinLength 3
     metainfo MaxLength 32
+    
+  attribute tenant
+    metainfo JavaType Integer
+    metainfo ExampleData 1
 
   attribute filemanVersion
     metainfo JavaType String

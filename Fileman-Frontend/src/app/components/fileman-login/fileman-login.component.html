@@ -40,6 +40,19 @@
 
                 <tr>&nbsp;</tr>
 
+                <tr class="form-group">
+                  <td>
+                      <label for="tenant">Tenant</label>
+                  </td>
+                  <td>
+                      <select ngModel name="tenant" id="tenant" class="form-Control">
+                          <option *ngFor="let tenant of tenants" [value]="tenant.id">{{tenant.name}}</option>
+                      </select>
+                  </td>
+              </tr>
+
+              <tr>&nbsp;</tr>
+
             </table>
 
             <div class="alert alert-danger"

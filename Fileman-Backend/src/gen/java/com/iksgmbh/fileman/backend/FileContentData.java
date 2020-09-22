@@ -25,46 +25,46 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_CONTENT_DATA")
 public class FileContentData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1599725898614L;
+	private static final long serialVersionUID = 1600193156610L;
 
 	// ===============  instance fields  ===============
 
     @Column(name="UUID", unique=true, columnDefinition="bigint")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long uuid;
+    private Long uuid;
 
     @NotNull(message="Value of mandatory attribute 'name' is not present.")
     @Size(min=3, max=128, message="Value of attribute 'name' is out of valid range (3-128)")
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 3 to 128.")
     @Column(name="NAME", columnDefinition="varchar")
-	private String name;
+    private String name;
 
     @NotNull(message="Value of mandatory attribute 'content' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="CONTENT", columnDefinition="blob")
     @Lob
-	private byte[] content;
+    private byte[] content;
 
     @NotNull(message="Value of mandatory attribute 'size' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="SIZE", columnDefinition="bigint")
-	private Long size;
+    private Long size;
 
     @NotNull(message="Value of mandatory attribute 'creator' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @Column(name="CREATOR", columnDefinition="varchar")
-	private String creator;
+    private String creator;
 
     @Column(name="CREATION_DATE", columnDefinition="datetime")
-	private Date creationDate;
+    private Date creationDate;
 
     @NotNull(message="Value of mandatory attribute 'tenant' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @JsonProperty(access = Access.WRITE_ONLY)
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name="TENANT", columnDefinition="int")
-	private Tenant tenant;
+    private Tenant tenant;
 
 
 	// ===============  setter methods  ===============

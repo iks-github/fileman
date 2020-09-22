@@ -30,6 +30,10 @@ public class FileMetaDataBasicDao
 		return entityManager.createQuery(criteria).getResultList();
 	}
 
+	public FileMetaData findById(Integer id) {
+		return entityManager.find(FileMetaData.class, id);
+	}
+
 	public FileMetaData findByNameAndTenant(String name, Tenant tenant) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<FileMetaData> criteria = criteriaBuilder.createQuery(FileMetaData.class);
@@ -39,7 +43,7 @@ public class FileMetaDataBasicDao
                         criteriaBuilder.equal(fileMetaData.get("name"), name),
                         criteriaBuilder.equal(fileMetaData.get("tenant"), tenant)));
         return entityManager.createQuery(criteria).getSingleResult();
-}
+	}
 
 	public List<FileMetaData> findAllForTenant(Tenant toSearch) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

@@ -43,7 +43,7 @@ public class FileContentDataBasicDao
                         criteriaBuilder.equal(fileContentData.get("name"), name),
                         criteriaBuilder.equal(fileContentData.get("tenant"), tenant)));
         return entityManager.createQuery(criteria).getResultList();
-}
+	}
 
 	public boolean update(FileContentData entity) {
 		try {

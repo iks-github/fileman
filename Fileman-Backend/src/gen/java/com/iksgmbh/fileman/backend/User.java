@@ -4,7 +4,7 @@ import com.iksgmbh.fileman.backend.Tenant;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
-import java.util.Set;
+import java.util.List;
 
 import javax.validation.constraints.*;
 import javax.persistence.*;
@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="USER")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1600193156788L;
+	private static final long serialVersionUID = 1601997100158L;
 
 	// ===============  instance fields  ===============
 
@@ -50,7 +50,7 @@ public class User implements Serializable
     @ApiModelProperty(notes = "Mandatory.")
     @ManyToMany
     @JoinTable(name="user_tenant", joinColumns = { @JoinColumn(name = "fk_user") }, inverseJoinColumns = { @JoinColumn(name = "fk_tenant") })
-    private Set<Tenant> tenants;
+    private List<Tenant> tenants;
 
     @Size(min=1, max=60, message="Value of attribute 'password' is out of valid range (1-60)")
     @ApiModelProperty(notes = "Valid length ranges from 1 to 60.")
@@ -86,7 +86,7 @@ public class User implements Serializable
 		this.role = role;
 	}
 
-	public void setTenants(final Set<Tenant> tenants)
+	public void setTenants(final List<Tenant> tenants)
 	{
 		this.tenants = tenants;
 	}
@@ -123,7 +123,7 @@ public class User implements Serializable
 		return role;
 	}
 
-	public Set<Tenant> getTenants()
+	public List<Tenant> getTenants()
 	{
 		return tenants;
 	}

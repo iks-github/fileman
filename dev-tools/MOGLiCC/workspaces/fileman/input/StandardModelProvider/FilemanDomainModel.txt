@@ -168,8 +168,10 @@ class <<DomainPath>>.FileMetaData
   attribute fileGroups
     metainfo dbType int
     metainfo JavaType java.util.List<FileGroup>
+    metainfo frontendType Set<FileGroup>
     metainfo guiType MultiSelectBox
     metainfo dbRelation ManyToMany
+    metainfo breakRecursionOnAttribute files
     metainfo joinTable fileGroup
 
   attribute techType
@@ -242,8 +244,10 @@ class <<DomainPath>>.FileGroup
   attribute files
     metainfo dbType int
     metainfo JavaType java.util.List<FileMetaData>
+    metainfo frontendType Set<FileMetaData>
     metainfo guiType MultiSelectBox
     metainfo dbRelation ManyToMany(mappedBy="fileGroups")
+    metainfo breakRecursionOnAttribute fileGroups
 
   attribute tenant
     metainfo dbType int
@@ -290,7 +294,8 @@ class <<DomainPath>>.User
 
   attribute tenants
     metainfo dbType int
-    metainfo JavaType java.util.Set<Tenant>
+    metainfo JavaType java.util.List<Tenant>
+    metainfo frontendType Set<Tenant>
     metainfo Mandatory true
     metainfo guiType MultiSelectBox
     metainfo dbRelation ManyToMany

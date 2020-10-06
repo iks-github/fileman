@@ -16,6 +16,7 @@
 import { Input, Output, EventEmitter } from '@angular/core';
 
 import { FileGroup } from 'src/app/common/domainobjects/gen/FileGroup';
+import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { LayoutCommons } from '../layout-commons';
 
 export class LayoutFileGroupCommons extends LayoutCommons {
@@ -36,5 +37,18 @@ export class LayoutFileGroupCommons extends LayoutCommons {
     return '<div class="inner-html-enclosing-div"><h4>Details:</h4>' +
       '<hr>' +
       this.buildHtmlTooltipContentRow('Name', fileGroup.name)+'</div>'
+  }
+
+  formatFiles(files: Set<FileMetaData>): string {
+    let fileString: string = '';
+
+    files.forEach((file: FileMetaData) => {
+      if (fileString.length > 0) {
+        fileString += ', ';
+      }
+      fileString += file.name;
+    });
+
+    return fileString;
   }
 }

@@ -16,7 +16,9 @@
 package com.iksgmbh.fileman.backend.dao;
 
 import org.springframework.stereotype.Component;
+
 import com.iksgmbh.fileman.backend.FileGroup;
+import com.iksgmbh.fileman.backend.FileMetaData;
 
 /**
  * Created as draft by MOGLiCC.
@@ -24,5 +26,19 @@ import com.iksgmbh.fileman.backend.FileGroup;
  *
 **/
 @Component
-public class FileGroupDao extends FileGroupBasicDao
-{}
+public class FileGroupDao extends FileGroupBasicDao {
+	
+	@Override
+	public FileGroup create(FileGroup entity) {
+		
+		super.create(entity);
+		
+		for (FileMetaData fileFromFileGroup: entity.getFiles()) {
+			FileMetaData fileFromDb = entityManager.find(FileMetaData.class, fileFromFileGroup.getId());
+			fileFromDb.getFileGroups().add(entity);
+			entityManager.merge(fileFromDb);
+		}
+		
+		return entity;
+	}
+}

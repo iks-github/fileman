@@ -21,6 +21,10 @@ import { Observable } from 'rxjs';
 import { FileGroup } from 'src/app/common/domainobjects/gen/FileGroup';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { FileGroupService } from 'src/app/services/fileman-filegroup-service.service';
+import { MultiselectDropdownSettings } from 'src/app/common/fileman-constants';
+import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
+import { Utils } from 'src/app/common/Utils';
+import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 
 @Component({
   selector: 'fileman-filegroup-details',
@@ -35,10 +39,13 @@ export class FileGroupDetailsComponent implements OnInit {
   detailsForm: FormGroup;
   newMode: boolean;
   toEdit: FileGroup;
+  files = [] as FileMetaData[];
+  filesMultiselectDropdownSettings = MultiselectDropdownSettings;
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
-              private fileGroupService: FileGroupService) {
+              private fileGroupService: FileGroupService,
+              private metadataService: FilemanMetadataService) {
       this.form = this.createFormGroup();
       this.currentlyLoggedInUser = authService.getCurrentUserName();
   }
@@ -49,6 +56,7 @@ export class FileGroupDetailsComponent implements OnInit {
     if ( ! this.newMode ) {
       const index = this.router.url.lastIndexOf('/') + 1;
       const id = this.router.url.substring(index);
+      const files = [] as FileMetaData[];
       this.fileGroupService.getFileGroup(id).subscribe(fileGroup => {
         this.toEdit = new FileGroup(fileGroup);
         if (this.toEdit == null) {
@@ -56,9 +64,24 @@ export class FileGroupDetailsComponent implements OnInit {
           this.backToOverview();  // no data to edit available - happens for page reload - reason unclear
         } else {
           this.setDataToControls(this.toEdit);
+          this.metadataService.getOverviewData()
+              .subscribe(responseData => {this.extractFiles(responseData);
+          });
         }
       });
+    } else {
+      this.metadataService.reloadOverviewData()
+          .subscribe(responseData => {this.extractFiles(responseData)});
     }
+  }
+
+  extractFiles(responseData) {
+    const files = [] as FileMetaData[];
+    responseData.forEach(element => {
+      const dataset = new FileMetaData(element);
+      files.push(dataset);
+    });
+    this.files = Utils.sortList(files);
   }
 
   getToolTip() {
@@ -69,7 +92,8 @@ export class FileGroupDetailsComponent implements OnInit {
   save() {
     const toSave = new FileGroup({
       id: this.toEdit != null ? this.toEdit.getId() : null,
-      name: this.nameC.value.trim()
+      name: this.nameC.value.trim(),
+      files: this.filesC.value
     });
     console.log('Saving ');
     console.log(toSave);
@@ -131,6 +155,8 @@ export class FileGroupDetailsComponent implements OnInit {
                 Validators.maxLength(64),
               ],
               this.isNotUnique.bind(this)),
+        filesControl: new FormControl('', [
+              ]),
     });
   }
 
@@ -138,16 +164,22 @@ export class FileGroupDetailsComponent implements OnInit {
     return this.form.get('inputFieldControl.detailsForm.nameControl');
   }
 
+  get filesC() {
+    return this.form.get('inputFieldControl.detailsForm.filesControl');
+  }
+
   private getFileGroup() {
     const fileGroup = new FileGroup(null);
 
     fileGroup.setName(this.nameC.value);
+    fileGroup.setFiles(this.filesC.value);
 
     return fileGroup;
   }
 
   private setDataToControls(fileGroup: FileGroup) {
     this.nameC.setValue(fileGroup.getName());
+    this.filesC.setValue(fileGroup.getFiles());
   }
   // The form control block above is generated - do not modify manually!
 }

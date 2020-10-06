@@ -2,6 +2,7 @@ import { FileGroup } from 'src/app/common/domainobjects/gen/FileGroup';
 
 export class FileMetaData
 {
+    id: number;
     name: string;
     description: string;
     activeUUID: number;
@@ -15,6 +16,7 @@ export class FileMetaData
 
     constructor(untypedFileMetaData: any) {
         if (untypedFileMetaData != null) {
+            this.id = untypedFileMetaData.id;
             this.name = untypedFileMetaData.name;
             this.description = untypedFileMetaData.description;
             this.activeUUID = untypedFileMetaData.activeUUID;
@@ -31,6 +33,7 @@ export class FileMetaData
 
     static getAttributeNames(): string[] {
         return [
+           'id',
            'name',
            'description',
            'activeUUID',
@@ -42,6 +45,10 @@ export class FileMetaData
            'creationDate',
            'size',
         ];
+    }
+
+    getId() {
+      return this.id;
     }
 
     getName() {
@@ -84,6 +91,10 @@ export class FileMetaData
         return this.size;
     }
 
+
+    setId(id: number) {
+      this.id = id;
+    }
 
     setName(name: string) {
         this.name = name;
@@ -130,6 +141,7 @@ export class FileMetaData
         if (this === obj) { return true; }
         if (obj == null) { return false; }
 
+        if (this.id !== obj.id) { return false; }
         if (this.name !== obj.name) { return false; }
         if (this.description !== obj.description) { return false; }
         if (this.activeUUID !== obj.activeUUID) { return false; }
@@ -147,6 +159,7 @@ export class FileMetaData
     getStringRepresentation(): string {
         return 'DETAILS:\n' +
                '------------------------------------------\n' +
+           'Id: ' + this.id + '\n' +
            'Name: ' + this.name + '\n' +
            'Description: ' + this.description + '\n' +
            'ActiveUUID: ' + this.activeUUID + '\n' +

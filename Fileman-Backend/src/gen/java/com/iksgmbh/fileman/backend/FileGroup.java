@@ -1,9 +1,11 @@
 package com.iksgmbh.fileman.backend;
 
+import com.iksgmbh.fileman.backend.FileMetaData;
 import com.iksgmbh.fileman.backend.Tenant;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 
 import javax.validation.constraints.*;
 import javax.persistence.*;
@@ -25,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_GROUP")
 public class FileGroup implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1600193156748L;
+	private static final long serialVersionUID = 1601991874572L;
 
 	// ===============  instance fields  ===============
 
@@ -39,6 +41,11 @@ public class FileGroup implements Serializable, Cloneable
     @ApiModelProperty(notes = "Mandatory. Valid length ranges from 2 to 64.")
     @Column(name="NAME", unique=true, columnDefinition="varchar")
     private String name;
+
+    @ManyToMany(mappedBy="fileGroups")
+    @JsonIgnoreProperties({"fileGroups"})
+    @Column(name="FILES", columnDefinition="int")
+    private List<FileMetaData> files;
 
     @JsonProperty(access = Access.WRITE_ONLY)
     @ManyToOne
@@ -58,6 +65,11 @@ public class FileGroup implements Serializable, Cloneable
 		this.name = name;
 	}
 
+	public void setFiles(final List<FileMetaData> files)
+	{
+		this.files = files;
+	}
+
 	public void setTenant(final Tenant tenant)
 	{
 		this.tenant = tenant;
@@ -75,6 +87,11 @@ public class FileGroup implements Serializable, Cloneable
 		return name;
 	}
 
+	public List<FileMetaData> getFiles()
+	{
+		return files;
+	}
+
 	public Tenant getTenant()
 	{
 		return tenant;
@@ -88,6 +105,7 @@ public class FileGroup implements Serializable, Cloneable
 		return "FileGroup ["
 				+ "id = " + id + ", "
 				+ "name = " + name + ", "
+				+ "files = " + files + ", "
 				+ "tenant = " + tenant + ""
 				+ "]";
 	}
@@ -121,6 +139,15 @@ public class FileGroup implements Serializable, Cloneable
 			if (! name.equals(other.name))
 				   return false;
 		}
+		if (files == null)
+		{
+			if (other.files != null)
+				return false;
+		} else
+		{
+			if (! files.equals(other.files))
+				   return false;
+		}
 		if (tenant == null)
 		{
 			if (other.tenant != null)
@@ -140,6 +167,7 @@ public class FileGroup implements Serializable, Cloneable
 
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((files == null) ? 0 : files.hashCode());
 		result = prime * result + ((tenant == null) ? 0 : tenant.hashCode());
 
 		return result;
@@ -157,6 +185,14 @@ public class FileGroup implements Serializable, Cloneable
 
 		if (this.id != null) clone.id = new Integer(this.id);
 		if (this.name != null) clone.name = new String(name);
+
+		if ( this.files != null )
+		{
+			final  java.util.List<FileMetaData> listFileMetaData = new java.util.ArrayList<FileMetaData>();
+			for (final FileMetaData element : files) {
+				listFileMetaData.add(element);
+			}
+		}
 		if (this.tenant != null) clone.tenant = (Tenant)this.tenant.clone();  // probably, here is need of manual adaptation
 
 		return clone;
@@ -171,6 +207,9 @@ public class FileGroup implements Serializable, Cloneable
             if(! otherFileGroup.getName().isEmpty()) {
            	 this.setName(otherFileGroup.getName());
             }
+       }
+        if (otherFileGroup.getFiles() != null) {
+            this.setFiles(otherFileGroup.getFiles());
        }
         if (otherFileGroup.getTenant() != null) {
             this.setTenant(otherFileGroup.getTenant());

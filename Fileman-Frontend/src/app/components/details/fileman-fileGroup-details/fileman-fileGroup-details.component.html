@@ -16,7 +16,27 @@
                     <br>
                     <input id="name" type="text" class="form-Control" formControlName="nameControl"/>
                 </td>
+                <td class="space"></td>
+                <td>
+                    <label for="files">Files</label>
+                    <br>
+                    <ng-multiselect-dropdown
+                      id="files"
+                      class="form-Control"
+                      formControlName="filesControl"
+                      [placeholder]="'Click to select'"
+                      [data]="files"
+                      (onSelect)="filesC.markAsTouched()"
+                      (onSelectAll)="filesC.markAsTouched()"
+                      (onDeSelect)="filesC.markAsTouched()"
+                      (onDeSelectAll)="filesC.markAsTouched()"
+                      [settings]="filesMultiselectDropdownSettings">
+                    </ng-multiselect-dropdown>
+                </td>
             </tr>
+
+            <tr>&nbsp;</tr>
+
         </table>
         <!-- The table section above is generated: Do not modify manually! -->
 

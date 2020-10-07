@@ -393,8 +393,8 @@ class <<DomainPath>>.LoginRequest
     metainfo MaxLength 32
     
   attribute tenant
-    metainfo JavaType Integer
-    metainfo ExampleData 1
+    metainfo JavaType String
+    metainfo ExampleData "default"
 
   attribute filemanVersion
     metainfo JavaType String

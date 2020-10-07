@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package com.iksgmbh.fileman.backend.rest;
+import java.util.Optional;
+
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iksgmbh.fileman.backend.FilemanBackend;
 import com.iksgmbh.fileman.backend.LoginRequest;
 import com.iksgmbh.fileman.backend.LoginResponse;
+import com.iksgmbh.fileman.backend.Tenant;
 import com.iksgmbh.fileman.backend.User;
 import com.iksgmbh.fileman.backend.dao.UserDao;
 import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
@@ -89,13 +92,21 @@ public class LoginRestController {
 			return ResponseEntity.ok(loginResponse);		
 		}
 		
-		if (!user.getTenants().stream().anyMatch(n -> n.getId() == loginRequest.getTenant())) {
+		Optional<Tenant> tenantOptional = user.getTenants()
+				.stream()
+				.filter(tenant -> 
+					tenant.getName().equals(loginRequest.getTenant())
+				).findAny();
+		
+		if (!tenantOptional.isPresent()) {
 			loginResponse.setErrorMessage(AUTH_FAIL_MESSAGE);
 			loginResponse.setOk(false);
-			return ResponseEntity.ok(loginResponse);	
+			return ResponseEntity.ok(loginResponse);
 		}
+		
+		Tenant tenant = tenantOptional.get();
 
-		final String token = JwtTokenUtil.generateToken(user, loginRequest.getTenant());
+		final String token = JwtTokenUtil.generateToken(user, tenant.getId());
 
 		loginResponse.setAuthToken(token);
 		loginResponse.setOk(true);

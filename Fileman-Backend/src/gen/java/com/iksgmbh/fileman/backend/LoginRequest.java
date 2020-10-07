@@ -1,6 +1,5 @@
 package com.iksgmbh.fileman.backend;
 
-import java.lang.Integer;
 import java.lang.String;
 
 import javax.validation.constraints.*;
@@ -28,7 +27,7 @@ public class LoginRequest
     @ApiModelProperty(notes = "Mandatory. Valid maximum length is 32.")
     private String userPw;
 
-    private Integer tenant;
+    private String tenant;
 
     @NotNull(message="Value of mandatory attribute 'filemanVersion' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
@@ -47,7 +46,7 @@ public class LoginRequest
 		this.userPw = userPw;
 	}
 
-	public void setTenant(final Integer tenant)
+	public void setTenant(final String tenant)
 	{
 		this.tenant = tenant;
 	}
@@ -69,7 +68,7 @@ public class LoginRequest
 		return userPw;
 	}
 
-	public Integer getTenant()
+	public String getTenant()
 	{
 		return tenant;
 	}
@@ -169,7 +168,9 @@ public class LoginRequest
             }
        }
         if (otherLoginRequest.getTenant() != null) {
-            this.setTenant(otherLoginRequest.getTenant());
+            if(! otherLoginRequest.getTenant().isEmpty()) {
+           	 this.setTenant(otherLoginRequest.getTenant());
+            }
        }
         if (otherLoginRequest.getFilemanVersion() != null) {
             if(! otherLoginRequest.getFilemanVersion().isEmpty()) {

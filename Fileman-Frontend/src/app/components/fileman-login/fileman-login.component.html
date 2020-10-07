@@ -45,9 +45,7 @@
                       <label for="tenant">Tenant</label>
                   </td>
                   <td>
-                      <select ngModel name="tenant" id="tenant" class="form-Control">
-                          <option *ngFor="let tenant of tenants" [value]="tenant.id">{{tenant.name}}</option>
-                      </select>
+                      <input ngModel name="tenant" id="tenant" type="text" placeholder="default" class="form-Control"/>
                   </td>
               </tr>
 

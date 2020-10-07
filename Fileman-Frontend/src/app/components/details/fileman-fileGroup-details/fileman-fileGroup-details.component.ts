@@ -100,12 +100,16 @@ export class FileGroupDetailsComponent implements OnInit {
 
     if (this.newMode) {
       this.fileGroupService.create(toSave)
-          .subscribe(() => {}, error => {
+          .subscribe(() => {
+            this.metadataService.markDataAsOutdated();
+          }, error => {
             alert('Error saving new file group with name "' + toSave.getName() + '"!');
           });
     } else {
       this.fileGroupService.update(toSave)
-          .subscribe(() => {}, error => {
+          .subscribe(() => {
+            this.metadataService.markDataAsOutdated();
+          }, error => {
             alert('Error updating file group with ID "' + toSave.getId() + '"!');
           });
     }

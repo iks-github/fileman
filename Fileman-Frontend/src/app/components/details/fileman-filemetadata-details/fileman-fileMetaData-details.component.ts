@@ -247,7 +247,7 @@ export class FilemetadataDetailsComponent implements OnInit {
               ]),
         immediatelyActiveControl: new FormControl('true', [
               ]),
-        fileGroupsControl: new FormControl('', [
+        fileGroupsControl: new FormControl([], [
               ]),
     });
   }

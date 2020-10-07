@@ -17,7 +17,7 @@
 			#set( $defaultValue = "" )
 		#end	
 
-		#if ( $attributeDescriptor.getMetaInfoValueFor("JavaType").contains("Set<") )
+		#if ( $attributeDescriptor.getMetaInfoValueFor("JavaType").contains("Set<") || $attributeDescriptor.getMetaInfoValueFor("JavaType").contains("List<") )
 '        ${attributeName}Control: new FormControl([], [
 		#else
 '        ${attributeName}Control: new FormControl('$defaultValue', [

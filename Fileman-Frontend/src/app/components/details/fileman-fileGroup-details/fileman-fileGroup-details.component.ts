@@ -156,7 +156,7 @@ export class FileGroupDetailsComponent implements OnInit {
                 Validators.maxLength(64),
               ],
               this.isNotUnique.bind(this)),
-        filesControl: new FormControl('', [
+        filesControl: new FormControl([], [
               ]),
     });
   }

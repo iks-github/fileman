@@ -270,7 +270,7 @@ export class UserDetailsComponent implements OnInit {
         roleControl: new FormControl('', [
                 Validators.required,
               ]),
-        tenantsControl: new FormControl('', [
+        tenantsControl: new FormControl([], [
                 Validators.required,
               ]),
         passwordControl: new FormControl('', [

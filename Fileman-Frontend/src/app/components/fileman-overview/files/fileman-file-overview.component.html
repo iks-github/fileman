@@ -3,7 +3,9 @@
 <div *ngIf="fileGroups.length > 0" class="file-group-box">
   <p>File groups:</p>
   <button type="button" [ngClass]="getButtonClassForNoGrouping()" (click)="onButtonPressForNoGrouping()">No grouping</button>
-  <button *ngFor="let fileGroup of fileGroups" type="button" [ngClass]="getButtonClassForFileGroup(fileGroup)" (click)="onButtonPressForFileGroup(fileGroup)">{{fileGroup.name}}</button>
+  <span *ngFor="let fileGroup of fileGroups">
+      <button *ngIf="getViewedFilesForFileGroup(fileGroup).length > 0" type="button" [ngClass]="getButtonClassForFileGroup(fileGroup)" (click)="onButtonPressForFileGroup(fileGroup)">{{fileGroup.name}}</button>
+  </span>
 </div>
 
 <h5>Hosted Files:</h5>
@@ -27,9 +29,8 @@
           (fileHistoryShown)="showHistory($event)"
           (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-filemetadata-list-layout>
-        <div *ngFor="let fileGroup of selectedFileGroups">
+        <div *ngFor="let fileGroup of selectedFileGroups; let i = index">
           <button
-            *ngIf="getViewedFilesForFileGroup(fileGroup).length > 0"
             type="button"
             class="btn button-group-display-tag">
             {{fileGroup.name}}
@@ -44,6 +45,11 @@
             (fileHistoryShown)="showHistory($event)"
             (fileFavouriteSettingChanged)="markFavourite($event)">
           </fileman-filemetadata-list-layout>
+          <div
+            *ngIf="i < selectedFileGroups.size - 1"
+            style="margin-top: 40px;">
+            <hr>
+          </div>
         </div>
     </div>
     <div *ngSwitchCase="layoutTypeTable">
@@ -58,15 +64,13 @@
           (fileHistoryShown)="showHistory($event)"
           (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-filemetadata-table-layout>
-        <div *ngFor="let fileGroup of selectedFileGroups">
+        <div *ngFor="let fileGroup of selectedFileGroups; let i = index">
           <button
-            *ngIf="getViewedFilesForFileGroup(fileGroup).length > 0"
             type="button"
             class="btn button-group-display-tag">
             {{fileGroup.name}}
           </button>
           <fileman-filemetadata-table-layout
-            *ngIf="getViewedFilesForFileGroup(fileGroup).length > 0"
             [viewedFiles]="getViewedFilesForFileGroup(fileGroup)"
             [favouriteSettings]="favouriteSettings"
             [readOnly]="readOnly"
@@ -76,6 +80,11 @@
             (fileHistoryShown)="showHistory($event)"
             (fileFavouriteSettingChanged)="markFavourite($event)">
           </fileman-filemetadata-table-layout>
+          <div
+            *ngIf="i < selectedFileGroups.size - 1"
+            style="margin-top: 40px;">
+            <hr>
+          </div>
         </div>
     </div>
     <div *ngSwitchCase="layoutTypeTiles">
@@ -90,9 +99,8 @@
           (fileHistoryShown)="showHistory($event)"
           (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-filemetadata-tiles-layout>
-        <div *ngFor="let fileGroup of selectedFileGroups">
+        <div *ngFor="let fileGroup of selectedFileGroups; let i = index">
           <button
-            *ngIf="getViewedFilesForFileGroup(fileGroup).length > 0"
             type="button"
             class="btn button-group-display-tag">
             {{fileGroup.name}}
@@ -107,6 +115,11 @@
             (fileHistoryShown)="showHistory($event)"
             (fileFavouriteSettingChanged)="markFavourite($event)">
           </fileman-filemetadata-tiles-layout>
+          <div
+            *ngIf="i < selectedFileGroups.size - 1"
+            style="margin-top: 40px;">
+            <hr>
+          </div>
         </div>
     </div>
 </div>

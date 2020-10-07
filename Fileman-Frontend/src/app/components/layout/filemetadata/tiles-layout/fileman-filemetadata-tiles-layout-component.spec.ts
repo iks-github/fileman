@@ -18,12 +18,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { FilemetadataTilesLayout } from './fileman-filemetadata-tiles-layout-component';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { FavouriteSetting } from 'src/app/common/domainobjects/gen/FavouriteSetting';
 import { Icon } from 'src/app/common/fileman-constants';
 import { FilemanPreviewService } from 'src/app/services/fileman-preview-service.service';
+import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 
 describe('FilemanTilesLayout', () => {
   let component: FilemetadataTilesLayout;
@@ -38,7 +40,10 @@ describe('FilemanTilesLayout', () => {
     TestBed.configureTestingModule({
       declarations: [ FilemetadataTilesLayout ],
       imports: [ RouterTestingModule, HttpClientModule ],
-      providers: [{provide: FilemanPreviewService, useValue: previewService}]
+      providers: [
+        { provide: FilemanFileService, useClass: MockFilemanFileService },
+        { provide: FilemanPreviewService, useValue: previewService }
+      ]
     });
 
     fixture = TestBed.createComponent(FilemetadataTilesLayout);
@@ -51,6 +56,12 @@ describe('FilemanTilesLayout', () => {
     TestBed.resetTestingModule();
   });
 
+  class MockFilemanFileService extends FilemanFileService {
+    getHistory() {
+      return new Observable();
+    }
+  }
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -59,7 +70,7 @@ describe('FilemanTilesLayout', () => {
     component.readOnly = false;
     component.favouriteSettings = new Map<string, FavouriteSetting>();
 
-    const testFile: FileMetaData = new FileMetaData({name: 'test.txt'});
+    const testFile: FileMetaData = new FileMetaData({name: 'test.txt', fileGroups: []});
     component.viewedFiles = [testFile];
 
     fixture.detectChanges();
@@ -83,7 +94,7 @@ describe('FilemanTilesLayout', () => {
     component.readOnly = true;
     component.favouriteSettings = new Map<string, FavouriteSetting>();
 
-    const testFile: FileMetaData = new FileMetaData({name: 'test.txt'});
+    const testFile: FileMetaData = new FileMetaData({name: 'test.txt', fileGroups: []});
     component.viewedFiles = [testFile];
 
     fixture.detectChanges();

@@ -15,13 +15,16 @@
  */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
-
-import { FilemanToolbarComponent } from './fileman-toolbar.component';
 import { DebugElement } from '@angular/core';
-import { Icon } from 'src/app/common/fileman-constants';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { FilemanToolbarComponent } from './fileman-toolbar.component';
+import { Icon } from 'src/app/common/fileman-constants';
+import { FilemanUserPreferencesService } from 'src/app/services/fileman-user-preferences-service.service';
+import { UserPreferences } from 'src/app/common/domainobjects/gen/UserPreferences';
 
 describe('FilemanToolbarComponent', () => {
   let component: FilemanToolbarComponent;
@@ -29,19 +32,33 @@ describe('FilemanToolbarComponent', () => {
   let mockRouter: any;
 
   beforeEach(() => {
-
     mockRouter = {navigate: jasmine.createSpy('navigate')};
 
     TestBed.configureTestingModule({
       declarations: [ FilemanToolbarComponent ],
       imports: [ RouterTestingModule, HttpClientModule ],
-      providers: [{ provide: Router, useValue: mockRouter}],
+      providers: [
+        { provide: Router, useValue: mockRouter },
+        { provide: FilemanUserPreferencesService, useClass: MockFilemanUserPreferencesService }
+      ],
     });
 
     fixture = TestBed.createComponent(FilemanToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
+  class MockFilemanUserPreferencesService extends FilemanUserPreferencesService {
+    fetchUserPreferencesFromServer(userId: any) {
+      return new Observable();
+    }
+    create(userPreferences: UserPreferences) {
+      return new Observable();
+    }
+    update(userPreferences: UserPreferences) {
+      return new Observable();
+    }
+  }
 
   it('should create', () => {
     expect(component).toBeTruthy();

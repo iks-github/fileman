@@ -18,11 +18,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { FilemetadataListLayout } from './fileman-filemetadata-list-layout-component';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { FavouriteSetting } from 'src/app/common/domainobjects/gen/FavouriteSetting';
 import { Icon } from 'src/app/common/fileman-constants';
+import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 
 describe('FilemanListLayout', () => {
   let component: FilemetadataListLayout;
@@ -32,7 +34,8 @@ describe('FilemanListLayout', () => {
 
     TestBed.configureTestingModule({
       declarations: [ FilemetadataListLayout ],
-      imports: [ RouterTestingModule, HttpClientModule ]
+      imports: [ RouterTestingModule, HttpClientModule ],
+      providers: [{ provide: FilemanFileService, useClass: MockFilemanFileService }]
     });
 
     fixture = TestBed.createComponent(FilemetadataListLayout);
@@ -45,6 +48,12 @@ describe('FilemanListLayout', () => {
     TestBed.resetTestingModule();
   });
 
+  class MockFilemanFileService extends FilemanFileService {
+    getHistory() {
+      return new Observable();
+    }
+  }
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -53,7 +62,7 @@ describe('FilemanListLayout', () => {
     component.readOnly = false;
     component.favouriteSettings = new Map<string, FavouriteSetting>();
 
-    const testFile: FileMetaData = new FileMetaData({name: 'test.txt'});
+    const testFile: FileMetaData = new FileMetaData({name: 'test.txt', fileGroups: []});
     component.viewedFiles = [testFile];
 
     fixture.detectChanges();
@@ -77,7 +86,7 @@ describe('FilemanListLayout', () => {
     component.readOnly = true;
     component.favouriteSettings = new Map<string, FavouriteSetting>();
 
-    const testFile: FileMetaData = new FileMetaData({name: 'test.txt'});
+    const testFile: FileMetaData = new FileMetaData({name: 'test.txt', fileGroups: []});
     component.viewedFiles = [testFile];
 
     fixture.detectChanges();

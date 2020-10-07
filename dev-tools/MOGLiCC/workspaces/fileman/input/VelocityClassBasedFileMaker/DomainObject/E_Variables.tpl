@@ -111,7 +111,7 @@
 				#set( $uniqueSetting = ", unique=false")
 			#end
 			#if( ! $joinTable.equals("") )
-				'    @JoinTable(name="${className}_${joinTable}", joinColumns = { @JoinColumn(name = "fk_${className}") }, inverseJoinColumns = { @JoinColumn(name = "fk_${joinTable}") })
+				'    @JoinTable(name="${joinTable}", joinColumns = { @JoinColumn(name = "fk_${className}") }, inverseJoinColumns = { @JoinColumn(name = "fk_$joinTable.replace("_", "").replace("${className}", "")") })
 			#else
 			    #if ( $attributeDescriptor.doesHaveMetaInfo("isForeignKey", "true") )
 				    '    @JoinColumn(name="${dbName}"${nullableSetting}${uniqueSetting}, columnDefinition="${dbType}")

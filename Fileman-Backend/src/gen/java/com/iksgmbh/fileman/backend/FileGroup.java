@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_GROUP")
 public class FileGroup implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1601991874572L;
+	private static final long serialVersionUID = 1602053530802L;
 
 	// ===============  instance fields  ===============
 
@@ -42,9 +42,9 @@ public class FileGroup implements Serializable, Cloneable
     @Column(name="NAME", unique=true, columnDefinition="varchar")
     private String name;
 
-    @ManyToMany(mappedBy="fileGroups")
+    @ManyToMany
     @JsonIgnoreProperties({"fileGroups"})
-    @Column(name="FILES", columnDefinition="int")
+    @JoinTable(name="fileMetaData_fileGroup", joinColumns = { @JoinColumn(name = "fk_fileGroup") }, inverseJoinColumns = { @JoinColumn(name = "fk_fileMetaData") })
     private List<FileMetaData> files;
 
     @JsonProperty(access = Access.WRITE_ONLY)

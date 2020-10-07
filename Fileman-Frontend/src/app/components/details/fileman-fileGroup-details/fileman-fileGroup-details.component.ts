@@ -135,7 +135,8 @@ export class FileGroupDetailsComponent implements OnInit {
         .pipe(map((fileGroupArray: FileGroup[]) => {
 
       const foundItem = fileGroupArray.find(
-        fileGroupItem => fileGroupItem.name === control.value
+        fileGroupItem => (fileGroupItem.name === control.value
+          && (this.toEdit == null || fileGroupItem.id != this.toEdit.id))
       );
 
       if (foundItem) {

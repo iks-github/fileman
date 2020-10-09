@@ -4,7 +4,7 @@
   <p>File groups:</p>
   <button type="button" [ngClass]="getButtonClassForNoGrouping()" (click)="onButtonPressForNoGrouping()">No grouping</button>
   <span *ngFor="let fileGroup of fileGroups">
-      <button *ngIf="getViewedFilesForFileGroup(fileGroup).length > 0" type="button" [ngClass]="getButtonClassForFileGroup(fileGroup)" (click)="onButtonPressForFileGroup(fileGroup)">{{fileGroup.name}}</button>
+      <button *ngIf="fileGroup.files.length > 0" type="button" [ngClass]="getButtonClassForFileGroup(fileGroup)" (click)="onButtonPressForFileGroup(fileGroup)">{{fileGroup.name}}</button>
   </span>
 </div>
 
@@ -19,7 +19,7 @@
 <div [ngSwitch]="userPreferences.layoutType">
     <div *ngSwitchCase="layoutTypeList">
         <fileman-filemetadata-list-layout
-          *ngIf="selectedFileGroups.size == 0"
+          *ngIf="getValidNonEmptySelectedFileGroups().length == 0"
           [viewedFiles]="viewedFiles"
           [favouriteSettings]="favouriteSettings"
           [readOnly]="readOnly"
@@ -29,7 +29,7 @@
           (fileHistoryShown)="showHistory($event)"
           (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-filemetadata-list-layout>
-        <div *ngFor="let fileGroup of selectedFileGroups; let i = index">
+        <div *ngFor="let fileGroup of getValidNonEmptySelectedFileGroups(); let i = index">
           <button
             type="button"
             class="btn button-group-display-tag">
@@ -46,7 +46,7 @@
             (fileFavouriteSettingChanged)="markFavourite($event)">
           </fileman-filemetadata-list-layout>
           <div
-            *ngIf="i < selectedFileGroups.size - 1"
+            *ngIf="i < getValidNonEmptySelectedFileGroups().length - 1"
             style="margin-top: 40px;">
             <hr style="background: blue; height: 0.5px">
           </div>
@@ -54,7 +54,7 @@
     </div>
     <div *ngSwitchCase="layoutTypeTable">
         <fileman-filemetadata-table-layout
-          *ngIf="selectedFileGroups.size == 0"
+          *ngIf="getValidNonEmptySelectedFileGroups().length == 0"
           [viewedFiles]="viewedFiles"
           [favouriteSettings]="favouriteSettings"
           [readOnly]="readOnly"
@@ -64,7 +64,7 @@
           (fileHistoryShown)="showHistory($event)"
           (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-filemetadata-table-layout>
-        <div *ngFor="let fileGroup of selectedFileGroups; let i = index">
+        <div *ngFor="let fileGroup of getValidNonEmptySelectedFileGroups(); let i = index">
           <button
             type="button"
             class="btn button-group-display-tag">
@@ -81,7 +81,7 @@
             (fileFavouriteSettingChanged)="markFavourite($event)">
           </fileman-filemetadata-table-layout>
           <div
-            *ngIf="i < selectedFileGroups.size - 1"
+            *ngIf="i < getValidNonEmptySelectedFileGroups().length - 1"
             style="margin-top: 40px;">
             <hr style="background: blue; height: 0.5px">
           </div>
@@ -89,7 +89,7 @@
     </div>
     <div *ngSwitchCase="layoutTypeTiles">
         <fileman-filemetadata-tiles-layout
-          *ngIf="selectedFileGroups.size == 0"
+          *ngIf="getValidNonEmptySelectedFileGroups().length == 0"
           [viewedFiles]="viewedFiles"
           [favouriteSettings]="favouriteSettings"
           [readOnly]="readOnly"
@@ -99,7 +99,7 @@
           (fileHistoryShown)="showHistory($event)"
           (fileFavouriteSettingChanged)="markFavourite($event)">
         </fileman-filemetadata-tiles-layout>
-        <div *ngFor="let fileGroup of selectedFileGroups; let i = index">
+        <div *ngFor="let fileGroup of getValidNonEmptySelectedFileGroups(); let i = index">
           <button
             type="button"
             class="btn button-group-display-tag">
@@ -116,7 +116,7 @@
             (fileFavouriteSettingChanged)="markFavourite($event)">
           </fileman-filemetadata-tiles-layout>
           <div
-            *ngIf="i < selectedFileGroups.size - 1"
+            *ngIf="i < getValidNonEmptySelectedFileGroups().length - 1"
             style="margin-top: 40px;">
             <hr style="background: blue; height: 0.5px">
           </div>

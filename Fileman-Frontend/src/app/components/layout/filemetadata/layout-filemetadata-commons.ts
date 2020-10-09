@@ -96,7 +96,7 @@ export class LayoutFilemetadataCommons extends LayoutCommons {
       this.buildHtmlTooltipContentRow('Size', ''+file.size)+'</div>'
   }
 
-  formatFileGroups(fileGroups: Set<FileGroup>): string {
+  formatFileGroups(fileGroups: FileGroup[]): string {
     let fileGroupString: string = '';
 
     fileGroups.forEach((fileGroup: FileGroup) => {

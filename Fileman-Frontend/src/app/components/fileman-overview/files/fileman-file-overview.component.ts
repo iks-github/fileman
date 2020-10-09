@@ -52,6 +52,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   searchStringSubscription: Subscription;
   reloadRequestSubscription: Subscription;
   fileDataChangedSubscription: Subscription;
+  fileGroupDataChangedSubscription: Subscription;
   responseData;
   allFilesMap = new Map<string, FileMetaData>();
   viewedFiles = [] as FileMetaData[];
@@ -63,7 +64,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   selectedFile;
   viewFiles: boolean = true;
   fileGroups = [] as FileGroup[];
-  selectedFileGroups: Set<FileGroup>;
+  selectedFileGroups = [] as FileGroup[];
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
@@ -117,6 +118,10 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
       this.fileService.getFileDataChangedNotifier().subscribe(
         () => this.reload()
       );
+    this.fileGroupDataChangedSubscription =
+      this.fileGroupService.getFileGroupDataChangedNotifier().subscribe(
+        () => this.reload()
+      );
   }
 
   isFilenameUnique(filename: string) {
@@ -128,6 +133,9 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     this.viewedFiles = [] as FileMetaData[];
     this.filesMetaDataService.reloadOverviewData()
         .subscribe(responseData => {this.extractFiles(responseData)});
+    this.fileGroups = [] as FileGroup[];
+    this.fileGroupService.getAllFileGroups()
+        .subscribe(responseData => {this.extractFileGroups(responseData)});
   }
 
   extractFiles(responseData) {
@@ -255,15 +263,8 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
       this.previewService.preparePreviews(this.viewedFiles);
   }
 
-  ngOnDestroy() {
-    this.userPreferencesSubscription.unsubscribe();
-    this.searchStringSubscription.unsubscribe();
-    this.reloadRequestSubscription.unsubscribe();
-    this.fileDataChangedSubscription.unsubscribe();
-  }
-
   getButtonClassForNoGrouping() {
-    if (this.selectedFileGroups.size == 0) {
+    if (this.selectedFileGroups.length == 0) {
       return "btn button-group-select button-no-grouping-selected";
     }
 
@@ -271,12 +272,12 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   }
 
   onButtonPressForNoGrouping() {
-    this.selectedFileGroups.clear();
+    this.selectedFileGroups = [];
     this.searchService.setSelectedFileGroups(this.selectedFileGroups);
   }
 
   getButtonClassForFileGroup(fileGroup: FileGroup) {
-    if (this.isFileGroupInSet(fileGroup, this.selectedFileGroups)) {
+    if (this.isFileGroupInArray(fileGroup, this.selectedFileGroups)) {
       return "btn button-group-select button-group-selected";
     }
 
@@ -284,26 +285,51 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   }
 
   onButtonPressForFileGroup(fileGroup: FileGroup) {
-    if (this.isFileGroupInSet(fileGroup, this.selectedFileGroups)) {
-      this.selectedFileGroups.delete(fileGroup);
+    if (this.isFileGroupInArray(fileGroup, this.selectedFileGroups)) {
+      this.selectedFileGroups.splice(this.selectedFileGroups.indexOf(fileGroup), 1);
     } else {
-      this.selectedFileGroups.add(fileGroup);
+      this.selectedFileGroups.push(fileGroup);
     }
+    this.selectedFileGroups = Utils.sortList(this.selectedFileGroups);
     this.searchService.setSelectedFileGroups(this.selectedFileGroups);
   }
 
-  getViewedFilesForFileGroup(fileGroup: FileGroup): FileMetaData[] {
-    return this.viewedFiles.filter(file => {
-      return this.isFileGroupInSet(fileGroup, file.getFileGroups());
+  getValidNonEmptySelectedFileGroups() {
+    return this.selectedFileGroups.filter(fileGroup => {
+      return this.isFileGroupInArray(fileGroup, this.fileGroups)
+        && this.getViewedFilesForFileGroup(fileGroup).length > 0;
     });
   }
 
-  private isFileGroupInSet(fileGroup: FileGroup, fileGroupSet: Set<FileGroup>): boolean {
-    for (let fileGroupItemOfFile of fileGroupSet) {
+  private isFileGroupInArray(fileGroup: FileGroup, fileGroupArray: FileGroup[]): boolean {
+    for (let fileGroupItemOfFile of fileGroupArray) {
       if (fileGroupItemOfFile.id == fileGroup.id) {
         return true;
       }
     }
     return false;
+  }
+
+  getViewedFilesForFileGroup(fileGroup: FileGroup): FileMetaData[] {
+    return this.viewedFiles.filter(file => {
+      return this.isFileInFileGroup(file, fileGroup);
+    });
+  }
+
+  private isFileInFileGroup(file: FileMetaData, fileGroup: FileGroup): boolean {
+    for (let fileGroupFile of fileGroup.getFiles()) {
+      if (fileGroupFile.id == file.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  ngOnDestroy() {
+    this.userPreferencesSubscription.unsubscribe();
+    this.searchStringSubscription.unsubscribe();
+    this.reloadRequestSubscription.unsubscribe();
+    this.fileDataChangedSubscription.unsubscribe();
+    this.fileGroupDataChangedSubscription.unsubscribe();
   }
 }

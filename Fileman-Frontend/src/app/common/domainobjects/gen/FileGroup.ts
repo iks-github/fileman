@@ -5,7 +5,7 @@ export class FileGroup
 {
     id: number;
     name: string;
-    files: Set<FileMetaData>;
+    files: FileMetaData[];
     tenant: Tenant;
 
     constructor(untypedFileGroup: any) {
@@ -52,7 +52,7 @@ export class FileGroup
         this.name = name;
     }
 
-    setFiles(files: Set<FileMetaData>) {
+    setFiles(files: FileMetaData[]) {
         this.files = files;
     }
 

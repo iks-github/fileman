@@ -28,6 +28,7 @@ import { FilemanUserPreferencesService } from 'src/app/services/fileman-user-pre
 import { UserPreferences } from 'src/app/common/domainobjects/gen/UserPreferences';
 import { FilemanSearchService } from 'src/app/services/fileman-search-service.service';
 import { FilemanReloadService } from 'src/app/services/fileman-reload-service.service';
+import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 
 @Component({
   selector: 'fileman-filegroup-overview',
@@ -56,7 +57,8 @@ export class FilemanFileGroupOverviewComponent implements OnInit, OnDestroy {
               private fileGroupService: FileGroupService,
               private userPreferencesService: FilemanUserPreferencesService,
               private searchService: FilemanSearchService,
-              private reloadService: FilemanReloadService) {
+              private reloadService: FilemanReloadService,
+              private metadataService: FilemanMetadataService) {
                   console.log('########### overview constr');
               }
 
@@ -141,6 +143,7 @@ export class FilemanFileGroupOverviewComponent implements OnInit, OnDestroy {
         .subscribe(
           deletedFileGroup => {
               console.log('Successfully deleted file group: ' + fileGroup.getName());
+              this.metadataService.markDataAsOutdated();
             },
           (error: FilemanError) => {
             this.viewedFileGroups.splice(index, 0, toDelete);  // roll back optimistic deletion

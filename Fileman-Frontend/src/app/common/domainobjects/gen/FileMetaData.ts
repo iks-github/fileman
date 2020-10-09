@@ -7,7 +7,7 @@ export class FileMetaData
     description: string;
     activeUUID: number;
     immediatelyActive: boolean;
-    fileGroups: Set<FileGroup>;
+    fileGroups: FileGroup[];
     techType: string;
     techVersion: number;
     creator: string;
@@ -112,7 +112,7 @@ export class FileMetaData
         this.immediatelyActive = immediatelyActive;
     }
 
-    setFileGroups(fileGroups: Set<FileGroup>) {
+    setFileGroups(fileGroups: FileGroup[]) {
       this.fileGroups = fileGroups;
     }
 

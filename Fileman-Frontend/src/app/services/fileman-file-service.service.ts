@@ -30,7 +30,7 @@ export class FilemanFileService {
   private fileDataChangedNotifier: Subject<void> = new Subject<void>();
 
   constructor(private httpClient: HttpClient,
-              private propertiesService: FilemanPropertiesLoaderService) {
+              propertiesService: FilemanPropertiesLoaderService) {
     this.url = propertiesService.getProperty('serverurl') + '/files';
   }
 

@@ -14,12 +14,9 @@
 		#set( $frontendType = "[]")	
 	#else
 		#parse("isDomainType.tpl")
-		#parse("isDomainTypeSet.tpl")
 	
 		#if( $isDomainType )
 			#set( $frontendType = $JavaType)
-		#elseif ( $isDomainTypeSet )
-			#set( $frontendType = $TemplateStringUtility.replaceAllIn($JavaType, "java.util.Set", "Set") )
 		#end
 	#end
 #end

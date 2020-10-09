@@ -1,6 +1,6 @@
 #set( $JavaType = $attributeDescriptor.getMetaInfoValueFor("JavaType"))
 #set( $classDescriptorList = $model.getClassDescriptorList() )
-#set( $isDomainTypeSet = false)
+#set( $isArrayType = false)
 
 #if ($attributeDescriptor.doesHaveAnyMetaInfosWithName("frontendType")) 
 	#set( $FrontendType = $attributeDescriptor.getMetaInfoValueFor("frontendType"))
@@ -9,7 +9,7 @@
 #end
 
 #foreach ($classDescriptor in $classDescriptorList) 
-	#if ($FrontendType.contains("Set<${classDescriptor.simpleName}>"))
-		#set( $isDomainTypeSet = true)
+	#if ($FrontendType.contains("${classDescriptor.simpleName}[]"))
+		#set( $isArrayType = true)
 	#end
 #end

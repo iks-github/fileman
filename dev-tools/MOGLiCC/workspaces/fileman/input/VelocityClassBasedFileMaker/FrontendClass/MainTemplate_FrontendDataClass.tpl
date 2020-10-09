@@ -12,13 +12,12 @@
 #foreach ($attributeDescriptor in $attributeDescriptorList)
 
 	#parse("isDomainType.tpl")
-	#parse("isDomainTypeSet.tpl")
+	#parse("isArrayType.tpl")
 
 	#if( $isDomainType )
 		'import { $JavaType } from 'src/app/common/domainobjects/gen/$JavaType';
-	#elseif ( $isDomainTypeSet )
-	    #set( $innerType = $TemplateStringUtility.replaceAllIn($FrontendType, "Set<", "") )
-	    #set( $innerType = $TemplateStringUtility.replaceAllIn($innerType, ">", "") )
+	#elseif ( $isArrayType )
+	    #set( $innerType = $TemplateStringUtility.replaceAllIn($FrontendType, "[]", "") )
 		'import { $innerType } from 'src/app/common/domainobjects/gen/$innerType';
 	#end
 #end

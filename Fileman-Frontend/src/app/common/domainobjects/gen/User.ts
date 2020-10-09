@@ -5,7 +5,7 @@ export class User
     id: number;
     name: string;
     role: string;
-    tenants: Set<Tenant>;
+    tenants: Tenant[];
     password: string;
     passwordRepetition: string;
     avatar: string;
@@ -76,7 +76,7 @@ export class User
         this.role = role;
     }
 
-    setTenants(tenants: Set<Tenant>) {
+    setTenants(tenants: Tenant[]) {
         this.tenants = tenants;
     }
 

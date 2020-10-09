@@ -2,7 +2,7 @@
     <tr style="font-weight:bold; background-color:darkgray;">
         <td></td>
         <td></td>
-        
+
         <!-- The header-td-sections below is generated: Do not modify manually! -->
 
         <td>
@@ -12,6 +12,10 @@
         <td>
             Name
             <fileman-sorticon [sortField]="'name'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
+        <td>
+            Files
+            <fileman-sorticon [sortField]="'files'" (sortEventHandler)="sort($event)"></fileman-sorticon>
         </td>
 
         <!-- The header-td-sections above is generated: Do not modify manually! -->
@@ -41,6 +45,7 @@
 
         <td>{{fileGroup.id}}</td>
         <td>{{fileGroup.name}}</td>
+        <td>{{formatFiles(fileGroup.files)}}</td>
 
         <!-- The row-td-sections above is generated: Do not modify manually! -->
 

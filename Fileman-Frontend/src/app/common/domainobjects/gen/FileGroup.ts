@@ -1,15 +1,18 @@
+import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
 import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
 
 export class FileGroup
 {
     id: number;
     name: string;
+    files: Set<FileMetaData>;
     tenant: Tenant;
 
     constructor(untypedFileGroup: any) {
         if (untypedFileGroup != null) {
             this.id = untypedFileGroup.id;
             this.name = untypedFileGroup.name;
+            this.files = untypedFileGroup.files;
             this.tenant = untypedFileGroup.tenant;
         }
     }
@@ -19,6 +22,7 @@ export class FileGroup
         return [
            'id',
            'name',
+           'files',
            'tenant',
         ];
     }
@@ -29,6 +33,10 @@ export class FileGroup
 
     getName() {
         return this.name;
+    }
+
+    getFiles() {
+        return this.files;
     }
 
     getTenant() {
@@ -44,6 +52,10 @@ export class FileGroup
         this.name = name;
     }
 
+    setFiles(files: Set<FileMetaData>) {
+        this.files = files;
+    }
+
     setTenant(tenant: Tenant) {
         this.tenant = tenant;
     }
@@ -55,6 +67,7 @@ export class FileGroup
 
         if (this.id !== obj.id) { return false; }
         if (this.name !== obj.name) { return false; }
+        if (this.files !== obj.files) { return false; }
         if (this.tenant !== obj.tenant) { return false; }
 
         return true;
@@ -65,6 +78,7 @@ export class FileGroup
                '------------------------------------------\n' +
            'Id: ' + this.id + '\n' +
            'Name: ' + this.name + '\n' +
+           'Files: ' + this.files + '\n' +
            'Tenant: ' + this.tenant + '\n';
     }
 }

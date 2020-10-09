@@ -16,11 +16,33 @@
                     <br>
                     <input id="name" type="text" class="form-Control" formControlName="nameControl"/>
                 </td>
+                <td class="space"></td>
+                <td>
+                    <label for="files">Files</label>
+                    <br>
+                    <ng-multiselect-dropdown
+                      id="files"
+                      class="form-Control"
+                      formControlName="filesControl"
+                      [placeholder]="'Click to select'"
+                      [data]="files"
+                      (onSelect)="filesC.markAsTouched()"
+                      (onSelectAll)="filesC.markAsTouched()"
+                      (onDeSelect)="filesC.markAsTouched()"
+                      (onDeSelectAll)="filesC.markAsTouched()"
+                      [settings]="filesMultiselectDropdownSettings">
+                    </ng-multiselect-dropdown>
+                </td>
             </tr>
+
+            <tr>&nbsp;</tr>
+
         </table>
         <!-- The table section above is generated: Do not modify manually! -->
 
-        <div class="form-group alert alert-danger" *ngIf="detailsForm.invalid && detailsForm.touched">
+        <div class="form-group alert alert-danger"
+            *ngIf="(detailsForm.errors && detailsForm.touched)
+                || (nameC.errors && nameC.touched)">
             Validation errors:
 
             <!-- The error sections below are generated: Do not modify manually! -->
@@ -38,7 +60,8 @@
         </div>
 
         <button *ngIf="!readOnly"
-                [disabled]=" ! detailsForm.touched || detailsForm.invalid"
+                [disabled]="(! detailsForm.touched || detailsForm.invalid)
+                    && (! nameC.touched && nameC.invalid)"
                 class="button btn btn-primary"
                 type="submit"
                 data-toggle="tooltip" title="{{getToolTip()}}"

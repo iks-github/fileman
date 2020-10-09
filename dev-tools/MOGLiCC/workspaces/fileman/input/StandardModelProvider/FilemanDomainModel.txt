@@ -167,10 +167,12 @@ class <<DomainPath>>.FileMetaData
     
   attribute fileGroups
     metainfo dbType int
-    metainfo JavaType java.util.Set<FileGroup>
+    metainfo JavaType java.util.List<FileGroup>
+    metainfo frontendType Set<FileGroup>
     metainfo guiType MultiSelectBox
     metainfo dbRelation ManyToMany
-    metainfo joinTable fileGroup
+    metainfo breakRecursionOnAttribute files
+    metainfo joinTable fileMetaData_fileGroup
 
   attribute techType
     metainfo dbType varchar
@@ -239,6 +241,15 @@ class <<DomainPath>>.FileGroup
     metainfo unique true
     metainfo guiType TextField
 
+  attribute files
+    metainfo dbType int
+    metainfo JavaType java.util.List<FileMetaData>
+    metainfo frontendType Set<FileMetaData>
+    metainfo guiType MultiSelectBox
+    metainfo dbRelation ManyToMany
+    metainfo breakRecursionOnAttribute fileGroups
+    metainfo joinTable fileMetaData_fileGroup
+
   attribute tenant
     metainfo dbType int
     metainfo JavaType Tenant
@@ -284,11 +295,12 @@ class <<DomainPath>>.User
 
   attribute tenants
     metainfo dbType int
-    metainfo JavaType java.util.Set<Tenant>
+    metainfo JavaType java.util.List<Tenant>
+    metainfo frontendType Set<Tenant>
     metainfo Mandatory true
     metainfo guiType MultiSelectBox
     metainfo dbRelation ManyToMany
-    metainfo joinTable tenant
+    metainfo joinTable user_tenant
 
   attribute password
     metainfo dbType varchar
@@ -325,7 +337,6 @@ class <<DomainPath>>.Tenant
   metainfo BackendController true
   metainfo FrontendService true
   metainfo dbEntity true
-  metainfo findAllMethodAccessability unprotected
 
   attribute id
     metainfo dbType int
@@ -381,8 +392,8 @@ class <<DomainPath>>.LoginRequest
     metainfo MaxLength 32
     
   attribute tenant
-    metainfo JavaType Integer
-    metainfo ExampleData 1
+    metainfo JavaType String
+    metainfo ExampleData "default"
 
   attribute filemanVersion
     metainfo JavaType String

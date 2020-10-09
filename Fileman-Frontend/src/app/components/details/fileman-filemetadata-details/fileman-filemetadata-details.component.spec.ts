@@ -39,8 +39,10 @@ describe('FilemetadataDetailsComponent', () => {
       imports: [ RouterTestingModule.withRoutes(
         [{path: 'fileman/overview', component: FilemanOverviewComponent}]
       ), HttpClientModule ],
-      providers: [{ provide: FilemanMetadataService, useClass: MockFilemanMetadataService },
-        { provide: FilemanFileService, useClass: MockFilemanFileService }]
+      providers: [
+        { provide: FilemanMetadataService, useClass: MockFilemanMetadataService },
+        { provide: FilemanFileService, useClass: MockFilemanFileService }
+      ]
     });
 
     fixture = TestBed.createComponent(FilemetadataDetailsComponent);
@@ -79,6 +81,9 @@ describe('FilemetadataDetailsComponent', () => {
     }
     update(fileData: FileData) {
       fakeServer.updatedFileData = fileData;
+      return new Observable();
+    }
+    getHistory() {
       return new Observable();
     }
   }

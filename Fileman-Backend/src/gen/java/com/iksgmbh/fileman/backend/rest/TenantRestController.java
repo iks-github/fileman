@@ -29,7 +29,9 @@ public class TenantRestController
 	private TenantDao tenantDao;
 
 	@GetMapping("/tenants")
-	public List<Tenant> findAllTenants() {
+	public List<Tenant> findAllTenants(@RequestHeader("Authorization") String authHeader) {
+		JwtTokenUtil.validateTokenFromAuthHeader(authHeader);
+
 		return tenantDao.findAllTenants();
 	}
 

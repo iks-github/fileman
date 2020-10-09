@@ -17,7 +17,7 @@
 	#if( $isDomainType )
 		'import { $JavaType } from 'src/app/common/domainobjects/gen/$JavaType';
 	#elseif ( $isDomainTypeSet )
-	    #set( $innerType = $TemplateStringUtility.replaceAllIn($JavaType, "java.util.Set<", "") )
+	    #set( $innerType = $TemplateStringUtility.replaceAllIn($FrontendType, "Set<", "") )
 	    #set( $innerType = $TemplateStringUtility.replaceAllIn($innerType, ">", "") )
 		'import { $innerType } from 'src/app/common/domainobjects/gen/$innerType';
 	#end

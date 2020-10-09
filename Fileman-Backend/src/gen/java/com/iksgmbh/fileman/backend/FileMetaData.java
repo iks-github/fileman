@@ -8,7 +8,7 @@ import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.validation.constraints.*;
 import javax.persistence.*;
@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="FILE_META_DATA")
 public class FileMetaData implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1600193156671L;
+	private static final long serialVersionUID = 1601991874498L;
 
 	// ===============  instance fields  ===============
 
@@ -57,8 +57,9 @@ public class FileMetaData implements Serializable, Cloneable
     private Boolean immediatelyActive;
 
     @ManyToMany
+    @JsonIgnoreProperties({"files"})
     @JoinTable(name="fileMetaData_fileGroup", joinColumns = { @JoinColumn(name = "fk_fileMetaData") }, inverseJoinColumns = { @JoinColumn(name = "fk_fileGroup") })
-    private Set<FileGroup> fileGroups;
+    private List<FileGroup> fileGroups;
 
     @Size(max=16, message="Value of attribute 'techType' is larger than valid maximum (16).")
     @ApiModelProperty(notes = "Valid maximum length is 16.")
@@ -114,7 +115,7 @@ public class FileMetaData implements Serializable, Cloneable
 		this.immediatelyActive = immediatelyActive;
 	}
 
-	public void setFileGroups(final Set<FileGroup> fileGroups)
+	public void setFileGroups(final List<FileGroup> fileGroups)
 	{
 		this.fileGroups = fileGroups;
 	}
@@ -176,7 +177,7 @@ public class FileMetaData implements Serializable, Cloneable
 		return immediatelyActive;
 	}
 
-	public Set<FileGroup> getFileGroups()
+	public List<FileGroup> getFileGroups()
 	{
 		return fileGroups;
 	}
@@ -393,7 +394,7 @@ public class FileMetaData implements Serializable, Cloneable
 
 		if ( this.fileGroups != null )
 		{
-			final  java.util.Set<FileGroup> listFileGroup = new java.util.HashSet<FileGroup>();
+			final  java.util.List<FileGroup> listFileGroup = new java.util.ArrayList<FileGroup>();
 			for (final FileGroup element : fileGroups) {
 				listFileGroup.add(element);
 			}

@@ -26,10 +26,10 @@ td {
 }
 
 .image-preview {
-  max-width: 150px;
-  max-height: 200px;
+    max-width: 150px;
+    max-height: 200px;
 }
 
 ::ng-deep .multiselect-dropdown .dropdown-btn {
-  background-color: white;
+    background-color: white;
 }

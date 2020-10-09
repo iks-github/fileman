@@ -37,6 +37,7 @@
 
 	#set( $attributeName = $TemplateStringUtility.firstToLowerCase($attributeDescriptor.name) ) 
 	#set( $attributeName = $TemplateStringUtility.replaceAllIn($attributeName, " ", "") ) 
+	#set( $className = $TemplateStringUtility.firstToLowerCase($classDescriptor.simpleName))
 	#set( $javaType = $TemplateJavaUtility.getSimpleClassName( $attributeDescriptor.getMetaInfoValueFor("JavaType") ) )
 	#set( $minLength = $attributeDescriptor.getMetaInfoValueFor("MinLength") )
 	#set( $maxLength = $attributeDescriptor.getMetaInfoValueFor("MaxLength") )
@@ -80,12 +81,15 @@
 		'    @${attributeDescriptor.getMetaInfoValueFor("dbRelation")}
 	#end
 	
+	#if ( $attributeDescriptor.doesHaveAnyMetaInfosWithName("breakRecursionOnAttribute") )
+		'    @JsonIgnoreProperties({"$attributeDescriptor.getMetaInfoValueFor("breakRecursionOnAttribute")"})
+	#end
+	
 	#if ( $$classDescriptor.doesHaveMetaInfo("dbEntity", "true") )
 
 		#if ( $attributeDescriptor.doesHaveMetaInfo("hideFromDB", "true") )
 			'    @Transient
 		#else
-			#set( $className = $TemplateStringUtility.firstToLowerCase($classDescriptor.simpleName))
 			#set( $dbName = $TemplateStringUtility.toDBTableName($attributeName) )
 	        #set( $dbType = $attributeDescriptor.getMetaInfoValueFor("dbType") )
 
@@ -107,7 +111,7 @@
 				#set( $uniqueSetting = ", unique=false")
 			#end
 			#if( ! $joinTable.equals("") )
-				'    @JoinTable(name="${className}_${joinTable}", joinColumns = { @JoinColumn(name = "fk_${className}") }, inverseJoinColumns = { @JoinColumn(name = "fk_${joinTable}") })
+				'    @JoinTable(name="${joinTable}", joinColumns = { @JoinColumn(name = "fk_${className}") }, inverseJoinColumns = { @JoinColumn(name = "fk_$joinTable.replace("_", "").replace("${className}", "")") })
 			#else
 			    #if ( $attributeDescriptor.doesHaveMetaInfo("isForeignKey", "true") )
 				    '    @JoinColumn(name="${dbName}"${nullableSetting}${uniqueSetting}, columnDefinition="${dbType}")

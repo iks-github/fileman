@@ -16,7 +16,6 @@
 package com.iksgmbh.fileman.backend.dao;
 
 import org.springframework.stereotype.Component;
-import com.iksgmbh.fileman.backend.FileGroup;
 
 /**
  * Created as draft by MOGLiCC.
@@ -24,5 +23,5 @@ import com.iksgmbh.fileman.backend.FileGroup;
  *
 **/
 @Component
-public class FileGroupDao extends FileGroupBasicDao
-{}
+public class FileGroupDao extends FileGroupBasicDao {
+}

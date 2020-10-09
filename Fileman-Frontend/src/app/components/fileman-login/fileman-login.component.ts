@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
@@ -22,46 +22,20 @@ import { LoginResponse } from 'src/app/common/domainobjects/gen/LoginResponse';
 import { LoginRequest } from 'src/app/common/domainobjects/gen/LoginRequest';
 import { FilemanUserPreferencesService } from 'src/app/services/fileman-user-preferences-service.service';
 import { FilemanSearchService } from 'src/app/services/fileman-search-service.service';
-import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
-import { TenantService } from 'src/app/services/fileman-tenant-service.service';
-import { Utils } from 'src/app/common/Utils';
 
 @Component({
   selector: 'fileman-login',
   templateUrl: './fileman-login.component.html',
   styleUrls: ['./fileman-login.component.css']
 })
-export class FilemanLoginComponent implements OnInit {
-
-  tenants = [] as Tenant[];
-  tenantsMap = new Map<string, Tenant>();
+export class FilemanLoginComponent {
   errorMessage: string;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private authService: FilemanAuthserviceService,
               private userPreferencesService: FilemanUserPreferencesService,
-              private searchService: FilemanSearchService,
-              private tenantService: TenantService) { }
-
-  ngOnInit(): void {
-    this.tenantService.getAllTenants()
-        .subscribe(responseData => {this.extractTenants(responseData)});
-  }
-
-  extractTenants(responseData) {
-    const tenants = [] as Tenant[];
-    responseData.forEach(element => {
-      const dataset = new Tenant(element);
-      tenants.push(dataset);
-      console.log(dataset.getId());
-      console.log(dataset);
-      // need conversion from number to string, as
-      // TypeScript maps do not work with numberic keys
-      this.tenantsMap.set(''+dataset.getId(), dataset);
-    });
-    this.tenants = Utils.sortList(tenants);
-  }
+              private searchService: FilemanSearchService) { }
 
   onLogin(formControl) {
     const requestData = new LoginRequest(formControl.value);

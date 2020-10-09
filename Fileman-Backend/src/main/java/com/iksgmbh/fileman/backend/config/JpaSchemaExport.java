@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Stream;
@@ -19,10 +18,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
-import com.iksgmbh.fileman.backend.DbSchema;
 import com.iksgmbh.fileman.backend.dao.DbSchemaDao;
-
-import de.iksgmbh.dbschemacomp.H2SchemaMigrator;
 
 
 
@@ -69,23 +65,24 @@ public class JpaSchemaExport implements CommandLineRunner
 		persistenceProperties.setProperty(AvailableSettings.HBM2DDL_SCRIPTS_CREATE_TARGET, DB_SCHEMA_CREATION_DLL_SQL);
 
 		entityManagerFactory.getJpaVendorAdapter().getPersistenceProvider().generateSchema(entityManagerFactory.getPersistenceUnitInfo(), persistenceProperties);
-		
-		List<DbSchema> schemaHistory = dbSchemaDao.findAllDbSchemas();
-		String currentDbSchemaSQL = readTextFileToString(f);
-		if (schemaHistory.size() == 0) {
-			DbSchema newSchema = new DbSchema();
-			newSchema.setCreationDate(new Date());
-			newSchema.setSql(currentDbSchemaSQL);
-			dbSchemaDao.create(newSchema);
-		}
-		else 
-		{
-			DbSchema latestDbSchema = schemaHistory.get(schemaHistory.size()-1);
-			if (! currentDbSchemaSQL.equals(latestDbSchema.getSql())) {
-				String result = H2SchemaMigrator.updateDB(createDbConnetction(), latestDbSchema.getSql(), currentDbSchemaSQL);
-				if (result == null) System.exit(1);  // automated updated failed, exception already handled
-			}
-		}
+
+//      This following lines are not needed, because H2 updates an existing schema already automatically !		
+//		List<DbSchema> schemaHistory = dbSchemaDao.findAllDbSchemas();
+//		String currentDbSchemaSQL = readTextFileToString(f);
+//		if (schemaHistory.size() == 0) {
+//			DbSchema newSchema = new DbSchema();
+//			newSchema.setCreationDate(new Date());
+//			newSchema.setSql(currentDbSchemaSQL);
+//			dbSchemaDao.create(newSchema);
+//		}
+//		else 
+//		{
+//			DbSchema latestDbSchema = schemaHistory.get(schemaHistory.size()-1);
+//			if (! currentDbSchemaSQL.equals(latestDbSchema.getSql())) {
+//				String result = H2SchemaMigrator.updateDB(createDbConnetction(), latestDbSchema.getSql(), currentDbSchemaSQL);
+//				if (result == null) System.exit(1);  // automated updated failed, exception already handled
+//			}
+//		}
 		
 	}
 	

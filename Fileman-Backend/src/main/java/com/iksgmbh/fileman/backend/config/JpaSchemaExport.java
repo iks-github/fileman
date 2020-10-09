@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +14,6 @@ import java.util.Properties;
 import java.util.stream.Stream;
 
 import org.hibernate.cfg.AvailableSettings;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,10 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import com.iksgmbh.fileman.backend.DbSchema;
 import com.iksgmbh.fileman.backend.dao.DbSchemaDao;
+
+import de.iksgmbh.dbschemacomp.H2SchemaMigrator;
+
+
 
 /**
  * Exports the db schema defined by the JPA annotations in the domain object classes
@@ -66,7 +72,6 @@ public class JpaSchemaExport implements CommandLineRunner
 		
 		List<DbSchema> schemaHistory = dbSchemaDao.findAllDbSchemas();
 		String currentDbSchemaSQL = readTextFileToString(f);
-		
 		if (schemaHistory.size() == 0) {
 			DbSchema newSchema = new DbSchema();
 			newSchema.setCreationDate(new Date());
@@ -77,19 +82,25 @@ public class JpaSchemaExport implements CommandLineRunner
 		{
 			DbSchema latestDbSchema = schemaHistory.get(schemaHistory.size()-1);
 			if (! currentDbSchemaSQL.equals(latestDbSchema.getSql())) {
-				System.err.println("The db schema defined by JPA has changed. The database must be recreated!");
-				System.err.println("############################################################");
-				System.err.println(latestDbSchema);
-				System.err.println("############################################################");
-				System.err.println(currentDbSchemaSQL);
-				System.err.println("############################################################");
-				// TODO add message to log
-				System.exit(0);
+				String result = H2SchemaMigrator.updateDB(createDbConnetction(), latestDbSchema.getSql(), currentDbSchemaSQL);
+				if (result == null) System.exit(1);  // automated updated failed, exception already handled
 			}
 		}
 		
 	}
 	
+	private Connection createDbConnetction() {
+		try {
+			// TODO read values from application.properties
+			return DriverManager.getConnection("jdbc:h2:file:./target/MyLocalDB", "Salomon", "");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Unable to update DB");
+			System.exit(0);
+			return null;
+		}
+	}
+
 	private String readTextFileToString(final File file)
 	{
 		final List<String> lines = readTextFile(file.getAbsolutePath());

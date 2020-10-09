@@ -18,7 +18,7 @@ public class Name
 	{
 		if (obj instanceof Name) {
 			Name t = (Name) obj;
-			return value.equals(t.getValue());
+			return value.equalsIgnoreCase(t.getValue());
 		}
 		return false;
 	}

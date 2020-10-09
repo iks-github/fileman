@@ -10,7 +10,7 @@ public class TableMetaData
 	private Name tableName;
 	private List<ColumnMetaData> columns;
 	private String primaryKey;
-	private String uniqueConstaintStatement;
+	private List<String> addConstaintStatements;
 	private String createStatement;
 
 	public TableMetaData(String aTableName, String statement) {
@@ -21,6 +21,7 @@ public class TableMetaData
 		this.tableName = tableName;
 		columns = new ArrayList<ColumnMetaData>();
 		createStatement = statement;
+		addConstaintStatements = new ArrayList<>();
 	}
 	
 	public int getColumnNumber() {
@@ -83,12 +84,12 @@ public class TableMetaData
 		return primaryKey;
 	}
 
-	public void setUniqueConstraintStatement(String statement) {
-		uniqueConstaintStatement = statement;
+	public void addAddConstraintStatement(String statement) {
+		addConstaintStatements.add(statement);
 	}
 
-	public String getUniqueConstraintStatement() {
-		return uniqueConstaintStatement;
+	public List<String> getAddConstraintStatements() {
+		return addConstaintStatements;
 	}
 
 	public String getCreateStatement() {

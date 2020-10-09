@@ -1,47 +1,38 @@
-package de.iksgmbh.dbschemacomp;
+package de.iksgmbh.dbschemacomp.util;
 
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
-public class H2SchemaMigrationTest {
+public class TestUtil 
+{
+	public static String readSchema(String filename) 
+	{
+	       StringBuilder contentBuilder = new StringBuilder();
+	       
+	        try (Stream<String> stream = Files.lines( Paths.get(filename), StandardCharsets.UTF_8)) 
+	        {
+	            stream.forEach(s -> contentBuilder.append(s).append("\n"));
+	        }
+	        catch (IOException e) 
+	        {
+	            e.printStackTrace();
+	        }
+	 
+	        return contentBuilder.toString();
+	}	
 	
-	private static EmbeddedDatabase embeddedDatabase;
-	
-	@BeforeAll
-	private static void init() {
-		embeddedDatabase = new EmbeddedDatabaseBuilder()
-				.setType(EmbeddedDatabaseType.H2)
-				.addScript("H2DbSchema.txt").build();
-	}
-	
-	@Test
-	public void migratesSimpleDbSchema() throws SQLException, IOException {
-		
-		// arrange
-		
-		JdbcTemplate template = new JdbcTemplate(embeddedDatabase);
-		template.execute("create table NEW_TABLE_FROM_TEST (ID INT);");
-		
-		exportEmbeddedDatabaseSchemaToFile(template);
-
-		// act
-		
-		// assert
-		
-	}
-	
-	private void exportEmbeddedDatabaseSchemaToFile(JdbcTemplate template) throws IOException {
+	public static String getDatabaseSchema(JdbcTemplate template) throws IOException {
 		
 		List<String> outputSqlRows = new ArrayList<String>();
 		
@@ -87,7 +78,7 @@ public class H2SchemaMigrationTest {
 						+ primaryKey.getString("column_list") + ")";
 			}
 			
-			createTableRow += ");\n";
+			createTableRow += ");";
 			
 			createTableRow = replaceDynamicSubstring(createTableRow, 
 					"default next value for \"public\".\"system_sequence_",
@@ -100,36 +91,37 @@ public class H2SchemaMigrationTest {
 			outputSqlRows.add(createTableRow);
 		}
 		
-		SqlRowSet uniqueConstraints = template.queryForRowSet(
-				"SELECT constraint_name, table_name, column_list "
-				+ "FROM INFORMATION_SCHEMA.CONSTRAINTS "
-				+ "where constraint_type = 'UNIQUE'");
+		SqlRowSet uniqueConstraints = template.queryForRowSet("SELECT constraint_name, table_name, column_list "
+																+ "FROM INFORMATION_SCHEMA.CONSTRAINTS "
+																+ "where constraint_type = 'UNIQUE'");
 		
-		while (uniqueConstraints.next()) {
+		while (uniqueConstraints.next()) 
+		{
 			String constraintName = uniqueConstraints.getString("constraint_name");
 			String tableName = uniqueConstraints.getString("table_name");
 			String columnList = uniqueConstraints.getString("column_list");
 
-			String addUniqueConstraintRow = 
-					"alter table " + tableName + " add constraint "
-					+ constraintName + " unique (" + columnList + ");\n";
-			
+			String addUniqueConstraintRow = "alter table " + tableName + " add constraint "
+					                         + constraintName + " unique (" + columnList + ");\n";
 			outputSqlRows.add(addUniqueConstraintRow);
 		}
 		
-		String fileName = "target/test_output.sql";
-        
-        try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
-            for (String outputSqlRow: outputSqlRows) {
-            	byte[] rowBytes = outputSqlRow.getBytes();
-            	fileOutputStream.write(rowBytes);
-            }
+		
+		StringBuffer toReturn  = new StringBuffer();
+		for (String outputSqlRow: outputSqlRows) {
+			toReturn.append(outputSqlRow).append(System.getProperty("line.separator"));
         }
+		
+		return toReturn.toString().trim();
 	}
 
-	private String replaceDynamicSubstring(String fullOriginalString, 
-			String replaceFrom, String replaceTo, String replacement) {
-		if (fullOriginalString.contains(replaceFrom)) {
+	private static String replaceDynamicSubstring(String fullOriginalString, 
+			                               String replaceFrom, 
+			                               String replaceTo, 
+			                               String replacement) 
+	{
+		if (fullOriginalString.contains(replaceFrom)) 
+		{
 			int beginIndex = fullOriginalString.indexOf(replaceFrom);
 			int endIndex = fullOriginalString.indexOf(replaceTo, beginIndex + replaceFrom.length());
 			String substringToReplace = fullOriginalString.substring(beginIndex, endIndex + replaceTo.length());
@@ -137,4 +129,15 @@ public class H2SchemaMigrationTest {
 		}
 		return fullOriginalString;
 	}
+	
+	public static String sortStatements(String statementList) 
+	{
+		String[] splitResult = statementList.split(System.getProperty("line.separator"));
+		List<String> list = Arrays.asList(splitResult);
+		java.util.Collections.sort(list);
+		StringBuffer sb = new StringBuffer();
+		list.forEach(statement -> sb.append(statement).append(System.getProperty("line.separator")));
+		return sb.toString().trim();
+	}
+	
 }

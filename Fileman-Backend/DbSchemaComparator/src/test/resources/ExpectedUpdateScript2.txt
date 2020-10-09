@@ -1,0 +1,16 @@
+alter table USER_TENANT drop constraint FK3ts2uvg0y2o3pf9t09richii4;
+alter table FILEMETADATA_FILEGROUP drop constraint FK1xbvlm0egacq5r65i1vnmolc7;
+alter table FILEMETADATA_FILEGROUP drop constraint FKqaqnyrk0qllgqdefboervd3v1;
+alter table FILE_META_DATA drop constraint FKie5rt4seog7aq0ibit5ljiot1;
+ALTER TABLE FILE_META_DATA DROP PRIMARY KEY;
+ALTER TABLE FILE_META_DATA ALTER COLUMN name varchar not null;
+ALTER TABLE FILE_META_DATA ADD PRIMARY KEY (name);
+ALTER TABLE FAVOURITE_SETTING DROP COLUMN tenant;
+ALTER TABLE FILE_CONTENT_DATA DROP COLUMN tenant;
+ALTER TABLE FILE_META_DATA DROP COLUMN id;
+ALTER TABLE FILE_META_DATA DROP COLUMN business_type;
+ALTER TABLE FILE_META_DATA DROP COLUMN tenant;
+drop table FILE_GROUP;
+drop table FILEMETADATA_FILEGROUP;
+drop table TENANT;
+drop table USER_TENANT;

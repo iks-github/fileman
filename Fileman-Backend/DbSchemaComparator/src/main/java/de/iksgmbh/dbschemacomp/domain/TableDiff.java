@@ -11,7 +11,8 @@ public class TableDiff
 	private List<ColumnDiff> modifiedColumns = new ArrayList<>();
 	private String newPrimaryKey;
 	private String oldPrimaryKey;
-	private String uniqueConstraintStatement;
+	private List<String> newAddConstraintStatements = new ArrayList<>();
+	private List<String> addConstraintIdsToRemove = new ArrayList<>();
 		
 	public TableDiff(Name tableName) {
 		this.tableName = tableName;
@@ -19,12 +20,13 @@ public class TableDiff
 	
 	@Override
 	public String toString() {
-		return tableName + " (" + getNumberOfChanges() + " changes)";
+		return "Diff for table '" +  tableName + "' (" + getNumberOfChanges() + " modifications)";
 	}
 
 	public int getNumberOfChanges() 
 	{
-		int n = uniqueConstraintStatement == null ? 0 : 1;
+		int n = newAddConstraintStatements.size() 
+				+ addConstraintIdsToRemove.size();
 		if (primaryKeyChange()) n++;
 		return n 
 			   + getNumberOfModifiedColumns() 
@@ -81,14 +83,22 @@ public class TableDiff
 		return removedColumns;
 	}
 
-	public String getUniqueConstraintStatement() {
-		return uniqueConstraintStatement;
+	public List<String> getNewAddConstraintStatements() {
+		return newAddConstraintStatements;
 	}
 	
-	public void setUniqueConstraintStatement(String statement) {
-		uniqueConstraintStatement = statement;
+	public void addNewAddConstraintStatement(String statement) {
+		newAddConstraintStatements.add(statement);
 	}
 
+	public List<String> getAddConstraintIdsToRemove() {
+		return addConstraintIdsToRemove;
+	}
+	
+	public void addAddConstraintIdToRemove(String id) {
+		addConstraintIdsToRemove.add(id);
+	}
+	
 	public String getNewPrimaryKey() {
 		return newPrimaryKey;
 	}

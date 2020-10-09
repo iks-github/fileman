@@ -168,7 +168,7 @@ public class SchemaComparerTest
 		
 		// assert
 		TableDiff tableDiff = result.getTableDiff(1);
-		assertEquals("aValue", tableDiff.getModifiedColumns().get(0).getNewDefault(), "Default Value");
+		assertEquals("avalue", tableDiff.getModifiedColumns().get(0).getNewDefault(), "Default Value");
 	}	
 
 	@Test
@@ -192,32 +192,38 @@ public class SchemaComparerTest
 	void comparesWithModifiedTable_NewUniqueConstraint() 
 	{
 		// arrange
-		String schema1 = "CREATE TABLE table1 (column1 datatype);";
-		String schema2 = "CREATE TABLE table1 (column1 datatype);"
-				         + "alter table table1 add constraint constaintId unique (column1)";
+		String schema1 = "CREATE TABLE table1 (column1 datatype, column2 datatype);";
+		String schema2 = "CREATE TABLE table1 (column1 datatype, column2 datatype);"
+				         + "alter table table1 add constraint constaintId1 unique (column1);"
+                         + "alter table table1 add constraint constaintId2 unique (column2)";
 
 		// act
 		SchemaDiff result = SchemaComparer.doYourJob(schema1, schema2);
 		
 		// assert
 		TableDiff tableDiff = result.getTableDiff(1);
-		assertEquals("alter table table1 add constraint constaintId unique (column1)", tableDiff.getUniqueConstraintStatement(), "Unique Constraint Statement");
+		assertEquals(2, tableDiff.getNewAddConstraintStatements().size(), "number of new unique constarints");
+		assertEquals("ALTER TABLE TABLE1 ADD CONSTRAINT CONSTAINTID1 UNIQUE (COLUMN1)", tableDiff.getNewAddConstraintStatements().get(0), "Unique Constraint Statement");
+		assertEquals("ALTER TABLE TABLE1 ADD CONSTRAINT CONSTAINTID2 UNIQUE (COLUMN2)", tableDiff.getNewAddConstraintStatements().get(1), "Unique Constraint Statement");
 	}	
 
 	@Test
 	void comparesWithModifiedTable_UniqueConstraintRemoved() 
 	{
 		// arrange
-		String schema1 = "CREATE TABLE table1 (column1 datatype);"
-				         + "alter table table1 add constraint constaintId unique (column1)";
-		String schema2 = "CREATE TABLE table1 (column1 datatype);";
+		String schema1 = "CREATE TABLE table1 (column1 datatype, column2 datatype);"
+				         + "alter table table1 add constraint constaintId1 unique (column1);"
+                         + "alter table table1 add constraint constaintId2 unique (column2)";
+		String schema2 = "CREATE TABLE table1 (column1 datatype, column2 datatype);";
 
 		// act
 		SchemaDiff result = SchemaComparer.doYourJob(schema1, schema2);
 		
 		// assert
 		TableDiff tableDiff = result.getTableDiff(1);
-		assertEquals("alter table table1 drop constraint constaintId;", tableDiff.getUniqueConstraintStatement(), "Unique Constraint Statement");
+		assertEquals(2, tableDiff.getAddConstraintIdsToRemove().size(), "number of unique constarints to remove");
+		assertEquals("CONSTAINTID1", tableDiff.getAddConstraintIdsToRemove().get(0), "Unique Constraint Statement");
+		assertEquals("CONSTAINTID2", tableDiff.getAddConstraintIdsToRemove().get(1), "Unique Constraint Statement");
 	}	
 	
 }

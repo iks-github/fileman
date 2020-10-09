@@ -29,7 +29,7 @@ public class SchemaComparer extends SqlConstants
 				                  SchemaParser.doYourJob(schemaSql2)).compare();
 	}
 
-	private SchemaDiff compare() 
+	public SchemaDiff compare() 
 	{
 		SchemaDiff toReturn = new SchemaDiff();
 		
@@ -97,28 +97,24 @@ public class SchemaComparer extends SqlConstants
 			                                List<Name> columnNameMatches, 
 			                                TableMetaData table1, TableMetaData table2) 
 	{
-		if (table1.getUniqueConstraintStatement() == null 
-			&& table2.getUniqueConstraintStatement() == null) {
-			return;
-		}
-		
-		if (table1.getUniqueConstraintStatement() == null) {
-			tableDiff.setUniqueConstraintStatement(table2.getUniqueConstraintStatement());
-			return;
-		}
+		table1.getAddConstraintStatements().stream()
+		      .filter(statement -> doesNotContain(table2.getAddConstraintStatements(), statement))
+	          .forEach(statement -> tableDiff.addAddConstraintIdToRemove(extractConstraintId(statement)));
 
-		if (table1.getUniqueConstraintStatement().equals(table2.getUniqueConstraintStatement())) {
-			return;
-		}
+		table2.getAddConstraintStatements().stream()
+	          .filter(statement -> doesNotContain(table1.getAddConstraintStatements(), statement))
+              .forEach(statement -> tableDiff.addNewAddConstraintStatement(statement));
+	}
 
-		String constraintId = extractConstraintId(table1.getUniqueConstraintStatement());
-		tableDiff.setUniqueConstraintStatement("alter table " + table1.getTableName() 
-		                                        + " drop constraint " + constraintId + ";");
+	private boolean doesNotContain(List<String> uniqueConstraintStatements, String statementToSearchFor) {
+		return ! uniqueConstraintStatements.stream()
+				                           .filter(statement -> statement.toLowerCase().equals(statementToSearchFor.toLowerCase()))
+				                           .findAny().isPresent();
 	}
 
 	private String extractConstraintId(String uniqueConstraintStatement) 
 	{
-		int pos = uniqueConstraintStatement.indexOf(ALTER_TABLE_TYPE_ADD_CONSTRAINT);
+		int pos = uniqueConstraintStatement.toLowerCase().indexOf(ALTER_TABLE_TYPE_ADD_CONSTRAINT.toLowerCase());
 		pos += ALTER_TABLE_TYPE_ADD_CONSTRAINT.length();
 		String toReturn = uniqueConstraintStatement.substring(pos).trim();
 		pos = toReturn.indexOf(" ");

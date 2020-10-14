@@ -1,22 +1,23 @@
 #set( $JavaType = $attributeDescriptor.getMetaInfoValueFor("JavaType"))
 #set( $javaType = $TemplateStringUtility.firstToLowerCase($JavaType) )
 
-#if ($attributeDescriptor.doesHaveAnyMetaInfosWithName("frontendType")) 
-	#set( $frontendType = $attributeDescriptor.getMetaInfoValueFor("frontendType"))
-#else
-	#set( $frontendType = $javaType)
+#set( $frontendType = $javaType)
 
-	#if ($javaType.equals("byte[]")) 
-		#set( $frontendType = "Blob")	
-	#elseif( $javaType.equals("long") || $javaType.equals("int") || $javaType.equals("byte") || $javaType.equals("integer"))
-		#set( $frontendType = "number")	
-	#elseif ($javaType.contains("[") && $javaType.contains("]"))
-		#set( $frontendType = "[]")	
-	#else
-		#parse("isDomainType.tpl")
-	
-		#if( $isDomainType )
-			#set( $frontendType = $JavaType)
-		#end
+#if ($javaType.equals("byte[]")) 
+	#set( $frontendType = "Blob")	
+#elseif( $javaType.equals("long") || $javaType.equals("int") || $javaType.equals("byte") || $javaType.equals("integer"))
+	#set( $frontendType = "number")	
+#else
+	#if ($javaType.contains("List<"))
+		#set( $frontendType = $TemplateStringUtility.replaceAllIn($frontendType, "java.util.List", "List") )
+		#set( $frontendType = $TemplateStringUtility.replaceAllIn($frontendType, "List<", "") )
+		#set( $frontendType = $TemplateStringUtility.replaceAllIn($frontendType, ">", "[]") )
+	#end
+
+	#parse("isDomainType.tpl")
+	#parse("isDomainTypeArray.tpl")
+
+	#if( $isDomainType )
+		#set( $frontendType = $JavaType)
 	#end
 #end

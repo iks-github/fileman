@@ -47,7 +47,7 @@ export class LayoutUserCommons extends LayoutCommons {
           this.formatTenants(user.tenants)) + '</div>';
   }
 
-  formatTenants(tenants: Set<Tenant>): string {
+  formatTenants(tenants: Tenant[]): string {
     let tenantString: string = '';
 
     tenants.forEach((tenant: Tenant) => {

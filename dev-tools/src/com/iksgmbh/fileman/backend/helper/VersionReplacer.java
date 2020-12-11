@@ -30,8 +30,8 @@ import java.util.List;
 */
 public class VersionReplacer
 {
-	private static final String VERSION_TO_SET = "1.1.0";
-	private static final boolean isSnapshot = false;
+	private static final String VERSION_TO_SET = "1.2.0";
+	private static final boolean isSnapshot = true;
 
 	private static final String SNAPSHOT = "SNAPSHOT";
 	private static final String PATH_TO_POM_FILE = "../Fileman-Backend/pom.xml";

@@ -77,7 +77,7 @@ export const MultiselectDropdownSettings = {
 
 export class FilemanConstants
 {
-  static VERSION = '1.1.0';
+  static VERSION = '1.2.0';
 
   public static getRestCallHeaderOptions() {
     const headers = new HttpHeaders({

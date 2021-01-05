@@ -76,6 +76,10 @@ export class FilemanAuthserviceService {
     return localStorage.getItem('token');
   }
 
+  getTenant(): string {
+    return localStorage.getItem('tenant');
+  }
+
   getLogoutNotifier(): Subject<void> {
     return this.logoutNotifier;
   }

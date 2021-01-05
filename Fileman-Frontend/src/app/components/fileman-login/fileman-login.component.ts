@@ -47,6 +47,7 @@ export class FilemanLoginComponent {
                       this.errorMessage = loginResponse.errorMessage;
                       if (loginResponse && loginResponse.ok && loginResponse.authToken) {
                         localStorage.setItem('token', loginResponse.authToken);
+                        localStorage.setItem('tenant', formControl.value.tenant);
                         console.log('Logged in!');
                         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
                         this.userPreferencesService.initializeForUser(this.authService.getCurrentUserId());

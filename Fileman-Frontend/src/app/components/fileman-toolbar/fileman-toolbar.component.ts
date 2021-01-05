@@ -48,6 +48,8 @@ export class FilemanToolbarComponent implements OnInit {
 
   readOnly: boolean;
   isAdmin: boolean;
+  loggedInUser: string;
+  loggedInTenant: string;
   userPreferences: UserPreferences;
   userPreferencesSubscription: Subscription;
   showFavouriteIcon: boolean = true;
@@ -63,6 +65,8 @@ export class FilemanToolbarComponent implements OnInit {
   ngOnInit(): void {
     this.readOnly = this.authService.getCurrentUserRole() === UserRole.Reader;
     this.isAdmin = this.authService.getCurrentUserRole() === UserRole.Admin;
+    this.loggedInUser = this.authService.getCurrentUserName();
+    this.loggedInTenant = this.authService.getTenant();
     this.userPreferences = this.userPreferencesService.getUserPreferences();
     this.userPreferencesSubscription =
       this.userPreferencesService.getUserPreferencesChangeNotifier().subscribe(

@@ -98,8 +98,9 @@
             style="margin-left: 10px;"
             >{{iconLogout}}</mat-icon>
 
-    <span style="margin-left: 5px;">
-      <ng-content select=".username"></ng-content>
+    <span style="margin-left: 10px;">
+      <div style="margin-top: 8px; line-height: 0px;"><font size="2">User: <b>{{loggedInUser}}</b></font></div>
+      <div style="margin-top: 4px;"><font size="2">Tenant: <b>{{loggedInTenant}}</b></font></div>
     </span>
 
 </mat-toolbar>

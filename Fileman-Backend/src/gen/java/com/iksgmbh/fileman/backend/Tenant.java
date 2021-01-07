@@ -1,8 +1,10 @@
 package com.iksgmbh.fileman.backend;
 
+import com.iksgmbh.fileman.backend.User;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 
 import javax.validation.constraints.*;
 import javax.persistence.*;
@@ -24,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="TENANT")
 public class Tenant implements Serializable, Cloneable
 {
-	private static final long serialVersionUID = 1600193156842L;
+	private static final long serialVersionUID = 1610006277671L;
 
 	// ===============  instance fields  ===============
 
@@ -39,6 +41,11 @@ public class Tenant implements Serializable, Cloneable
     @Column(name="NAME", unique=true, columnDefinition="varchar")
     private String name;
 
+    @ManyToMany
+    @JsonIgnoreProperties({"tenants"})
+    @JoinTable(name="user_tenant", joinColumns = { @JoinColumn(name = "fk_tenant") }, inverseJoinColumns = { @JoinColumn(name = "fk_user") })
+    private List<User> users;
+
 
 	// ===============  setter methods  ===============
 
@@ -50,6 +57,11 @@ public class Tenant implements Serializable, Cloneable
 	public void setName(final String name)
 	{
 		this.name = name;
+	}
+
+	public void setUsers(final List<User> users)
+	{
+		this.users = users;
 	}
 
 	// ===============  getter methods  ===============
@@ -64,6 +76,11 @@ public class Tenant implements Serializable, Cloneable
 		return name;
 	}
 
+	public List<User> getUsers()
+	{
+		return users;
+	}
+
 	// ===============  additional Javabean methods  ===============
 
 	@Override
@@ -71,7 +88,8 @@ public class Tenant implements Serializable, Cloneable
 	{
 		return "Tenant ["
 				+ "id = " + id + ", "
-				+ "name = " + name + ""
+				+ "name = " + name + ", "
+				+ "users = " + users + ""
 				+ "]";
 	}
 
@@ -104,6 +122,15 @@ public class Tenant implements Serializable, Cloneable
 			if (! name.equals(other.name))
 				   return false;
 		}
+		if (users == null)
+		{
+			if (other.users != null)
+				return false;
+		} else
+		{
+			if (! users.equals(other.users))
+				   return false;
+		}
 		return true;
 	}
 
@@ -114,6 +141,7 @@ public class Tenant implements Serializable, Cloneable
 
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((users == null) ? 0 : users.hashCode());
 
 		return result;
 	}
@@ -131,6 +159,14 @@ public class Tenant implements Serializable, Cloneable
 		if (this.id != null) clone.id = new Integer(this.id);
 		if (this.name != null) clone.name = new String(name);
 
+		if ( this.users != null )
+		{
+			final  java.util.List<User> listUser = new java.util.ArrayList<User>();
+			for (final User element : users) {
+				listUser.add(element);
+			}
+		}
+
 		return clone;
 	}
 
@@ -143,6 +179,9 @@ public class Tenant implements Serializable, Cloneable
             if(! otherTenant.getName().isEmpty()) {
            	 this.setName(otherTenant.getName());
             }
+       }
+        if (otherTenant.getUsers() != null) {
+            this.setUsers(otherTenant.getUsers());
        }
 	}
 }

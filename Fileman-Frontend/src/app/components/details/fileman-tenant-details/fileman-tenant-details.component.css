@@ -24,3 +24,7 @@ td {
 .space {
     background: white;
 }
+
+::ng-deep .multiselect-dropdown .dropdown-btn {
+    background-color: white;
+}

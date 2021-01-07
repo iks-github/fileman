@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name="USER")
 public class User implements Serializable
 {
-	private static final long serialVersionUID = 1601997100158L;
+	private static final long serialVersionUID = 1610006277602L;
 
 	// ===============  instance fields  ===============
 
@@ -49,6 +49,7 @@ public class User implements Serializable
     @NotNull(message="Value of mandatory attribute 'tenants' is not present.")
     @ApiModelProperty(notes = "Mandatory.")
     @ManyToMany
+    @JsonIgnoreProperties({"users"})
     @JoinTable(name="user_tenant", joinColumns = { @JoinColumn(name = "fk_user") }, inverseJoinColumns = { @JoinColumn(name = "fk_tenant") })
     private List<Tenant> tenants;
 

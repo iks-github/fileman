@@ -16,6 +16,7 @@
 import { Input, Output, EventEmitter } from '@angular/core';
 
 import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
+import { User } from 'src/app/common/domainobjects/gen/User';
 import { LayoutCommons } from '../layout-commons';
 
 export class LayoutTenantCommons extends LayoutCommons {
@@ -35,6 +36,21 @@ export class LayoutTenantCommons extends LayoutCommons {
   getTenantHtmlTooltip(tenant: Tenant): string {
     return '<div class="inner-html-enclosing-div"><h4>Details:</h4>' +
       '<hr>' +
-      this.buildHtmlTooltipContentRow('Name', tenant.name)+'</div>'
+      this.buildHtmlTooltipContentRow('Name', tenant.name) +
+      this.buildHtmlTooltipContentRow('Users',
+          this.formatUsers(tenant.users)) + '</div>';
+  }
+
+  formatUsers(users: User[]): string {
+    let userString: string = '';
+
+    users.forEach((user: User) => {
+      if (userString.length > 0) {
+        userString += ', ';
+      }
+      userString += user.name;
+    });
+
+    return userString;
   }
 }

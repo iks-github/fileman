@@ -76,8 +76,8 @@ export class UserDetailsComponent implements OnInit {
             this.avatarFileContent = this.toEdit.getAvatar();
             this.avatarService.prepareAvatar(this.toEdit.getName(), this.toEdit.getAvatar());
           }
-          // for existing users, we need to extract the tenants after setting the
-          // data to the controls, otherwise the current tenant may not be selected
+          // for existing users, we need to extract the tenants after setting the data
+          // to the controls, otherwise currently assigned tenants may not be selected
           this.tenantService.getAllTenants()
               .subscribe(responseData => {this.extractTenants(responseData)});
         }

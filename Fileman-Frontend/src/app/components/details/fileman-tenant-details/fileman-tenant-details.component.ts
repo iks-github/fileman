@@ -18,9 +18,14 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors} 
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
 import { Tenant } from 'src/app/common/domainobjects/gen/Tenant';
+import { User } from 'src/app/common/domainobjects/gen/User';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { TenantService } from 'src/app/services/fileman-tenant-service.service';
+import { UserService } from 'src/app/services/fileman-user-service.service';
+import { Utils } from 'src/app/common/Utils';
+import { MultiselectDropdownSettings } from 'src/app/common/fileman-constants';
 
 @Component({
   selector: 'fileman-tenant-details',
@@ -35,10 +40,13 @@ export class TenantDetailsComponent implements OnInit {
   detailsForm: FormGroup;
   newMode: boolean;
   toEdit: Tenant;
+  users = [] as User[];
+  usersMultiselectDropdownSettings = MultiselectDropdownSettings;
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
-              private tenantService: TenantService) {
+              private tenantService: TenantService,
+              private userService: UserService) {
       this.form = this.createFormGroup();
       this.currentlyLoggedInUser = authService.getCurrentUserName();
   }
@@ -56,9 +64,25 @@ export class TenantDetailsComponent implements OnInit {
           this.backToOverview();  // no data to edit available - happens for page reload - reason unclear
         } else {
           this.setDataToControls(this.toEdit);
+          // for existing tenants, we need to extract the users after setting the data
+          // to the controls, otherwise currently assigned users may not be selected
+          this.userService.getAllUsers()
+              .subscribe(responseData => {this.extractUsers(responseData)});
         }
       });
+    } else {
+      this.userService.getAllUsers()
+          .subscribe(responseData => {this.extractUsers(responseData)});
     }
+  }
+
+  extractUsers(responseData) {
+    const users = [] as User[];
+    responseData.forEach(element => {
+      const dataset = new User(element);
+      users.push(dataset);
+    });
+    this.users = Utils.sortList(users);
   }
 
   getToolTip() {
@@ -69,7 +93,8 @@ export class TenantDetailsComponent implements OnInit {
   save() {
     const toSave = new Tenant({
       id: this.toEdit != null ? this.toEdit.getId() : null,
-      name: this.nameC.value.trim()
+      name: this.nameC.value.trim(),
+      users: this.usersC.value
     });
     console.log('Saving ');
     console.log(toSave);
@@ -131,6 +156,8 @@ export class TenantDetailsComponent implements OnInit {
                 Validators.maxLength(64),
               ],
               this.isNotUnique.bind(this)),
+        usersControl: new FormControl([], [
+              ]),
     });
   }
 
@@ -138,16 +165,22 @@ export class TenantDetailsComponent implements OnInit {
     return this.form.get('inputFieldControl.detailsForm.nameControl');
   }
 
+  get usersC() {
+    return this.form.get('inputFieldControl.detailsForm.usersControl');
+  }
+
   private getTenant() {
     const tenant = new Tenant(null);
 
     tenant.setName(this.nameC.value);
+    tenant.setUsers(this.usersC.value);
 
     return tenant;
   }
 
   private setDataToControls(tenant: Tenant) {
     this.nameC.setValue(tenant.getName());
+    this.usersC.setValue(tenant.getUsers());
   }
   // The form control block above is generated - do not modify manually!
 }

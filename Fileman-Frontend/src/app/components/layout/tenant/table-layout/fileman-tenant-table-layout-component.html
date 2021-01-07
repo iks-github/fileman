@@ -13,6 +13,10 @@
             Name
             <fileman-sorticon [sortField]="'name'" (sortEventHandler)="sort($event)"></fileman-sorticon>
         </td>
+        <td>
+            Users
+            <fileman-sorticon [sortField]="'users'" (sortEventHandler)="sort($event)"></fileman-sorticon>
+        </td>
 
         <!-- The header-td-sections above is generated: Do not modify manually! -->
 
@@ -41,6 +45,7 @@
 
         <td>{{tenant.id}}</td>
         <td>{{tenant.name}}</td>
+        <td>{{formatUsers(tenant.users)}}</td>
 
         <!-- The row-td-sections above is generated: Do not modify manually! -->
 

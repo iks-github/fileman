@@ -297,6 +297,7 @@ class <<DomainPath>>.User
     metainfo Mandatory true
     metainfo guiType MultiSelectBox
     metainfo dbRelation ManyToMany
+    metainfo breakRecursionOnAttribute users
     metainfo joinTable user_tenant
 
   attribute password
@@ -352,6 +353,14 @@ class <<DomainPath>>.Tenant
     metainfo MaxLength 64
     metainfo unique true
     metainfo guiType TextField
+
+  attribute users
+    metainfo dbType int
+    metainfo JavaType java.util.List<User>
+    metainfo guiType MultiSelectBox
+    metainfo dbRelation ManyToMany
+    metainfo breakRecursionOnAttribute tenants
+    metainfo joinTable user_tenant
 
  class <<DomainPath>>.ExceptionMetaData
   metainfo implements java.io.Serializable

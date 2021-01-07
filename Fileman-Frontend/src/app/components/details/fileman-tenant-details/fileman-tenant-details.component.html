@@ -16,7 +16,27 @@
                     <br>
                     <input id="name" type="text" class="form-Control" formControlName="nameControl"/>
                 </td>
+                <td class="space"></td>
+                <td>
+                    <label for="users">Users</label>
+                    <br>
+                    <ng-multiselect-dropdown
+                      id="users"
+                      class="form-Control"
+                      formControlName="usersControl"
+                      [placeholder]="'Click to select'"
+                      [data]="users"
+                      (onSelect)="usersC.markAsTouched()"
+                      (onSelectAll)="usersC.markAsTouched()"
+                      (onDeSelect)="usersC.markAsTouched()"
+                      (onDeSelectAll)="usersC.markAsTouched()"
+                      [settings]="usersMultiselectDropdownSettings">
+                    </ng-multiselect-dropdown>
+                </td>
             </tr>
+
+            <tr>&nbsp;</tr>
+
         </table>
         <!-- The table section above is generated: Do not modify manually! -->
 
@@ -41,7 +61,8 @@
 
         <button *ngIf="!readOnly"
                 [disabled]="(! detailsForm.touched || detailsForm.invalid)
-                    && (! nameC.touched && nameC.invalid)"
+                    && (! usersC.touched || usersC.invalid)
+                    && ! nameC.touched && nameC.invalid"
                 class="button btn btn-primary"
                 type="submit"
                 data-toggle="tooltip" title="{{getToolTip()}}"

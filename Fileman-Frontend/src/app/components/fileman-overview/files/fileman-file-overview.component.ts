@@ -99,6 +99,9 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
         (searchString: string) => this.searchFor(searchString)
       );
     this.selectedFileGroups = this.searchService.getSelectedFileGroups();
+    this.isSingleSelectionChecked = this.searchService.getIsSingleSelectionChecked();
+    this.isNotSelectionChecked = this.searchService.getIsNotSelectionChecked();
+    this.isAndSelection = this.searchService.getIsAndSelection();
     this.filesMetaDataService.getOverviewData()
         .subscribe(responseData => {this.extractFiles(responseData)});
     this.fileGroupService.getAllFileGroups()
@@ -161,6 +164,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
       fileGroups.push(dataset);
     });
     this.fileGroups = Utils.sortList(fileGroups);
+    this.searchFor(this.searchString);
   }
 
   trackFiles(index, file) {
@@ -285,22 +289,19 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   }
 
   onChangeSingleSelection() {
+    this.searchService.setIsSingleSelectionChecked(this.isSingleSelectionChecked);
     if (this.selectedFileGroups.length > 1) {
       this.selectedFileGroups.splice(1, this.selectedFileGroups.length);
     }
   }
 
   onChangeNotSelection() {
+    this.searchService.setIsNotSelectionChecked(this.isNotSelectionChecked);
     this.searchFor(this.searchString);
   }
 
-  onAndSelection() {
-    this.isAndSelection = true;
-    this.searchFor(this.searchString);
-  }
-
-  onOrSelection() {
-    this.isAndSelection = false;
+  onAndOrSwitchSelection() {
+    this.searchService.setIsAndSelection(this.isAndSelection);
     this.searchFor(this.searchString);
   }
 

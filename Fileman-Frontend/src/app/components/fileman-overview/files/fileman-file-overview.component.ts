@@ -65,6 +65,9 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   viewFiles: boolean = true;
   fileGroups = [] as FileGroup[];
   selectedFileGroups = [] as FileGroup[];
+  isSingleSelectionChecked: boolean = false;
+  isNotSelectionChecked: boolean = false;
+  isAndSelection: boolean = false;
 
   constructor(private router: Router,
               private authService: FilemanAuthserviceService,
@@ -220,7 +223,17 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     this.allFilesMap.forEach(file => {
       if (file.getName().indexOf(searchString) !== -1
           && (!this.userPreferences.favouriteFilterActive || this.isFileFavourite(file.getName()))) {
-        fileList.push(file);
+        var displayFile: boolean = true;
+        if (this.isAndSelection) {
+          this.fileGroups.forEach(fileGroup => {
+            const considerFileGroup: boolean = this.isFileGroupInArray(fileGroup, this.selectedFileGroups) != this.isNotSelectionChecked;
+            const isFileInFileGroup: boolean = this.isFileInFileGroup(file, fileGroup);
+            displayFile = displayFile && (!considerFileGroup || isFileInFileGroup);
+          })
+        }
+        if (displayFile) {
+          fileList.push(file);
+        }
       }
     });
 
@@ -271,9 +284,30 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     return "btn button-group-select button-no-grouping-deselected";
   }
 
+  onChangeSingleSelection() {
+    if (this.selectedFileGroups.length > 1) {
+      this.selectedFileGroups.splice(1, this.selectedFileGroups.length);
+    }
+  }
+
+  onChangeNotSelection() {
+    this.searchFor(this.searchString);
+  }
+
+  onAndSelection() {
+    this.isAndSelection = true;
+    this.searchFor(this.searchString);
+  }
+
+  onOrSelection() {
+    this.isAndSelection = false;
+    this.searchFor(this.searchString);
+  }
+
   onButtonPressForNoGrouping() {
     this.selectedFileGroups = [];
     this.searchService.setSelectedFileGroups(this.selectedFileGroups);
+    this.searchFor(this.searchString);
   }
 
   getButtonClassForFileGroup(fileGroup: FileGroup) {
@@ -288,15 +322,19 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     if (this.isFileGroupInArray(fileGroup, this.selectedFileGroups)) {
       this.selectedFileGroups.splice(this.selectedFileGroups.indexOf(fileGroup), 1);
     } else {
+      if (this.isSingleSelectionChecked) {
+        this.selectedFileGroups.splice(0, this.selectedFileGroups.length);
+      }
       this.selectedFileGroups.push(fileGroup);
     }
     this.selectedFileGroups = Utils.sortList(this.selectedFileGroups);
     this.searchService.setSelectedFileGroups(this.selectedFileGroups);
+    this.searchFor(this.searchString);
   }
 
   getValidNonEmptySelectedFileGroups() {
-    return this.selectedFileGroups.filter(fileGroup => {
-      return this.isFileGroupInArray(fileGroup, this.fileGroups)
+    return this.fileGroups.filter(fileGroup => {
+      return this.isFileGroupInArray(fileGroup, this.selectedFileGroups) != this.isNotSelectionChecked
         && this.getViewedFilesForFileGroup(fileGroup).length > 0;
     });
   }

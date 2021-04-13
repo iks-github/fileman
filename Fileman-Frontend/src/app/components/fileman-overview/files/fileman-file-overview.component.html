@@ -2,6 +2,15 @@
 
 <div *ngIf="fileGroups.length > 0" class="file-group-box">
   <p>File groups:</p>
+  <input type="checkbox" id="singleSelection" name="singleSelection" style="margin-right: 5px;" [(ngModel)]="isSingleSelectionChecked" (change)="onChangeSingleSelection()">
+  <label for="singleSelection" style="margin-right: 10px;">Single selection</label>
+  <input type="checkbox" id="not" name="not" style="margin-right: 5px;" [(ngModel)]="isNotSelectionChecked" (change)="onChangeNotSelection()">
+  <label for="not" style="margin-right: 10px;">Not</label>
+  <input type="radio" id="and" name="andOrSwitch" value="and" style="margin-right: 5px;" checked="!isAndSelection" (click)="onAndSelection()">
+  <label for="and" style="margin-right: 5px;">And</label>
+  <input type="radio" id="or" name="andOrSwitch" value="or" style="margin-right: 5px;" checked="isAndSelection" (click)="onOrSelection()">
+  <label for="or">Or</label>
+  <br>
   <button type="button" [ngClass]="getButtonClassForNoGrouping()" (click)="onButtonPressForNoGrouping()">No grouping</button>
   <span *ngFor="let fileGroup of fileGroups">
       <button *ngIf="fileGroup.files.length > 0" type="button" [ngClass]="getButtonClassForFileGroup(fileGroup)" (click)="onButtonPressForFileGroup(fileGroup)">{{fileGroup.name}}</button>

@@ -236,7 +236,8 @@ export class UserDetailsComponent implements OnInit {
       passwordRepetition = '';
     }
 
-    if (password.trim() === passwordRepetition.trim()) {
+    if (password == '' || passwordRepetition == ''
+        || password.trim() === passwordRepetition.trim()) {
       return null;
     }
 

@@ -22,6 +22,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
@@ -75,11 +76,14 @@ public class LoginRestController {
 			return ResponseEntity.ok(loginResponse);		
 		}
 		
-		User user = userDao.findByName(loginRequest.getUserId());
-		if (user == null) {			
+		final User user;
+		
+		try {
+			user = userDao.findByName(loginRequest.getUserId());
+		} catch (EmptyResultDataAccessException e) {
 			loginResponse.setErrorMessage(AUTH_FAIL_MESSAGE);
 			loginResponse.setOk(false);
-			return ResponseEntity.ok(loginResponse);		// ResourceNotFoundException ??
+			return ResponseEntity.ok(loginResponse);
 		}
 		
 		// temporary: allow login without password (only for predefined users)

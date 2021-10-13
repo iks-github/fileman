@@ -27,9 +27,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.FilemanBackend;
@@ -65,7 +64,7 @@ public class LoginRestController {
 		System.setProperty("jwt.secret", env.getProperty("jwt.secret"));
 	}
 	
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	@PostMapping(value = "/authenticate")
 	public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) throws Exception 
 	{
 		LoginResponse loginResponse = new LoginResponse();

@@ -29,6 +29,7 @@ import { FilemanSearchService } from 'src/app/services/fileman-search-service.se
   styleUrls: ['./fileman-login.component.css']
 })
 export class FilemanLoginComponent {
+  readonly defaultTenant: string = 'default';
   errorMessage: string;
 
   constructor(private router: Router,
@@ -47,7 +48,7 @@ export class FilemanLoginComponent {
                       this.errorMessage = loginResponse.errorMessage;
                       if (loginResponse && loginResponse.ok && loginResponse.authToken) {
                         localStorage.setItem('token', loginResponse.authToken);
-                        localStorage.setItem('tenant', formControl.value.tenant);
+                        localStorage.setItem('tenant', formControl.value.tenant ? formControl.value.tenant : this.defaultTenant);
                         console.log('Logged in!');
                         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
                         this.userPreferencesService.initializeForUser(this.authService.getCurrentUserId());

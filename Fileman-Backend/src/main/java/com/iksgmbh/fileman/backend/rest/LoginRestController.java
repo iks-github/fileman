@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,8 @@ import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 public class LoginRestController {
 	
 	private static final String AUTH_FAIL_MESSAGE = "Wrong user ID, password, or tenant!";
+	
+	private static final String DEFAULT_TENANT = "default";
 	
 	@Autowired
 	private Environment env;
@@ -92,10 +95,13 @@ public class LoginRestController {
 			return ResponseEntity.ok(loginResponse);		
 		}
 		
+		final String tenantNameFromLoginRequest =
+				StringUtils.isEmpty(loginRequest.getTenant()) ? DEFAULT_TENANT : loginRequest.getTenant();
+		
 		Optional<Tenant> tenantOptional = user.getTenants()
 				.stream()
 				.filter(tenant -> 
-					tenant.getName().equals(loginRequest.getTenant())
+					tenant.getName().equals(tenantNameFromLoginRequest)
 				).findAny();
 		
 		if (!tenantOptional.isPresent()) {

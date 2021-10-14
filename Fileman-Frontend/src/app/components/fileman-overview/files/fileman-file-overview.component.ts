@@ -16,6 +16,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
+import * as JSZip from 'jszip';
 import { Subscription } from 'rxjs';
 
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
@@ -51,6 +52,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
   searchString: string;
   searchStringSubscription: Subscription;
   reloadRequestSubscription: Subscription;
+  downloadViewedFilesSubscription: Subscription;
   fileDataChangedSubscription: Subscription;
   fileGroupDataChangedSubscription: Subscription;
   responseData;
@@ -119,6 +121,10 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     this.reloadRequestSubscription =
       this.reloadService.getReloadRequestNotifier().subscribe(
         () => this.reload()
+      );
+    this.downloadViewedFilesSubscription =
+      this.fileService.getDownloadViewedFilesRequestNotifier().subscribe(
+        () => this.downloadViewedFiles()
       );
     this.fileDataChangedSubscription =
       this.fileService.getFileDataChangedNotifier().subscribe(
@@ -217,6 +223,28 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     this.fileService.download(file.getName()).subscribe(blobResponse => {
       const blob = new Blob([blobResponse], { type: 'text/json; charset=utf-8' });
       saveAs(blob, file.getName());
+    });
+  }
+
+  downloadViewedFiles() {
+    var zip: JSZip = new JSZip();
+    var count: number = 0;
+    var viewedFilesForSelectedFileGroups: FileMetaData[] = this.getViewedFilesForSelectedFileGroups();
+    console.log("Downloading files...")
+
+    viewedFilesForSelectedFileGroups.forEach(file => {
+      console.log("Downloading file: " + file.name)
+      this.fileService.download(file.getName()).subscribe(blobResponse => {
+        const blob = new Blob([blobResponse], { type: 'text/json; charset=utf-8' });
+        zip.file(file.name, blob);
+        count++;
+        if (count == viewedFilesForSelectedFileGroups.length) {
+          zip.generateAsync({ type: "blob" })
+          .then(function (content) {
+            saveAs(content, "FileMan_Files.zip");
+          });
+        }
+      });
     });
   }
 
@@ -349,6 +377,26 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  getViewedFilesForSelectedFileGroups(): FileMetaData[] {
+    return this.viewedFiles.filter(file => {
+      var areAnyFileGroupsSelected: boolean = false;
+      var isFileInAnySelectedFileGroup: boolean = false;
+
+      this.fileGroups.forEach(fileGroup => {
+        const considerFileGroup: boolean = this.isFileGroupInArray(fileGroup, this.selectedFileGroups) != this.isNotSelectionChecked;
+        if (considerFileGroup) {
+          areAnyFileGroupsSelected = true;
+          if (this.isFileInFileGroup(file, fileGroup)) {
+            isFileInAnySelectedFileGroup = true;
+            return;
+          }
+        }
+      })
+
+      return !areAnyFileGroupsSelected || isFileInAnySelectedFileGroup;
+    });
+  }
+
   getViewedFilesForFileGroup(fileGroup: FileGroup): FileMetaData[] {
     return this.viewedFiles.filter(file => {
       return this.isFileInFileGroup(file, fileGroup);
@@ -368,6 +416,7 @@ export class FilemanFileOverviewComponent implements OnInit, OnDestroy {
     this.userPreferencesSubscription.unsubscribe();
     this.searchStringSubscription.unsubscribe();
     this.reloadRequestSubscription.unsubscribe();
+    this.downloadViewedFilesSubscription.unsubscribe();
     this.fileDataChangedSubscription.unsubscribe();
     this.fileGroupDataChangedSubscription.unsubscribe();
   }

@@ -24,6 +24,7 @@ import { FilemanUserPreferencesService } from 'src/app/services/fileman-user-pre
 import { UserPreferences } from 'src/app/common/domainobjects/gen/UserPreferences';
 import { FilemanSearchService } from 'src/app/services/fileman-search-service.service';
 import { FilemanReloadService } from 'src/app/services/fileman-reload-service.service';
+import { FilemanFileService } from 'src/app/services/fileman-file-service.service';
 
 @Component({
   selector: 'fileman-toolbar',
@@ -43,6 +44,7 @@ export class FilemanToolbarComponent implements OnInit {
   readonly iconTiles: string = Icon.Tiles;
   readonly iconNew: string = Icon.New;
   readonly iconReload: string = Icon.Reload;
+  readonly iconDownload: string = Icon.Download;
   readonly iconDatabase: string = Icon.Database;
   readonly iconLogout: string = Icon.Logout;
 
@@ -60,7 +62,8 @@ export class FilemanToolbarComponent implements OnInit {
               private propertiesService: FilemanPropertiesLoaderService,
               private userPreferencesService: FilemanUserPreferencesService,
               private searchService: FilemanSearchService,
-              private reloadService: FilemanReloadService) { }
+              private reloadService: FilemanReloadService,
+              private fileService: FilemanFileService) { }
 
   ngOnInit(): void {
     this.readOnly = this.authService.getCurrentUserRole() === UserRole.Reader;
@@ -121,6 +124,10 @@ export class FilemanToolbarComponent implements OnInit {
 
   onReloadClick() {
     this.reloadService.requestReload();
+  }
+
+  onDownloadClick() {
+    this.fileService.requestDownloadViewedFiles();
   }
 
   onFavouriteFilterClick() {

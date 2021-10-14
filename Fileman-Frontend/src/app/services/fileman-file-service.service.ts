@@ -28,6 +28,7 @@ import { FileData } from '../common/domainobjects/gen/FileData';
 export class FilemanFileService {
   url;
   private fileDataChangedNotifier: Subject<void> = new Subject<void>();
+  private downloadViewedFilesRequestNotifier: Subject<void> = new Subject<void>();
 
   constructor(private httpClient: HttpClient,
               propertiesService: FilemanPropertiesLoaderService) {
@@ -83,5 +84,13 @@ export class FilemanFileService {
 
   getFileDataChangedNotifier(): Subject<void> {
     return this.fileDataChangedNotifier;
+  }
+
+  requestDownloadViewedFiles() {
+    this.downloadViewedFilesRequestNotifier.next();
+  }
+
+  getDownloadViewedFilesRequestNotifier(): Subject<void> {
+    return this.downloadViewedFilesRequestNotifier;
   }
 }

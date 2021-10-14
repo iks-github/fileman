@@ -385,16 +385,12 @@ class <<DomainPath>>.LoginRequest
 
   attribute userId
     metainfo JavaType String
-    metainfo Mandatory true
     metainfo ExampleData "Pete"
-    metainfo MinLength 2
     metainfo MaxLength 64
 
   attribute userPw
     metainfo JavaType String
-    metainfo Mandatory true
     metainfo ExampleData "pw"
-    # metainfo MinLength 3
     metainfo MaxLength 32
     
   attribute tenant

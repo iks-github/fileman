@@ -29,6 +29,7 @@ import { FilemanSearchService } from 'src/app/services/fileman-search-service.se
   styleUrls: ['./fileman-login.component.css']
 })
 export class FilemanLoginComponent {
+  readonly guestUser: string = 'Guest';
   readonly defaultTenant: string = 'default';
   errorMessage: string;
 

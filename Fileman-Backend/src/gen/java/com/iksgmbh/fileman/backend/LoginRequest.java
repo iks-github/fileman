@@ -17,14 +17,12 @@ public class LoginRequest
 {
 	// ===============  instance fields  ===============
 
-    @NotNull(message="Value of mandatory attribute 'userId' is not present.")
-    @Size(min=2, max=64, message="Value of attribute 'userId' is out of valid range (2-64)")
-    @ApiModelProperty(notes = "Mandatory. Valid length ranges from 2 to 64.")
+    @Size(max=64, message="Value of attribute 'userId' is larger than valid maximum (64).")
+    @ApiModelProperty(notes = "Valid maximum length is 64.")
     private String userId;
 
-    @NotNull(message="Value of mandatory attribute 'userPw' is not present.")
     @Size(max=32, message="Value of attribute 'userPw' is larger than valid maximum (32).")
-    @ApiModelProperty(notes = "Mandatory. Valid maximum length is 32.")
+    @ApiModelProperty(notes = "Valid maximum length is 32.")
     private String userPw;
 
     private String tenant;

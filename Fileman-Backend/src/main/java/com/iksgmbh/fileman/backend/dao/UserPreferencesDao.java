@@ -16,6 +16,8 @@
 package com.iksgmbh.fileman.backend.dao;
 
 import org.springframework.stereotype.Component;
+
+import com.iksgmbh.fileman.backend.FilemanConstants;
 import com.iksgmbh.fileman.backend.UserPreferences;
 
 /**
@@ -28,18 +30,46 @@ public class UserPreferencesDao extends UserPreferencesBasicDao{
 	
 	@Override
 	public UserPreferences findByUserId(Integer userId) {
+		
 		UserPreferences userPreferences = super.findByUserId(userId);
 		
-		// return dummy object if component state is not yet present
-		if (userPreferences == null) {
-			UserPreferences dummy = new UserPreferences();
-			dummy.setUserId(userId);
-			dummy.setContentType(null);
-			dummy.setLayoutType(null);
-			dummy.setFavouriteFilterActive(false);
-			userPreferences = dummy;
+		// return dummy object if user is guest or component state is not yet present
+		if (userId == FilemanConstants.GUEST_USER_ID || userPreferences == null) {
+			return getDummyObject(userId);
 		}
 		
 		return userPreferences;
+	}
+	
+	@Override
+	public boolean update(UserPreferences entity) {
+		if (entity.getUserId() == FilemanConstants.GUEST_USER_ID) {
+			return true;
+		}
+		return super.update(entity);
+	}
+	
+	@Override
+	public UserPreferences create(UserPreferences entity) {
+		if (entity.getUserId() == FilemanConstants.GUEST_USER_ID) {
+			return getDummyObject(FilemanConstants.GUEST_USER_ID);
+		}
+		return super.create(entity);
+	}
+	
+	@Override
+	public void delete(UserPreferences entity) {
+		if (entity.getUserId() != FilemanConstants.GUEST_USER_ID) {
+			super.delete(entity);
+		}
+	}
+	
+	private UserPreferences getDummyObject(Integer userId) {
+		UserPreferences dummy = new UserPreferences();
+		dummy.setUserId(userId);
+		dummy.setContentType(null);
+		dummy.setLayoutType(null);
+		dummy.setFavouriteFilterActive(false);
+		return dummy;
 	}
 }

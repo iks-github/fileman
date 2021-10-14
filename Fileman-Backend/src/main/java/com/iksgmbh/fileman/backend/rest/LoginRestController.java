@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package com.iksgmbh.fileman.backend.rest;
+import java.util.Arrays;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
@@ -32,10 +33,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iksgmbh.fileman.backend.FilemanBackend;
+import com.iksgmbh.fileman.backend.FilemanConstants;
 import com.iksgmbh.fileman.backend.LoginRequest;
 import com.iksgmbh.fileman.backend.LoginResponse;
 import com.iksgmbh.fileman.backend.Tenant;
 import com.iksgmbh.fileman.backend.User;
+import com.iksgmbh.fileman.backend.dao.TenantDao;
 import com.iksgmbh.fileman.backend.dao.UserDao;
 import com.iksgmbh.fileman.backend.jwt.JwtTokenUtil;
 
@@ -45,13 +48,14 @@ public class LoginRestController {
 	
 	private static final String AUTH_FAIL_MESSAGE = "Wrong user ID, password, or tenant!";
 	
-	private static final String DEFAULT_TENANT = "default";
-	
 	@Autowired
 	private Environment env;
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private TenantDao tenantDao;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -65,8 +69,8 @@ public class LoginRestController {
 	}
 	
 	@PostMapping(value = "/authenticate")
-	public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) throws Exception 
-	{
+	public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
+		
 		LoginResponse loginResponse = new LoginResponse();
 		
 		if (! loginRequest.getFilemanVersion().contentEquals(FilemanBackend.VERSION)) {
@@ -77,21 +81,25 @@ public class LoginRestController {
 		
 		final User user;
 		
-		try {
-			user = userDao.findByName(loginRequest.getUserId());
-		} catch (EmptyResultDataAccessException e) {
-			loginResponse.setErrorMessage(AUTH_FAIL_MESSAGE);
-			loginResponse.setOk(false);
-			return ResponseEntity.ok(loginResponse);
-		}
-		
-		// temporary: allow login without password (only for predefined users)
-		// TODO: remove later when predefined users also have passwords
-		if (user.getPassword() == null) {
+		if (isGuestUser(loginRequest.getUserId())) {
+			loginRequest.setUserId(FilemanConstants.GUEST_USER_NAME);
+			user = new User();
+			user.setId(FilemanConstants.GUEST_USER_ID);
+			user.setName(FilemanConstants.GUEST_USER_NAME);
+			user.setRole(FilemanConstants.ROLE_READER);
 			user.setPassword("");
+			user.setTenants(Arrays.asList(tenantDao.findByName(FilemanConstants.DEFAULT_TENANT_NAME)));
+		} else {
+			try {
+				user = userDao.findByName(loginRequest.getUserId());
+			} catch (EmptyResultDataAccessException e) {
+				loginResponse.setErrorMessage(AUTH_FAIL_MESSAGE);
+				loginResponse.setOk(false);
+				return ResponseEntity.ok(loginResponse);
+			}
 		}
 		
-		if (!(loginRequest.getUserPw().length() == 0 && user.getPassword().length() == 0) &&  
+		if (!(StringUtils.isEmpty(loginRequest.getUserPw()) && StringUtils.isEmpty(user.getPassword())) &&  
 			  !passwordEncoder.matches(loginRequest.getUserPw(), user.getPassword())) {
 			loginResponse.setErrorMessage(AUTH_FAIL_MESSAGE);
 			loginResponse.setOk(false);
@@ -99,7 +107,7 @@ public class LoginRestController {
 		}
 		
 		final String tenantNameFromLoginRequest =
-				StringUtils.isEmpty(loginRequest.getTenant()) ? DEFAULT_TENANT : loginRequest.getTenant();
+				StringUtils.isEmpty(loginRequest.getTenant()) ? FilemanConstants.DEFAULT_TENANT_NAME : loginRequest.getTenant();
 		
 		Optional<Tenant> tenantOptional = user.getTenants()
 				.stream()
@@ -120,5 +128,9 @@ public class LoginRestController {
 		loginResponse.setAuthToken(token);
 		loginResponse.setOk(true);
 		return ResponseEntity.ok(loginResponse);
+	}
+	
+	private boolean isGuestUser(String username) {
+		return StringUtils.isEmpty(username) || username.equals(FilemanConstants.GUEST_USER_NAME);
 	}
 }

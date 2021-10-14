@@ -17,6 +17,9 @@ package com.iksgmbh.fileman.backend.dao;
 
 import org.springframework.stereotype.Component;
 
+import com.iksgmbh.fileman.backend.FavouriteSetting;
+import com.iksgmbh.fileman.backend.FilemanConstants;
+
 /**
  * Created as draft by MOGLiCC.
  * Adapt freely if you need.
@@ -24,4 +27,46 @@ import org.springframework.stereotype.Component;
 **/
 @Component
 public class FavouriteSettingDao extends FavouriteSettingBasicDao {
+	
+	private static final int DUMMY_ID = -1;
+	
+	@Override
+	public FavouriteSetting findById(Integer id) {
+		if (id == DUMMY_ID) {
+			return getDummyObject(FilemanConstants.GUEST_USER_NAME);
+		}
+		return entityManager.find(FavouriteSetting.class, id);
+	}
+	
+	@Override
+	public boolean update(FavouriteSetting entity) {
+		if (entity.getUsername().equals(FilemanConstants.GUEST_USER_NAME)) {
+			return true;
+		}
+		return super.update(entity);
+	}
+	
+	@Override
+	public FavouriteSetting create(FavouriteSetting entity) {
+		if (entity.getUsername().equals(FilemanConstants.GUEST_USER_NAME)) {
+			return getDummyObject(FilemanConstants.GUEST_USER_NAME);
+		}
+		return super.create(entity);
+	}
+	
+	@Override
+	public void delete(FavouriteSetting entity) {
+		if (!entity.getUsername().equals(FilemanConstants.GUEST_USER_NAME)) {
+			super.delete(entity);
+		}
+	}
+	
+	private FavouriteSetting getDummyObject(String username) {
+		FavouriteSetting dummy = new FavouriteSetting();
+		dummy.setId(DUMMY_ID);
+		dummy.setUsername(username);
+		dummy.setFilename(null);
+		dummy.setTenant(null);
+		return dummy;
+	}
 }

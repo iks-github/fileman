@@ -22,10 +22,9 @@ export class UserService {
   getAllUsers() {
     const uri = this.url;
     return this.httpClient.get<User[]>(uri, FilemanConstants.getRestCallHeaderOptions())
-                          .pipe(tap(responseData => Utils.sortList(responseData)),
-                                catchError((error: HttpErrorResponse) => {
-                                  throw error; }
-                                ));
+                          .pipe(catchError((error: HttpErrorResponse) => {
+                            throw error; }
+                          ), tap(responseData => Utils.sortList(responseData)));
   }
 
   getUser(id: any) {

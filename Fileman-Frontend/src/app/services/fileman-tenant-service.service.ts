@@ -22,10 +22,9 @@ export class TenantService {
   getAllTenants() {
     const uri = this.url;
     return this.httpClient.get<Tenant[]>(uri, FilemanConstants.getRestCallHeaderOptions())
-                          .pipe(tap(responseData => Utils.sortList(responseData)),
-                                catchError((error: HttpErrorResponse) => {
-                                  throw error; }
-                                ));
+                          .pipe(catchError((error: HttpErrorResponse) => {
+                            throw error; }
+                          ), tap(responseData => Utils.sortList(responseData)));
   }
 
   getTenant(id: any) {

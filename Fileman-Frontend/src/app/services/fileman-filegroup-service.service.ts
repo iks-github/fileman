@@ -22,10 +22,9 @@ export class FileGroupService {
   getAllFileGroups() {
     const uri = this.url;
     return this.httpClient.get<FileGroup[]>(uri, FilemanConstants.getRestCallHeaderOptions())
-                          .pipe(tap(responseData => Utils.sortList(responseData)),
-                                catchError((error: HttpErrorResponse) => {
-                                  throw error; }
-                                ));
+                          .pipe(catchError((error: HttpErrorResponse) => {
+                            throw error; }
+                          ), tap(responseData => Utils.sortList(responseData)));
   }
 
   getFileGroup(id: any) {

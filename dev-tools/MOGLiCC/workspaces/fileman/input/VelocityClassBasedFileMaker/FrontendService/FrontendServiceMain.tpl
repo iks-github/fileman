@@ -33,6 +33,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { ${classDescriptor.simpleName} } from '../common/domainobjects/gen/${classDescriptor.simpleName}';
 import { FilemanConstants } from '../common/fileman-constants';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
+import { Utils } from '../common/Utils';
 
 '
 @Injectable({
@@ -52,10 +53,10 @@ export class ${classDescriptor.simpleName}Service {
 '
 '  getAll${classDescriptor.simpleName}s() {
 '    const uri = this.url;
-'    return this.httpClient.get(uri, FilemanConstants.getRestCallHeaderOptions())
+'    return this.httpClient.get<${classDescriptor.simpleName}[]>(uri, FilemanConstants.getRestCallHeaderOptions())
 '                          .pipe(catchError((error: HttpErrorResponse) => {
 '                            throw error; }
-'                          ));
+'                          ), tap(responseData => Utils.sortList(responseData)));
 '  }
 '
 '  get${classDescriptor.simpleName}($idAttributeName: any) {

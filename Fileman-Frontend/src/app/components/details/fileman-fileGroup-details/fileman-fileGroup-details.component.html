@@ -25,7 +25,7 @@
                       class="form-Control"
                       formControlName="filesControl"
                       [placeholder]="'Click to select'"
-                      [data]="files"
+                      [data]="files$ | async"
                       (onSelect)="filesC.markAsTouched()"
                       (onSelectAll)="filesC.markAsTouched()"
                       (onDeSelect)="filesC.markAsTouched()"

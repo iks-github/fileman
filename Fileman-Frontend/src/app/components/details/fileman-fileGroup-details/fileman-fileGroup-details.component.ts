@@ -23,7 +23,6 @@ import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.
 import { FileGroupService } from 'src/app/services/fileman-filegroup-service.service';
 import { MultiselectDropdownSettings } from 'src/app/common/fileman-constants';
 import { FileMetaData } from 'src/app/common/domainobjects/gen/FileMetaData';
-import { Utils } from 'src/app/common/Utils';
 import { FilemanMetadataService } from 'src/app/services/fileman-metadata-service.service';
 
 @Component({
@@ -39,7 +38,7 @@ export class FileGroupDetailsComponent implements OnInit {
   detailsForm: FormGroup;
   newMode: boolean;
   toEdit: FileGroup;
-  files = [] as FileMetaData[];
+  files$: Observable<FileMetaData[]>;
   filesMultiselectDropdownSettings = MultiselectDropdownSettings;
 
   constructor(private router: Router,
@@ -64,24 +63,12 @@ export class FileGroupDetailsComponent implements OnInit {
           this.backToOverview();  // no data to edit available - happens for page reload - reason unclear
         } else {
           this.setDataToControls(this.toEdit);
-          this.metadataService.getOverviewData()
-              .subscribe(responseData => {this.extractFiles(responseData);
-          });
+          this.files$ = this.metadataService.getOverviewData();
         }
       });
     } else {
-      this.metadataService.reloadOverviewData()
-          .subscribe(responseData => {this.extractFiles(responseData)});
+      this.files$ = this.metadataService.reloadOverviewData();
     }
-  }
-
-  extractFiles(responseData) {
-    const files = [] as FileMetaData[];
-    responseData.forEach(element => {
-      const dataset = new FileMetaData(element);
-      files.push(dataset);
-    });
-    this.files = Utils.sortList(files);
   }
 
   getToolTip() {

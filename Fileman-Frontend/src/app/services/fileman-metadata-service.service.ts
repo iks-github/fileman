@@ -23,6 +23,7 @@ import { FilemanPropertiesLoaderService } from './fileman-properties-loader.serv
 import { FileMetaData } from '../common/domainobjects/gen/FileMetaData';
 import { FilemanConstants } from '../common/fileman-constants';
 import { FilemanAuthserviceService } from './fileman-authservice.service';
+import { Utils } from '../common/Utils';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +55,7 @@ export class FilemanMetadataService {
       return this.getOverviewDataFromServer();
     } else {
       console.log('cache used');
-      return new Observable(stream =>
+      return new Observable<FileMetaData[]>(stream =>
         {
           const array: FileMetaData[] = [];
           this.fileMetaDataCache.forEach((dataset) => {
@@ -63,7 +64,7 @@ export class FilemanMetadataService {
           stream.next(array);
           stream.complete();
         }
-      );
+      ).pipe(tap(responseData => Utils.sortList(responseData)));
     }
   }
 
@@ -71,7 +72,8 @@ export class FilemanMetadataService {
     return this.httpClient.get<FileMetaData[]>(this.url)
         .pipe(catchError((error: HttpErrorResponse) => {
           throw error;
-        }), tap(() => {
+        }), tap(responseData => {
+          Utils.sortList(responseData);
           this.forceReloadFromServer = false;
           console.log("data fetched from server - forceReloadFromServer set to false");
         }));

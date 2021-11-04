@@ -46,7 +46,7 @@ export class UserDetailsComponent implements OnInit {
   detailsForm: FormGroup;
   newMode: boolean;
   toEdit: User;
-  tenants = [] as Tenant[];
+  tenants$: Observable<Tenant[]>;
   tenantsMultiselectDropdownSettings = MultiselectDropdownSettings;
 
   constructor(private router: Router,
@@ -78,23 +78,12 @@ export class UserDetailsComponent implements OnInit {
           }
           // for existing users, we need to extract the tenants after setting the data
           // to the controls, otherwise currently assigned tenants may not be selected
-          this.tenantService.getAllTenants()
-              .subscribe(responseData => {this.extractTenants(responseData)});
+          this.tenants$ = this.tenantService.getAllTenants();
         }
       });
     } else {
-      this.tenantService.getAllTenants()
-          .subscribe(responseData => {this.extractTenants(responseData)});
+      this.tenants$ = this.tenantService.getAllTenants();
     }
-  }
-
-  extractTenants(responseData) {
-    const tenants = [] as Tenant[];
-    responseData.forEach(element => {
-      const dataset = new Tenant(element);
-      tenants.push(dataset);
-    });
-    this.tenants = Utils.sortList(tenants);
   }
 
   getBorder() {

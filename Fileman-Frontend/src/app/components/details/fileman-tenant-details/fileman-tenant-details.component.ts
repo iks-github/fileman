@@ -24,7 +24,6 @@ import { User } from 'src/app/common/domainobjects/gen/User';
 import { FilemanAuthserviceService } from 'src/app/services/fileman-authservice.service';
 import { TenantService } from 'src/app/services/fileman-tenant-service.service';
 import { UserService } from 'src/app/services/fileman-user-service.service';
-import { Utils } from 'src/app/common/Utils';
 import { MultiselectDropdownSettings } from 'src/app/common/fileman-constants';
 
 @Component({
@@ -40,7 +39,7 @@ export class TenantDetailsComponent implements OnInit {
   detailsForm: FormGroup;
   newMode: boolean;
   toEdit: Tenant;
-  users = [] as User[];
+  users$: Observable<User[]>;
   usersMultiselectDropdownSettings = MultiselectDropdownSettings;
 
   constructor(private router: Router,
@@ -66,23 +65,12 @@ export class TenantDetailsComponent implements OnInit {
           this.setDataToControls(this.toEdit);
           // for existing tenants, we need to extract the users after setting the data
           // to the controls, otherwise currently assigned users may not be selected
-          this.userService.getAllUsers()
-              .subscribe(responseData => {this.extractUsers(responseData)});
+          this.users$ = this.userService.getAllUsers();
         }
       });
     } else {
-      this.userService.getAllUsers()
-          .subscribe(responseData => {this.extractUsers(responseData)});
+      this.users$ = this.userService.getAllUsers();
     }
-  }
-
-  extractUsers(responseData) {
-    const users = [] as User[];
-    responseData.forEach(element => {
-      const dataset = new User(element);
-      users.push(dataset);
-    });
-    this.users = Utils.sortList(users);
   }
 
   getToolTip() {

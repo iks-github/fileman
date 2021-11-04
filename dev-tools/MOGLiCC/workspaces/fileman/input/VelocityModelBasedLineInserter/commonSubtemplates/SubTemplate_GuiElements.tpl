@@ -55,7 +55,7 @@
 	'                      class="form-Control"
 	'                      formControlName="${attributeName}Control"
 	'                      [placeholder]="'Click to select'"
-	'                      [data]="${attributeName}"
+	'                      [data]="${attributeName}$ | async"
 	'                      (onSelect)="${attributeName}C.markAsTouched()"
 	'                      (onSelectAll)="${attributeName}C.markAsTouched()"
 	'                      (onDeSelect)="${attributeName}C.markAsTouched()"

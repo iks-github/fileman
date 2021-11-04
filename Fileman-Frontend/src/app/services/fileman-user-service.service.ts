@@ -5,6 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { User } from '../common/domainobjects/gen/User';
 import { FilemanConstants } from '../common/fileman-constants';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
+import { Utils } from '../common/Utils';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +21,11 @@ export class UserService {
 
   getAllUsers() {
     const uri = this.url;
-    return this.httpClient.get(uri, FilemanConstants.getRestCallHeaderOptions())
-                          .pipe(catchError((error: HttpErrorResponse) => {
-                            throw error; }
-                          ));
+    return this.httpClient.get<User[]>(uri, FilemanConstants.getRestCallHeaderOptions())
+                          .pipe(tap(responseData => Utils.sortList(responseData)),
+                                catchError((error: HttpErrorResponse) => {
+                                  throw error; }
+                                ));
   }
 
   getUser(id: any) {

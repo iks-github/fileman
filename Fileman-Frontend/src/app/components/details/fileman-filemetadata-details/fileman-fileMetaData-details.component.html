@@ -54,7 +54,7 @@
                       class="form-Control"
                       formControlName="fileGroupsControl"
                       [placeholder]="'Click to select'"
-                      [data]="fileGroups"
+                      [data]="fileGroups$ | async"
                       (onSelect)="fileGroupsC.markAsTouched()"
                       (onSelectAll)="fileGroupsC.markAsTouched()"
                       (onDeSelect)="fileGroupsC.markAsTouched()"

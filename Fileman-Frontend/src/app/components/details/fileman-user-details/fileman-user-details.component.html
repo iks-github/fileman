@@ -39,7 +39,7 @@
                       class="form-Control"
                       formControlName="tenantsControl"
                       [placeholder]="'Click to select'"
-                      [data]="tenants"
+                      [data]="tenants$ | async"
                       (onSelect)="tenantsC.markAsTouched()"
                       (onSelectAll)="tenantsC.markAsTouched()"
                       (onDeSelect)="tenantsC.markAsTouched()"

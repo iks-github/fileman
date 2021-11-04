@@ -5,6 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { FileGroup } from '../common/domainobjects/gen/FileGroup';
 import { FilemanConstants } from '../common/fileman-constants';
 import { FilemanPropertiesLoaderService } from './fileman-properties-loader.service';
+import { Utils } from '../common/Utils';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +21,11 @@ export class FileGroupService {
 
   getAllFileGroups() {
     const uri = this.url;
-    return this.httpClient.get(uri, FilemanConstants.getRestCallHeaderOptions())
-                          .pipe(catchError((error: HttpErrorResponse) => {
-                            throw error; }
-                          ));
+    return this.httpClient.get<FileGroup[]>(uri, FilemanConstants.getRestCallHeaderOptions())
+                          .pipe(tap(responseData => Utils.sortList(responseData)),
+                                catchError((error: HttpErrorResponse) => {
+                                  throw error; }
+                                ));
   }
 
   getFileGroup(id: any) {

@@ -25,7 +25,7 @@
                       class="form-Control"
                       formControlName="usersControl"
                       [placeholder]="'Click to select'"
-                      [data]="users"
+                      [data]="users$ | async"
                       (onSelect)="usersC.markAsTouched()"
                       (onSelectAll)="usersC.markAsTouched()"
                       (onDeSelect)="usersC.markAsTouched()"

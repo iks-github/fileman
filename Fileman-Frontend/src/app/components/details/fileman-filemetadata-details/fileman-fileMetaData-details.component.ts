@@ -50,7 +50,7 @@ export class FilemetadataDetailsComponent implements OnInit {
   newFileMode: boolean;
   techTypeMismatch = false;
   toEdit: FileMetaData;
-  fileGroups = [] as FileGroup[];
+  fileGroups$: Observable<FileGroup[]>;
   fileGroupsMultiselectDropdownSettings = MultiselectDropdownSettings;
 
   constructor(private router: Router,
@@ -81,17 +81,7 @@ export class FilemetadataDetailsComponent implements OnInit {
     } else {
       this.nameC.enable();
     }
-    this.fileGroupService.getAllFileGroups()
-        .subscribe(responseData => {this.extractFileGroups(responseData)});
-  }
-
-  extractFileGroups(responseData) {
-    const fileGroups = [] as FileGroup[];
-    responseData.forEach(element => {
-      const dataset = new FileGroup(element);
-      fileGroups.push(dataset);
-    });
-    this.fileGroups = Utils.sortList(fileGroups);
+    this.fileGroups$ = this.fileGroupService.getAllFileGroups();
   }
 
   getBorder() {

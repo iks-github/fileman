@@ -80,7 +80,7 @@ export class FilemanAuthserviceService {
     return localStorage.getItem('tenant');
   }
 
-  getLogoutNotifier(): Subject<void> {
-    return this.logoutNotifier;
+  getLogoutNotifier(): Observable<void> {
+    return this.logoutNotifier.asObservable();
   }
 }

@@ -82,15 +82,15 @@ export class FilemanFileService {
                            ));
   }
 
-  getFileDataChangedNotifier(): Subject<void> {
-    return this.fileDataChangedNotifier;
+  getFileDataChangedNotifier(): Observable<void> {
+    return this.fileDataChangedNotifier.asObservable();
   }
 
   requestDownloadViewedFiles() {
     this.downloadViewedFilesRequestNotifier.next();
   }
 
-  getDownloadViewedFilesRequestNotifier(): Subject<void> {
-    return this.downloadViewedFilesRequestNotifier;
+  getDownloadViewedFilesRequestNotifier(): Observable<void> {
+    return this.downloadViewedFilesRequestNotifier.asObservable();
   }
 }

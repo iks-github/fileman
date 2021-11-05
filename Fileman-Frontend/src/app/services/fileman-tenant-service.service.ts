@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Tenant } from '../common/domainobjects/gen/Tenant';
 import { FilemanConstants } from '../common/fileman-constants';
@@ -60,7 +60,7 @@ export class TenantService {
                           ));
   }
 
-  getTenantDataChangedNotifier(): Subject<void> {
-    return this.tenantDataChangedNotifier;
+  getTenantDataChangedNotifier(): Observable<void> {
+    return this.tenantDataChangedNotifier.asObservable();
   }
 }

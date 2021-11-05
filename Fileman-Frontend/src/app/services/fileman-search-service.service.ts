@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { FileGroup } from '../common/domainobjects/gen/FileGroup';
 
@@ -61,7 +61,7 @@ export class FilemanSearchService {
     this.isAndSelection = isAndSelection;
   }
 
-  public getSearchStringChangeNotifier(): Subject<string> {
-    return this.searchStringChangeNotifier;
+  public getSearchStringChangeNotifier(): Observable<string> {
+    return this.searchStringChangeNotifier.asObservable();
   }
 }

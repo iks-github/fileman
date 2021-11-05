@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { FileGroup } from '../common/domainobjects/gen/FileGroup';
 import { FilemanConstants } from '../common/fileman-constants';
@@ -60,7 +60,7 @@ export class FileGroupService {
                           ));
   }
 
-  getFileGroupDataChangedNotifier(): Subject<void> {
-    return this.fileGroupDataChangedNotifier;
+  getFileGroupDataChangedNotifier(): Observable<void> {
+    return this.fileGroupDataChangedNotifier.asObservable();
   }
 }

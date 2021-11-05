@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class FilemanReloadService {
     return this.reloadRequestNotifier.next();
   }
 
-  public getReloadRequestNotifier(): Subject<void> {
-    return this.reloadRequestNotifier;
+  public getReloadRequestNotifier(): Observable<void> {
+    return this.reloadRequestNotifier.asObservable();
   }
 }

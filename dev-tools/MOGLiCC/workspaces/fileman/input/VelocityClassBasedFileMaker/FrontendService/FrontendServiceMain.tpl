@@ -28,7 +28,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { ${classDescriptor.simpleName} } from '../common/domainobjects/gen/${classDescriptor.simpleName}';
 import { FilemanConstants } from '../common/fileman-constants';
@@ -92,7 +92,7 @@ export class ${classDescriptor.simpleName}Service {
 '                          ));
 '  }
 '
-'  get${classDescriptor.simpleName}DataChangedNotifier(): Subject<void> {
-'    return this.${className}DataChangedNotifier;
+'  get${classDescriptor.simpleName}DataChangedNotifier(): Observable<void> {
+'    return this.${className}DataChangedNotifier.asObservable();
 '  }
 }

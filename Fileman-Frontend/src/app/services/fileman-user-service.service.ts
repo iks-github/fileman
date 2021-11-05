@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from '../common/domainobjects/gen/User';
 import { FilemanConstants } from '../common/fileman-constants';
@@ -60,7 +60,7 @@ export class UserService {
                           ));
   }
 
-  getUserDataChangedNotifier(): Subject<void> {
-    return this.userDataChangedNotifier;
+  getUserDataChangedNotifier(): Observable<void> {
+    return this.userDataChangedNotifier.asObservable();
   }
 }
